@@ -1,314 +1,134 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>WEB BUG BY Zyxxennn</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Doxing NIK – Zyxxennn</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-    body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
+    :root{
+      --blue:#0052d4;
+      --dark:#111827;
+      --light:#f5f7fa;
     }
-
-    .card, .tools {
-      background: #101820;
-      border-radius: 18px;
-      padding: 35px 25px;
-      width: 340px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      text-align: center;
+    body{
+      background:var(--light);
+      color:var(--dark);
     }
-
-    h2 { color: #00d4ff; margin-bottom: 20px; }
-
-    .form-group { margin-bottom: 18px; text-align: left; }
-
-    .form-group label { font-size: 14px; display: block; margin-bottom: 5px; color: #ccc; }
-
-    .form-group input {
-      width: 100%; padding: 12px; border-radius: 8px;
-      border: none; background: #1e2a38; color: #fff; outline: none;
+    @media (prefers-color-scheme:dark){
+      body{
+        background:var(--dark);
+        color:var(--light);
+      }
     }
-
-    .btn {
-      display: block; width: 100%; padding: 14px;
-      background: #00d4ff; color: #101820;
-      font-weight: bold; border: none; border-radius: 8px;
-      margin-top: 10px; cursor: pointer; transition: 0.3s;
+    .btn-primary{
+      background:var(--blue);
+      color:#fff;
+      transition:.25s;
     }
-
-    .btn:hover { background: #00b3d9; }
-
-    .status { margin-top: 15px; color: #7CFC00; font-weight: bold; }
-
-    .info { margin-top: 8px; font-size: 13px; color: #bbb; }
-
-    #tools-page { display: none; }
-
-    img#banner {
-      width: 100%;
-      margin-top: 20px;
-      border-radius: 12px;
-      border: 2px solid #00d4ff;
-      display: none;
-    }
-
-    .caption-box {
-      white-space: pre-wrap;
-      background: #1e2a38;
-      border: 2px solid #00d4ff;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      color: #0f0;
-      font-size: 14px;
-      display: none;
+    .btn-primary:hover{
+      background:#003dbb;
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
 
- <!-- Halaman Login -->
-  <div id="login-page" class="card">
-    <h2>LOGIN</h2>
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" id="username" placeholder="Masukkan username">
+  <main class="w-full max-w-xl">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+        <span class="text-[var(--blue)]">Doxing</span> <span class="text-black dark:text-white">NIK</span>
+      </h1>
+      <p class="text-sm md:text-base text-gray-500 dark:text-gray-400 mt-2">
+        Masukkan 16 digit NIK dengan benar.
+      </p>
+    </header>
+
+    <form id="form" class="bg-white dark:bg-[#1f2937] rounded-xl shadow-lg p-6 space-y-5">
+      <input id="nik"
+             type="text"
+             maxlength="16"
+             pattern="\d{16}"
+             placeholder="Contoh: 3214011210060008"
+             required
+             class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-[var(--blue)] focus:outline-none"/>
+      <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold shadow">
+        Cari Data
+      </button>
+    </form>
+
+    <!-- Spinner -->
+    <div id="loading" class="hidden mt-6 flex justify-center">
+      <div class="w-10 h-10 border-4 border-t-4 border-gray-300 dark:border-gray-600 border-t-[var(--blue)] rounded-full animate-spin"></div>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="password" placeholder="Masukkan password">
+
+    <!-- Hasil -->
+    <div id="hasil" class="hidden mt-6 bg-white dark:bg-[#1f2937] rounded-xl shadow-lg p-6">
+      <h2 class="text-xl font-bold mb-4 text-[var(--blue)]">Hasil Pencarian</h2>
+      <div id="list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm md:text-base"></div>
     </div>
-    <button class="btn" onclick="login()">Login</button>
 
-    <h3 style="margin:25px 0 10px; color:#ccc; font-size:14px;">Buat Akun Free</h3>
-    <div class="form-group">
-      <input type="text" id="newUser" placeholder="Username baru">
-    </div>
-    <div class="form-group">
-      <input type="password" id="newPass" placeholder="Password baru">
-    </div>
-    <button class="btn" onclick="buatAkun()">Buat Akun Free</button>
+    <!-- Error -->
+    <div id="error" class="hidden mt-6 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-600 text-red-800 dark:text-red-200 rounded-xl p-4"></div>
+  </main>
 
-    <div class="info">&copy; Developer Zyxxennn</div>
-  </div>
-    
-    <!-- Halaman Tools -->
-  <div id="tools-page" class="tools">
-    <h2>WEB BUG VVIP RARAA</h2>
-    <input type="text" id="targetNumber" placeholder="Masukkan nomor target (62xxxx)">
-    <button class="btn" onclick="Force()">Force Close</button>
-    <button class="btn" onclick="Blank()">Blank Ui</button>
-    <button class="btn" onclick="FcIn()">Fc Invisible</button>
-    <button class="btn" 
-onclick="Delay()">Delay Invisible</button>
-    <button class="btn"      
-onclick="Crip()">Crash Iphone</button>
-
-    <!-- Banner diganti gambar -->
-    <img id="banner" src="https://files.catbox.moe/d4frow.jpg" alt="banner">
-
-    <div class="caption-box" id="caption"></div>
-
-    <div class="status">Status: Server Aktif🟢</div>
-    <div class="info">Selamat datang,Member Zyxxennn!</div>
-  </div>
+  <footer class="text-center text-xs text-gray-400 dark:text-gray-500 py-8 mt-auto">
+    Doxing NIK – Reseller Gaming programer | Ahmadi Developer © 2025
+  </footer>
 
   <script>
-    let akun = JSON.parse(localStorage.getItem("akunList")) || [];
+    const form   = document.getElementById('form');
+    const nikInp = document.getElementById('nik');
+    const hasil  = document.getElementById('hasil');
+    const list   = document.getElementById('list');
+    const loader = document.getElementById('loading');
+    const error  = document.getElementById('error');
 
-    function buatAkun() {
-      let u = document.getElementById("newUser").value;
-      let p = document.getElementById("newPass").value;
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const nik = nikInp.value.trim();
+      if (!/^\d{16}$/.test(nik)) return showError('NIK harus 16 digit.');
 
-      if (u === "" || p === "") {
-        alert("Username dan Password wajib diisi!");
-        return;
+      hide(hasil); hide(error); show(loader);
+
+      try {
+        const res = await fetch(`https://api.fikmydomainsz.xyz/tools/nik?nik=${nik}`, {mode:'cors'});
+        if (!res.ok) throw new Error('Gagal fetch.');
+        const data = await res.json();
+        if (data.status !== true) throw new Error(data.message || 'Data tak ditemukan.');
+        render(data.result);
+      } catch (err) {
+        showError(err.message || 'Terjadi kesalahan.');
+      } finally {
+        hide(loader);
       }
+    });
 
-      akun.push({ username: u, password: p });
-      localStorage.setItem("akunList", JSON.stringify(akun));
-      alert("Akun berhasil dibuat!");
-      document.getElementById("newUser").value = "";
-      document.getElementById("newPass").value = "";
-    }
-
-    function login() {
-      let u = document.getElementById("username").value;
-      let p = document.getElementById("password").value;
-
-      let cari = akun.find(item => item.username === u && item.password === p);
-
-      if (cari) {
-        document.getElementById("login-page").style.display = "none";
-        document.getElementById("tools-page").style.display = "block";
-      } else {
-        alert("Username atau Password salah!");
-      }
-    }
-
-    function Force() {
-  const q = document.getElementById("targetNumber").value.trim();
-  const caption = document.getElementById("caption");
-  const banner = document.getElementById("banner");
-
-  if (!q.startsWith("62") || q.length < 10) {
-    alert("Masukkan nomor yang valid!");
-    return;
-  }
-
-  banner.style.display = "block";
-  caption.style.display = "block";
-
-  let i = 0;
-  const interval = setInterval(() => {
-    i += 10;
-    if (i >= 100) {
-      clearInterval(interval);
-      caption.textContent = `
-•━━━━━━━━━━━━━━━━━━━━•
-〣 Target 
-• ☇ ${q}
-• ☇ Sucses send Force Close
-•━━━━━━━━━━━━━━━━━━━━•`;
-
-      const chatId = `${q}@s.whatsapp.net`;
-      const apiList = [
-        `api`,
-        `api`
+    function render(r){
+      const items = [
+        {k:'NIK', v:r.nik},
+        {k:'Jenis Kelamin', v:r.kelamin},
+        {k:'Tgl Lahir', v:r.lahir_lengkap},
+        {k:'Zodiak', v:r.tambahan.zodiak},
+        {k:'Usia', v:r.tambahan.usia},
+        {k:'Ultah Selanjutnya', v:r.tambahan.ultah},
+        {k:'Provinsi', v:r.provinsi.nama},
+        {k:'Kabupaten/Kota', v:r.kotakab.nama},
+        {k:'Kecamatan', v:r.kecamatan.nama},
+        {k:'Kode Wilayah', v:r.kode_wilayah},
+        {k:'Nomor Urut', v:r.nomor_urut},
+        {k:'Pasaran', v:r.tambahan.pasaran}
       ];
-
-      apiList.forEach(url => {
-        fetch(url)
-          .then(res => res.text())
-          .then(data => {
-            console.log("✅ API sukses:", url);
-          })
-          .catch(err => {
-            console.error("❌ API gagal:", url);
-          });
-      });
-
-    } else {
-      caption.textContent = `
-•━━━━━━━━━━━━━━━━━━━━•
-〣 Target 
-• ☇ ${q}
-• ☇ Proses ${i}%
-•━━━━━━━━━━━━━━━━━━━━•`;
+      list.innerHTML = items.map(i=>`
+        <div class="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-gray-200 dark:border-gray-700">
+          <span class="font-medium text-gray-600 dark:text-gray-400 mb-1 sm:mb-0">${i.k}</span>
+          <span class="font-semibold text-right">${i.v}</span>
+        </div>`).join('');
+      show(hasil);
     }
-  }, 600);
-}
-function Blank() {
-  const q = document.getElementById("targetNumber").value.trim();
-  const caption = document.getElementById("caption");
-  const banner = document.getElementById("banner");
 
-  if (!q.startsWith("62") || q.length < 10) {
-    alert("Masukkan nomor yang valid!");
-    return;
-  }
-
-  banner.style.display = "block";
-  caption.style.display = "block";
-
-  let i = 0;
-  const interval = setInterval(() => {
-    i += 10;
-    if (i >= 100) {
-      clearInterval(interval);
-      caption.textContent = `
-•━━━━━━━━━━━━━━━━━━━━•
-〣 Target 
-• ☇ ${q}
-• ☇ Sucses send Blank Ui
-•━━━━━━━━━━━━━━━━━━━━•`;
-
-      const chatId = `${q}@s.whatsapp.net`;
-      const apiList = [
-        `api`,
-        `api`
-      ];
-
-      apiList.forEach(url => {
-        fetch(url)
-          .then(res => res.text())
-          .then(data => {
-            console.log("✅ API sukses:", url);
-          })
-          .catch(err => {
-            console.error("❌ API gagal:", url);
-          });
-      });
-
-    } else {
-      caption.textContent = `
-•━━━━━━━━━━━━━━━━━━━━•
-〣 Target 
-• ☇ ${q}
-• ☇ Proses ${i}%
-•━━━━━━━━━━━━━━━━━━━━•`;
-    }
-  }, 600);
-}
-function FcIn() {
-  const q = document.getElementById("targetNumber").value.trim();
-  const caption = document.getElementById("caption");
-  const banner = document.getElementById("banner");
-
-  if (!q.startsWith("62") || q.length < 10) {
-    alert("Masukkan nomor yang valid!");
-    return;
-  }
-
-  banner.style.display = "block";
-  caption.style.display = "block";
-
-  let i = 0;
-  const interval = setInterval(() => {
-    i += 10;
-    if (i >= 100) {
-      clearInterval(interval);
-      caption.textContent = `
-•━━━━━━━━━━━━━━━━━━━━•
-〣 Target 
-• ☇ ${q}
-• ☇ Sucses send Fc Invisible
-•━━━━━━━━━━━━━━━━━━━━•`;
-
-      const chatId = `${q}@s.whatsapp.net`;
-      const apiList = [
-        `api`,
-        `api`
-      ];
-
-      apiList.forEach(url => {
-        fetch(url)
-          .then(res => res.text())
-          .then(data => {
-            console.log("✅ API sukses:", url);
-          })
-          .catch(err => {
-            console.error("❌ API gagal:", url);
-          });
-      });
-
-    } else {
-      caption.textContent = `
-•━━━━━━━━━━━━━━━━━━━━•
-〣 Target 
-• ☇ ${q}
-• ☇ Proses ${i}%
-•━━━━━━━━━━━━━━━━━━━━•`;
-    }
-  }, 600);
-}
+    function show(el){ el.classList.remove('hidden'); }
+    function hide(el){ el.classList.add('hidden'); }
+    function showError(msg){ error.textContent=msg; show(error); setTimeout(()=>hide(error),4000); }
   </script>
-
 </body>
 </html>
