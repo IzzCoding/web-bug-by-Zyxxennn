@@ -6,7 +6,7 @@
   <title>File Encryption</title>
   <style>
     body {
-      font-family: "Poppins", sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #f1f5f9;
       display: flex;
@@ -15,43 +15,34 @@
       height: 100vh;
       margin: 0;
     }
-
     .container {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      padding: 35px;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-      width: 420px;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 400px;
       text-align: center;
-      animation: fadeIn 0.6s ease;
     }
-
     h2 {
       margin-bottom: 20px;
       color: #38bdf8;
-      font-weight: 600;
-      font-size: 22px;
-      letter-spacing: 1px;
     }
 
-    /* Custom file input */
+    /* Input file */
     .file-input {
-      position: relative;
-      width: 100%;
+      display: flex;
+      justify-content: center;
       margin: 10px 0;
     }
     .file-input input[type="file"] {
       position: absolute;
-      width: 100%;
-      height: 100%;
       opacity: 0;
       cursor: pointer;
     }
     .file-label {
-      display: block;
-      width: 100%;
-      padding: 14px;
+      display: inline-block;
+      padding: 12px 20px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.1);
       color: #f1f5f9;
@@ -59,109 +50,93 @@
       cursor: pointer;
       transition: 0.3s;
       font-size: 14px;
+      width: auto;
+      min-width: 140px;
     }
     .file-label:hover {
       background: rgba(255, 255, 255, 0.2);
     }
-    #fileName {
-      margin-top: 5px;
-      font-size: 13px;
+    .file-name {
+      margin-top: 8px;
+      font-size: 12px;
       color: #94a3b8;
       font-style: italic;
     }
 
-    /* Input select & button */
     select, button {
       width: 100%;
       padding: 14px;
       margin: 10px 0;
       border-radius: 10px;
       border: none;
-      font-size: 14px;
       outline: none;
-      transition: all 0.3s ease;
+      font-size: 14px;
     }
-
     select {
       background: rgba(255, 255, 255, 0.1);
       color: #f1f5f9;
-      cursor: pointer;
     }
-    select:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
     button {
-      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-      color: #0f172a;
+      background: #0ea5e9;
+      color: white;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
-      box-shadow: 0 4px 10px rgba(56, 189, 248, 0.4);
     }
     button:hover {
-      background: linear-gradient(90deg, #0ea5e9, #38bdf8);
-      transform: translateY(-2px);
+      background: #0284c7;
     }
 
-    /* Result box */
     .result {
-      margin-top: 18px;
-      padding: 18px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 12px;
-      font-size: 15px;
-      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
       display: none;
-      animation: fadeIn 0.5s ease;
     }
-    .success {
-      color: #4ade80;
-      font-weight: bold;
-      margin-bottom: 12px;
-      font-size: 16px;
+    .download-btn {
+      margin-top: 12px;
+      background: #22c55e;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .download-btn:hover {
+      background: #16a34a;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>🔐 File Encryption</h2>
-    
-    <!-- Custom File Input -->
+    <h2>🔒 File Encryption</h2>
+
+    <!-- Input File -->
     <div class="file-input">
       <label for="fileInput" class="file-label">📂 Pilih File</label>
-      <input type="file" id="fileInput" onchange="showFileName()">
+      <input type="file" id="fileInput">
     </div>
-    <div id="fileName">Belum ada file dipilih</div>
+    <div id="fileName" class="file-name">Belum ada file dipilih</div>
 
     <!-- Pilihan Encryption -->
     <select id="encryptionType">
-      <option value="enc">enc &lt;LEVEL&gt; - STANDARD</option>
-      <option value="enceval">enceval &lt;LEVEL&gt; - EVALUATE</option>
-      <option value="encchina">encchina - MANDARIN STYLE</option>
-      <option value="encarab">encarab - ARABIC STYLE</option>
-      <option value="encjapan">encjapan - JAPANESE STYLE</option>
-      <option value="encinvis">encinvis - INVISIBLE MODE</option>
-      <option value="encjapxab">encjapxab - JAPAN X ARAB</option>
-      <option value="encx">encx - BASE 64</option>
-      <option value="encnebula">encnebula - HARD DESIGN</option>
-      <option value="encnova">encnova - NOVA STYLE</option>
-      <option value="encsiu">encsiu - SIU + CALCRICK</option>
-      <option value="customenc">customenc &lt;NAME&gt; - CUSTOM</option>
-      <option value="encmax">encmax &lt;INTENSITY&gt;</option>
-      <option value="encstealth">encstealth - STEALTH MODE</option>
-      <option value="encstrong">encstrong - POWER FORTRESS</option>
-      <option value="encultra">encultra - ULTRA PROTECTION</option>
-      <option value="encbig">encbig &lt;MB&gt; - MEGABYTE</option>
-      <option value="encnew">encnew - ADVANCED LAYER</option>
-      <option value="encquantum">encquantum - QUANTUM</option>
-      <option value="enclocked">enclocked - LOCKED HARD</option>
+      <option>enc &lt;LEVEL&gt; - STANDARD</option>
+      <option>enceval &lt;LEVEL&gt; - EVALUATE</option>
+      <option>encchina - MANDARIN STYLE</option>
+      <option>encarab - ARABIC STYLE</option>
+      <option>encjapan - JAPANESE STYLE</option>
+      <option>encinvis - INVISIBLE MODE</option>
+      <option>encjapxab - JAPAN X ARAB</option>
+      <option>encx - BASE 64</option>
+      <option>encnebula - HARD DESIGN</option>
+      <option>encnova - NOVA STYLE</option>
+      <option>encsiu - SIU + CALCRICK</option>
+      <option>customenc &lt;NAME&gt; - CUSTOM</option>
+      <option>encmax &lt;INTENSITY&gt;</option>
+      <option>encstealth - STEALTH MODE</option>
+      <option>encstrong - POWER FORTRESS</option>
+      <option>encultra - ULTRA PROTECTION</option>
+      <option>encbig &lt;MB&gt; - MEGABYTE</option>
+      <option>encnew - ADVANCED LAYER</option>
+      <option>encquantum - QUANTUM</option>
+      <option>enclocked - LOCKED HARD</option>
     </select>
 
     <!-- Tombol Encryption -->
@@ -169,43 +144,43 @@
 
     <!-- Hasil -->
     <div id="result" class="result">
-      <div class="success">✅ ENCRYPTION SUKSES</div>
-      <button id="downloadBtn" onclick="downloadEncrypted()">⬇️ DOWNLOAD</button>
+      ✅ ENCRYPTION SUKSES
+      <br>
+      <button class="download-btn" onclick="downloadEncrypted()">⬇️ DOWNLOAD</button>
     </div>
   </div>
 
   <script>
-    let encryptedContent = "";
+    let encryptedContent = null;
     let originalFilename = "";
 
-    function showFileName() {
-      const fileInput = document.getElementById("fileInput");
+    document.getElementById("fileInput").addEventListener("change", function(e) {
+      const file = e.target.files[0];
       const fileNameDiv = document.getElementById("fileName");
-      if (fileInput.files.length > 0) {
-        fileNameDiv.textContent = "📄 " + fileInput.files[0].name;
+      if (file) {
+        fileNameDiv.textContent = file.name;
+        originalFilename = file.name;
       } else {
         fileNameDiv.textContent = "Belum ada file dipilih";
       }
-    }
+    });
 
-    function simpleXOR(str, key = 42) {
-      return str.split("").map(c => 
-        String.fromCharCode(c.charCodeAt(0) ^ key)
-      ).join("");
-    }
+    function encryptFile() {
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Silakan pilih file terlebih dahulu!");
+        return;
+      }
 
-    function rot13(str) {
-      return str.replace(/[a-zA-Z]/g, function(c){
-        return String.fromCharCode(
-          (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
-        );
-      });
-    }
-
-    function invisibleEncode(str) {
-      return str.split("").map(c => 
-        (c.charCodeAt(0) % 2 === 0 ? "​" : "‌")
-      ).join("");
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const content = e.target.result;
+        // Simulasi hasil enkripsi
+        encryptedContent = btoa(content);
+        document.getElementById("result").style.display = "block";
+      };
+      reader.readAsText(file);
     }
 
     function downloadEncrypted() {
@@ -224,57 +199,7 @@
         link.download = originalFilename + "_encryption";
       }
 
-      document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-    }
-
-    function encryptFile() {
-      const fileInput = document.getElementById("fileInput").files[0];
-      const encryptionType = document.getElementById("encryptionType").value;
-      const resultDiv = document.getElementById("result");
-
-      if (!fileInput) {
-        alert("⚠️ Pilih file terlebih dahulu!");
-        return;
-      }
-
-      originalFilename = fileInput.name;
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        let content = e.target.result;
-        let encrypted = "";
-
-        switch(encryptionType) {
-          case "enc": encrypted = btoa(content); break;
-          case "enceval": encrypted = rot13(content); break;
-          case "encchina": encrypted = btoa(content + " 中"); break;
-          case "encarab": encrypted = btoa(content + " عرب"); break;
-          case "encjapan": encrypted = btoa(content + " 日本"); break;
-          case "encinvis": encrypted = invisibleEncode(content); break;
-          case "encjapxab": encrypted = btoa(content + "日本عرب"); break;
-          case "encx": encrypted = btoa(content); break;
-          case "encnebula": encrypted = btoa(content.split("").reverse().join("")); break;
-          case "encnova": encrypted = simpleXOR(content, 99); break;
-          case "encsiu": encrypted = btoa(content + " SIUUU ⚡"); break;
-          case "customenc": encrypted = btoa("CUSTOM::" + content); break;
-          case "encmax": encrypted = btoa(content.repeat(2)); break;
-          case "encstealth": encrypted = simpleXOR(content, 120); break;
-          case "encstrong": encrypted = btoa(content.split("").reverse().join("") + "!STRONG"); break;
-          case "encultra": encrypted = btoa(rot13(content) + "#ULTRA"); break;
-          case "encbig": encrypted = btoa(content + "###BIGDATA"); break;
-          case "encnew": encrypted = btoa(simpleXOR(content, 77)); break;
-          case "encquantum": encrypted = btoa(simpleXOR(content, 42)); break;
-          case "enclocked": encrypted = btoa("LOCKED::" + content); break;
-          default: encrypted = btoa(content);
-        }
-
-        encryptedContent = encrypted;
-        resultDiv.style.display = "block";
-      };
-
-      reader.readAsBinaryString(fileInput);
     }
   </script>
 </body>
