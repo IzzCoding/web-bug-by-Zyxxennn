@@ -3,77 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website Encryption</title>
+  <title>File Encryption</title>
   <style>
+    /* Background gradient */
     body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #f8fafc;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #f1f5f9;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
+
+    /* Card container */
     .container {
-      background: rgba(30, 41, 59, 0.95);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
       width: 420px;
       text-align: center;
+      animation: fadeIn 0.6s ease;
     }
+
     h2 {
       margin-bottom: 20px;
       color: #38bdf8;
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: 1px;
     }
+
+    /* Input & select style */
     input[type="file"], select, button {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       margin: 10px 0;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
       font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
     }
-    input[type="file"] {
-      background: #1e293b;
-      color: #f8fafc;
+
+    input[type="file"], select {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
       cursor: pointer;
     }
-    select {
-      background: #1e293b;
-      color: #f8fafc;
-      cursor: pointer;
+
+    input[type="file"]:hover, select:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
+
+    /* Button style */
     button {
-      background: #38bdf8;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
       color: #0f172a;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(56, 189, 248, 0.4);
     }
+
     button:hover {
-      background: #0ea5e9;
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+      transform: translateY(-2px);
     }
+
+    /* Result box */
     .result {
-      margin-top: 15px;
-      padding: 15px;
-      background: #1e293b;
-      border-radius: 8px;
-      font-size: 14px;
+      margin-top: 18px;
+      padding: 18px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 12px;
+      font-size: 15px;
       text-align: center;
       display: none;
+      animation: fadeIn 0.5s ease;
     }
+
     .success {
       color: #4ade80;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>File Encryption</h2>
+    <h2>🔐 File Encryption</h2>
     <!-- Upload File -->
     <input type="file" id="fileInput">
 
@@ -102,12 +132,12 @@
     </select>
 
     <!-- Tombol Encryption -->
-    <button onclick="encryptFile()">ENCRYPTION FILE</button>
+    <button onclick="encryptFile()">⚡ ENCRYPTION FILE</button>
 
     <!-- Hasil -->
     <div id="result" class="result">
-      <div class="success">ENCRYPTION SUKSES ✅</div>
-      <button id="downloadBtn" onclick="downloadEncrypted()">DOWNLOAD</button>
+      <div class="success">✅ ENCRYPTION SUKSES</div>
+      <button id="downloadBtn" onclick="downloadEncrypted()">⬇️ DOWNLOAD</button>
     </div>
   </div>
 
@@ -115,7 +145,6 @@
     let encryptedContent = "";
     let originalFilename = "";
 
-    // Fungsi bantu
     function simpleXOR(str, key = 42) {
       return str.split("").map(c => 
         String.fromCharCode(c.charCodeAt(0) ^ key)
@@ -132,11 +161,10 @@
 
     function invisibleEncode(str) {
       return str.split("").map(c => 
-        (c.charCodeAt(0) % 2 === 0 ? "​" : "‌") // zero-width chars
+        (c.charCodeAt(0) % 2 === 0 ? "​" : "‌")
       ).join("");
     }
 
-    // Download manual
     function downloadEncrypted() {
       if (!encryptedContent || !originalFilename) return;
 
@@ -158,14 +186,13 @@
       document.body.removeChild(link);
     }
 
-    // Fungsi utama encrypt
     function encryptFile() {
       const fileInput = document.getElementById("fileInput").files[0];
       const encryptionType = document.getElementById("encryptionType").value;
       const resultDiv = document.getElementById("result");
 
       if (!fileInput) {
-        alert("Pilih file terlebih dahulu!");
+        alert("⚠️ Pilih file terlebih dahulu!");
         return;
       }
 
@@ -179,7 +206,7 @@
         switch(encryptionType) {
           case "enc": encrypted = btoa(content); break;
           case "enceval": encrypted = rot13(content); break;
-          case "encchina": encrypted = btoa(unescape(encodeURIComponent(content + " 中"))); break;
+          case "encchina": encrypted = btoa(content + " 中"); break;
           case "encarab": encrypted = btoa(content + " عرب"); break;
           case "encjapan": encrypted = btoa(content + " 日本"); break;
           case "encinvis": encrypted = invisibleEncode(content); break;
@@ -201,7 +228,7 @@
         }
 
         encryptedContent = encrypted;
-        resultDiv.style.display = "block"; // tampilkan pesan sukses
+        resultDiv.style.display = "block";
       };
 
       reader.readAsBinaryString(fileInput);
