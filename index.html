@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>File Encryption</title>
   <style>
-    /* Background gradient */
     body {
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -17,7 +16,6 @@
       margin: 0;
     }
 
-    /* Card container */
     .container {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
@@ -37,8 +35,43 @@
       letter-spacing: 1px;
     }
 
-    /* Input & select style */
-    input[type="file"], select, button {
+    /* Custom file input */
+    .file-input {
+      position: relative;
+      width: 100%;
+      margin: 10px 0;
+    }
+    .file-input input[type="file"] {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .file-label {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+    .file-label:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    #fileName {
+      margin-top: 5px;
+      font-size: 13px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    /* Input select & button */
+    select, button {
       width: 100%;
       padding: 14px;
       margin: 10px 0;
@@ -49,17 +82,15 @@
       transition: all 0.3s ease;
     }
 
-    input[type="file"], select {
+    select {
       background: rgba(255, 255, 255, 0.1);
       color: #f1f5f9;
       cursor: pointer;
     }
-
-    input[type="file"]:hover, select:hover {
+    select:hover {
       background: rgba(255, 255, 255, 0.2);
     }
 
-    /* Button style */
     button {
       background: linear-gradient(90deg, #38bdf8, #0ea5e9);
       color: #0f172a;
@@ -68,7 +99,6 @@
       transition: 0.3s;
       box-shadow: 0 4px 10px rgba(56, 189, 248, 0.4);
     }
-
     button:hover {
       background: linear-gradient(90deg, #0ea5e9, #38bdf8);
       transform: translateY(-2px);
@@ -86,7 +116,6 @@
       display: none;
       animation: fadeIn 0.5s ease;
     }
-
     .success {
       color: #4ade80;
       font-weight: bold;
@@ -94,7 +123,6 @@
       font-size: 16px;
     }
 
-    /* Animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -104,8 +132,13 @@
 <body>
   <div class="container">
     <h2>🔐 File Encryption</h2>
-    <!-- Upload File -->
-    <input type="file" id="fileInput">
+    
+    <!-- Custom File Input -->
+    <div class="file-input">
+      <label for="fileInput" class="file-label">📂 Pilih File</label>
+      <input type="file" id="fileInput" onchange="showFileName()">
+    </div>
+    <div id="fileName">Belum ada file dipilih</div>
 
     <!-- Pilihan Encryption -->
     <select id="encryptionType">
@@ -144,6 +177,16 @@
   <script>
     let encryptedContent = "";
     let originalFilename = "";
+
+    function showFileName() {
+      const fileInput = document.getElementById("fileInput");
+      const fileNameDiv = document.getElementById("fileName");
+      if (fileInput.files.length > 0) {
+        fileNameDiv.textContent = "📄 " + fileInput.files[0].name;
+      } else {
+        fileNameDiv.textContent = "Belum ada file dipilih";
+      }
+    }
 
     function simpleXOR(str, key = 42) {
       return str.split("").map(c => 
