@@ -1,180 +1,135 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Shiroko | Zyxxennn</title>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8">
+  <title>About | Zyxxennn</title>
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Poppins,Arial,sans-serif;background:#000;color:#fff;overflow-x:hidden}
-    .bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:-1}
-
-    /* Header & Hamburger */
-    header{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      padding:12px 18px;
-      display:flex;
-      justify-content:flex-start;
-      z-index:20;
-    }
-    .hamburger{
-      cursor:pointer;
-      color:#fff;
-      font-size:28px;
+    body {
+      font-family: Poppins, Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Sidebar */
-    .sidebar{
-      position: fixed;
-      top:0;
-      left:-260px;
-      width:240px;
-      height:100%;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border-right:1px solid rgba(255,255,255,0.2);
-      display:flex;
-      flex-direction:column;
-      padding:60px 20px;
-      gap:12px;
-      transition:left .3s ease;
-      z-index:30;
+    .about-wrap {
+      max-width: 950px;
+      margin: 80px auto;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn .6s ease-out;
     }
-    .sidebar.open{left:0}
-    .sidebar a{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:600;padding:10px;border-radius:8px;transition:.3s ease;box-shadow:0 0 6px rgba(0,0,0,0.2) inset}
-    .sidebar a:hover{background:rgba(0,195,255,0.15);box-shadow:0 0 10px rgba(0,195,255,0.7),0 0 20px rgba(0,119,255,0.5);}
-    .sidebar .label{font-size:.8rem;color:#aad7ff;margin-top:16px;letter-spacing:1px}
 
-    /* Main Content */
-    .wrap{margin-top:70px;display:flex;flex-direction:column;align-items:center;padding:20px;text-align:center}
-    .avatar{width:150px;height:150px;border-radius:999px;border:4px solid #00c3ff;object-fit:cover}
-    h1{margin-top:10px;font-size:2rem;color:#ffd86b;text-shadow:0 3px 10px rgba(0,0,0,0.5)}
-    .intro{max-width:700px;margin:12px 0;line-height:1.5;color:#eaf6ff}
-    .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:8px 0}
-    .btn{padding:10px 18px;border-radius:999px;background:linear-gradient(90deg,#00c3ff,#0077ff);color:#fff;text-decoration:none;font-weight:700;transition:.3s ease;box-shadow:0 0 8px rgba(0,195,255,0.5);}
-    .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 0 16px rgba(0,195,255,0.9),0 0 30px rgba(0,119,255,0.7);}
-    .menu-title{margin-top:14px;font-weight:700;letter-spacing:2px;color:#dff1ff}
-    .sections{width:100%;max-width:900px;margin-top:16px;padding-bottom:60px}
-    .section{display:none}
-    .section.active{display:block;animation:fadeIn .3s ease-out}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-    /* Card Styles */
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-    .card{background:#fff;color:#111;border-radius:14px;padding:12px;box-shadow:0 6px 20px rgba(0,0,0,0.5)}
-    .card img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:10px}
-    .card h3, .card h2{margin-bottom:6px}
-    .card p{margin-bottom:10px;font-size:.9rem}
-    .card .card-btn{display:inline-block;padding:8px 12px;background:#0077ff;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;transition:.3s}
-    .card .card-btn:hover{box-shadow:0 0 12px rgba(0,195,255,0.8),0 0 25px rgba(0,119,255,0.6);}
+    h1 {
+      font-size: 2.6rem;
+      color: #00eaff;
+      text-shadow: 0 0 8px #00eaff, 0 0 16px #00c3ff, 0 0 24px #0077ff;
+      margin-bottom: 20px;
+      animation: neonGlow 2s infinite alternate;
+    }
+
+    @keyframes neonGlow {
+      from { text-shadow: 0 0 8px #00eaff, 0 0 16px #00c3ff; }
+      to   { text-shadow: 0 0 12px #00eaff, 0 0 22px #00c3ff, 0 0 32px #0077ff; }
+    }
+
+    .about-img {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 4px solid #00c3ff;
+      object-fit: cover;
+      box-shadow: 0 0 25px #00eaff, 0 0 50px #0077ff;
+      margin-bottom: 20px;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 25px #00eaff, 0 0 50px #0077ff; }
+      50% { box-shadow: 0 0 40px #00eaff, 0 0 80px #0077ff; }
+    }
+
+    p {
+      line-height: 1.7;
+      color: #dff1ff;
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+
+    .highlight {
+      color: #00eaff;
+      font-weight: 600;
+      text-shadow: 0 0 8px #00c3ff;
+    }
+
+    .about-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: left;
+      transition: .3s;
+      border: 1px solid rgba(0,195,255,0.3);
+      box-shadow: 0 0 12px rgba(0,195,255,0.2);
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 0 20px #00eaff, 0 0 40px #0077ff;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      color: #ffd86b;
+      text-shadow: 0 0 10px rgba(255,216,107,0.7);
+    }
+
+    .card p {
+      font-size: .92rem;
+      color: #eaf6ff;
+    }
   </style>
 </head>
 <body>
-  <video class="bg-video" autoplay muted loop playsinline>
-    <source src="https://files.catbox.moe/1p7a9d.mp4" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
-
-  <header>
-    <div class="hamburger" id="hamburger">
-      <i data-lucide="menu"></i>
-    </div>
-  </header>
-
-  <nav id="sidebar" class="sidebar">
-    <a href="#" onclick="goHome()"><i data-lucide="home"></i> HOME</a>
-    <a href="#" onclick="loadSection('tools','pages/tools.html')"><i data-lucide="wrench"></i> TOOLS</a>
-    <a href="#" onclick="loadSection('script','pages/script.html')"><i data-lucide="file-code-2"></i> SCRIPT</a>
-    <a href="#" onclick="loadSection('shop','pages/shop.html')"><i data-lucide="shopping-cart"></i> SHOP / TOKO</a>
-    <a href="#" onclick="loadSection('html','pages/html.html')"><i data-lucide="code"></i> HTML</a>
-
-    <div class="label">MENU MEDIA SOSIAL</div>
-    <a href="https://t.me/Zyxxennn" target="_blank"><i data-lucide="send"></i> TELEGRAM</a>
-    <a href="https://t.me/ZyxxennnCH" target="_blank"><i data-lucide="rss"></i> CHANNEL TELEGRAM</a>
-    <a href="https://saweria.co/ZyxxennnOffociall" target="_blank"><i data-lucide="gift"></i> SAWERIA</a>
-    <a href="anonymous.html"><i data-lucide="message-circle"></i> ANONYMOUS CHAT</a>
-  </nav>
-
-  <main class="wrap">
-    <img class="avatar" src="https://files.catbox.moe/egvoem.jpg" alt="Shiroko">
-    <h1>Shiroko</h1>
-    <p class="intro">
-      Halo! Saya Zyxxennn membuat website modern, aplikasi ringan, dan konten kreatif. 
-      Saya suka coding, suka membantu dan pengalaman pengguna yang senang dan bisa dimanfaatkan. 
-      Kalian bisa hubungi saya lewat tautan di bawah ini dan dapat info lewat channel telegram.
+  <div class="about-wrap">
+    <img class="about-img" src="https://files.catbox.moe/egvoem.jpg" alt="Zyxxennn">
+    <h1>About Zyxxennn</h1>
+    <p>
+      Halo! Saya <span class="highlight">Zyxxennn</span>, pembuat website modern, aplikasi ringan,  
+      dan konten kreatif dengan sentuhan <span class="highlight">cyber aesthetic</span>.  
+      Saya percaya bahwa teknologi harus memberi <span class="highlight">kemudahan</span> dan juga <span class="highlight">inspirasi</span>.
+    </p>
+    <p>
+      Fokus saya adalah membangun karya digital yang bukan hanya terlihat keren,  
+      tetapi juga memiliki <span class="highlight">fungsi nyata</span> dan berguna untuk banyak orang.
     </p>
 
-    <div class="btn-row">
-      <a class="btn" href="https://saweria.co/ZyxxennnOffociall" target="_blank">SAWERIA</a>
-      <a class="btn" href="https://t.me/Zyxxennn" target="_blank">TELEGRAM</a>
-      <a class="btn" href="https://t.me/ZyxxennnCH" target="_blank">CHANNEL OWNER</a>
+    <div class="about-cards">
+      <div class="card">
+        <h3>⚡ Keahlian</h3>
+        <p>Frontend Web (HTML, CSS, JS), UI/UX Design, serta pembuatan tools praktis.</p>
+      </div>
+      <div class="card">
+        <h3>🎯 Visi</h3>
+        <p>Membawa pengalaman digital yang modern, ringan, dan bisa dipakai semua kalangan.</p>
+      </div>
+      <div class="card">
+        <h3>💡 Motto</h3>
+        <p>"Teknologi adalah seni menciptakan kemudahan."</p>
+      </div>
     </div>
-
-    <div class="menu-title">PILIHAN MENU</div>
-    <div class="btn-row">
-      <button class="btn" onclick="loadSection('tools','pages/tools.html')">TOOLS</button>
-      <button class="btn" onclick="loadSection('script','pages/script.html')">SCRIPT</button>
-      <button class="btn" onclick="loadSection('shop','pages/shop.html')">SHOP / TOKO</button>
-      <button class="btn" onclick="loadSection('html','pages/html.html')">HTML</button>
-    </div>
-
-    <div class="sections">
-      <div id="tools" class="section"></div>
-      <div id="script" class="section"></div>
-      <div id="shop" class="section"></div>
-      <div id="html" class="section"></div>
-    </div>
-  </main>
-
-  <script>
-    const sidebar = document.getElementById('sidebar');
-    const hamburger = document.getElementById('hamburger');
-
-    // Toggle sidebar
-    hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
-      const icon = hamburger.querySelector('i');
-      icon.setAttribute('data-lucide', sidebar.classList.contains('open') ? 'x' : 'menu');
-      lucide.createIcons();
-    });
-
-    // Tutup sidebar saat klik di luar
-    document.addEventListener('click', (e) => {
-      if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
-        sidebar.classList.remove('open');
-        hamburger.querySelector('i').setAttribute('data-lucide','menu');
-        lucide.createIcons();
-      }
-    });
-
-    function goHome(){
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      sidebar.classList.remove('open');
-      hamburger.querySelector('i').setAttribute('data-lucide','menu');
-      lucide.createIcons();
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-
-    function loadSection(id,url){
-      fetch(url)
-        .then(res=>res.text())
-        .then(html=>{
-          document.getElementById(id).innerHTML=html;
-          document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-          document.getElementById(id).classList.add('active');
-          sidebar.classList.remove('open');
-          hamburger.querySelector('i').setAttribute('data-lucide','menu');
-          lucide.createIcons();
-        });
-    }
-
-    lucide.createIcons();
-  </script>
+  </div>
 </body>
 </html>
