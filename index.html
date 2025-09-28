@@ -24,61 +24,25 @@
     html,body { height:100%; background: radial-gradient(1000px 400px at 10% 10%, rgba(124,58,237,0.06), transparent), linear-gradient(180deg,#050608 0%, #071018 100%); font-family: "Inter", "Share Tech Mono", system-ui, -apple-system, sans-serif; }
 
     /* attacker marquee */
-    .marquee {
-      overflow:hidden; white-space:nowrap; box-sizing: border-box;
-      animation: marquee 12s linear infinite;
-      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-    }
+    .marquee { overflow:hidden; white-space:nowrap; box-sizing: border-box; animation: marquee 12s linear infinite; -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);}
     @keyframes marquee { 0% { transform: translateX(100%);} 100% { transform: translateX(-100%);} }
 
     /* glass card */
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(124,58,237,0.12);
-      backdrop-filter: blur(6px);
-    }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(124,58,237,0.12); backdrop-filter: blur(6px); }
 
     /* neon outline */
-    .neon {
-      text-shadow:
-        0 0 6px rgba(124,58,237,0.18),
-        0 0 18px rgba(0,230,255,0.06);
-    }
+    .neon { text-shadow: 0 0 6px rgba(124,58,237,0.18), 0 0 18px rgba(0,230,255,0.06); }
 
     /* glitch title */
-    .glitch {
-      position:relative;
-      color: #fff;
-      font-weight:800;
-      letter-spacing: 0.06em;
-    }
-    .glitch:before, .glitch:after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0; top: 0; width: 100%;
-      clip: rect(0,900px,0,0);
-      opacity: .8;
-    }
-    .glitch:before {
-      transform: translate(2px, -2px);
-      color: var(--accent);
-      mix-blend-mode: screen;
-      animation: glitchTop 2.5s infinite linear alternate-reverse;
-    }
-    .glitch:after {
-      transform: translate(-2px, 2px);
-      color: var(--accent-2);
-      mix-blend-mode: screen;
-      animation: glitchBot 3s infinite linear alternate-reverse;
-    }
+    .glitch { position:relative; color: #fff; font-weight:800; letter-spacing: 0.06em; }
+    .glitch:before, .glitch:after { content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; clip: rect(0,900px,0,0); opacity: .8; }
+    .glitch:before { transform: translate(2px, -2px); color: var(--accent); mix-blend-mode: screen; animation: glitchTop 2.5s infinite linear alternate-reverse; }
+    .glitch:after { transform: translate(-2px, 2px); color: var(--accent-2); mix-blend-mode: screen; animation: glitchBot 3s infinite linear alternate-reverse; }
     @keyframes glitchTop { 0% { clip: rect(10px,9999px,60px,0); } 50% { clip: rect(80px,9999px,150px,0); } 100% { clip: rect(10px,9999px,60px,0); } }
     @keyframes glitchBot { 0% { clip: rect(120px,9999px,160px,0);} 50% { clip: rect(40px,9999px,90px,0);} 100% { clip: rect(120px,9999px,160px,0);} }
 
     /* neon buttons */
-    .btn-neon {
-      border: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 6px 30px rgba(7,16,24,0.6), inset 0 0 18px rgba(124,58,237,0.04);
-    }
+    .btn-neon { border: 1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 30px rgba(7,16,24,0.6), inset 0 0 18px rgba(124,58,237,0.04); }
     .btn-attack { background: linear-gradient(90deg,#ff3b7a,#ff7a00); color:#000; font-weight:700; }
     .btn-iphone { background: linear-gradient(90deg,#00d4ff,#0047ff); color:#fff; font-weight:700; }
 
@@ -97,19 +61,14 @@
     </div>
 
     <div class="p-6 grid grid-cols-1 gap-6">
-      <!-- Header -->
-      <div class="flex items-center gap-4">
-        <div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-[#2b1b5d] shadow-inner">
+      <!-- Header dengan foto bulat di tengah -->
+      <div class="flex flex-col items-center gap-4">
+        <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-[#7c3aed] shadow-lg">
           <img src="https://files.catbox.moe/91r278.jpg" alt="logo" class="w-full h-full object-cover">
         </div>
-        <div>
+        <div class="text-center">
           <div class="glitch text-3xl" data-text="Zyxxennn">Zyxxennn</div>
           <div class="text-sm text-zinc-400 mt-1 mono">Attacker Control Panel</div>
-        </div>
-
-        <div class="ml-auto text-right">
-          <div class="text-xs text-zinc-400">STATUS</div>
-          <div class="text-sm text-emerald-400 font-semibold mono">ONLINE</div>
         </div>
       </div>
 
@@ -167,7 +126,6 @@
   <script>
     // session state
     let session = { userId: null, nama: null, expires: null, keyValue: null };
-
     const welcomeText = document.getElementById('welcomeText');
     const keyExpiryEl = document.getElementById('keyExpiry');
     const notice = document.getElementById('notice');
@@ -175,13 +133,11 @@
     const modalText = document.getElementById('modalText');
     const modalClose = document.getElementById('modalClose');
 
-    // init session from localStorage
     (function init(){
       const s = localStorage.getItem('zyx_session');
       if (s) {
         try { session = JSON.parse(s); applySession(); } catch(e){ console.warn(e); }
       }
-      // set owner/channel links (ubah sesuai)
       document.getElementById('ownerLink').href = 'https://t.me/username_owner';
       document.getElementById('channelLink').href = 'https://t.me/channel_anda';
     })();
@@ -191,7 +147,6 @@
       keyExpiryEl.innerText = session.expires ? new Date(session.expires).toLocaleString() : '— belum login —';
     }
 
-    // logout
     document.getElementById('logoutBtn').addEventListener('click', () => {
       localStorage.removeItem('zyx_session');
       session = { userId: null, nama: null, expires: null, keyValue: null };
@@ -199,7 +154,6 @@
       notice.innerText = 'Kamu telah logout.';
     });
 
-    // prompt login
     async function promptLogin(){
       const key = prompt('Masukkan key yang kamu dapat dari bot (/ckey):');
       if (!key) return false;
@@ -225,18 +179,15 @@
       }
     }
 
-    // show modal with text
     function showModal(text){
       modalText.textContent = text;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
     }
     function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); }
-
     modalClose.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-    // send feature
     async function sendViaFeature(feature){
       if (!session.userId) {
         const ok = await promptLogin();
@@ -244,9 +195,7 @@
       }
       const target = document.getElementById('targetNumber').value.trim();
       if (!target) return alert('Masukkan nomor tujuan.');
-
       notice.innerText = 'Mengirim permintaan...';
-
       try {
         const res = await fetch('/whatsapp/send', {
           method: 'POST',
@@ -259,16 +208,9 @@
           })
         });
         const data = await res.json();
-        if (data.success) {
-          // tampilkan modal sukses persis
-          showModal(data.msg || 'SUKSES');
-          notice.innerText = 'Permintaan berhasil dikirim.';
-        } else {
-          notice.innerText = `❌ Gagal: ${data.msg || 'unknown'}`;
-        }
-      } catch (err) {
-        notice.innerText = '❌ Error: ' + err.message;
-      }
+        if (data.success) { showModal(data.msg || 'SUKSES MENGIRIM BUG KE TARGET\n\nHARAP JEDA 5 - 10 MENIT AGAR NO SENDER TIDAK KE BAND'); notice.innerText='Permintaan berhasil dikirim.'; }
+        else notice.innerText = `❌ Gagal: ${data.msg || 'unknown'}`;
+      } catch (err) { notice.innerText = '❌ Error: ' + err.message; }
     }
 
     document.getElementById('btnCrashAndroid').addEventListener('click', () => sendViaFeature('CRASH_ANDROID'));
