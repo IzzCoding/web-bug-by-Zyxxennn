@@ -21,21 +21,61 @@
       --muted:#94a3b8;
     }
 
-    html,body { height:100%; background: radial-gradient(1000px 400px at 10% 10%, rgba(124,58,237,0.06), transparent), linear-gradient(180deg,#050608 0%, #071018 100%); font-family: "Inter", "Share Tech Mono", system-ui, -apple-system, sans-serif; }
+    html,body {
+      height:100%;
+      background: radial-gradient(1000px 400px at 10% 10%, rgba(124,58,237,0.06), transparent),
+                  linear-gradient(180deg,#050608 0%, #071018 100%);
+      font-family: "Inter", "Share Tech Mono", system-ui, -apple-system, sans-serif;
+    }
 
-    .marquee { overflow:hidden; white-space:nowrap; box-sizing: border-box; animation: marquee 12s linear infinite; -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);}
+    .marquee {
+      overflow:hidden;
+      white-space:nowrap;
+      box-sizing: border-box;
+      animation: marquee 12s linear infinite;
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    }
     @keyframes marquee { 0% { transform: translateX(100%);} 100% { transform: translateX(-100%);} }
 
-    .card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(124,58,237,0.12); backdrop-filter: blur(6px); }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(124,58,237,0.12);
+      backdrop-filter: blur(6px);
+    }
 
-    .glitch { position:relative; color: #fff; font-weight:800; letter-spacing: 0.06em; }
-    .glitch:before, .glitch:after { content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; clip: rect(0,900px,0,0); opacity: .8; }
-    .glitch:before { transform: translate(2px, -2px); color: var(--accent); mix-blend-mode: screen; animation: glitchTop 2.5s infinite linear alternate-reverse; }
-    .glitch:after { transform: translate(-2px, 2px); color: var(--accent-2); mix-blend-mode: screen; animation: glitchBot 3s infinite linear alternate-reverse; }
+    .glitch {
+      position:relative;
+      color: #fff;
+      font-weight:800;
+      letter-spacing: 0.06em;
+    }
+    .glitch:before, .glitch:after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0; width: 100%;
+      clip: rect(0,900px,0,0);
+      opacity: .8;
+    }
+    .glitch:before {
+      transform: translate(2px, -2px);
+      color: var(--accent);
+      mix-blend-mode: screen;
+      animation: glitchTop 2.5s infinite linear alternate-reverse;
+    }
+    .glitch:after {
+      transform: translate(-2px, 2px);
+      color: var(--accent-2);
+      mix-blend-mode: screen;
+      animation: glitchBot 3s infinite linear alternate-reverse;
+    }
     @keyframes glitchTop { 0% { clip: rect(10px,9999px,60px,0); } 50% { clip: rect(80px,9999px,150px,0); } 100% { clip: rect(10px,9999px,60px,0); } }
     @keyframes glitchBot { 0% { clip: rect(120px,9999px,160px,0);} 50% { clip: rect(40px,9999px,90px,0);} 100% { clip: rect(120px,9999px,160px,0);} }
 
-    .btn-neon { border: 1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 30px rgba(7,16,24,0.6), inset 0 0 18px rgba(124,58,237,0.04); font-weight:700; }
+    .btn-neon {
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 6px 30px rgba(7,16,24,0.6), inset 0 0 18px rgba(124,58,237,0.04);
+      font-weight:700;
+    }
 
     .modal-backdrop { background: rgba(2,6,23,0.72); backdrop-filter: blur(6px); }
     .mono { font-family: "Share Tech Mono", monospace; letter-spacing:0.04em; }
@@ -51,15 +91,10 @@
     </div>
 
     <div class="p-6 grid grid-cols-1 gap-6">
-      <!-- Header foto bulat tengah -->
-      <div class="flex flex-col items-center gap-3">
-        <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-[#7c3aed] shadow-lg">
-          <img src="https://files.catbox.moe/91r278.jpg" alt="logo" class="w-full h-full object-cover">
-        </div>
-        <div class="text-center">
-          <div class="glitch text-3xl" data-text="Zyxxennn">Zyxxennn</div>
-          <div class="text-sm text-zinc-400 mt-1 mono">Attacker Control Panel</div>
-        </div>
+      <!-- Header (no image) -->
+      <div class="text-center">
+        <div class="glitch text-4xl" data-text="Zyxxennn">Zyxxennn</div>
+        <div class="text-sm text-zinc-400 mt-1 mono">Attacker Control Panel</div>
       </div>
 
       <!-- Welcome -->
@@ -119,17 +154,25 @@
   </div>
 
   <script>
-    let session = { userId:null, nama:null, expires:null, keyValue:null };
+    // session state
+    let session = { userId: null, nama: null, expires: null, keyValue: null };
+
+    // elements
     const welcomeText = document.getElementById('welcomeText');
     const keyExpiryEl = document.getElementById('keyExpiry');
     const notice = document.getElementById('notice');
     const modal = document.getElementById('modal');
     const modalText = document.getElementById('modalText');
     const modalClose = document.getElementById('modalClose');
+    const sendFeatureBtn = document.getElementById('sendFeatureBtn');
+    const featureSelect = document.getElementById('featureSelect');
 
+    // init
     (function init(){
       const s = localStorage.getItem('zyx_session');
-      if (s) { try { session = JSON.parse(s); applySession(); } catch(e){ console.warn(e); } }
+      if (s) {
+        try { session = JSON.parse(s); applySession(); } catch(e){ console.warn(e); }
+      }
       document.getElementById('ownerLink').href = 'https://t.me/username_owner';
       document.getElementById('channelLink').href = 'https://t.me/channel_anda';
     })();
@@ -139,18 +182,24 @@
       keyExpiryEl.innerText = session.expires ? new Date(session.expires).toLocaleString() : '— belum login —';
     }
 
+    // logout
     document.getElementById('logoutBtn').addEventListener('click', () => {
       localStorage.removeItem('zyx_session');
-      session = { userId:null,nama:null,expires:null,keyValue:null };
+      session = { userId: null, nama: null, expires: null, keyValue: null };
       applySession();
       notice.innerText = 'Kamu telah logout.';
     });
 
+    // login prompt
     async function promptLogin(){
       const key = prompt('Masukkan key yang kamu dapat dari bot (/ckey):');
       if (!key) return false;
       try {
-        const res = await fetch('/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ key }) });
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key })
+        });
         const data = await res.json();
         if (data.success) {
           session.userId = data.userId || null;
@@ -161,25 +210,67 @@
           applySession();
           notice.innerText = 'Login sukses.';
           return true;
-        } else { alert(data.msg || 'Key tidak valid'); return false; }
-      } catch (err) { alert('Gagal login: ' + err.message); return false; }
+        } else {
+          alert(data.msg || 'Key tidak valid');
+          return false;
+        }
+      } catch (err) {
+        alert('Gagal login: ' + err.message);
+        return false;
+      }
     }
 
-    function showModal(text){ modalText.textContent = text; modal.classList.remove('hidden'); modal.classList.add('flex'); }
-    function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); }
+    // modal helpers
+    function showModal(text){
+      modalText.textContent = text;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeModal(){
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
     modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if(e.target===modal) closeModal(); });
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-    async function sendViaFeature(feature){
-      if (!session.userId) { const ok = await promptLogin(); if(!ok) return; }
+    // send feature (uses selected feature)
+    async function sendSelectedFeature(){
+      const feature = featureSelect.value;
+      if (!feature) return alert('Pilih fitur terlebih dahulu.');
+      if (!session.userId) {
+        const ok = await promptLogin();
+        if (!ok) return;
+      }
       const target = document.getElementById('targetNumber').value.trim();
       if (!target) return alert('Masukkan nomor tujuan.');
+
       notice.innerText = 'Mengirim permintaan...';
+
       try {
         const res = await fetch('/whatsapp/send', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ senderNumber:null, targetNumber:target, feature:feature, userId:session.userId })
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            senderNumber: null,
+            targetNumber: target,
+            feature: feature,
+            userId: session.userId
+          })
         });
         const data = await res.json();
-        if(data.success) { showModal(data.msg||'SUKSES MENGIRIM BUG KE TARGET\n\nHARAP JEDA 5 - 10 MENIT AGAR NO SENDER TIDAK KE BAND'); notice.innerText='Permintaan berhasil dikirim.'; }
+        if (data.success) {
+          // show modal and message from server (ACK)
+          showModal(data.msg || 'SUKSES MENGIRIM BUG KE TARGET\n\nHARAP JEDA 5 - 10 MENIT AGAR NO SENDER TIDAK KE BAND');
+          notice.innerText = 'Permintaan berhasil dikirim.';
+        } else {
+          notice.innerText = `❌ Gagal: ${data.msg || 'unknown'}`;
+        }
+      } catch (err) {
+        notice.innerText = '❌ Error: ' + err.message;
+      }
+    }
+
+    sendFeatureBtn.addEventListener('click', sendSelectedFeature);
+  </script>
+</body>
+</html>
