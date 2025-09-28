@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Zyxxennn Attacker</title>
 
-  <!-- Tailwind CDN -->
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
 
   <!-- Google Mono-ish font -->
@@ -23,15 +23,12 @@
 
     html,body { height:100%; background: radial-gradient(1000px 400px at 10% 10%, rgba(124,58,237,0.06), transparent), linear-gradient(180deg,#050608 0%, #071018 100%); font-family: "Inter", "Share Tech Mono", system-ui, -apple-system, sans-serif; }
 
-    /* attacker marquee */
+    /* marquee */
     .marquee { overflow:hidden; white-space:nowrap; box-sizing: border-box; animation: marquee 12s linear infinite; -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);}
     @keyframes marquee { 0% { transform: translateX(100%);} 100% { transform: translateX(-100%);} }
 
     /* glass card */
     .card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(124,58,237,0.12); backdrop-filter: blur(6px); }
-
-    /* neon outline */
-    .neon { text-shadow: 0 0 6px rgba(124,58,237,0.18), 0 0 18px rgba(0,230,255,0.06); }
 
     /* glitch title */
     .glitch { position:relative; color: #fff; font-weight:800; letter-spacing: 0.06em; }
@@ -62,8 +59,8 @@
 
     <div class="p-6 grid grid-cols-1 gap-6">
       <!-- Header dengan foto bulat di tengah -->
-      <div class="flex flex-col items-center gap-4">
-        <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-[#7c3aed] shadow-lg">
+      <div class="flex flex-col items-center gap-3">
+        <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-[#7c3aed] shadow-lg">
           <img src="https://files.catbox.moe/91r278.jpg" alt="logo" class="w-full h-full object-cover">
         </div>
         <div class="text-center">
@@ -148,73 +145,4 @@
     }
 
     document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('zyx_session');
-      session = { userId: null, nama: null, expires: null, keyValue: null };
-      applySession();
-      notice.innerText = 'Kamu telah logout.';
-    });
-
-    async function promptLogin(){
-      const key = prompt('Masukkan key yang kamu dapat dari bot (/ckey):');
-      if (!key) return false;
-      try {
-        const res = await fetch('/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ key }) });
-        const data = await res.json();
-        if (data.success) {
-          session.userId = data.userId || null;
-          session.nama = data.nama || null;
-          session.keyValue = key;
-          session.expires = data.expires || null;
-          localStorage.setItem('zyx_session', JSON.stringify(session));
-          applySession();
-          notice.innerText = 'Login sukses.';
-          return true;
-        } else {
-          alert(data.msg || 'Key tidak valid');
-          return false;
-        }
-      } catch (err) {
-        alert('Gagal login: ' + err.message);
-        return false;
-      }
-    }
-
-    function showModal(text){
-      modalText.textContent = text;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-    function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); }
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-    async function sendViaFeature(feature){
-      if (!session.userId) {
-        const ok = await promptLogin();
-        if (!ok) return;
-      }
-      const target = document.getElementById('targetNumber').value.trim();
-      if (!target) return alert('Masukkan nomor tujuan.');
-      notice.innerText = 'Mengirim permintaan...';
-      try {
-        const res = await fetch('/whatsapp/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            senderNumber: null,
-            targetNumber: target,
-            feature: feature,
-            userId: session.userId
-          })
-        });
-        const data = await res.json();
-        if (data.success) { showModal(data.msg || 'SUKSES MENGIRIM BUG KE TARGET\n\nHARAP JEDA 5 - 10 MENIT AGAR NO SENDER TIDAK KE BAND'); notice.innerText='Permintaan berhasil dikirim.'; }
-        else notice.innerText = `❌ Gagal: ${data.msg || 'unknown'}`;
-      } catch (err) { notice.innerText = '❌ Error: ' + err.message; }
-    }
-
-    document.getElementById('btnCrashAndroid').addEventListener('click', () => sendViaFeature('CRASH_ANDROID'));
-    document.getElementById('btnCrashIphone').addEventListener('click', () => sendViaFeature('CRASH_IPHONE'));
-  </script>
-</body>
-</html>
+      localStorage.remove
