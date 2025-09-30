@@ -1,358 +1,228 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CRATE APK — Website to App (Full Suite + Packaging)</title>
-  <meta name="description" content="CRATE APK: ubah website menjadi aplikasi — PWA generator, icon maker, manifest & service-worker, export untuk PWABuilder/Bubblewrap, TWA template, signing & CI guide" />
-  <meta name="theme-color" content="#0b63ff" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Store</title>
   <style>
-    :root{--accent:#0b63ff;--accent-2:#0ea5a1;--bg:#071129;--card:#071429;--muted:#94a3b8}
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#071129 0%, #071733 100%);color:#eaf2ff}
-    .wrap{max-width:1200px;margin:28px auto;padding:20px}
-    header{display:flex;gap:16px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#3dd3ff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042;box-shadow:0 8px 30px rgba(2,6,23,.6)}
-    h1{margin:0;font-size:24px}
-    p.lead{color:var(--muted);margin:6px 0 18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));border-radius:14px;padding:16px;box-shadow:0 6px 24px rgba(2,6,23,.6)}
-    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:14px}
-    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-    input[type=text], input[type=url], input[type=color], select, textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.05);background:transparent;color:inherit}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:600;border:none;cursor:pointer}
-    .btn.alt{background:var(--accent-2)}
-    .muted{color:var(--muted);font-size:13px}
-    .sp{height:12px}
-    .icon-preview{width:96px;height:96px;border-radius:16px;background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;overflow:hidden}
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-    .row{display:flex;gap:10px;align-items:center}
-    .small{font-size:13px}
-    pre{white-space:pre-wrap;background:rgba(255,255,255,.02);padding:10px;border-radius:8px;font-size:13px}
-    details{background:rgba(255,255,255,.01);padding:10px;border-radius:8px}
-    @media (max-width:980px){.grid{grid-template-columns:1fr}.logo{width:56px;height:56px}}
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background: #111;
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #f39c12;
+    }
+
+    /* Hero */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff') center/cover no-repeat;
+      height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background: #f39c12;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #d35400;
+    }
+
+    /* Produk */
+    .products {
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .products h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card-body h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #f39c12;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">CR</div>
-      <div>
-        <h1>CRATE APK — Full Suite + Packaging</h1>
-        <p class="lead">Semua fitur digabung: PWA generator, icon maker, ZIP export, TWA Android Studio template, keystore/signing guide, dan contoh CI untuk build AAB.</p>
-      </div>
-    </header><div class="grid">
-  <main>
-    <div class="card">
-      <h2>1) Konfigurasi Aplikasi</h2>
-      <div class="sp"></div>
-      <label>Nama Aplikasi (full)</label>
-      <input id="appName" type="text" value="CRATE APK — Demo" />
-
-      <div style="height:10px"></div>
-      <label>Short name</label>
-      <input id="shortName" type="text" value="CRATE" />
-
-      <div style="height:10px"></div>
-      <label>Start URL</label>
-      <input id="startUrl" type="url" value="/" />
-
-      <div style="height:10px"></div>
-      <label>Website / Scope URL (masukkan URL website yang akan dijadikan app)</label>
-      <input id="scopeUrl" type="url" placeholder="https://example.com/" />
-
-      <div style="height:10px"></div>
-      <label>Theme color</label>
-      <input id="themeColor" type="color" value="#0b63ff" />
-
-      <div style="height:10px"></div>
-      <label>Background color</label>
-      <input id="bgColor" type="color" value="#071129" />
-
-      <div class="sp"></div>
-      <h3>2) Upload / Buat Icon</h3>
-      <div class="row" style="align-items:flex-start">
-        <div style="flex:1">
-          <label>Upload image (square disarankan, PNG/JPG/SVG)</label>
-          <input id="iconFile" type="file" accept="image/*" />
-          <div style="height:8px"></div>
-          <label class="small muted">Atau buat singkat dari teks (initials)</label>
-          <div style="display:flex;gap:8px;margin-top:6px">
-            <input id="initials" type="text" placeholder="CR" style="width:80px" />
-            <button id="genIconText" class="btn">Buat Icon</button>
-          </div>
-        </div>
-        <div style="width:140px;text-align:center">
-          <label>Preview</label>
-          <div style="height:8px"></div>
-          <div class="icon-preview card" id="iconPreview"> <canvas id="iconCanvas" width="192" height="192"></canvas></div>
-          <div style="height:8px"></div>
-          <div class="muted small">Ukuran dihasilkan: 512,192,144,96,72</div>
-        </div>
-      </div>
-
-      <div class="sp"></div>
-      <button id="generateBtn" class="btn">Generate manifest &amp; service worker</button>
-      <button id="downloadAll" class="btn alt" style="margin-left:8px">Download package (ZIP)</button>
-
-      <div style="height:12px"></div>
-      <div class="muted">Setelah generate, akan tersedia file manifest.json, sw.js, icons, dan templat Android Studio (TWA) yang bisa diunduh. Gunakan PWABuilder/Bubblewrap atau template TWA ini untuk membuat APK/AAB.</div>
-
-      <div style="height:12px"></div>
-      <details>
-        <summary style="cursor:pointer">Lihat manifest (preview)</summary>
-        <pre id="manifestPreview">(belum dibuat)</pre>
-      </details>
-
-      <div style="height:12px"></div>
-      <details>
-        <summary style="cursor:pointer">Lihat service worker (preview)</summary>
-        <pre id="swPreview">(belum dibuat)</pre>
-      </details>
-
-    </div>
-
-    <div style="height:12px"></div>
-    <div class="card">
-      <h2>Panduan Packaging &amp; Templat</h2>
-
-      <h3>PWABuilder (web)</h3>
-      <ol>
-        <li>Buka PWABuilder, masukkan URL website-mu (HTTPS).</li>
-        <li>Validasi PWA; upload manifest.json &amp; sw.js jika belum terdeteksi.</li>
-        <li>Pilih Android → Build → Download AAB/APK. Ikuti instruksi signing.</li>
-      </ol>
-
-      <h3>Bubblewrap (CLI)</h3>
-      <ol>
-        <li>Instal Node.js lalu: <code>npm install -g @bubblewrap/cli</code></li>
-        <li>Inisialisasi: <code>bubblewrap init --manifest=https://example.com/manifest.json</code></li>
-        <li>Build: <code>bubblewrap build</code> → akan menghasilkan Android Studio project / AAB.</li>
-      </ol>
-
-      <h3>Android Studio — Trusted Web Activity (TWA) Template</h3>
-      <p class="muted">Di bawah ini ada contoh berkas penting (AndroidManifest, gradle.properties snippet, dan instruksi signing). Kamu bisa import ke Android Studio untuk membangun TWA.</p>
-      <details>
-        <summary>AndroidManifest (contoh)</summary>
-        <pre>&lt;manifest package="com.example.crate"&gt;
-
-<application ... > <activity android:name="com.google.androidbrowserhelper.trusted.TwaLauncherActivity" > <intent-filter> <action android:name="android.intent.action.VIEW" /> <category android:name="android.intent.category.DEFAULT" /> <category android:name="android.intent.category.BROWSABLE" /> <data android:scheme="https" android:host="example.com" /> </intent-filter> </activity> </application> </manifest></pre> </details>
-
-<details>
-        <summary>gradle.properties / signing (contoh)</summary>
-        <pre># gradle.properties
-
-MY_KEYSTORE_PASSWORD=changeit MY_KEY_ALIAS=alias_name MY_KEY_PASSWORD=changeit MY_KEYSTORE_PATH=/path/to/keystore.jks</pre> <p class="muted">Kemudian di build.gradle gunakan konfigurasi signingConfig yang merujuk ke variabel di atas.</p> </details>
-
-<details>
-        <summary>assetlinks.json (Digital Asset Links)</summary>
-        <pre>[
-
-{ "relation": ["delegate_permission/common.handle_all_urls"], "target": { "namespace": "android_app", "package_name": "com.example.crate", "sha256_cert_fingerprints": [ "AA:BB:CC:..." ] } } ]</pre> <p class="muted">Unggah file ini ke <code>https://example.com/.well-known/assetlinks.json</code> untuk menghubungkan domain ke aplikasi Android (diperlukan untuk TWA).</p> </details>
-
-<h3>Signing &amp; Keystore</h3>
-      <ol>
-        <li>Buat keystore (contoh): <code>keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias</code></li>
-        <li>Gunakan password di gradle.properties atau lewat Android Studio signing configs.</li>
-        <li>Untuk rilis ke Play Store: buat AAB dan upload ke Play Console, isi informasi release &amp; upload ke track produksi.</li>
-      </ol>
-
-      <h3>Contoh GitHub Actions (CI) untuk build AAB</h3>
-      <details>
-        <summary>workflow.yml (ringkas)</summary>
-        <pre>name: Build Android AAB
-
-on: push: branches: [main] jobs: build: runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 - uses: actions/setup-java@v3 with: distribution: 'temurin' java-version: '17' - name: Build with Gradle run: ./gradlew bundleRelease -Pandroid.injected.signing.store.file=$MY_KEYSTORE_PATH -Pandroid.injected.signing.store.password=$MY_KEYSTORE_PASSWORD -Pandroid.injected.signing.key.alias=$MY_KEY_ALIAS -Pandroid.injected.signing.key.password=$MY_KEY_PASSWORD </pre> </details>
-
-</div>
-
-  </main>
-
-  <aside>
-    <div class="card">
-      <strong>Status</strong>
-      <div style="height:8px"></div>
-      <div id="statusBox" class="muted">Siap</div>
-    </div>
-
-    <div style="height:12px"></div>
-    <div class="card">
-      <strong>Preview Website</strong>
-      <div style="height:8px"></div>
-      <input id="previewUrl" type="url" placeholder="https://example.com" />
-      <div style="height:8px"></div>
-      <button id="previewLoad" class="btn">Preview in iframe</button>
-      <div style="height:8px"></div>
-      <iframe id="previewFrame" src="about:blank" style="width:100%;height:360px;border-radius:10px;border:1px solid rgba(255,255,255,.04)"></iframe>
-    </div>
-
-    <div style="height:12px"></div>
-    <div class="card">
-      <strong>Offline</strong>
-      <div style="height:8px"></div>
-      <div id="offlineBox" class="muted">Tersambung</div>
-    </div>
-
-    <div style="height:12px"></div>
-    <div class="card small">
-      <strong>Catatan</strong>
+  <!-- Header -->
+  <header>
+    <h1>MyStore</h1>
+    <nav>
       <ul>
-        <li>Untuk APK final: butuh keystore &amp; signing.</li>
-        <li>Pastikan site mendukung HTTPS dan pengaturan CORS jika diperlukan.</li>
-        <li>Beberapa situs menolak embed iframe (X-Frame-Options).</li>
+        <li><a href="#">Beranda</a></li>
+        <li><a href="#">Produk</a></li>
+        <li><a href="#">Tentang</a></li>
+        <li><a href="#">Kontak</a></li>
       </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Belanja Produk Keren</h2>
+      <p>Dapatkan produk terbaik dengan harga spesial hanya di MyStore</p>
+      <button class="btn">Belanja Sekarang</button>
     </div>
-  </aside>
-</div>
+  </section>
 
-<footer>
-  <div class="muted">CRATE APK — Full suite. Klik "Generate" lalu "Download package" untuk mendapatkan manifest, sw, icons, dan templat TWA. Siapkan keystore sebelum build AAB untuk Play Store.</div>
-</footer>
+  <!-- Produk -->
+  <section class="products">
+    <h2>Produk Kami</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Produk 1">
+        <div class="card-body">
+          <h3>Sepatu Sneakers</h3>
+          <p class="price">Rp 450.000</p>
+          <button class="btn">Beli</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Produk 2">
+        <div class="card-body">
+          <h3>Jam Tangan</h3>
+          <p class="price">Rp 850.000</p>
+          <button class="btn">Beli</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad" alt="Produk 3">
+        <div class="card-body">
+          <h3>Tas Kulit</h3>
+          <p class="price">Rp 1.200.000</p>
+          <button class="btn">Beli</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  </div>  <script>
-  // Icon & manifest generator (sama seperti sebelumnya) — ringkasan fungsionalitas
-  async function imageToBitmap(fileOrDataUrl) {
-    return await createImageBitmap(await (typeof fileOrDataUrl === 'string' ? await (await fetch(fileOrDataUrl)).blob() : fileOrDataUrl));
-  }
-  function drawIconToCanvas(bitmap, size, bgColor, initials) {
-    const c = document.createElement('canvas'); c.width = c.height = size;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = bgColor || '#0b63ff'; ctx.fillRect(0,0,size,size);
-    if (bitmap) {
-      const ratio = Math.max(size/bitmap.width, size/bitmap.height);
-      const w = bitmap.width * ratio; const h = bitmap.height * ratio;
-      ctx.drawImage(bitmap, (size-w)/2, (size-h)/2, w, h);
-    } else if (initials) {
-      ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      const fontSize = Math.floor(size*0.46); ctx.font = `bold ${fontSize}px sans-serif`;
-      ctx.fillText(initials, size/2, size/2 + Math.floor(fontSize*0.06));
-    }
-    return c;
-  }
-  async function generateIcons(sourceBlobOrBitmap, initials, bgColor) {
-    const sizes = [512,192,144,96,72];
-    let bitmap = null;
-    if (sourceBlobOrBitmap) bitmap = await imageToBitmap(sourceBlobOrBitmap);
-    const icons = [];
-    for (const s of sizes) {
-      const canvas = drawIconToCanvas(bitmap, s, bgColor, initials);
-      const dataUrl = canvas.toDataURL('image/png');
-      icons.push({src:dataUrl,sizes:`${s}x${s}`,type:'image/png'});
-    }
-    return icons;
-  }
-  // DOM refs
-  const iconFile = document.getElementById('iconFile');
-  const iconCanvas = document.getElementById('iconCanvas');
-  const genIconText = document.getElementById('genIconText');
-  const initialsInput = document.getElementById('initials');
-  const appNameInput = document.getElementById('appName');
-  const shortNameInput = document.getElementById('shortName');
-  const startUrlInput = document.getElementById('startUrl');
-  const scopeUrlInput = document.getElementById('scopeUrl');
-  const themeColorInput = document.getElementById('themeColor');
-  const bgColorInput = document.getElementById('bgColor');
-  const generateBtn = document.getElementById('generateBtn');
-  const manifestPreview = document.getElementById('manifestPreview');
-  const swPreview = document.getElementById('swPreview');
-  const statusBox = document.getElementById('statusBox');
-  const downloadAll = document.getElementById('downloadAll');
-  let lastIcons = null; let lastManifest = null; let lastSw = null;
-
-  iconFile.addEventListener('change', async (e) => {
-    const f = e.target.files[0]; if (!f) return;
-    const bitmap = await imageToBitmap(f);
-    const canvas = drawIconToCanvas(bitmap, 192, themeColorInput.value, null);
-    iconCanvas.getContext('2d').clearRect(0,0,iconCanvas.width,iconCanvas.height);
-    iconCanvas.getContext('2d').drawImage(canvas,0,0,iconCanvas.width,iconCanvas.height);
-    statusBox.textContent = 'Image uploaded — siap untuk generate.';
-  });
-
-  genIconText.addEventListener('click', async () => {
-    const text = (initialsInput.value || appNameInput.value || 'CR').substring(0,3).toUpperCase();
-    const canvas = drawIconToCanvas(null, 192, themeColorInput.value, text);
-    const ctx = iconCanvas.getContext('2d'); ctx.clearRect(0,0,iconCanvas.width,iconCanvas.height);
-    ctx.drawImage(canvas,0,0,iconCanvas.width,iconCanvas.height);
-    statusBox.textContent = 'Icon teks dibuat.';
-  });
-
-  generateBtn.addEventListener('click', async () => {
-    try {
-      statusBox.textContent = 'Membuat icons & manifest...';
-      const f = iconFile.files[0] || null;
-      const initials = (initialsInput.value || (shortNameInput.value||'CR').slice(0,2)).toUpperCase();
-      const icons = await generateIcons(f, initials, themeColorInput.value);
-      lastIcons = icons;
-      const manifest = {
-        name: appNameInput.value || 'CRATE APK',
-        short_name: shortNameInput.value || 'CRATE',
-        start_url: startUrlInput.value || '/',
-        scope: scopeUrlInput.value || '/',
-        display: 'standalone',
-        background_color: bgColorInput.value || '#071129',
-        theme_color: themeColorInput.value || '#0b63ff',
-        icons: icons.map(i => ({src:i.src,sizes:i.sizes,type:i.type}))
-      };
-      lastManifest = manifest;
-      const swScript = `const CACHE_NAME = 'crate-apk-cache-v1';
-const OFFLINE_URL = '/?offline';
-self.addEventListener('install', event => {
-  self.skipWaiting();
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll([OFFLINE_URL])));
-});
-self.addEventListener('activate', event => {
-  event.waitUntil(clients.claim());
-});
-self.addEventListener('fetch', event => {
-  if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept')?.includes('text/html'))) {
-    event.respondWith(fetch(event.request).catch(() => caches.match(OFFLINE_URL)));
-    return;
-  }
-  event.respondWith(caches.match(event.request).then(resp => resp || fetch(event.request)));
-});`;
-      lastSw = swScript;
-      manifestPreview.textContent = JSON.stringify(manifest, null, 2);
-      swPreview.textContent = swScript;
-      statusBox.textContent = 'Selesai — manifest, sw, icons & template siap.';
-    } catch (err) { console.error(err); statusBox.textContent = 'Gagal membuat: '+err.message; }
-  });
-
-  downloadAll.addEventListener('click', async () => {
-    if (!lastManifest || !lastSw || !lastIcons) return alert('Generate manifest & icons dulu.');
-    if (typeof JSZip === 'undefined') {
-      await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);} ).catch(()=>{alert('Gagal load JSZip. File akan diunduh satu-per-satu.');});
-    }
-    // prepare template files
-    const twaTemplate = `TWA_TEMPLATE_PLACEHOLDER`;
-    if (typeof JSZip !== 'undefined') {
-      const zip = new JSZip();
-      zip.file('manifest.json', JSON.stringify(lastManifest, null, 2));
-      zip.file('sw.js', lastSw);
-      const iconsFolder = zip.folder('icons');
-      for (let i=0;i<lastIcons.length;i++) iconsFolder.file(`icon-${lastIcons[i].sizes}.png`, dataURLToBlob(lastIcons[i].src));
-      zip.file('TWA/README.txt', 'Import this folder into Android Studio. Replace package name and keystore before build.');
-      zip.file('TWA/assetlinks.json', JSON.stringify({relation:['delegate_permission/common.handle_all_urls'], target:{namespace:'android_app', package_name:'com.example.crate', sha256_cert_fingerprints:['AA:BB:CC:...'] }}, null, 2));
-      zip.file('TWA/AndroidManifest-example.xml', `<manifest package=\"com.example.crate\">
-  <!-- paste example manifest here -->
-</manifest>`);
-      const content = await zip.generateAsync({type:'blob'});
-      downloadBlob(content, 'crate-apk-full-package.zip');
-      statusBox.textContent = 'Package ZIP (dengan template TWA) diunduh.';
-    } else {
-      downloadBlob(new Blob([JSON.stringify(lastManifest,null,2)],{type:'application/json'}), 'manifest.json');
-      downloadBlob(new Blob([lastSw],{type:'application/javascript'}), 'sw.js');
-      for (let i=0;i<lastIcons.length;i++) downloadBlob(dataURLToBlob(lastIcons[i].src), `icon-${lastIcons[i].sizes}.png`);
-      downloadBlob(new Blob(['TWA template placeholder'],{type:'text/plain'}),'TWA_README.txt');
-      statusBox.textContent = 'Files diunduh (fallback).';
-    }
-  });
-
-  function dataURLToBlob(dataurl){const arr=dataurl.split(',');const mime=arr[0].match(/:(.*?);/)[1];const bstr=atob(arr[1]);let n=bstr.length;const u8arr=new Uint8Array(n);while(n--)u8arr[n]=bstr.charCodeAt(n);return new Blob([u8arr],{type:mime});}
-  function downloadBlob(blob, filename){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
-
-  document.getElementById('previewLoad').addEventListener('click',()=>{const url=document.getElementById('previewUrl').value.trim(); if(!url) return alert('Masukkan URL untuk preview.'); document.getElementById('previewFrame').src=url;});
-  const offlineBox = document.getElementById('offlineBox'); function updateOnline(){offlineBox.textContent = navigator.onLine ? 'Tersambung' : 'Offline — cache akan dilayani jika ada.';} window.addEventListener('online', updateOnline); window.addEventListener('offline', updateOnline); updateOnline();
-
-  (function(){ const init=(initialsInput.value||'CR').substring(0,3).toUpperCase(); const c=drawIconToCanvas(null,192,themeColorInput.value,init); iconCanvas.getContext('2d').drawImage(c,0,0,iconCanvas.width,iconCanvas.height); })();
-  </script></body>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MyStore. Semua Hak Dilindungi.</p>
+  </footer>
+</body>
 </html>
