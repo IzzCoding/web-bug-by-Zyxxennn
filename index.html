@@ -65,19 +65,18 @@
       transform: rotate(180deg);
     }
 
-    /* Keuntungan animasi */
+    /* Keuntungan animasi fix */
     .keuntungan {
       margin-top: 12px;
-      max-height: 0;
+      transform-origin: top;
+      transform: scaleY(0);
       opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.6s ease, opacity 0.6s ease;
+      transition: transform 0.4s ease, opacity 0.4s ease;
     }
 
     .keuntungan.open {
-      max-height: 500px;   /* tinggi cukup besar untuk muat semua list */
+      transform: scaleY(1);
       opacity: 1;
-      overflow: visible;   /* pastikan list terlihat */
     }
 
     .keuntungan ul {
@@ -96,6 +95,11 @@
       list-style: none;
       position: relative;
       padding-left: 24px;
+    }
+
+    .keuntungan.open li {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .keuntungan li::before {
