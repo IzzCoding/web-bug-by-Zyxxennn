@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Store</title>
+  <title>Store Zyxxennn</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
     * {
       margin: 0;
@@ -16,213 +16,101 @@
 
     body {
       background: #f9f9f9;
-      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* Header */
     header {
       background: #111;
-      color: white;
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
     }
 
     header h1 {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 22px;
     }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: white;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #f39c12;
-    }
-
-    /* Hero */
-    .hero {
-      background: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff') center/cover no-repeat;
-      height: 70vh;
+    main {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
-      color: white;
-      position: relative;
+      padding: 40px 20px;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero h2 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      background: #f39c12;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #d35400;
-    }
-
-    /* Produk */
-    .products {
-      padding: 60px 40px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .products h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 32px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-    }
-
-    .card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
-
-    .card-body {
-      padding: 15px;
-      text-align: center;
-    }
-
-    .card-body h3 {
-      font-size: 18px;
+    main h2 {
+      font-size: 28px;
       margin-bottom: 10px;
     }
 
-    .price {
-      color: #f39c12;
-      font-weight: 600;
-      margin-bottom: 15px;
+    main p {
+      font-size: 16px;
+      color: #555;
     }
 
-    /* Footer */
-    footer {
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       background: #111;
       color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .bottom-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .bottom-nav a:hover {
+      color: #f39c12;
+    }
+
+    .center-btn {
+      background: #f39c12;
+      color: white !important;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header>
-    <h1>MyStore</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Beranda</a></li>
-        <li><a href="#">Produk</a></li>
-        <li><a href="#">Tentang</a></li>
-        <li><a href="#">Kontak</a></li>
-      </ul>
-    </nav>
+    <h1>Selamat Datang di Store Zyxxennn</h1>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Belanja Produk Keren</h2>
-      <p>Dapatkan produk terbaik dengan harga spesial hanya di MyStore</p>
-      <button class="btn">Belanja Sekarang</button>
+  <!-- Content -->
+  <main>
+    <div>
+      <h2>Store PT Zyxxennn</h2>
+      <p>Pusat belanja dan layanan resmi dari PT Zyxxennn</p>
     </div>
-  </section>
+  </main>
 
-  <!-- Produk -->
-  <section class="products">
-    <h2>Produk Kami</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Produk 1">
-        <div class="card-body">
-          <h3>Sepatu Sneakers</h3>
-          <p class="price">Rp 450.000</p>
-          <button class="btn">Beli</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Produk 2">
-        <div class="card-body">
-          <h3>Jam Tangan</h3>
-          <p class="price">Rp 850.000</p>
-          <button class="btn">Beli</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad" alt="Produk 3">
-        <div class="card-body">
-          <h3>Tas Kulit</h3>
-          <p class="price">Rp 1.200.000</p>
-          <button class="btn">Beli</button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <a href="#">🏠 Beranda</a>
+    <a href="#" class="center-btn">🛍️ Store</a>
+    <a href="#">All PT Zyxxennn</a>
+  </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 MyStore. Semua Hak Dilindungi.</p>
-  </footer>
 </body>
 </html>
