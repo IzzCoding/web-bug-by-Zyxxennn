@@ -1,238 +1,222 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Store Zyxxennn</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-    *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
-    body{
-      background:#0f0f1a;
-      color:#fff;
-      min-height:100vh;
-      display:flex;flex-direction:column;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
-    header{
-      background:linear-gradient(135deg,#6d28d9,#2563eb,#ec4899);
-      color:#fff;text-align:center;padding:24px;
-      box-shadow:0 6px 20px rgba(0,0,0,.4);
-    }
-    header h1{font-size:20px;font-weight:700;letter-spacing:1px}
-
-    main{flex:1;padding:32px 18px;max-width:1000px;margin:0 auto;width:100%}
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:22px;
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Animasi masuk kotak */
-    @keyframes fadeSlide {
-      from {opacity:0; transform:translateY(40px);}
-      to {opacity:1; transform:translateY(0);}
+    header {
+      text-align: center;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      animation: fadeDown 1s ease-out;
     }
 
-    .box{
-      background:#1a1b2e;border-radius:16px;padding:20px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.45);
-      display:flex;flex-direction:column;gap:12px;
-      border:1px solid rgba(255,255,255,0.06);
-      transition:all .35s ease;
-      opacity:0;
-      transform:translateY(40px);
-      animation:fadeSlide .7s ease forwards;
-    }
-    .box:nth-child(1){animation-delay:.1s}
-    .box:nth-child(2){animation-delay:.3s}
-    .box:nth-child(3){animation-delay:.5s}
-
-    .box:hover{
-      transform:translateY(-6px);
-      box-shadow:0 0 20px rgba(109,40,217,.5);
+    main {
+      flex: 1;
+      padding: 30px 20px 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
     }
 
-    .box h3{font-size:18px;font-weight:600;color:#f9fafb}
-
-    .accordion{
-      max-height:0;overflow:hidden;
-      transition:max-height 0.6s ease, padding 0.3s ease;
-    }
-    .accordion.show{max-height:400px;padding-top:6px;}
-
-    .accordion ul{padding-left:0;list-style:none;margin:0}
-    .accordion li{
-      font-size:14px;color:#e5e7eb;line-height:1.5;
-      margin-bottom:7px;display:flex;align-items:flex-start;gap:8px;
-      opacity:0;transform:translateX(-15px);
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 0.8s forwards;
     }
 
-    /* Animasi keuntungan list */
-    @keyframes fadeListIn {
-      to {opacity:1; transform:translateX(0);}
-    }
-    @keyframes fadeListOut {
-      from {opacity:1; transform:translateX(0);}
-      to {opacity:0; transform:translateX(-15px);}
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
     }
 
-    .accordion.show li{
-      animation:fadeListIn .4s forwards;
-    }
-    .accordion.show li:nth-child(1){animation-delay:.1s}
-    .accordion.show li:nth-child(2){animation-delay:.25s}
-    .accordion.show li:nth-child(3){animation-delay:.4s}
-    .accordion.show li:nth-child(4){animation-delay:.55s}
-
-    .accordion.hide li{
-      animation:fadeListOut .3s forwards;
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 20px;
+      color: #fff;
     }
 
-    .accordion li::before{
-      content:"✅";
-      color:#22c55e;
-      flex-shrink:0;
+    .card ul {
+      margin: 10px 0;
+      padding-left: 18px;
     }
 
-    .toggle{
-      font-size:13px;color:#ec4899;cursor:pointer;
-      display:inline-flex;align-items:center;gap:5px;
-      user-select:none;font-weight:600;
+    .card ul li {
+      margin-bottom: 6px;
+      color: #ddd;
+      font-size: 14px;
     }
 
-    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
-    .price{color:#60a5fa;font-weight:700;font-size:15px}
-    .btn{
-      background:linear-gradient(135deg,#6d28d9,#2563eb,#ec4899);
-      color:#fff;padding:7px 14px;border-radius:10px;
-      font-size:13px;font-weight:600;cursor:pointer;border:none;
-      transition:.3s;
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      position: relative;
+      overflow: hidden;
     }
-    .btn:hover{opacity:.85;transform:scale(1.05)}
 
-    /* Bottom nav */
-    .bottom-nav{
-      position:fixed;left:12px;right:12px;bottom:12px;
-      display:flex;justify-content:space-between;align-items:center;gap:10px;
-      padding:12px 16px;
-      background:#1a1b2e;color:#fff;border-radius:16px;
-      box-shadow:0 10px 35px rgba(0,0,0,.6);
-      border:1px solid rgba(255,255,255,.05);
+    /* Glow animasi neon */
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      animation: glow 2s infinite linear;
     }
-    .bottom-nav a{
-      color:#fff;text-decoration:none;font-weight:600;font-size:14px;cursor:pointer;
-      transition:.3s;
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      animation: fadeUp 1s ease-out;
     }
-    .bottom-nav a:hover{color:#60a5fa}
-    .center-big{
-      background:linear-gradient(135deg,#ec4899,#6d28d9);
-      color:#fff;padding:10px 20px;border-radius:999px;font-weight:700;
-      box-shadow:0 0 12px rgba(236,72,153,.6);
+
+    .bottom-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .bottom-nav a:hover {
+      color: #8e2de2;
+    }
+
+    .center-btn {
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      color: white !important;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    /* Animasi */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header>
-    <h1>✨ Store Zyxxennn ✨</h1>
+    Store PT Zyxxennn ✨
   </header>
 
+  <!-- Produk -->
   <main>
-    <div class="grid">
-      <!-- kotak 1 -->
-      <div class="box">
-        <h3>Murid HTML</h3>
-        <span class="toggle" onclick="toggleDesc(this)">Keuntungan ⌄</span>
-        <div class="accordion">
-          <ul>
-            <li>Belajar dasar HTML dari nol</li>
-            <li>Modul singkat & mudah dipahami</li>
-            <li>Contoh project nyata</li>
-            <li>Akses materi premium</li>
-          </ul>
-        </div>
-        <div class="meta">
-          <span class="price">Rp 99.000</span>
-          <button class="btn" onclick="buy('Murid HTML')">Beli</button>
-        </div>
-      </div>
+    <div class="card">
+      <h3>Murid HTML</h3>
+      <ul>
+        <li>Belajar dasar-dasar HTML</li>
+        <li>Materi gampang dipahami</li>
+        <li>Akses seumur hidup</li>
+      </ul>
+      <a href="#" class="btn">Keuntungan</a>
+    </div>
 
-      <!-- kotak 2 -->
-      <div class="box">
-        <h3>Kelas CSS Modern</h3>
-        <span class="toggle" onclick="toggleDesc(this)">Keuntungan ⌄</span>
-        <div class="accordion">
-          <ul>
-            <li>Belajar Flexbox & Grid</li>
-            <li>Responsive design</li>
-            <li>Animasi & transisi keren</li>
-            <li>Tips langsung dari mentor</li>
-          </ul>
-        </div>
-        <div class="meta">
-          <span class="price">Rp 149.000</span>
-          <button class="btn" onclick="buy('Kelas CSS Modern')">Beli</button>
-        </div>
-      </div>
+    <div class="card">
+      <h3>Murid CSS</h3>
+      <ul>
+        <li>Belajar styling profesional</li>
+        <li>Contoh desain modern</li>
+        <li>Gratis update materi</li>
+      </ul>
+      <a href="#" class="btn">Keuntungan</a>
+    </div>
 
-      <!-- kotak 3 -->
-      <div class="box">
-        <h3>Bundle Dev (HTML+CSS)</h3>
-        <span class="toggle" onclick="toggleDesc(this)">Keuntungan ⌄</span>
-        <div class="accordion">
-          <ul>
-            <li>Paket hemat HTML & CSS</li>
-            <li>Mentoring langsung</li>
-            <li>Akses lifetime</li>
-            <li>Bonus project siap pakai</li>
-          </ul>
-        </div>
-        <div class="meta">
-          <span class="price">Rp 229.000</span>
-          <button class="btn" onclick="buy('Bundle Dev')">Beli</button>
-        </div>
-      </div>
+    <div class="card">
+      <h3>Murid JavaScript</h3>
+      <ul>
+        <li>Belajar logika & interaktif</li>
+        <li>Proyek mini praktis</li>
+        <li>Dukungan mentor</li>
+      </ul>
+      <a href="#" class="btn">Keuntungan</a>
     </div>
   </main>
 
-  <!-- Bottom nav -->
-  <nav class="bottom-nav">
-    <a onclick="alert('Beranda')">🏠 Beranda</a>
-    <a class="center-big" onclick="alert('Store aktif')">🛍️ Store</a>
-    <a onclick="alert('All PT Zyxxennn')">All PT Zyxxennn</a>
-  </nav>
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <a href="#">🏠 Beranda</a>
+    <a href="#" class="center-btn">🛍️ Store</a>
+    <a href="#">All PT Zyxxennn</a>
+  </div>
 
-  <script>
-    function buy(item){
-      alert('Beli: ' + item);
-    }
-
-    function toggleDesc(el){
-      let acc = el.nextElementSibling;
-
-      if(acc.classList.contains('show')){
-        // Tutup dengan animasi keluar
-        acc.classList.remove('show');
-        acc.classList.add('hide');
-        el.innerHTML = 'Keuntungan ⌄';
-        setTimeout(()=> acc.classList.remove('hide'), 300); 
-      } else {
-        // Tutup semua accordion dulu
-        document.querySelectorAll('.accordion').forEach(a=>{
-          a.classList.remove('show'); a.classList.remove('hide');
-        });
-        document.querySelectorAll('.toggle').forEach(tg=>{
-          tg.innerHTML = 'Keuntungan ⌄';
-        });
-
-        // Buka yang dipilih
-        acc.classList.add('show');
-        el.innerHTML = 'Keuntungan ⌃';
-      }
-    }
-  </script>
 </body>
 </html>
