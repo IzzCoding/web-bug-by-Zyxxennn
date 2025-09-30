@@ -24,99 +24,104 @@
 
     header {
       text-align: center;
-      padding: 20px;
-      font-size: 22px;
+      padding: 16px;
+      font-size: 20px;
       font-weight: 600;
-      letter-spacing: 1px;
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      animation: fadeDown 1s ease-out;
     }
 
     main {
       flex: 1;
-      padding: 30px 20px 100px;
+      padding: 20px 15px 100px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 14px;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: fadeUp 0.8s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .card:nth-child(1) { animation-delay: 0.2s; }
-    .card:nth-child(2) { animation-delay: 0.4s; }
-    .card:nth-child(3) { animation-delay: 0.6s; }
-
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
     }
 
     .card h3 {
-      margin-bottom: 12px;
-      font-size: 20px;
-      color: #fff;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 600;
     }
 
+    /* Animasi slide-down */
     .keuntungan {
       max-height: 0;
+      opacity: 0;
       overflow: hidden;
-      transition: max-height 0.5s ease, padding 0.3s ease;
+      transform: translateY(-8px);
+      transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease;
       margin-top: 0;
       padding-left: 18px;
     }
 
     .keuntungan.show {
-      max-height: 300px; /* cukup tinggi untuk isi list */
-      margin-top: 12px;
+      max-height: 300px;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 8px;
     }
 
+    /* Animasi list item muncul 1 per 1 */
     .keuntungan li {
-      margin-bottom: 6px;
+      margin-bottom: 4px;
+      font-size: 13px;
       color: #ddd;
-      font-size: 14px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .keuntungan.show li {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 10px 18px;
-      border-radius: 25px;
-      font-size: 14px;
+      margin-top: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
       font-weight: 600;
       color: #fff;
-      text-decoration: none;
       background: linear-gradient(135deg, #8e2de2, #4a00e0);
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* Glow animasi neon */
-    .btn::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      animation: glow 2s infinite linear;
+    .arrow {
+      transition: transform 0.3s ease;
+      font-size: 12px;
     }
 
-    /* Bottom Nav */
+    .btn.active .arrow {
+      transform: rotate(180deg);
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -128,70 +133,37 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 25px;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      animation: fadeUp 1s ease-out;
+      padding: 12px 20px;
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
     }
 
     .bottom-nav a {
       color: #fff;
       text-decoration: none;
       font-weight: 600;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-
-    .bottom-nav a:hover {
-      color: #8e2de2;
+      font-size: 13px;
     }
 
     .center-btn {
       background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      color: white !important;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-size: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    }
-
-    /* Animasi */
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes glow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    Store PT Zyxxennn ✨
-  </header>
+  <header>Store PT Zyxxennn ✨</header>
 
-  <!-- Produk -->
   <main>
     <div class="card">
       <h3>Murid HTML</h3>
-      <button class="btn" onclick="toggleKeuntungan(this)">Keuntungan</button>
+      <button class="btn" onclick="toggleKeuntungan(this)">
+        Keuntungan <span class="arrow">▼</span>
+      </button>
       <ul class="keuntungan">
         <li>Belajar dasar-dasar HTML</li>
         <li>Materi gampang dipahami</li>
@@ -201,7 +173,9 @@
 
     <div class="card">
       <h3>Murid CSS</h3>
-      <button class="btn" onclick="toggleKeuntungan(this)">Keuntungan</button>
+      <button class="btn" onclick="toggleKeuntungan(this)">
+        Keuntungan <span class="arrow">▼</span>
+      </button>
       <ul class="keuntungan">
         <li>Belajar styling profesional</li>
         <li>Contoh desain modern</li>
@@ -211,7 +185,9 @@
 
     <div class="card">
       <h3>Murid JavaScript</h3>
-      <button class="btn" onclick="toggleKeuntungan(this)">Keuntungan</button>
+      <button class="btn" onclick="toggleKeuntungan(this)">
+        Keuntungan <span class="arrow">▼</span>
+      </button>
       <ul class="keuntungan">
         <li>Belajar logika & interaktif</li>
         <li>Proyek mini praktis</li>
@@ -220,7 +196,6 @@
     </div>
   </main>
 
-  <!-- Bottom Navigation -->
   <div class="bottom-nav">
     <a href="#">🏠 Beranda</a>
     <a href="#" class="center-btn">🛍️ Store</a>
@@ -229,8 +204,35 @@
 
   <script>
     function toggleKeuntungan(btn) {
+      const allLists = document.querySelectorAll(".keuntungan");
+      const allButtons = document.querySelectorAll(".btn");
       const list = btn.nextElementSibling;
-      list.classList.toggle("show");
+      const arrow = btn.querySelector(".arrow");
+
+      // Tutup semua
+      allLists.forEach(el => {
+        el.classList.remove("show");
+        el.querySelectorAll("li").forEach(li => {
+          li.style.transitionDelay = "0s";
+        });
+      });
+      allButtons.forEach(b => {
+        b.classList.remove("active");
+        b.querySelector(".arrow").textContent = "▼";
+      });
+
+      // Kalau list belum terbuka → buka dengan delay animasi
+      if (!list.classList.contains("show")) {
+        list.classList.add("show");
+        btn.classList.add("active");
+        arrow.textContent = "▲";
+
+        // kasih delay per item biar muncul bergantian
+        const items = list.querySelectorAll("li");
+        items.forEach((li, i) => {
+          li.style.transitionDelay = `${i * 0.15}s`;
+        });
+      }
     }
   </script>
 
