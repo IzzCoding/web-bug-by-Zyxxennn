@@ -5,183 +5,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Store Zyxxennn</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: white;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 60px auto;
-      padding: 20px;
-    }
-
-    .card {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 14px;
-      backdrop-filter: blur(10px);
-      transition: background 0.3s ease, transform 0.2s ease;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      overflow: hidden; /* penting agar kotak mengikuti tinggi list */
-    }
-
-    .card:hover {
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-3px);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-    }
-
-    .btn-toggle {
-      background: #6a11cb;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: transform 0.2s ease;
-    }
-
-    .btn-toggle:hover {
-      transform: scale(1.05);
-    }
-
-    .arrow {
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-
-    .arrow.rotate {
-      transform: rotate(180deg);
-    }
-
-    /* Keuntungan animasi tinggi kotak dan list */
-    .keuntungan {
-      margin-top: 12px;
-      height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: height 0.4s ease, opacity 0.4s ease;
-    }
-
-    .keuntungan.open {
-      height: auto;
-      opacity: 1;
-    }
-
-    .keuntungan ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-
-    .keuntungan li {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      color: #f1f1f1;
-      list-style: none;
-      position: relative;
-      padding-left: 24px;
-    }
-
-    .keuntungan.open li {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .keuntungan li::before {
-      content: "✔";
-      position: absolute;
-      left: 0;
-      color: #00ffcc;
-      font-weight: bold;
-      text-shadow: 0 0 8px #00ffcc, 0 0 12px #00ffaa;
-    }
-
-    /* Animasi stagger tiap item */
-    .keuntungan.open li:nth-child(1) { transition-delay: 0.1s; }
-    .keuntungan.open li:nth-child(2) { transition-delay: 0.2s; }
-    .keuntungan.open li:nth-child(3) { transition-delay: 0.3s; }
-    .keuntungan.open li:nth-child(4) { transition-delay: 0.4s; }
-    .keuntungan.open li:nth-child(5) { transition-delay: 0.5s; }
+    body {margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:white;}
+    .container { max-width: 800px; margin: 60px auto 100px auto; padding: 20px; }
+    .navbar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(20,20,30,0.9); display: flex; justify-content: space-around; padding: 10px 0; backdrop-filter: blur(6px); z-index:999; }
+    .nav-btn { background:#6a11cb; color:white; border:none; padding:8px 16px; border-radius:10px; cursor:pointer; font-weight:500; transition: transform 0.2s ease; }
+    .nav-btn:hover { transform: scale(1.05); }
+    #beranda,#store,#partner { display:none; }
+    .active { display:block; }
+    .beranda-header h2{margin:0;font-size:26px;text-align:center;}
+    .beranda-header p{text-align:center;margin-top:6px;font-size:16px;}
+    .owner-buttons{display:flex;justify-content:center;gap:12px;margin:12px 0;flex-wrap:wrap;}
+    .owner-buttons button{background:#ff6a00;border:none;padding:8px 14px;border-radius:8px;color:white;cursor:pointer;font-weight:500;transition: transform 0.2s ease;}
+    .owner-buttons button:hover{transform:scale(1.05);}
+    .programming-boxes{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:16px;}
+    .programming-box{background:rgba(255,255,255,0.08);padding:12px;border-radius:10px;text-align:center;width:100px;opacity:0;transform:translateY(20px);transition:opacity 0.5s ease, transform 0.5s ease;}
+    .programming-box.show{opacity:1;transform:translateY(0);}
+    .programming-box img{width:50px;height:50px;object-fit:contain;display:block;margin:0 auto 6px;}
+    .card{width:100%;background:rgba(255,255,255,0.08);border-radius:12px;padding:14px;backdrop-filter:blur(10px);transition:background 0.3s ease,transform 0.2s ease;margin-bottom:18px;box-shadow:0 4px 12px rgba(0,0,0,0.25);overflow:hidden;}
+    .card:hover{background:rgba(255,255,255,0.12);transform:translateY(-3px);}
+    .card h3{margin:0 0 4px 0;}
+    .card .price{font-weight:600;margin-bottom:10px;color:#00ffcc;}
+    .btn-toggle{background:#6a11cb;color:white;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:5px;transition: transform 0.2s ease;}
+    .btn-toggle:hover{transform:scale(1.05);}
+    .arrow{display:inline-block;transition: transform 0.3s ease;}
+    .arrow.rotate{transform:rotate(180deg);}
+    .keuntungan{margin-top:12px;height:0;opacity:0;overflow:hidden;transition:height 0.4s ease, opacity 0.4s ease;}
+    .keuntungan.open{height:auto;opacity:1;}
+    .keuntungan ul{padding-left:20px;margin:10px 0;}
+    .keuntungan li{opacity:0;transform:translateY(10px);transition:opacity 0.4s ease, transform 0.4s ease;font-size:15px;font-weight:500;letter-spacing:0.5px;color:#f1f1f1;list-style:none;position:relative;padding-left:24px;}
+    .keuntungan.open li{opacity:1;transform:translateY(0);}
+    .keuntungan li::before{content:"✔";position:absolute;left:0;color:#00ffcc;font-weight:bold;text-shadow:0 0 8px #00ffcc,0 0 12px #00ffaa;}
+    .keuntungan.open li:nth-child(1){transition-delay:0.1s;}
+    .keuntungan.open li:nth-child(2){transition-delay:0.2s;}
+    .keuntungan.open li:nth-child(3){transition-delay:0.3s;}
+    .partner-box{background:rgba(255,255,255,0.08);padding:16px;border-radius:12px;margin-top:20px;}
+    .partner-box h3{text-align:center;margin-bottom:12px;}
+    .partner-box ul{padding-left:0;list-style:none;text-align:center;}
+    .partner-box ul li{margin:6px 0;}
+    .partner-box ul li a{color:#00ffcc;text-decoration:none;font-weight:500;transition:transform 0.2s ease;}
+    .partner-box ul li a:hover{transform:scale(1.05);}
   </style>
 </head>
 <body>
-  <div class="container">
-
+  <div class="container" id="beranda">
+    <div class="beranda-header"><h2>Izz Ajah</h2><p>Informasi atau About</p></div>
+    <div class="owner-buttons">
+      <button>Owner</button>
+      <button>Channel Owner</button>
+      <button>Grup Owner</button>
+      <button>Saweria</button>
+    </div>
+    <div class="programming-boxes">
+      <div class="programming-box"><img src="html.png" alt="HTML"><span>HTML</span></div>
+      <div class="programming-box"><img src="css.png" alt="CSS"><span>CSS</span></div>
+      <div class="programming-box"><img src="js.png" alt="JS"><span>JavaScript</span></div>
+    </div>
+  </div>
+  <div class="container" id="store">
     <div class="card">
       <h3>Produk 1 - Murid HTML</h3>
+      <div class="price">$10</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan">
         <ul>
           <li>Belajar HTML dari dasar</li>
           <li>Gratis update materi</li>
           <li>Support komunitas</li>
-          <li>Support komunitas</li>
-          <li>Support komunitas</li>
         </ul>
       </div>
     </div>
-
-    <div class="card">
-      <h3>Produk 2 - Murid CSS</h3>
-      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan">
-        <ul>
-          <li>Belajar CSS step by step</li>
-          <li>Latihan real project</li>
-          <li>Dukungan mentor</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Produk 3 - Murid JS</h3>
-      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan">
-        <ul>
-          <li>Belajar logika JavaScript</li>
-          <li>Project interaktif</li>
-          <li>Tips interview kerja</li>
-        </ul>
-      </div>
-    </div>
-
   </div>
-
+  <div class="container" id="partner">
+    <div class="partner-box">
+      <h3>ALL PARTNER Zyxxennn</h3>
+      <ul>
+        <li><a href="https://t.me/Zyxxennn" target="_blank">@Zyxxennn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="navbar">
+    <button class="nav-btn" data-target="beranda">Beranda</button>
+    <button class="nav-btn" data-target="store">Store</button>
+    <button class="nav-btn" data-target="partner">All Partner Zyxxennn</button>
+  </div>
   <script>
-    const buttons = document.querySelectorAll('.btn-toggle');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const currentCard = btn.parentElement;
-        const keuntunganDiv = currentCard.querySelector('.keuntungan');
-        const arrow = btn.querySelector('.arrow');
-        const isOpen = keuntunganDiv.classList.contains('open');
-
-        // Tutup semua keuntungan lain
-        document.querySelectorAll('.keuntungan').forEach(div => div.classList.remove('open'));
-        document.querySelectorAll('.arrow').forEach(a => a.classList.remove('rotate'));
-
-        // Toggle yang diklik
-        if (!isOpen) {
-          keuntunganDiv.classList.add('open');
-          arrow.classList.add('rotate');
-        }
+    const navBtns=document.querySelectorAll('.nav-btn');
+    const sections=['beranda','store','partner'];
+    navBtns.forEach(btn=>{btn.addEventListener('click',()=>{
+      sections.forEach(sec=>document.getElementById(sec).classList.remove('active'));
+      document.getElementById(btn.dataset.target).classList.add('active');
+      if(btn.dataset.target==='beranda'){
+        const boxes=document.querySelectorAll('.programming-box');
+        boxes.forEach((box,i)=>{box.classList.remove('show');setTimeout(()=>{box.classList.add('show');},i*150);});
+      }
+    });});
+    document.getElementById('beranda').classList.add('active');
+    document.querySelectorAll('.programming-box').forEach((box,i)=>{setTimeout(()=>{box.classList.add('show');},i*150);});
+    const buttons=document.querySelectorAll('.btn-toggle');
+    buttons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const currentCard=btn.parentElement;
+        const keuntunganDiv=currentCard.querySelector('.keuntungan');
+        const arrow=btn.querySelector('.arrow');
+        const isOpen=keuntunganDiv.classList.contains('open');
+        document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
+        document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
+        if(!isOpen){keuntunganDiv.classList.add('open');arrow.classList.add('rotate');}
       });
     });
   </script>
