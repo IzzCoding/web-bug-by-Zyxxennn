@@ -204,39 +204,64 @@
   <div class="container" id="store">
     <!-- PRODUK 1 -->
     <div class="card">
-      <h3>Produk 1 - Murid HTML</h3>
-      <div class="price">$10</div>
+      <h3>Akses Premium Bot Jashare</h3>
+      <div class="price">5.000</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
-        <li>Belajar HTML dari dasar</li>
-        <li>Gratis update materi</li>
-        <li>Support komunitas</li>
+        <li>Akses Premium Permanen</li>
+        <li>Tanpa Capek Promosi / Share Manual</li>
+        <li>Bisa Share Sepuasnya</li>
+        <li>100% Sukses Ke Kirim Semua</li>
+        <li>Insyaallah Jualan Lu Laku</li>
       </ul></div>
       <button class="buy-btn" data-produk="Murid HTML">Buy</button>
     </div>
 
     <!-- PRODUK 2 -->
     <div class="card">
-      <h3>Produk 2 - Murid CSS</h3>
-      <div class="price">$15</div>
+      <h3>Akses Owner Bot Jashare</h3>
+      <div class="price">10.000</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
-        <li>Belajar CSS step by step</li>
-        <li>Latihan real project</li>
-        <li>Dukungan mentor</li>
+        <li>Akses Owner Permanen</li>
+        <li>Bisa Jualan Akses Premium</li>
+        <li>Admin Di Grup Akses</li>
+        <li>Tanpa Capek Promosi / Share Manual</li>
+        <li>Bisa Share Dan Broadcast</li>
+        <li>100% Sukses Ke kirim Semua</li>
+        <li>Insyaallah Jualan Lu Laku</li>
       </ul></div>
       <button class="buy-btn" data-produk="Murid CSS">Buy</button>
     </div>
 
     <!-- PRODUK 3 -->
     <div class="card">
-      <h3>Produk 3 - Murid JS</h3>
-      <div class="price">$20</div>
+      <h3>Akses Partner Bot Jashare</h3>
+      <div class="price">15.000</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
-        <li>Belajar logika JavaScript</li>
-        <li>Project interaktif</li>
-        <li>Tips interview kerja</li>
+        <li>Akses Partner Permanen</li>
+        <li>Bisa Jualan Akses Owner</li>
+        <li>Bisa Jualan Akses Premium</li>
+        <li>Admin Di Grup Akses</li>
+        <li>Tanpa Capek Promosi / Share Manual</li>
+        <li>Bisa Share Dan Broadcast</li>
+        <li>100% Sukses Ke Kirim Semua</li>
+        <li>Insyaallah Jualan Lu Laku</li>
+      </ul></div>
+      <button class="buy-btn" data-produk="Murid JS">Buy</button>
+    </div>
+  </div>
+  
+    <!-- PRODUK 4 -->
+    <div class="card">
+      <h3>Murid Html</h3>
+      <div class="price">5.000</div>
+      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
+      <div class="keuntungan"><ul>
+        <li>Mendapatkan Semua Html Gw</li>
+        <li>Di Kasih Cara Deploy</li>
+        <li>Dapat Html Payment Pribadi</li>
       </ul></div>
       <button class="buy-btn" data-produk="Murid JS">Buy</button>
     </div>
@@ -333,8 +358,8 @@ document.getElementById('kirimBtn').addEventListener('click', async ()=>{
     alert("Lengkapi bukti transfer & nama telegram!");
     return;
   }
-  const BOT_TOKEN = "ISI_BOT_TOKEN_DISINI";  
-  const OWNER_CHAT_ID = "ISI_CHAT_ID_OWNER"; 
+  const BOT_TOKEN = "8316854638:AAESN3ThtkFpE58uy8pe2wXd51L4bHd9XxM";  
+  const OWNER_CHAT_ID = "8447173769"; 
 
   const pesan = `📢 Bukti pembayaran baru!\n\n🛒 Produk: ${produkDipilih}\n👤 Telegram: ${telegramNama}`;
   await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
