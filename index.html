@@ -1,242 +1,323 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Store Zyxxennn</title>
-<style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  color: white;
-  padding-bottom: 100px;
-}
-.container {
-  max-width: 800px;
-  margin: 60px auto 20px auto;
-  padding: 20px;
-}
-.navbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
-  padding: 12px 0;
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
-  z-index: 1000;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-.nav-btn {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.3s ease;
-}
-.nav-btn:hover {
-  background: rgba(255,255,255,0.25);
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-.nav-btn span { font-size: 12px; margin-top: 2px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Zyxxennn</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      padding-bottom: 100px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 60px auto 20px auto;
+      padding: 20px;
+    }
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      padding: 12px 0;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
+      z-index: 1000;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+    .nav-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .nav-btn span {
+      font-size: 12px;
+      margin-top: 2px;
+    }
 
-#beranda, #store, #partner { display: none; }
-#beranda.active, #store.active, #partner.active { display: block; }
+    #beranda, #store, #partner { display: none; }
+    #beranda.active, #store.active, #partner.active { display: block; }
 
-.beranda-header h2 { text-align: center; margin:0; font-size:28px; }
-.beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
+    .beranda-header h2 { text-align: center; margin:0; font-size:28px; }
+    .beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
 
-.owner-buttons {
-  display:flex; justify-content:center; gap:12px; margin:16px 0; flex-wrap:wrap;
-}
-.owner-buttons button {
-  background:#ff6a00; border:none; padding:10px 16px; border-radius:10px; color:white;
-  cursor:pointer; font-weight:500; transition:transform 0.2s ease;
-}
-.owner-buttons button:hover { transform: scale(1.05); }
+    .owner-buttons {
+      display:flex; justify-content:center; gap:12px; margin:16px 0; flex-wrap:wrap;
+    }
+    .owner-buttons button {
+      background:#ff6a00; border:none; padding:10px 16px; border-radius:10px; color:white;
+      cursor:pointer; font-weight:500; transition:transform 0.2s ease;
+    }
+    .owner-buttons button:hover { transform: scale(1.05); }
 
-.programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
-.programming-box {
-  background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; text-align:center;
-  width:100px; opacity:0; transform:translateY(20px); transition:all 0.6s ease;
-}
-.programming-box.show { opacity:1; transform:translateY(0); }
-.programming-box .emoji { font-size:40px; display:block; margin:0 auto 8px; }
-</style>
+    .programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
+    .programming-box {
+      background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; text-align:center;
+      width:100px; opacity:0; transform:translateY(20px); transition:all 0.6s ease;
+    }
+    .programming-box.show { opacity:1; transform:translateY(0); }
+    .programming-box .emoji { font-size:40px; display:block; margin:0 auto 8px; }
+
+    .card { background: rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-bottom:18px;
+      backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.25); overflow:hidden;
+      transition:transform 0.2s ease, background 0.3s ease;
+    }
+    .card:hover { background: rgba(255,255,255,0.12); transform:translateY(-3px); }
+    .card h3 { margin:0 0 6px 0; font-size:18px; }
+    .card .price { font-weight:600; margin-bottom:12px; color:#00ffcc; }
+
+    .btn-toggle {
+      background:#6a11cb; color:white; border:none; padding:8px 14px; border-radius:8px;
+      cursor:pointer; font-size:14px; display:flex; align-items:center; gap:5px; transition:transform 0.2s ease;
+    }
+    .btn-toggle:hover { transform: scale(1.05); }
+    .arrow { display:inline-block; transition:transform 0.3s ease; }
+    .arrow.rotate { transform:rotate(180deg); }
+
+    .keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
+    .keuntungan.open { height:auto; opacity:1; }
+    .keuntungan ul { padding-left:20px; margin:10px 0; }
+    .keuntungan li { opacity:0; transform:translateY(10px); transition:opacity 0.4s ease, transform 0.4s ease;
+      font-size:15px; font-weight:500; color:#f1f1f1; list-style:none; position:relative; padding-left:24px;
+    }
+    .keuntungan.open li { opacity:1; transform:translateY(0); }
+    .keuntungan li::before { content:"✔"; position:absolute; left:0; color:#00ffcc; font-weight:bold; text-shadow:0 0 8px #00ffcc,0 0 12px #00ffaa; }
+
+    .partner-box { background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; margin-top:20px; }
+    .partner-box h3 { text-align:center; margin-bottom:12px; }
+    .partner-box ul { padding-left:0; list-style:none; text-align:center; }
+    .partner-box ul li { margin:6px 0; }
+    .partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
+    .partner-box ul li a:hover { transform: scale(1.05); }
+  </style>
 </head>
+
 <body>
+  <!-- BERANDA -->
+  <div class="container" id="beranda">
+    <div class="beranda-header">
+      <h2>Izz Ajah</h2>
+      <p>Informasi atau About</p>
+    </div>
 
-<div class="container" id="beranda">
-  <div class="beranda-header">
-    <h2>Izz Ajah</h2>
-    <p>Informasi atau About</p>
-  </div>
-  <div class="owner-buttons">
-    <button>Owner</button>
-    <button>Channel Owner</button>
-    <button>Grup Owner</button>
-    <button>Saweria</button>
-  </div>
-  <div class="programming-boxes">
-    <div class="programming-box"><div class="emoji">🌐</div><span>HTML</span></div>
-    <div class="programming-box"><div class="emoji">🔷</div><span>CSS</span></div>
-    <div class="programming-box"><div class="emoji">🟨</div><span>JavaScript</span></div>
-    <div class="programming-box"><div class="emoji">🐍</div><span>Python</span></div>
-  </div>
-</div>
+    <div class="owner-buttons">
+      <button>Owner</button>
+      <button>Channel Owner</button>
+      <button>Grup Owner</button>
+      <button>Saweria</button>
+    </div>
 
-<div class="container" id="store">
-  <!-- Contoh Produk dengan BUY -->
-  <div class="card">
-    <h3>Produk 1 - Murid HTML</h3>
-    <div class="price">$10</div>
-    <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-    <div class="keuntungan">
-      <ul>
+    <div class="programming-boxes">
+      <div class="programming-box"><div class="emoji">🌐</div><span>HTML</span></div>
+      <div class="programming-box"><div class="emoji">🔷</div><span>CSS</span></div>
+      <div class="programming-box"><div class="emoji">🟨</div><span>JavaScript</span></div>
+      <div class="programming-box"><div class="emoji">🐍</div><span>Python</span></div>
+    </div>
+  </div>
+
+  <!-- STORE -->
+  <div class="container" id="store">
+    <!-- PRODUK 1 -->
+    <div class="card">
+      <h3>Produk 1 - Murid HTML</h3>
+      <div class="price">$10</div>
+      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
+      <div class="keuntungan"><ul>
         <li>Belajar HTML dari dasar</li>
         <li>Gratis update materi</li>
         <li>Support komunitas</li>
-      </ul>
-      <button class="btn-buy">BUY</button>
-      <div class="buy-form">
-        <img src="https://dummyimage.com/200x200/00ccff/000000&text=QRIS" alt="QRIS">
-        <input type="file" id="buktiTf1" accept="image/*">
-        <input type="text" id="telegramName1" placeholder="Masukkan username Telegram">
-        <button class="kirimTf">Kirim Bukti TF</button>
-        <p class="statusMsg"></p>
-      </div>
+      </ul></div>
+      <button class="buy-btn" data-produk="Murid HTML">Buy</button>
+    </div>
+
+    <!-- PRODUK 2 -->
+    <div class="card">
+      <h3>Produk 2 - Murid CSS</h3>
+      <div class="price">$15</div>
+      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
+      <div class="keuntungan"><ul>
+        <li>Belajar CSS step by step</li>
+        <li>Latihan real project</li>
+        <li>Dukungan mentor</li>
+      </ul></div>
+      <button class="buy-btn" data-produk="Murid CSS">Buy</button>
+    </div>
+
+    <!-- PRODUK 3 -->
+    <div class="card">
+      <h3>Produk 3 - Murid JS</h3>
+      <div class="price">$20</div>
+      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
+      <div class="keuntungan"><ul>
+        <li>Belajar logika JavaScript</li>
+        <li>Project interaktif</li>
+        <li>Tips interview kerja</li>
+      </ul></div>
+      <button class="buy-btn" data-produk="Murid JS">Buy</button>
     </div>
   </div>
-</div>
 
-<div class="container" id="partner">
-  <div class="partner-box">
-    <h3>ALL PARTNER Zyxxennn</h3>
-    <ul>
-      <li><a href="https://t.me/Zyxxennn" target="_blank">@Zyxxennn</a></li>
-      <li><a href="https://t.me/Partner2" target="_blank">@Partner2</a></li>
-      <li><a href="https://t.me/Partner3" target="_blank">@Partner3</a></li>
-    </ul>
+  <!-- PARTNER -->
+  <div class="container" id="partner">
+    <div class="partner-box">
+      <h3>ALL PARTNER Zyxxennn</h3>
+      <ul>
+        <li><a href="https://t.me/Zyxxennn" target="_blank">@Zyxxennn</a></li>
+        <li><a href="https://t.me/Partner2" target="_blank">@Partner2</a></li>
+        <li><a href="https://t.me/Partner3" target="_blank">@Partner3</a></li>
+      </ul>
+    </div>
   </div>
-</div>
 
-<div class="navbar">
-  <button class="nav-btn" data-target="beranda">🏠<span>Beranda</span></button>
-  <button class="nav-btn" data-target="store">🛒<span>Store</span></button>
-  <button class="nav-btn" data-target="partner">🤝<span>Partner</span></button>
-</div>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <button class="nav-btn" data-target="beranda">🏠<span>Beranda</span></button>
+    <button class="nav-btn" data-target="store">🛒<span>Store</span></button>
+    <button class="nav-btn" data-target="partner">🤝<span>Partner</span></button>
+  </div>
 
-<script>
-// Navigasi antar menu
+  <!-- MODAL QRIS & UPLOAD -->
+  <div id="qrisModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; display:flex; align-items:center; justify-content:center;">
+    <div style="background:#1c1c2b; padding:20px; border-radius:12px; width:90%; max-width:400px; text-align:center; color:white;">
+      <h3>Pembayaran via QRIS</h3>
+      <img src="https://your-qris-url.com/qris.png" alt="QRIS" style="width:200px; margin:15px auto; display:block; border-radius:8px;">
+      
+      <input type="file" id="buktiInput" accept="image/*" style="margin:10px 0; display:block; width:100%; padding:8px; border-radius:8px; border:none;">
+      <input type="text" id="telegramInput" placeholder="Masukkan Nama Telegram" style="margin:10px 0; padding:10px; width:100%; border-radius:8px; border:none;">
+      
+      <button id="kirimBtn" style="background:#00ffcc; color:#000; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; font-weight:600; margin-top:10px;">Kirim</button>
+      <br>
+      <button onclick="closeModal()" style="margin-top:12px; background:#ff3b3b; border:none; color:white; padding:8px 14px; border-radius:8px; cursor:pointer;">Tutup</button>
+    </div>
+  </div>
+  
+  <script>
+/* -------------------------------
+   NAVIGASI
+--------------------------------*/
 const navBtns = document.querySelectorAll('.nav-btn');
 const sections = ['beranda','store','partner'];
+
 navBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
     document.getElementById(btn.dataset.target).classList.add('active');
-    showProgrammingBoxes();
+    if (btn.dataset.target === "beranda") showProgrammingBoxes();
   });
 });
+
+// Default buka Beranda
 document.getElementById('beranda').classList.add('active');
 
-// Animasi programming boxes
+
+/* -------------------------------
+   ANIMASI BOX PROGRAMMING
+--------------------------------*/
 const programmingBoxes = document.querySelectorAll('.programming-box');
 function showProgrammingBoxes() {
-  programmingBoxes.forEach((box,i)=>setTimeout(()=>box.classList.add('show'),i*150));
+  programmingBoxes.forEach((box,i)=>
+    setTimeout(()=>box.classList.add('show'), i*150)
+  );
 }
 showProgrammingBoxes();
 
-// Toggle keuntungan
-const toggleButtons = document.querySelectorAll('.btn-toggle');
-toggleButtons.forEach(btn=>{
+
+/* -------------------------------
+   TOGGLE KEUNTUNGAN PRODUK
+--------------------------------*/
+const toggleBtns = document.querySelectorAll('.btn-toggle');
+toggleBtns.forEach(btn=>{
   btn.addEventListener('click',()=>{
-    const currentCard=btn.parentElement;
-    const keuntunganDiv=currentCard.querySelector('.keuntungan');
-    const arrow=btn.querySelector('.arrow');
-    const isOpen=keuntunganDiv.classList.contains('open');
-    document.querySelectorAll('.keuntungan').forEach(div=>{
-      div.classList.remove('open');
-      div.querySelector('.buy-form')?.style.setProperty('display','none');
-    });
+    const currentCard = btn.parentElement;
+    const keuntunganDiv = currentCard.querySelector('.keuntungan');
+    const arrow = btn.querySelector('.arrow');
+    const isOpen = keuntunganDiv.classList.contains('open');
+
+    document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
     document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
-    if(!isOpen){ keuntunganDiv.classList.add('open'); arrow.classList.add('rotate'); }
-  });
-});
 
-// Show buy form
-document.querySelectorAll('.btn-buy').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const form = btn.parentElement.querySelector('.buy-form');
-    form.style.display = 'block';
-  });
-});
-
-// Fungsi kirim bukti transfer ke Telegram dengan notifikasi
-document.querySelectorAll('.kirimTf').forEach(btn=>{
-  btn.addEventListener('click', async ()=>{
-    const form = btn.parentElement;
-    const fileInput = form.querySelector('input[type=file]');
-    const telegramName = form.querySelector('input[type=text]').value.trim();
-    const statusMsg = form.querySelector('.statusMsg');
-
-    if(!fileInput.files[0] || !telegramName){
-      statusMsg.style.color='red';
-      statusMsg.innerText='Silahkan pilih file dan isi username Telegram!';
-      return;
+    if(!isOpen){ 
+      keuntunganDiv.classList.add('open'); 
+      arrow.classList.add('rotate'); 
     }
-
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-    reader.onload = async function(e){
-      const base64File = e.target.result;
-
-      const BOT_TOKEN = "YOUR_BOT_TOKEN";       // Ganti dengan token botmu
-      const OWNER_CHAT_ID = "OWNER_CHAT_ID";    // Ganti dengan chat ID owner
-
-      const message = `💰 Bukti Transfer Produk\nUsername Telegram: ${telegramName}`;
-
-      try {
-        // Kirim teks
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({chat_id:OWNER_CHAT_ID,text:message})
-        });
-
-        // Kirim gambar
-        const formData = new FormData();
-        formData.append('chat_id', OWNER_CHAT_ID);
-        formData.append('photo', file);
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,{
-          method:'POST',
-          body: formData
-        });
-
-        // Notifikasi sukses
-        statusMsg.style.color='lime';
-        statusMsg.innerText='✅ Bukti berhasil dikirim ke owner!';
-        fileInput.value='';
-        form.querySelector('input[type=text]').value='';
-      } catch(err) {
-        statusMsg.style.color='red';
-        statusMsg.innerText='❌ Gagal mengirim, cek koneksi atau token bot!';
-        console.error(err);
-      }
-    };
-    reader.readAsDataURL(file);
   });
+});
+
+
+/* -------------------------------
+   MODAL QRIS
+--------------------------------*/
+const modal = document.getElementById('qrisModal');
+let produkDipilih = "";
+
+document.querySelectorAll('.buy-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    produkDipilih = btn.dataset.produk;
+    modal.style.display = "flex";
+  });
+});
+
+function closeModal(){
+  modal.style.display = "none";
+}
+
+
+/* -------------------------------
+   KIRIM DATA KE TELEGRAM BOT
+--------------------------------*/
+document.getElementById('kirimBtn').addEventListener('click', async ()=>{
+  const buktiFile = document.getElementById('buktiInput').files[0];
+  const telegramNama = document.getElementById('telegramInput').value;
+
+  if(!buktiFile || !telegramNama){
+    alert("Lengkapi bukti transfer & nama telegram!");
+    return;
+  }
+
+  const BOT_TOKEN = "ISI_BOT_TOKEN_DISINI";  // ganti dengan token bot
+  const OWNER_CHAT_ID = "ISI_CHAT_ID_OWNER"; // ganti dengan chat id owner
+
+  // kirim text info
+  const pesan = `📢 Bukti pembayaran baru!\n\n🛒 Produk: ${produkDipilih}\n👤 Telegram: ${telegramNama}`;
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({chat_id: OWNER_CHAT_ID, text: pesan})
+  });
+
+  // kirim foto bukti
+  const formData = new FormData();
+  formData.append("chat_id", OWNER_CHAT_ID);
+  formData.append("photo", buktiFile);
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+    method:"POST",
+    body: formData
+  });
+
+  alert("Bukti pembayaran terkirim ke owner!");
+  closeModal();
 });
 </script>
+</body>
+</html>
