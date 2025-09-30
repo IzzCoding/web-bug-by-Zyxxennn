@@ -88,7 +88,7 @@
       transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
-    /* Efek delay animasi */
+    /* Efek delay animasi tiap item */
     .keuntungan.show li {
       opacity: 1;
       transform: translateX(0);
@@ -207,14 +207,20 @@
 
   <script>
     function toggleKeuntungan(btn) {
+      const allLists = document.querySelectorAll(".keuntungan");
+      const allButtons = document.querySelectorAll(".btn");
       const list = btn.nextElementSibling;
       const arrow = btn.querySelector(".arrow");
 
-      if (list.classList.contains("show")) {
-        list.classList.remove("show");
-        btn.classList.remove("active");
-        arrow.textContent = "▼";
-      } else {
+      // Tutup semua list dulu
+      allLists.forEach(el => el.classList.remove("show"));
+      allButtons.forEach(b => {
+        b.classList.remove("active");
+        b.querySelector(".arrow").textContent = "▼";
+      });
+
+      // Kalau yang ditekan belum terbuka → buka
+      if (!list.classList.contains("show")) {
         list.classList.add("show");
         btn.classList.add("active");
         arrow.textContent = "▲";
