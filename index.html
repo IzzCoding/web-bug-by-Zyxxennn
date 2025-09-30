@@ -18,6 +18,7 @@
       padding: 20px;
     }
 
+    /* NAVBAR */
     .navbar {
       position: fixed;
       bottom: 0;
@@ -47,23 +48,11 @@
     }
 
     /* SECTION BERANDA */
-    #beranda {
-      display: none;
-    }
-
+    #beranda { display: none; }
     #beranda.active { display: block; }
 
-    .beranda-header h2 {
-      margin: 0;
-      font-size: 26px;
-      text-align: center;
-    }
-
-    .beranda-header p {
-      text-align: center;
-      margin-top: 6px;
-      font-size: 16px;
-    }
+    .beranda-header h2 { margin: 0; font-size: 26px; text-align: center; }
+    .beranda-header p { text-align: center; margin-top: 6px; font-size: 16px; }
 
     .owner-buttons {
       display: flex;
@@ -84,11 +73,16 @@
       transition: transform 0.2s ease;
     }
 
-    .owner-buttons button:hover {
-      transform: scale(1.05);
+    .owner-buttons button:hover { transform: scale(1.05); }
+
+    .programming-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 16px;
     }
 
-    /* Tambahan animasi kotak pemrograman */
     .programming-box {
       background: rgba(255,255,255,0.08);
       padding: 12px;
@@ -100,10 +94,7 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
-    .programming-box.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .programming-box.show { opacity: 1; transform: translateY(0); }
 
     .programming-box img {
       width: 50px;
@@ -129,17 +120,9 @@
       overflow: hidden;
     }
 
-    .card:hover {
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-3px);
-    }
-
+    .card:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); }
     .card h3 { margin: 0 0 4px 0; }
-    .card .price {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #00ffcc;
-    }
+    .card .price { font-weight: 600; margin-bottom: 10px; color: #00ffcc; }
 
     .btn-toggle {
       background: #6a11cb;
@@ -170,10 +153,7 @@
 
     .keuntungan.open { height: auto; opacity: 1; }
 
-    .keuntungan ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
+    .keuntungan ul { padding-left: 20px; margin: 10px 0; }
 
     .keuntungan li {
       opacity: 0;
@@ -188,10 +168,7 @@
       padding-left: 24px;
     }
 
-    .keuntungan.open li {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .keuntungan.open li { opacity: 1; transform: translateY(0); }
 
     .keuntungan li::before {
       content: "✔";
@@ -220,25 +197,16 @@
     }
 
     .partner-box h3 { text-align: center; margin-bottom: 12px; }
-
-    .partner-box ul {
-      padding-left: 0;
-      list-style: none;
-      text-align: center;
-    }
-
-    .partner-box ul li {
-      margin: 6px 0;
-    }
-
+    .partner-box ul { padding-left: 0; list-style: none; text-align: center; }
+    .partner-box ul li { margin: 6px 0; }
     .partner-box ul li a {
       color: #00ffcc;
       text-decoration: none;
       font-weight: 500;
       transition: transform 0.2s ease;
     }
-
     .partner-box ul li a:hover { transform: scale(1.05); }
+
   </style>
 </head>
 <body>
