@@ -24,49 +24,52 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: rgba(20, 20, 30, 0.9);
+      background: rgba(20, 20, 30, 0.95);
       display: flex;
       justify-content: space-around;
-      padding: 10px 0;
+      padding: 12px 0;
       backdrop-filter: blur(6px);
       z-index: 999;
+      border-top: 1px solid #6a11cb;
     }
 
     .nav-btn {
-      background: #6a11cb;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
       color: white;
       border: none;
-      padding: 8px 16px;
-      border-radius: 10px;
+      padding: 10px 20px;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: 500;
-      transition: transform 0.2s ease;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
     }
 
     .nav-btn:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
     /* SECTION BERANDA */
     #beranda { display: none; }
     #beranda.active { display: block; }
 
-    .beranda-header h2 { margin: 0; font-size: 26px; text-align: center; }
-    .beranda-header p { text-align: center; margin-top: 6px; font-size: 16px; }
+    .beranda-header h2 { margin: 0; font-size: 28px; text-align: center; }
+    .beranda-header p { text-align: center; margin-top: 6px; font-size: 16px; color: #ccc; }
 
     .owner-buttons {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin: 12px 0;
+      margin: 16px 0;
       flex-wrap: wrap;
     }
 
     .owner-buttons button {
       background: #ff6a00;
       border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
+      padding: 10px 16px;
+      border-radius: 10px;
       color: white;
       cursor: pointer;
       font-weight: 500;
@@ -79,29 +82,25 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      margin-top: 16px;
+      gap: 16px;
+      margin-top: 20px;
     }
 
     .programming-box {
       background: rgba(255,255,255,0.08);
-      padding: 12px;
-      border-radius: 10px;
+      padding: 16px;
+      border-radius: 12px;
       text-align: center;
       width: 100px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: all 0.5s ease;
     }
-
-    .programming-box.show { opacity: 1; transform: translateY(0); }
 
     .programming-box img {
       width: 50px;
       height: 50px;
       object-fit: contain;
       display: block;
-      margin: 0 auto 6px;
+      margin: 0 auto 8px;
     }
 
     /* SECTION STORE */
@@ -112,17 +111,17 @@
       width: 100%;
       background: rgba(255, 255, 255, 0.08);
       border-radius: 12px;
-      padding: 14px;
+      padding: 16px;
       backdrop-filter: blur(10px);
-      transition: background 0.3s ease, transform 0.2s ease;
       margin-bottom: 18px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       overflow: hidden;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
     .card:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); }
-    .card h3 { margin: 0 0 4px 0; }
-    .card .price { font-weight: 600; margin-bottom: 10px; color: #00ffcc; }
+    .card h3 { margin: 0 0 6px 0; font-size: 18px; }
+    .card .price { font-weight: 600; margin-bottom: 12px; color: #00ffcc; }
 
     .btn-toggle {
       background: #6a11cb;
@@ -179,12 +178,6 @@
       text-shadow: 0 0 8px #00ffcc, 0 0 12px #00ffaa;
     }
 
-    .keuntungan.open li:nth-child(1) { transition-delay: 0.1s; }
-    .keuntungan.open li:nth-child(2) { transition-delay: 0.2s; }
-    .keuntungan.open li:nth-child(3) { transition-delay: 0.3s; }
-    .keuntungan.open li:nth-child(4) { transition-delay: 0.4s; }
-    .keuntungan.open li:nth-child(5) { transition-delay: 0.5s; }
-
     /* SECTION ALL PARTNER */
     #partner { display: none; }
     #partner.active { display: block; }
@@ -236,7 +229,6 @@
         <img src="js.png" alt="JS">
         <span>JavaScript</span>
       </div>
-      <!-- Bisa ditambahkan lagi -->
     </div>
   </div>
 
@@ -312,6 +304,10 @@
 
     // Set default section
     document.getElementById('beranda').classList.add('active');
+
+    // Tampilkan programming boxes
+    const programmingBoxes = document.querySelectorAll('.programming-box');
+    programmingBoxes.forEach(box => box.style.opacity = "1");
 
     // Toggle keuntungan produk
     const buttons = document.querySelectorAll('.btn-toggle');
