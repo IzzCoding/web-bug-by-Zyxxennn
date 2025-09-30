@@ -1,276 +1,358 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Zyxxennn Attacker</title>
-
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
-
-  <!-- Google Mono-ish font -->
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
-
+  <title>CRATE APK — Website to App (Full Suite + Packaging)</title>
+  <meta name="description" content="CRATE APK: ubah website menjadi aplikasi — PWA generator, icon maker, manifest & service-worker, export untuk PWABuilder/Bubblewrap, TWA template, signing & CI guide" />
+  <meta name="theme-color" content="#0b63ff" />
   <style>
-    :root{
-      --bg:#0b0f14;
-      --card:#0f1720;
-      --accent:#ff005c;
-      --accent-2:#00e6ff;
-      --neon:#7c3aed;
-      --muted:#94a3b8;
-    }
-
-    html,body {
-      height:100%;
-      background: radial-gradient(1000px 400px at 10% 10%, rgba(124,58,237,0.06), transparent),
-                  linear-gradient(180deg,#050608 0%, #071018 100%);
-      font-family: "Inter", "Share Tech Mono", system-ui, -apple-system, sans-serif;
-    }
-
-    .marquee {
-      overflow:hidden;
-      white-space:nowrap;
-      box-sizing: border-box;
-      animation: marquee 12s linear infinite;
-      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-    }
-    @keyframes marquee { 0% { transform: translateX(100%);} 100% { transform: translateX(-100%);} }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(124,58,237,0.12);
-      backdrop-filter: blur(6px);
-    }
-
-    .glitch {
-      position:relative;
-      color: #fff;
-      font-weight:800;
-      letter-spacing: 0.06em;
-    }
-    .glitch:before, .glitch:after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0; top: 0; width: 100%;
-      clip: rect(0,900px,0,0);
-      opacity: .8;
-    }
-    .glitch:before {
-      transform: translate(2px, -2px);
-      color: var(--accent);
-      mix-blend-mode: screen;
-      animation: glitchTop 2.5s infinite linear alternate-reverse;
-    }
-    .glitch:after {
-      transform: translate(-2px, 2px);
-      color: var(--accent-2);
-      mix-blend-mode: screen;
-      animation: glitchBot 3s infinite linear alternate-reverse;
-    }
-    @keyframes glitchTop { 0% { clip: rect(10px,9999px,60px,0); } 50% { clip: rect(80px,9999px,150px,0); } 100% { clip: rect(10px,9999px,60px,0); } }
-    @keyframes glitchBot { 0% { clip: rect(120px,9999px,160px,0);} 50% { clip: rect(40px,9999px,90px,0);} 100% { clip: rect(120px,9999px,160px,0);} }
-
-    .btn-neon {
-      border: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 6px 30px rgba(7,16,24,0.6), inset 0 0 18px rgba(124,58,237,0.04);
-      font-weight:700;
-    }
-
-    .modal-backdrop { background: rgba(2,6,23,0.72); backdrop-filter: blur(6px); }
-    .mono { font-family: "Share Tech Mono", monospace; letter-spacing:0.04em; }
+    :root{--accent:#0b63ff;--accent-2:#0ea5a1;--bg:#071129;--card:#071429;--muted:#94a3b8}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#071129 0%, #071733 100%);color:#eaf2ff}
+    .wrap{max-width:1200px;margin:28px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#3dd3ff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042;box-shadow:0 8px 30px rgba(2,6,23,.6)}
+    h1{margin:0;font-size:24px}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));border-radius:14px;padding:16px;box-shadow:0 6px 24px rgba(2,6,23,.6)}
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:14px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type=text], input[type=url], input[type=color], select, textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.05);background:transparent;color:inherit}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:600;border:none;cursor:pointer}
+    .btn.alt{background:var(--accent-2)}
+    .muted{color:var(--muted);font-size:13px}
+    .sp{height:12px}
+    .icon-preview{width:96px;height:96px;border-radius:16px;background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .row{display:flex;gap:10px;align-items:center}
+    .small{font-size:13px}
+    pre{white-space:pre-wrap;background:rgba(255,255,255,.02);padding:10px;border-radius:8px;font-size:13px}
+    details{background:rgba(255,255,255,.01);padding:10px;border-radius:8px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}.logo{width:56px;height:56px}}
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6">
-
-  <div class="w-full max-w-2xl card rounded-2xl shadow-2xl overflow-hidden border-l-2 border-t-2"
-       style="border-image: linear-gradient(90deg,var(--neon), rgba(0,230,255,0.05)) 1;">
-    <!-- Top runner -->
-    <div class="bg-black/60 px-4 py-2">
-      <div class="marquee text-2xl font-extrabold tracking-wider text-amber-400 mono">Zyxxennn Attacker — ACTIVE</div>
-    </div>
-
-    <div class="p-6 grid grid-cols-1 gap-6">
-      <!-- Header (no image) -->
-      <div class="text-center">
-        <div class="glitch text-4xl" data-text="Zyxxennn">Zyxxennn</div>
-        <div class="text-sm text-zinc-400 mt-1 mono">Attacker Control Panel</div>
-      </div>
-
-      <!-- Welcome -->
-      <div class="text-center">
-        <h2 id="welcomeText" class="text-xl neon mono">WELCOME</h2>
-        <div class="text-xs text-zinc-400 mt-1">(nama akan muncul setelah login dengan key)</div>
-      </div>
-
-      <!-- Input nomor WA -->
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">CR</div>
       <div>
-        <label class="text-xs text-zinc-400 mono">Nomor WhatsApp tujuan</label>
-        <input id="targetNumber" class="w-full mt-2 p-3 rounded bg-[#06111a] border border-[#12202b] text-zinc-100 mono placeholder-zinc-500" placeholder="6281234567890" />
-        <div class="text-xs text-zinc-500 mt-2">Masukkan tanpa tanda +. Sistem akan memproses lewat sender internal.</div>
+        <h1>CRATE APK — Full Suite + Packaging</h1>
+        <p class="lead">Semua fitur digabung: PWA generator, icon maker, ZIP export, TWA Android Studio template, keystore/signing guide, dan contoh CI untuk build AAB.</p>
       </div>
+    </header><div class="grid">
+  <main>
+    <div class="card">
+      <h2>1) Konfigurasi Aplikasi</h2>
+      <div class="sp"></div>
+      <label>Nama Aplikasi (full)</label>
+      <input id="appName" type="text" value="CRATE APK — Demo" />
 
-      <!-- Menu fitur sebagai select -->
-      <div>
-        <label class="text-xs text-zinc-400 mono">Pilih fitur:</label>
-        <select id="featureSelect" class="w-full mt-2 p-3 rounded bg-[#06111a] border border-[#12202b] text-zinc-100 mono">
-          <option value="">-- Pilih Fitur --</option>
-          <option value="CRASH_ANDROID">CRASH ANDROID</option>
-          <option value="CRASH_IPHONE">CRASH IPHONE</option>
-        </select>
-        <button id="sendFeatureBtn" class="mt-3 w-full py-3 rounded btn-neon text-white mono hover:scale-[1.02] transition">Kirim</button>
-      </div>
+      <div style="height:10px"></div>
+      <label>Short name</label>
+      <input id="shortName" type="text" value="CRATE" />
 
-      <!-- Owner / Channel / Logout / expiry -->
-      <div class="flex items-center justify-between mt-2">
-        <div class="flex items-center gap-3">
-          <a id="ownerLink" class="px-4 py-2 rounded-md bg-[#ffd966] text-black font-semibold mono" href="#" target="_blank">OWNER</a>
-          <a id="channelLink" class="px-4 py-2 rounded-md bg-[#3b82f6] text-white font-semibold mono" href="#" target="_blank">CHANNEL</a>
+      <div style="height:10px"></div>
+      <label>Start URL</label>
+      <input id="startUrl" type="url" value="/" />
+
+      <div style="height:10px"></div>
+      <label>Website / Scope URL (masukkan URL website yang akan dijadikan app)</label>
+      <input id="scopeUrl" type="url" placeholder="https://example.com/" />
+
+      <div style="height:10px"></div>
+      <label>Theme color</label>
+      <input id="themeColor" type="color" value="#0b63ff" />
+
+      <div style="height:10px"></div>
+      <label>Background color</label>
+      <input id="bgColor" type="color" value="#071129" />
+
+      <div class="sp"></div>
+      <h3>2) Upload / Buat Icon</h3>
+      <div class="row" style="align-items:flex-start">
+        <div style="flex:1">
+          <label>Upload image (square disarankan, PNG/JPG/SVG)</label>
+          <input id="iconFile" type="file" accept="image/*" />
+          <div style="height:8px"></div>
+          <label class="small muted">Atau buat singkat dari teks (initials)</label>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <input id="initials" type="text" placeholder="CR" style="width:80px" />
+            <button id="genIconText" class="btn">Buat Icon</button>
+          </div>
         </div>
-
-        <div class="text-right">
-          <button id="logoutBtn" class="px-4 py-2 rounded-md bg-[#111827] border border-[#1f2937] mono">LOGOUT</button>
-          <div class="text-xs text-zinc-400 mt-2">Masa aktif key:</div>
-          <div id="keyExpiry" class="text-sm text-amber-300 mono">— belum login —</div>
+        <div style="width:140px;text-align:center">
+          <label>Preview</label>
+          <div style="height:8px"></div>
+          <div class="icon-preview card" id="iconPreview"> <canvas id="iconCanvas" width="192" height="192"></canvas></div>
+          <div style="height:8px"></div>
+          <div class="muted small">Ukuran dihasilkan: 512,192,144,96,72</div>
         </div>
       </div>
 
-      <!-- Notice -->
-      <div id="notice" class="p-3 rounded-md bg-[#071025] border border-[#062033] text-sm text-amber-300 mono">
-        Sistem siap. Gunakan fitur dengan bijak.
-      </div>
+      <div class="sp"></div>
+      <button id="generateBtn" class="btn">Generate manifest &amp; service worker</button>
+      <button id="downloadAll" class="btn alt" style="margin-left:8px">Download package (ZIP)</button>
+
+      <div style="height:12px"></div>
+      <div class="muted">Setelah generate, akan tersedia file manifest.json, sw.js, icons, dan templat Android Studio (TWA) yang bisa diunduh. Gunakan PWABuilder/Bubblewrap atau template TWA ini untuk membuat APK/AAB.</div>
+
+      <div style="height:12px"></div>
+      <details>
+        <summary style="cursor:pointer">Lihat manifest (preview)</summary>
+        <pre id="manifestPreview">(belum dibuat)</pre>
+      </details>
+
+      <div style="height:12px"></div>
+      <details>
+        <summary style="cursor:pointer">Lihat service worker (preview)</summary>
+        <pre id="swPreview">(belum dibuat)</pre>
+      </details>
+
     </div>
-  </div>
 
-  <!-- Modal sukses -->
-  <div id="modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-50">
-    <div class="bg-[#071022] border border-[#2b1b5d] rounded-xl p-6 w-full max-w-lg shadow-2xl text-center">
-      <h3 class="text-xl text-amber-300 font-bold mono mb-4">SUKSES</h3>
-      <pre id="modalText" class="whitespace-pre-line text-sm text-white mono bg-transparent p-4 rounded-lg"></pre>
-      <div class="mt-6">
-        <button id="modalClose" class="px-6 py-2 rounded bg-[#7c3aed] text-white font-semibold mono">TUTUP</button>
-      </div>
+    <div style="height:12px"></div>
+    <div class="card">
+      <h2>Panduan Packaging &amp; Templat</h2>
+
+      <h3>PWABuilder (web)</h3>
+      <ol>
+        <li>Buka PWABuilder, masukkan URL website-mu (HTTPS).</li>
+        <li>Validasi PWA; upload manifest.json &amp; sw.js jika belum terdeteksi.</li>
+        <li>Pilih Android → Build → Download AAB/APK. Ikuti instruksi signing.</li>
+      </ol>
+
+      <h3>Bubblewrap (CLI)</h3>
+      <ol>
+        <li>Instal Node.js lalu: <code>npm install -g @bubblewrap/cli</code></li>
+        <li>Inisialisasi: <code>bubblewrap init --manifest=https://example.com/manifest.json</code></li>
+        <li>Build: <code>bubblewrap build</code> → akan menghasilkan Android Studio project / AAB.</li>
+      </ol>
+
+      <h3>Android Studio — Trusted Web Activity (TWA) Template</h3>
+      <p class="muted">Di bawah ini ada contoh berkas penting (AndroidManifest, gradle.properties snippet, dan instruksi signing). Kamu bisa import ke Android Studio untuk membangun TWA.</p>
+      <details>
+        <summary>AndroidManifest (contoh)</summary>
+        <pre>&lt;manifest package="com.example.crate"&gt;
+
+<application ... > <activity android:name="com.google.androidbrowserhelper.trusted.TwaLauncherActivity" > <intent-filter> <action android:name="android.intent.action.VIEW" /> <category android:name="android.intent.category.DEFAULT" /> <category android:name="android.intent.category.BROWSABLE" /> <data android:scheme="https" android:host="example.com" /> </intent-filter> </activity> </application> </manifest></pre> </details>
+
+<details>
+        <summary>gradle.properties / signing (contoh)</summary>
+        <pre># gradle.properties
+
+MY_KEYSTORE_PASSWORD=changeit MY_KEY_ALIAS=alias_name MY_KEY_PASSWORD=changeit MY_KEYSTORE_PATH=/path/to/keystore.jks</pre> <p class="muted">Kemudian di build.gradle gunakan konfigurasi signingConfig yang merujuk ke variabel di atas.</p> </details>
+
+<details>
+        <summary>assetlinks.json (Digital Asset Links)</summary>
+        <pre>[
+
+{ "relation": ["delegate_permission/common.handle_all_urls"], "target": { "namespace": "android_app", "package_name": "com.example.crate", "sha256_cert_fingerprints": [ "AA:BB:CC:..." ] } } ]</pre> <p class="muted">Unggah file ini ke <code>https://example.com/.well-known/assetlinks.json</code> untuk menghubungkan domain ke aplikasi Android (diperlukan untuk TWA).</p> </details>
+
+<h3>Signing &amp; Keystore</h3>
+      <ol>
+        <li>Buat keystore (contoh): <code>keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias</code></li>
+        <li>Gunakan password di gradle.properties atau lewat Android Studio signing configs.</li>
+        <li>Untuk rilis ke Play Store: buat AAB dan upload ke Play Console, isi informasi release &amp; upload ke track produksi.</li>
+      </ol>
+
+      <h3>Contoh GitHub Actions (CI) untuk build AAB</h3>
+      <details>
+        <summary>workflow.yml (ringkas)</summary>
+        <pre>name: Build Android AAB
+
+on: push: branches: [main] jobs: build: runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 - uses: actions/setup-java@v3 with: distribution: 'temurin' java-version: '17' - name: Build with Gradle run: ./gradlew bundleRelease -Pandroid.injected.signing.store.file=$MY_KEYSTORE_PATH -Pandroid.injected.signing.store.password=$MY_KEYSTORE_PASSWORD -Pandroid.injected.signing.key.alias=$MY_KEY_ALIAS -Pandroid.injected.signing.key.password=$MY_KEY_PASSWORD </pre> </details>
+
+</div>
+
+  </main>
+
+  <aside>
+    <div class="card">
+      <strong>Status</strong>
+      <div style="height:8px"></div>
+      <div id="statusBox" class="muted">Siap</div>
     </div>
-  </div>
 
-  <script>
-    // session state
-    let session = { userId: null, nama: null, expires: null, keyValue: null };
+    <div style="height:12px"></div>
+    <div class="card">
+      <strong>Preview Website</strong>
+      <div style="height:8px"></div>
+      <input id="previewUrl" type="url" placeholder="https://example.com" />
+      <div style="height:8px"></div>
+      <button id="previewLoad" class="btn">Preview in iframe</button>
+      <div style="height:8px"></div>
+      <iframe id="previewFrame" src="about:blank" style="width:100%;height:360px;border-radius:10px;border:1px solid rgba(255,255,255,.04)"></iframe>
+    </div>
 
-    // elements
-    const welcomeText = document.getElementById('welcomeText');
-    const keyExpiryEl = document.getElementById('keyExpiry');
-    const notice = document.getElementById('notice');
-    const modal = document.getElementById('modal');
-    const modalText = document.getElementById('modalText');
-    const modalClose = document.getElementById('modalClose');
-    const sendFeatureBtn = document.getElementById('sendFeatureBtn');
-    const featureSelect = document.getElementById('featureSelect');
+    <div style="height:12px"></div>
+    <div class="card">
+      <strong>Offline</strong>
+      <div style="height:8px"></div>
+      <div id="offlineBox" class="muted">Tersambung</div>
+    </div>
 
-    // init
-    (function init(){
-      const s = localStorage.getItem('zyx_session');
-      if (s) {
-        try { session = JSON.parse(s); applySession(); } catch(e){ console.warn(e); }
-      }
-      document.getElementById('ownerLink').href = 'https://t.me/username_owner';
-      document.getElementById('channelLink').href = 'https://t.me/channel_anda';
-    })();
+    <div style="height:12px"></div>
+    <div class="card small">
+      <strong>Catatan</strong>
+      <ul>
+        <li>Untuk APK final: butuh keystore &amp; signing.</li>
+        <li>Pastikan site mendukung HTTPS dan pengaturan CORS jika diperlukan.</li>
+        <li>Beberapa situs menolak embed iframe (X-Frame-Options).</li>
+      </ul>
+    </div>
+  </aside>
+</div>
 
-    function applySession(){
-      welcomeText.innerText = session.nama ? `WELCOME "${session.nama}"` : 'WELCOME';
-      keyExpiryEl.innerText = session.expires ? new Date(session.expires).toLocaleString() : '— belum login —';
+<footer>
+  <div class="muted">CRATE APK — Full suite. Klik "Generate" lalu "Download package" untuk mendapatkan manifest, sw, icons, dan templat TWA. Siapkan keystore sebelum build AAB untuk Play Store.</div>
+</footer>
+
+  </div>  <script>
+  // Icon & manifest generator (sama seperti sebelumnya) — ringkasan fungsionalitas
+  async function imageToBitmap(fileOrDataUrl) {
+    return await createImageBitmap(await (typeof fileOrDataUrl === 'string' ? await (await fetch(fileOrDataUrl)).blob() : fileOrDataUrl));
+  }
+  function drawIconToCanvas(bitmap, size, bgColor, initials) {
+    const c = document.createElement('canvas'); c.width = c.height = size;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = bgColor || '#0b63ff'; ctx.fillRect(0,0,size,size);
+    if (bitmap) {
+      const ratio = Math.max(size/bitmap.width, size/bitmap.height);
+      const w = bitmap.width * ratio; const h = bitmap.height * ratio;
+      ctx.drawImage(bitmap, (size-w)/2, (size-h)/2, w, h);
+    } else if (initials) {
+      ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const fontSize = Math.floor(size*0.46); ctx.font = `bold ${fontSize}px sans-serif`;
+      ctx.fillText(initials, size/2, size/2 + Math.floor(fontSize*0.06));
     }
-
-    // logout
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('zyx_session');
-      session = { userId: null, nama: null, expires: null, keyValue: null };
-      applySession();
-      notice.innerText = 'Kamu telah logout.';
-    });
-
-    // login prompt
-    async function promptLogin(){
-      const key = prompt('Masukkan key yang kamu dapat dari bot (/ckey):');
-      if (!key) return false;
-      try {
-        const res = await fetch('/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ key })
-        });
-        const data = await res.json();
-        if (data.success) {
-          session.userId = data.userId || null;
-          session.nama = data.nama || null;
-          session.keyValue = key;
-          session.expires = data.expires || null;
-          localStorage.setItem('zyx_session', JSON.stringify(session));
-          applySession();
-          notice.innerText = 'Login sukses.';
-          return true;
-        } else {
-          alert(data.msg || 'Key tidak valid');
-          return false;
-        }
-      } catch (err) {
-        alert('Gagal login: ' + err.message);
-        return false;
-      }
+    return c;
+  }
+  async function generateIcons(sourceBlobOrBitmap, initials, bgColor) {
+    const sizes = [512,192,144,96,72];
+    let bitmap = null;
+    if (sourceBlobOrBitmap) bitmap = await imageToBitmap(sourceBlobOrBitmap);
+    const icons = [];
+    for (const s of sizes) {
+      const canvas = drawIconToCanvas(bitmap, s, bgColor, initials);
+      const dataUrl = canvas.toDataURL('image/png');
+      icons.push({src:dataUrl,sizes:`${s}x${s}`,type:'image/png'});
     }
+    return icons;
+  }
+  // DOM refs
+  const iconFile = document.getElementById('iconFile');
+  const iconCanvas = document.getElementById('iconCanvas');
+  const genIconText = document.getElementById('genIconText');
+  const initialsInput = document.getElementById('initials');
+  const appNameInput = document.getElementById('appName');
+  const shortNameInput = document.getElementById('shortName');
+  const startUrlInput = document.getElementById('startUrl');
+  const scopeUrlInput = document.getElementById('scopeUrl');
+  const themeColorInput = document.getElementById('themeColor');
+  const bgColorInput = document.getElementById('bgColor');
+  const generateBtn = document.getElementById('generateBtn');
+  const manifestPreview = document.getElementById('manifestPreview');
+  const swPreview = document.getElementById('swPreview');
+  const statusBox = document.getElementById('statusBox');
+  const downloadAll = document.getElementById('downloadAll');
+  let lastIcons = null; let lastManifest = null; let lastSw = null;
 
-    // modal helpers
-    function showModal(text){
-      modalText.textContent = text;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+  iconFile.addEventListener('change', async (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    const bitmap = await imageToBitmap(f);
+    const canvas = drawIconToCanvas(bitmap, 192, themeColorInput.value, null);
+    iconCanvas.getContext('2d').clearRect(0,0,iconCanvas.width,iconCanvas.height);
+    iconCanvas.getContext('2d').drawImage(canvas,0,0,iconCanvas.width,iconCanvas.height);
+    statusBox.textContent = 'Image uploaded — siap untuk generate.';
+  });
+
+  genIconText.addEventListener('click', async () => {
+    const text = (initialsInput.value || appNameInput.value || 'CR').substring(0,3).toUpperCase();
+    const canvas = drawIconToCanvas(null, 192, themeColorInput.value, text);
+    const ctx = iconCanvas.getContext('2d'); ctx.clearRect(0,0,iconCanvas.width,iconCanvas.height);
+    ctx.drawImage(canvas,0,0,iconCanvas.width,iconCanvas.height);
+    statusBox.textContent = 'Icon teks dibuat.';
+  });
+
+  generateBtn.addEventListener('click', async () => {
+    try {
+      statusBox.textContent = 'Membuat icons & manifest...';
+      const f = iconFile.files[0] || null;
+      const initials = (initialsInput.value || (shortNameInput.value||'CR').slice(0,2)).toUpperCase();
+      const icons = await generateIcons(f, initials, themeColorInput.value);
+      lastIcons = icons;
+      const manifest = {
+        name: appNameInput.value || 'CRATE APK',
+        short_name: shortNameInput.value || 'CRATE',
+        start_url: startUrlInput.value || '/',
+        scope: scopeUrlInput.value || '/',
+        display: 'standalone',
+        background_color: bgColorInput.value || '#071129',
+        theme_color: themeColorInput.value || '#0b63ff',
+        icons: icons.map(i => ({src:i.src,sizes:i.sizes,type:i.type}))
+      };
+      lastManifest = manifest;
+      const swScript = `const CACHE_NAME = 'crate-apk-cache-v1';
+const OFFLINE_URL = '/?offline';
+self.addEventListener('install', event => {
+  self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll([OFFLINE_URL])));
+});
+self.addEventListener('activate', event => {
+  event.waitUntil(clients.claim());
+});
+self.addEventListener('fetch', event => {
+  if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept')?.includes('text/html'))) {
+    event.respondWith(fetch(event.request).catch(() => caches.match(OFFLINE_URL)));
+    return;
+  }
+  event.respondWith(caches.match(event.request).then(resp => resp || fetch(event.request)));
+});`;
+      lastSw = swScript;
+      manifestPreview.textContent = JSON.stringify(manifest, null, 2);
+      swPreview.textContent = swScript;
+      statusBox.textContent = 'Selesai — manifest, sw, icons & template siap.';
+    } catch (err) { console.error(err); statusBox.textContent = 'Gagal membuat: '+err.message; }
+  });
+
+  downloadAll.addEventListener('click', async () => {
+    if (!lastManifest || !lastSw || !lastIcons) return alert('Generate manifest & icons dulu.');
+    if (typeof JSZip === 'undefined') {
+      await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);} ).catch(()=>{alert('Gagal load JSZip. File akan diunduh satu-per-satu.');});
     }
-    function closeModal(){
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+    // prepare template files
+    const twaTemplate = `TWA_TEMPLATE_PLACEHOLDER`;
+    if (typeof JSZip !== 'undefined') {
+      const zip = new JSZip();
+      zip.file('manifest.json', JSON.stringify(lastManifest, null, 2));
+      zip.file('sw.js', lastSw);
+      const iconsFolder = zip.folder('icons');
+      for (let i=0;i<lastIcons.length;i++) iconsFolder.file(`icon-${lastIcons[i].sizes}.png`, dataURLToBlob(lastIcons[i].src));
+      zip.file('TWA/README.txt', 'Import this folder into Android Studio. Replace package name and keystore before build.');
+      zip.file('TWA/assetlinks.json', JSON.stringify({relation:['delegate_permission/common.handle_all_urls'], target:{namespace:'android_app', package_name:'com.example.crate', sha256_cert_fingerprints:['AA:BB:CC:...'] }}, null, 2));
+      zip.file('TWA/AndroidManifest-example.xml', `<manifest package=\"com.example.crate\">
+  <!-- paste example manifest here -->
+</manifest>`);
+      const content = await zip.generateAsync({type:'blob'});
+      downloadBlob(content, 'crate-apk-full-package.zip');
+      statusBox.textContent = 'Package ZIP (dengan template TWA) diunduh.';
+    } else {
+      downloadBlob(new Blob([JSON.stringify(lastManifest,null,2)],{type:'application/json'}), 'manifest.json');
+      downloadBlob(new Blob([lastSw],{type:'application/javascript'}), 'sw.js');
+      for (let i=0;i<lastIcons.length;i++) downloadBlob(dataURLToBlob(lastIcons[i].src), `icon-${lastIcons[i].sizes}.png`);
+      downloadBlob(new Blob(['TWA template placeholder'],{type:'text/plain'}),'TWA_README.txt');
+      statusBox.textContent = 'Files diunduh (fallback).';
     }
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  });
 
-    // send feature (uses selected feature)
-    async function sendSelectedFeature(){
-      const feature = featureSelect.value;
-      if (!feature) return alert('Pilih fitur terlebih dahulu.');
-      if (!session.userId) {
-        const ok = await promptLogin();
-        if (!ok) return;
-      }
-      const target = document.getElementById('targetNumber').value.trim();
-      if (!target) return alert('Masukkan nomor tujuan.');
+  function dataURLToBlob(dataurl){const arr=dataurl.split(',');const mime=arr[0].match(/:(.*?);/)[1];const bstr=atob(arr[1]);let n=bstr.length;const u8arr=new Uint8Array(n);while(n--)u8arr[n]=bstr.charCodeAt(n);return new Blob([u8arr],{type:mime});}
+  function downloadBlob(blob, filename){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
 
-      notice.innerText = 'Mengirim permintaan...';
+  document.getElementById('previewLoad').addEventListener('click',()=>{const url=document.getElementById('previewUrl').value.trim(); if(!url) return alert('Masukkan URL untuk preview.'); document.getElementById('previewFrame').src=url;});
+  const offlineBox = document.getElementById('offlineBox'); function updateOnline(){offlineBox.textContent = navigator.onLine ? 'Tersambung' : 'Offline — cache akan dilayani jika ada.';} window.addEventListener('online', updateOnline); window.addEventListener('offline', updateOnline); updateOnline();
 
-      try {
-        const res = await fetch('/whatsapp/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            senderNumber: null,
-            targetNumber: target,
-            feature: feature,
-            userId: session.userId
-          })
-        });
-        const data = await res.json();
-        if (data.success) {
-          // show modal and message from server (ACK)
-          showModal(data.msg || 'SUKSES MENGIRIM BUG KE TARGET\n\nHARAP JEDA 5 - 10 MENIT AGAR NO SENDER TIDAK KE BAND');
-          notice.innerText = 'Permintaan berhasil dikirim.';
-        } else {
-          notice.innerText = `❌ Gagal: ${data.msg || 'unknown'}`;
-        }
-      } catch (err) {
-        notice.innerText = '❌ Error: ' + err.message;
-      }
-    }
-
-    sendFeatureBtn.addEventListener('click', sendSelectedFeature);
-  </script>
-</body>
+  (function(){ const init=(initialsInput.value||'CR').substring(0,3).toUpperCase(); const c=drawIconToCanvas(null,192,themeColorInput.value,init); iconCanvas.getContext('2d').drawImage(c,0,0,iconCanvas.width,iconCanvas.height); })();
+  </script></body>
 </html>
