@@ -27,7 +27,7 @@
       transition: background 0.3s ease, transform 0.2s ease;
       margin-bottom: 18px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      overflow: hidden; /* Penting supaya list animasi tidak keluar kotak */
+      overflow: hidden; /* penting agar kotak mengikuti tinggi list */
     }
 
     .card:hover {
@@ -66,17 +66,17 @@
       transform: rotate(180deg);
     }
 
-    /* Keuntungan animasi scale + fade */
+    /* Keuntungan animasi tinggi kotak dan list */
     .keuntungan {
       margin-top: 12px;
-      transform-origin: top;
-      transform: scaleY(0);
+      height: 0;
       opacity: 0;
-      transition: transform 0.4s ease, opacity 0.4s ease;
+      overflow: hidden;
+      transition: height 0.4s ease, opacity 0.4s ease;
     }
 
     .keuntungan.open {
-      transform: scaleY(1);
+      height: auto;
       opacity: 1;
     }
 
@@ -130,9 +130,6 @@
         <ul>
           <li>Belajar HTML dari dasar</li>
           <li>Gratis update materi</li>
-          <li>Support komunitas</li>
-          <li>Support komunitas</li>
-          <li>Support komunitas</li>
           <li>Support komunitas</li>
         </ul>
       </div>
