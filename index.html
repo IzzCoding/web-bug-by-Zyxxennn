@@ -10,16 +10,13 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: white;
-  padding-bottom: 100px; /* Memberi ruang untuk navbar */
+  padding-bottom: 100px;
 }
-
 .container {
   max-width: 800px;
   margin: 60px auto 20px auto;
   padding: 20px;
 }
-
-/* NAVBAR FIXED SELALU DI BAWAH */
 .navbar {
   position: fixed;
   bottom: 0;
@@ -35,7 +32,6 @@ body {
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
-
 .nav-btn {
   background: rgba(255,255,255,0.1);
   color: white;
@@ -50,27 +46,18 @@ body {
   align-items: center;
   transition: all 0.3s ease;
 }
-
 .nav-btn:hover {
   background: rgba(255,255,255,0.25);
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
-
 .nav-btn span {
   font-size: 12px;
   margin-top: 2px;
 }
+#beranda, #store, #partner { display: none; }
+#beranda.active, #store.active, #partner.active { display: block; }
 
-/* SECTION BERANDA */
-#beranda, #store, #partner {
-  display: none;
-}
-#beranda.active, #store.active, #partner.active {
-  display: block;
-}
-
-/* SECTION STYLING */
 .beranda-header h2 { text-align: center; margin:0; font-size:28px; }
 .beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
 
@@ -89,9 +76,8 @@ body {
   width:100px; opacity:0; transform:translateY(20px); transition:all 0.6s ease;
 }
 .programming-box.show { opacity:1; transform:translateY(0); }
-.programming-box img { width:50px; height:50px; display:block; margin:0 auto 8px; }
+.programming-box .emoji { font-size:40px; display:block; margin:0 auto 8px; }
 
-/* CARD STORE */
 .card { background: rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-bottom:18px;
   backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.25); overflow:hidden;
   transition:transform 0.2s ease, background 0.3s ease;
@@ -115,7 +101,6 @@ body {
 .keuntungan.open li { opacity:1; transform:translateY(0); }
 .keuntungan li::before { content:"✔"; position:absolute; left:0; color:#00ffcc; font-weight:bold; text-shadow:0 0 8px #00ffcc,0 0 12px #00ffaa; }
 
-/* PARTNER */
 .partner-box { background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; margin-top:20px; }
 .partner-box h3 { text-align:center; margin-bottom:12px; }
 .partner-box ul { padding-left:0; list-style:none; text-align:center; }
@@ -139,10 +124,10 @@ body {
     <button>Saweria</button>
   </div>
   <div class="programming-boxes">
-    <div class="programming-box"><img src="🌐" alt="HTML"><span>HTML</span></div>
-    <div class="programming-box"><img src="🔷" alt="CSS"><span>CSS</span></div>
-    <div class="programming-box"><img src="🟨" alt="JS"><span>JavaScript</span></div>
-    <div class="programming-box"><img src="🐍" alt="JS"><span>Phyton</span></div>
+    <div class="programming-box"><div class="emoji">🌐</div><span>HTML</span></div>
+    <div class="programming-box"><div class="emoji">🔷</div><span>CSS</span></div>
+    <div class="programming-box"><div class="emoji">🟨</div><span>JavaScript</span></div>
+    <div class="programming-box"><div class="emoji">🐍</div><span>Python</span></div>
   </div>
 </div>
 
