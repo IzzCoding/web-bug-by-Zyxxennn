@@ -35,11 +35,16 @@
 
     main {
       flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
       padding: 40px 20px;
+    }
+
+    main section {
+      display: none;
+      text-align: center;
+    }
+
+    main section.active {
+      display: block;
     }
 
     main h2 {
@@ -50,6 +55,63 @@
     main p {
       font-size: 16px;
       color: #555;
+    }
+
+    /* Produk Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .card-body h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      color: #f39c12;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      background: #f39c12;
+      color: white;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #d35400;
     }
 
     /* Bottom Nav */
@@ -74,6 +136,7 @@
       font-weight: 600;
       font-size: 14px;
       transition: 0.3s;
+      cursor: pointer;
     }
 
     .bottom-nav a:hover {
@@ -94,23 +157,70 @@
 
   <!-- Header -->
   <header>
-    <h1>Selamat Datang di Store Zyxxennn</h1>
+    <h1>Store Zyxxennn</h1>
   </header>
 
   <!-- Content -->
   <main>
-    <div>
-      <h2>Store PT Zyxxennn</h2>
-      <p>Pusat belanja dan layanan resmi dari PT Zyxxennn</p>
-    </div>
+    <!-- Beranda -->
+    <section id="home" class="active">
+      <h2>Selamat Datang</h2>
+      <p>Website resmi PT Zyxxennn</p>
+    </section>
+
+    <!-- Store -->
+    <section id="store">
+      <h2>Produk Kami</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Sepatu">
+          <div class="card-body">
+            <h3>Sepatu Sneakers</h3>
+            <p class="price">Rp 450.000</p>
+            <button class="btn">Beli</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Jam">
+          <div class="card-body">
+            <h3>Jam Tangan</h3>
+            <p class="price">Rp 850.000</p>
+            <button class="btn">Beli</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad" alt="Tas">
+          <div class="card-body">
+            <h3>Tas Kulit</h3>
+            <p class="price">Rp 1.200.000</p>
+            <button class="btn">Beli</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PT -->
+    <section id="pt">
+      <h2>All PT Zyxxennn</h2>
+      <p>Informasi lengkap tentang perusahaan PT Zyxxennn</p>
+    </section>
   </main>
 
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
-    <a href="#">🏠 Beranda</a>
-    <a href="#" class="center-btn">🛍️ Store</a>
-    <a href="#">All PT Zyxxennn</a>
+    <a onclick="showPage('home')">🏠 Beranda</a>
+    <a onclick="showPage('store')" class="center-btn">🛍️ Store</a>
+    <a onclick="showPage('pt')">All PT Zyxxennn</a>
   </div>
+
+  <script>
+    function showPage(page) {
+      document.querySelectorAll("main section").forEach(sec => {
+        sec.classList.remove("active");
+      });
+      document.getElementById(page).classList.add("active");
+    }
+  </script>
 
 </body>
 </html>
