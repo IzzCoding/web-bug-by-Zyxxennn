@@ -42,15 +42,17 @@
     .card {
       width: 100%;
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 0; /* jadi flat supaya rapih baris */
+      border-radius: 12px;
       padding: 14px;
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.12); /* divider tipis */
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-bottom: 18px; /* jarak antar produk */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
     .card:hover {
       background: rgba(255,255,255,0.12);
+      transform: translateY(-3px);
     }
 
     .card h3 {
@@ -81,14 +83,6 @@
       margin-bottom: 4px;
       font-size: 13px;
       color: #ddd;
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .keuntungan.show li {
-      opacity: 1;
-      transform: translateX(0);
     }
 
     .btn {
@@ -198,34 +192,18 @@
 
   <script>
     function toggleKeuntungan(btn) {
-      const allLists = document.querySelectorAll(".keuntungan");
-      const allButtons = document.querySelectorAll(".btn");
       const list = btn.nextElementSibling;
       const arrow = btn.querySelector(".arrow");
 
-      // Tutup semua
-      allLists.forEach(el => {
-        el.classList.remove("show");
-        el.querySelectorAll("li").forEach(li => {
-          li.style.transitionDelay = "0s";
-        });
-      });
-      allButtons.forEach(b => {
-        b.classList.remove("active");
-        b.querySelector(".arrow").textContent = "▼";
-      });
-
-      // Kalau list belum terbuka → buka dengan delay animasi
-      if (!list.classList.contains("show")) {
+      // toggle show/hide keuntungan
+      if (list.classList.contains("show")) {
+        list.classList.remove("show");
+        btn.classList.remove("active");
+        arrow.textContent = "▼";
+      } else {
         list.classList.add("show");
         btn.classList.add("active");
         arrow.textContent = "▲";
-
-        // kasih delay per item biar muncul bergantian
-        const items = list.querySelectorAll("li");
-        items.forEach((li, i) => {
-          li.style.transitionDelay = `${i * 0.15}s`;
-        });
       }
     }
   </script>
