@@ -1,226 +1,240 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Store Zyxxennn</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Store Zyxxennn — Kotak Produk</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --accent:#ffb04c;
+      --muted:#6b6f76;
+      --glass: rgba(255,255,255,0.6);
     }
 
-    body {
-      background: #f9f9f9;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    *{box-sizing:border-box; margin:0; padding:0; font-family:'Poppins',sans-serif}
+    body{background:var(--bg); min-height:100vh; display:flex; flex-direction:column;}
+
+    header{
+      background:#0f1724; color:#fff; padding:18px 20px; text-align:center;
+      box-shadow:0 2px 10px rgba(2,6,23,0.25);
+    }
+    header h1{font-size:18px; font-weight:600; letter-spacing:0.2px}
+
+    main{flex:1; padding:28px 16px; max-width:1100px; margin:0 auto; width:100%}
+
+    /* Home / Title */
+    .hero{
+      background: linear-gradient(90deg, rgba(15,23,36,0.95), rgba(20,28,40,0.85));
+      color:#fff; padding:20px; border-radius:12px; margin-bottom:20px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .hero .left h2{font-size:20px; margin-bottom:6px}
+    .hero .left p{color:rgba(255,255,255,0.85); font-size:13px}
+    .hero .cta{background:var(--accent); color:#111; padding:8px 14px; border-radius:10px; font-weight:600; cursor:pointer}
+
+    /* Grid kotak */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap:18px;
+      margin-top:12px;
     }
 
-    header {
-      background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
+    .box{
+      background:var(--card);
+      border-radius:12px;
+      padding:14px;
+      box-shadow: 0 6px 18px rgba(15,23,36,0.06);
+      border:1px solid rgba(11,17,28,0.04);
+      display:flex; flex-direction:column; gap:10px;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .box:hover{ transform: translateY(-8px); box-shadow:0 12px 30px rgba(11,17,28,0.12) }
+
+    .box .title{
+      display:flex; align-items:center; gap:10px;
+    }
+    .box .title img{
+      width:56px; height:56px; object-fit:cover; border-radius:10px; flex-shrink:0;
+      border:1px solid rgba(0,0,0,0.04);
+    }
+    .box .title .text h3{ font-size:16px; margin-bottom:4px }
+    .box .title .text p{ font-size:13px; color:var(--muted) }
+
+    .box .benefits{
+      background: linear-gradient(180deg, rgba(255,176,76,0.08), rgba(255,176,76,0.03));
+      padding:10px; border-radius:8px; font-size:13px; color:#222;
     }
 
-    header h1 {
-      font-size: 22px;
-    }
+    .benefits ul{ margin-left:16px; margin-top:6px; color:#2b2f36 }
+    .benefits li{ margin:6px 0; line-height:1.28; list-style: disc outside; }
 
-    main {
-      flex: 1;
-      padding: 40px 20px;
+    .box .meta{ display:flex; justify-content:space-between; align-items:center; margin-top:auto; gap:10px }
+    .price{ color:var(--accent); font-weight:700 }
+    .btn{
+      background:#0b1220; color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; border:none;
+      font-weight:600; font-size:13px;
     }
+    .btn.secondary{ background:transparent; color:#0b1220; border:1px solid rgba(11,17,28,0.06) }
 
-    main section {
-      display: none;
-      text-align: center;
+    /* Bottom nav (mobile app-like) */
+    .bottom-nav{
+      position:fixed; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between;
+      align-items:center; gap:10px; padding:10px 14px; background:rgba(15,23,36,0.98); color:#fff;
+      border-radius:14px; box-shadow:0 10px 30px rgba(2,6,23,0.35);
+      z-index:999;
     }
+    .bottom-nav a{ color:#fff; text-decoration:none; font-weight:600; font-size:13px; cursor:pointer }
+    .center-big{ background:var(--accent); color:#111; padding:10px 18px; border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(255,176,76,0.18) }
 
-    main section.active {
-      display: block;
-    }
-
-    main h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    main p {
-      font-size: 16px;
-      color: #555;
-    }
-
-    /* Produk Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-    }
-
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-
-    .card-body {
-      padding: 12px;
-      text-align: center;
-    }
-
-    .card-body h3 {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-
-    .price {
-      color: #f39c12;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .btn {
-      background: #f39c12;
-      color: white;
-      padding: 6px 14px;
-      border: none;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #d35400;
-    }
-
-    /* Bottom Nav */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #111;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-    }
-
-    .bottom-nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      transition: 0.3s;
-      cursor: pointer;
-    }
-
-    .bottom-nav a:hover {
-      color: #f39c12;
-    }
-
-    .center-btn {
-      background: #f39c12;
-      color: white !important;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-size: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    /* Responsive tweaks */
+    @media(min-width:900px){
+      .bottom-nav{ left:50%; transform:translateX(-50%); max-width:520px; padding:12px 20px }
+      header h1{font-size:20px}
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
   <header>
     <h1>Store Zyxxennn</h1>
   </header>
 
-  <!-- Content -->
   <main>
-    <!-- Beranda -->
-    <section id="home" class="active">
-      <h2>Selamat Datang</h2>
-      <p>Website resmi PT Zyxxennn</p>
-    </section>
+    <div class="hero">
+      <div class="left">
+        <h2>Selamat datang di Store Zyxxennn</h2>
+        <p>Pilih paket atau produk — tiap kotak jelaskan keuntungan untuk pembeli.</p>
+      </div>
+      <div class="right">
+        <button class="cta" onclick="showPage('store')">Buka Store</button>
+      </div>
+    </div>
 
-    <!-- Store -->
-    <section id="store">
-      <h2>Produk Kami</h2>
+    <!-- STORE GRID -->
+    <section id="store" class="store-section">
       <div class="grid">
-        <div class="card">
-          <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Sepatu">
-          <div class="card-body">
-            <h3>Sepatu Sneakers</h3>
-            <p class="price">Rp 450.000</p>
-            <button class="btn">Beli</button>
+        <!-- contoh kotak 1 -->
+        <article class="box">
+          <div class="title">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=8b5b4d2a0b5e0d32b6f6d9b6f40c9f2b" alt="Murid HTML">
+            <div class="text">
+              <h3>Murid HTML</h3>
+              <p>Paket kursus HTML dasar → cocok untuk pemula</p>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Jam">
-          <div class="card-body">
-            <h3>Jam Tangan</h3>
-            <p class="price">Rp 850.000</p>
-            <button class="btn">Beli</button>
+
+          <div class="benefits">
+            <strong>Keuntungan:</strong>
+            <ul>
+              <li>Materi bertahap, praktikum langsung</li>
+              <li>Template proyek portofolio siap pakai</li>
+              <li>Sertifikat digital setelah selesai</li>
+            </ul>
           </div>
-        </div>
-        <div class="card">
-          <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad" alt="Tas">
-          <div class="card-body">
-            <h3>Tas Kulit</h3>
-            <p class="price">Rp 1.200.000</p>
-            <button class="btn">Beli</button>
+
+          <div class="meta">
+            <div class="price">Rp 99.000</div>
+            <div style="display:flex; gap:8px">
+              <button class="btn" onclick="buy('Murid HTML')">Beli</button>
+              <button class="btn secondary" onclick="detail('Murid HTML')">Detail</button>
+            </div>
           </div>
-        </div>
+        </article>
+
+        <!-- contoh kotak 2 -->
+        <article class="box">
+          <div class="title">
+            <img src="https://images.unsplash.com/photo-1526378723124-5f8e7b2c92a1?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=7a3a9f8d6b2a8d1f4b1f5b4c1a3d6e2a" alt="Kelas CSS">
+            <div class="text">
+              <h3>Kelas CSS Modern</h3>
+              <p>Desain UI responsif & animasi</p>
+            </div>
+          </div>
+
+          <div class="benefits">
+            <strong>Keuntungan:</strong>
+            <ul>
+              <li>Project UI nyata untuk portofolio</li>
+              <li>Belajar Flexbox, Grid, dan Animations</li>
+              <li>Akses grup mentor eksklusif</li>
+            </ul>
+          </div>
+
+          <div class="meta">
+            <div class="price">Rp 149.000</div>
+            <div style="display:flex; gap:8px">
+              <button class="btn" onclick="buy('Kelas CSS Modern')">Beli</button>
+              <button class="btn secondary" onclick="detail('Kelas CSS Modern')">Detail</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- contoh kotak 3 -->
+        <article class="box">
+          <div class="title">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=1a2b3c4d5e6f7g8h9i0j" alt="Bundle Dev">
+            <div class="text">
+              <h3>Bundle Dev (HTML+CSS)</h3>
+              <p>Gabungan kursus cepat jadi web developer</p>
+            </div>
+          </div>
+
+          <div class="benefits">
+            <strong>Keuntungan:</strong>
+            <ul>
+              <li>Harga hemat + materi lengkap</li>
+              <li>Mentoring 1:1 selama 2 minggu</li>
+              <li>Access lifetime ke modul</li>
+            </ul>
+          </div>
+
+          <div class="meta">
+            <div class="price">Rp 229.000</div>
+            <div style="display:flex; gap:8px">
+              <button class="btn" onclick="buy('Bundle Dev (HTML+CSS)')">Beli</button>
+              <button class="btn secondary" onclick="detail('Bundle Dev (HTML+CSS)')">Detail</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- kamu bisa duplikat .box untuk tambah item -->
       </div>
     </section>
 
-    <!-- PT -->
-    <section id="pt">
-      <h2>All PT Zyxxennn</h2>
-      <p>Informasi lengkap tentang perusahaan PT Zyxxennn</p>
-    </section>
   </main>
 
-  <!-- Bottom Navigation -->
-  <div class="bottom-nav">
+  <!-- Bottom nav -->
+  <nav class="bottom-nav">
     <a onclick="showPage('home')">🏠 Beranda</a>
-    <a onclick="showPage('store')" class="center-btn">🛍️ Store</a>
+    <a class="center-big" onclick="showPage('store')">🛍️ Store</a>
     <a onclick="showPage('pt')">All PT Zyxxennn</a>
-  </div>
+  </nav>
 
   <script>
-    function showPage(page) {
-      document.querySelectorAll("main section").forEach(sec => {
-        sec.classList.remove("active");
-      });
-      document.getElementById(page).classList.add("active");
+    // navigasi sederhana: scroll ke store / show sections
+    function showPage(name){
+      if(name === 'store'){
+        // scroll ke store section
+        const el = document.querySelector('.store-section');
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      } else if(name === 'home'){
+        window.scrollTo({top:0, behavior:'smooth'});
+      } else if(name === 'pt'){
+        alert('Tampilkan halaman "All PT Zyxxennn" (implementasikan sesuai kebutuhan).');
+      }
+    }
+
+    function buy(item){
+      alert('Mulai proses pembelian: ' + item + '\n(Implementasikan gateway pembayaran sesuai kebutuhan)');
+    }
+    function detail(item){
+      alert('Tampilkan detail untuk: ' + item + '\n(Bisa buat modal atau halaman terpisah)');
     }
   </script>
-
 </body>
 </html>
