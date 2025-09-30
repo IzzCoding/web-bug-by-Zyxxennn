@@ -5,38 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Store Zyxxennn</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
+      color: white;
     }
 
-    header {
-      text-align: center;
-      padding: 16px;
-      font-size: 20px;
-      font-weight: 600;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    main {
-      flex: 1;
-      padding: 20px 15px 100px;
-      display: flex;
-      flex-direction: column;
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 20px;
     }
 
     .card {
@@ -46,7 +25,7 @@
       padding: 14px;
       backdrop-filter: blur(10px);
       transition: background 0.3s ease, transform 0.2s ease;
-      margin-bottom: 18px; /* jarak antar produk */
+      margin-bottom: 18px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
@@ -56,177 +35,116 @@
     }
 
     .card h3 {
-      margin-bottom: 8px;
-      font-size: 16px;
-      font-weight: 600;
+      margin: 0 0 10px;
     }
 
-    /* Animasi slide-down */
-    .keuntungan {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transform: translateY(-8px);
-      transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease;
-      margin-top: 0;
-      padding-left: 18px;
-    }
-
-    .keuntungan.show {
-      max-height: 300px;
-      opacity: 1;
-      transform: translateY(0);
-      margin-top: 8px;
-    }
-
-    .keuntungan li {
-      margin-bottom: 4px;
-      font-size: 13px;
-      color: #ddd;
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    /* Efek delay animasi tiap item */
-    .keuntungan.show li {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .keuntungan.show li:nth-child(1) { transition-delay: 0.1s; }
-    .keuntungan.show li:nth-child(2) { transition-delay: 0.25s; }
-    .keuntungan.show li:nth-child(3) { transition-delay: 0.4s; }
-    .keuntungan.show li:nth-child(4) { transition-delay: 0.55s; }
-    .keuntungan.show li:nth-child(5) { transition-delay: 0.7s; }
-
-    .btn {
-      margin-top: 6px;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      cursor: pointer;
+    .btn-toggle {
+      background: #6a11cb;
+      color: white;
       border: none;
-      outline: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+    }
+
+    .btn-toggle:hover {
+      background: #2575fc;
     }
 
     .arrow {
+      display: inline-block;
       transition: transform 0.3s ease;
-      font-size: 12px;
     }
 
-    .btn.active .arrow {
+    .arrow.rotate {
       transform: rotate(180deg);
     }
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      border-top-left-radius: 14px;
-      border-top-right-radius: 14px;
+    /* Keuntungan animasi */
+    .keuntungan {
+      margin-top: 12px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
     }
 
-    .bottom-nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 13px;
+    .keuntungan.open {
+      max-height: 500px; /* cukup besar agar muat isi */
     }
 
-    .center-btn {
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      padding: 8px 18px;
-      border-radius: 24px;
-      font-size: 14px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    .keuntungan ul {
+      padding-left: 20px;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
+  <div class="container">
 
-  <header>Store PT Zyxxennn ✨</header>
-
-  <main>
     <div class="card">
-      <h3>Murid HTML</h3>
-      <button class="btn" onclick="toggleKeuntungan(this)">
-        Keuntungan <span class="arrow">▼</span>
-      </button>
-      <ul class="keuntungan">
-        <li>Belajar dasar-dasar HTML</li>
-        <li>Materi gampang dipahami</li>
-        <li>Akses seumur hidup</li>
-      </ul>
+      <h3>Produk 1 - Murid HTML</h3>
+      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
+      <div class="keuntungan">
+        <ul>
+          <li>Belajar HTML dari dasar</li>
+          <li>Gratis update materi</li>
+          <li>Support komunitas</li>
+        </ul>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Murid CSS</h3>
-      <button class="btn" onclick="toggleKeuntungan(this)">
-        Keuntungan <span class="arrow">▼</span>
-      </button>
-      <ul class="keuntungan">
-        <li>Belajar styling profesional</li>
-        <li>Contoh desain modern</li>
-        <li>Gratis update materi</li>
-      </ul>
+      <h3>Produk 2 - Murid CSS</h3>
+      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
+      <div class="keuntungan">
+        <ul>
+          <li>Belajar CSS step by step</li>
+          <li>Latihan real project</li>
+          <li>Dukungan mentor</li>
+        </ul>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Murid JavaScript</h3>
-      <button class="btn" onclick="toggleKeuntungan(this)">
-        Keuntungan <span class="arrow">▼</span>
-      </button>
-      <ul class="keuntungan">
-        <li>Belajar logika & interaktif</li>
-        <li>Proyek mini praktis</li>
-        <li>Dukungan mentor</li>
-      </ul>
+      <h3>Produk 3 - Murid JS</h3>
+      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
+      <div class="keuntungan">
+        <ul>
+          <li>Belajar logika JavaScript</li>
+          <li>Project interaktif</li>
+          <li>Tips interview kerja</li>
+        </ul>
+      </div>
     </div>
-  </main>
 
-  <div class="bottom-nav">
-    <a href="#">🏠 Beranda</a>
-    <a href="#" class="center-btn">🛍️ Store</a>
-    <a href="#">All PT Zyxxennn</a>
   </div>
 
   <script>
-    function toggleKeuntungan(btn) {
-      const allLists = document.querySelectorAll(".keuntungan");
-      const allButtons = document.querySelectorAll(".btn");
-      const list = btn.nextElementSibling;
-      const arrow = btn.querySelector(".arrow");
+    const buttons = document.querySelectorAll('.btn-toggle');
 
-      // Tutup semua list dulu
-      allLists.forEach(el => el.classList.remove("show"));
-      allButtons.forEach(b => {
-        b.classList.remove("active");
-        b.querySelector(".arrow").textContent = "▼";
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const currentCard = btn.parentElement;
+        const keuntunganDiv = currentCard.querySelector('.keuntungan');
+        const arrow = btn.querySelector('.arrow');
+        const isOpen = keuntunganDiv.classList.contains('open');
+
+        // Tutup semua keuntungan lain
+        document.querySelectorAll('.keuntungan').forEach(div => div.classList.remove('open'));
+        document.querySelectorAll('.arrow').forEach(a => a.classList.remove('rotate'));
+
+        // Toggle yang diklik
+        if (!isOpen) {
+          keuntunganDiv.classList.add('open');
+          arrow.classList.add('rotate');
+        }
       });
-
-      // Kalau yang ditekan belum terbuka → buka
-      if (!list.classList.contains("show")) {
-        list.classList.add("show");
-        btn.classList.add("active");
-        arrow.textContent = "▲";
-      }
-    }
+    });
   </script>
-
 </body>
 </html>
