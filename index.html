@@ -10,14 +10,16 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: white;
-  padding-bottom: 100px;
+  padding-bottom: 100px; /* Memberi ruang untuk navbar */
 }
+
 .container {
   max-width: 800px;
   margin: 60px auto 20px auto;
   padding: 20px;
 }
-/* NAVBAR FIXED */
+
+/* NAVBAR FIXED SELALU DI BAWAH */
 .navbar {
   position: fixed;
   bottom: 0;
@@ -33,6 +35,7 @@ body {
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
+
 .nav-btn {
   background: rgba(255,255,255,0.1);
   color: white;
@@ -47,16 +50,27 @@ body {
   align-items: center;
   transition: all 0.3s ease;
 }
+
 .nav-btn:hover {
   background: rgba(255,255,255,0.25);
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
-.nav-btn span { font-size: 12px; margin-top: 2px; }
-/* SECTIONS */
-#beranda, #store, #partner { display: none; }
-#beranda.active, #store.active, #partner.active { display: block; }
-/* BERANDA STYLING */
+
+.nav-btn span {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* SECTION BERANDA */
+#beranda, #store, #partner {
+  display: none;
+}
+#beranda.active, #store.active, #partner.active {
+  display: block;
+}
+
+/* SECTION STYLING */
 .beranda-header h2 { text-align: center; margin:0; font-size:28px; }
 .beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
 
@@ -69,102 +83,13 @@ body {
 }
 .owner-buttons button:hover { transform: scale(1.05); }
 
-/* PROGRAMMER BOX */
-.programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Store Zyxxennn</title>
-<style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  color: white;
-  padding-bottom: 100px;
-}
-.container {
-  max-width: 800px;
-  margin: 60px auto 20px auto;
-  padding: 20px;
-}
-/* NAVBAR FIXED */
-.navbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
-  padding: 12px 0;
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
-  z-index: 1000;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-.nav-btn {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.3s ease;
-}
-.nav-btn:hover {
-  background: rgba(255,255,255,0.25);
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-.nav-btn span { font-size: 12px; margin-top: 2px; }
-/* SECTIONS */
-#beranda, #store, #partner { display: none; }
-#beranda.active, #store.active, #partner.active { display: block; }
-/* BERANDA STYLING */
-.beranda-header h2 { text-align: center; margin:0; font-size:28px; }
-.beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
-
-.owner-buttons {
-  display:flex; justify-content:center; gap:12px; margin:16px 0; flex-wrap:wrap;
-}
-.owner-buttons button {
-  background:#ff6a00; border:none; padding:10px 16px; border-radius:10px; color:white;
-  cursor:pointer; font-weight:500; transition:transform 0.2s ease;
-}
-.owner-buttons button:hover { transform: scale(1.05); }
-
-/* PROGRAMMER BOX */
 .programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
 .programming-box {
   background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; text-align:center;
-  width:110px; opacity:0; transform:translateY(20px); transition:all 0.5s ease, transform 0.3s ease;
-  cursor: pointer;
+  width:100px; opacity:0; transform:translateY(20px); transition:all 0.6s ease;
 }
 .programming-box.show { opacity:1; transform:translateY(0); }
-.programming-box img { width:60px; height:60px; display:block; margin:0 auto 8px; }
-.programming-box span { display:block; margin-top:4px; font-weight:600; color:#fff; font-size:14px; }
-.programming-box:hover { background: rgba(255,255,255,0.15); transform: translateY(-5px) scale(1.05); }
-
-section {
-    background: rgba(0, 13, 26, 0.7);
-    border: 1px solid #00f3ff;
-    border-radius: 15px;
-    padding: 30px;
-    margin-bottom: 40px;
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 1s ease, transform 1s ease;
-}
+.programming-box img { width:50px; height:50px; display:block; margin:0 auto 8px; }
 
 /* CARD STORE */
 .card { background: rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-bottom:18px;
@@ -197,11 +122,11 @@ section {
 .partner-box ul li { margin:6px 0; }
 .partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
 .partner-box ul li a:hover { transform: scale(1.05); }
+
 </style>
 </head>
 <body>
 
-<!-- BERANDA -->
 <div class="container" id="beranda">
   <div class="beranda-header">
     <h2>Izz Ajah</h2>
@@ -213,18 +138,14 @@ section {
     <button>Grup Owner</button>
     <button>Saweria</button>
   </div>
-  
-  <section id="languages">
-      <h2>💻 LIST MY FAVORITE BAHASA PROGRAMAN</h2>
-      <ul class="language-list">
-          <li>🔷 JAVASCRIPT</li>
-          <li>🐘 PHP</li>
-          <li>🌐 HTML</li>
-          <li>🐍 PYTHON</li>
-      </ul>
-  </section>
+  <div class="programming-boxes">
+    <div class="programming-box"><img src="🌐" alt="HTML"><span>HTML</span></div>
+    <div class="programming-box"><img src="🔷" alt="CSS"><span>CSS</span></div>
+    <div class="programming-box"><img src="🟨" alt="JS"><span>JavaScript</span></div>
+    <div class="programming-box"><img src="🐍" alt="JS"><span>Phyton</span></div>
+  </div>
+</div>
 
-<!-- STORE -->
 <div class="container" id="store">
   <div class="card">
     <h3>Produk 1 - Murid HTML</h3>
@@ -258,7 +179,6 @@ section {
   </div>
 </div>
 
-<!-- PARTNER -->
 <div class="container" id="partner">
   <div class="partner-box">
     <h3>ALL PARTNER Zyxxennn</h3>
@@ -270,7 +190,6 @@ section {
   </div>
 </div>
 
-<!-- NAVBAR -->
 <div class="navbar">
   <button class="nav-btn" data-target="beranda">🏠<span>Beranda</span></button>
   <button class="nav-btn" data-target="store">🛒<span>Store</span></button>
