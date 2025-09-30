@@ -70,12 +70,20 @@
       color: #fff;
     }
 
-    .card ul {
-      margin: 10px 0;
+    .keuntungan {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+      margin-top: 0;
       padding-left: 18px;
     }
 
-    .card ul li {
+    .keuntungan.show {
+      max-height: 300px; /* cukup tinggi untuk isi list */
+      margin-top: 12px;
+    }
+
+    .keuntungan li {
       margin-bottom: 6px;
       color: #ddd;
       font-size: 14px;
@@ -91,6 +99,7 @@
       color: #fff;
       text-decoration: none;
       background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      cursor: pointer;
       position: relative;
       overflow: hidden;
     }
@@ -182,32 +191,32 @@
   <main>
     <div class="card">
       <h3>Murid HTML</h3>
-      <ul>
+      <button class="btn" onclick="toggleKeuntungan(this)">Keuntungan</button>
+      <ul class="keuntungan">
         <li>Belajar dasar-dasar HTML</li>
         <li>Materi gampang dipahami</li>
         <li>Akses seumur hidup</li>
       </ul>
-      <a href="#" class="btn">Keuntungan</a>
     </div>
 
     <div class="card">
       <h3>Murid CSS</h3>
-      <ul>
+      <button class="btn" onclick="toggleKeuntungan(this)">Keuntungan</button>
+      <ul class="keuntungan">
         <li>Belajar styling profesional</li>
         <li>Contoh desain modern</li>
         <li>Gratis update materi</li>
       </ul>
-      <a href="#" class="btn">Keuntungan</a>
     </div>
 
     <div class="card">
       <h3>Murid JavaScript</h3>
-      <ul>
+      <button class="btn" onclick="toggleKeuntungan(this)">Keuntungan</button>
+      <ul class="keuntungan">
         <li>Belajar logika & interaktif</li>
         <li>Proyek mini praktis</li>
         <li>Dukungan mentor</li>
       </ul>
-      <a href="#" class="btn">Keuntungan</a>
     </div>
   </main>
 
@@ -217,6 +226,13 @@
     <a href="#" class="center-btn">🛍️ Store</a>
     <a href="#">All PT Zyxxennn</a>
   </div>
+
+  <script>
+    function toggleKeuntungan(btn) {
+      const list = btn.nextElementSibling;
+      list.classList.toggle("show");
+    }
+  </script>
 
 </body>
 </html>
