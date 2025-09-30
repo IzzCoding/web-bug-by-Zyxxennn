@@ -83,7 +83,22 @@
       margin-bottom: 4px;
       font-size: 13px;
       color: #ddd;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
+
+    /* Efek delay animasi */
+    .keuntungan.show li {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .keuntungan.show li:nth-child(1) { transition-delay: 0.1s; }
+    .keuntungan.show li:nth-child(2) { transition-delay: 0.25s; }
+    .keuntungan.show li:nth-child(3) { transition-delay: 0.4s; }
+    .keuntungan.show li:nth-child(4) { transition-delay: 0.55s; }
+    .keuntungan.show li:nth-child(5) { transition-delay: 0.7s; }
 
     .btn {
       margin-top: 6px;
@@ -195,7 +210,6 @@
       const list = btn.nextElementSibling;
       const arrow = btn.querySelector(".arrow");
 
-      // toggle show/hide keuntungan
       if (list.classList.contains("show")) {
         list.classList.remove("show");
         btn.classList.remove("active");
