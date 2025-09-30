@@ -3,99 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Store Zyxxennn — Kotak Produk</title>
+  <title>Store Zyxxennn</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-    :root{
-      --bg:#f6f7fb;
-      --card:#ffffff;
-      --accent:#ffb04c;
-      --muted:#6b6f76;
-      --glass: rgba(255,255,255,0.6);
-    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+    body{background:#f6f7fb;min-height:100vh;display:flex;flex-direction:column;}
 
-    *{box-sizing:border-box; margin:0; padding:0; font-family:'Poppins',sans-serif}
-    body{background:var(--bg); min-height:100vh; display:flex; flex-direction:column;}
+    header{background:#0f1724;color:#fff;text-align:center;padding:18px}
+    header h1{font-size:18px;font-weight:600}
 
-    header{
-      background:#0f1724; color:#fff; padding:18px 20px; text-align:center;
-      box-shadow:0 2px 10px rgba(2,6,23,0.25);
-    }
-    header h1{font-size:18px; font-weight:600; letter-spacing:0.2px}
+    main{flex:1;padding:28px 16px;max-width:900px;margin:0 auto;width:100%}
 
-    main{flex:1; padding:28px 16px; max-width:1100px; margin:0 auto; width:100%}
-
-    /* Home / Title */
-    .hero{
-      background: linear-gradient(90deg, rgba(15,23,36,0.95), rgba(20,28,40,0.85));
-      color:#fff; padding:20px; border-radius:12px; margin-bottom:20px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .hero .left h2{font-size:20px; margin-bottom:6px}
-    .hero .left p{color:rgba(255,255,255,0.85); font-size:13px}
-    .hero .cta{background:var(--accent); color:#111; padding:8px 14px; border-radius:10px; font-weight:600; cursor:pointer}
-
-    /* Grid kotak */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-      gap:18px;
-      margin-top:12px;
-    }
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
 
     .box{
-      background:var(--card);
-      border-radius:12px;
-      padding:14px;
-      box-shadow: 0 6px 18px rgba(15,23,36,0.06);
+      background:#fff;border-radius:12px;padding:16px;
+      box-shadow:0 6px 18px rgba(15,23,36,0.06);
       border:1px solid rgba(11,17,28,0.04);
-      display:flex; flex-direction:column; gap:10px;
-      transition: transform .18s ease, box-shadow .18s ease;
+      display:flex;flex-direction:column;gap:10px;
+      transition:.2s;
     }
-    .box:hover{ transform: translateY(-8px); box-shadow:0 12px 30px rgba(11,17,28,0.12) }
+    .box:hover{transform:translateY(-5px)}
 
-    .box .title{
-      display:flex; align-items:center; gap:10px;
-    }
-    .box .title img{
-      width:56px; height:56px; object-fit:cover; border-radius:10px; flex-shrink:0;
-      border:1px solid rgba(0,0,0,0.04);
-    }
-    .box .title .text h3{ font-size:16px; margin-bottom:4px }
-    .box .title .text p{ font-size:13px; color:var(--muted) }
+    .box h3{font-size:16px;font-weight:600}
+    .box p{font-size:13px;color:#444;line-height:1.4;max-height:40px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .more{font-size:12px;color:#f39c12;cursor:pointer}
 
-    .box .benefits{
-      background: linear-gradient(180deg, rgba(255,176,76,0.08), rgba(255,176,76,0.03));
-      padding:10px; border-radius:8px; font-size:13px; color:#222;
-    }
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+    .price{color:#f39c12;font-weight:700}
+    .btn{background:#0b1220;color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;cursor:pointer;border:none}
+    .btn:hover{background:#222}
 
-    .benefits ul{ margin-left:16px; margin-top:6px; color:#2b2f36 }
-    .benefits li{ margin:6px 0; line-height:1.28; list-style: disc outside; }
-
-    .box .meta{ display:flex; justify-content:space-between; align-items:center; margin-top:auto; gap:10px }
-    .price{ color:var(--accent); font-weight:700 }
-    .btn{
-      background:#0b1220; color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; border:none;
-      font-weight:600; font-size:13px;
-    }
-    .btn.secondary{ background:transparent; color:#0b1220; border:1px solid rgba(11,17,28,0.06) }
-
-    /* Bottom nav (mobile app-like) */
+    /* Bottom nav */
     .bottom-nav{
-      position:fixed; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between;
-      align-items:center; gap:10px; padding:10px 14px; background:rgba(15,23,36,0.98); color:#fff;
-      border-radius:14px; box-shadow:0 10px 30px rgba(2,6,23,0.35);
-      z-index:999;
+      position:fixed;left:12px;right:12px;bottom:12px;
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      padding:10px 14px;background:#0f1724;color:#fff;border-radius:14px;
+      box-shadow:0 10px 30px rgba(2,6,23,0.35);
     }
-    .bottom-nav a{ color:#fff; text-decoration:none; font-weight:600; font-size:13px; cursor:pointer }
-    .center-big{ background:var(--accent); color:#111; padding:10px 18px; border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(255,176,76,0.18) }
-
-    /* Responsive tweaks */
-    @media(min-width:900px){
-      .bottom-nav{ left:50%; transform:translateX(-50%); max-width:520px; padding:12px 20px }
-      header h1{font-size:20px}
-    }
+    .bottom-nav a{color:#fff;text-decoration:none;font-weight:600;font-size:13px;cursor:pointer}
+    .center-big{background:#f39c12;color:#111;padding:10px 18px;border-radius:999px;font-weight:700}
   </style>
 </head>
 <body>
@@ -105,135 +53,55 @@
   </header>
 
   <main>
-    <div class="hero">
-      <div class="left">
-        <h2>Selamat datang di Store Zyxxennn</h2>
-        <p>Pilih paket atau produk — tiap kotak jelaskan keuntungan untuk pembeli.</p>
+    <div class="grid">
+      <!-- kotak 1 -->
+      <div class="box">
+        <h3>Murid HTML</h3>
+        <p>Belajar dasar HTML dengan modul singkat, contoh project nyata, dan akses materi…</p>
+        <span class="more" onclick="detail('Murid HTML')">Selengkapnya</span>
+        <div class="meta">
+          <span class="price">Rp 99.000</span>
+          <button class="btn" onclick="buy('Murid HTML')">Beli</button>
+        </div>
       </div>
-      <div class="right">
-        <button class="cta" onclick="showPage('store')">Buka Store</button>
+
+      <!-- kotak 2 -->
+      <div class="box">
+        <h3>Kelas CSS Modern</h3>
+        <p>Panduan membuat desain website responsive dengan Flexbox, Grid, dan animasi…</p>
+        <span class="more" onclick="detail('Kelas CSS Modern')">Selengkapnya</span>
+        <div class="meta">
+          <span class="price">Rp 149.000</span>
+          <button class="btn" onclick="buy('Kelas CSS Modern')">Beli</button>
+        </div>
+      </div>
+
+      <!-- kotak 3 -->
+      <div class="box">
+        <h3>Bundle Dev (HTML+CSS)</h3>
+        <p>Paket hemat belajar HTML & CSS sekaligus, mentoring langsung, akses lifetime…</p>
+        <span class="more" onclick="detail('Bundle Dev')">Selengkapnya</span>
+        <div class="meta">
+          <span class="price">Rp 229.000</span>
+          <button class="btn" onclick="buy('Bundle Dev')">Beli</button>
+        </div>
       </div>
     </div>
-
-    <!-- STORE GRID -->
-    <section id="store" class="store-section">
-      <div class="grid">
-        <!-- contoh kotak 1 -->
-        <article class="box">
-          <div class="title">
-            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=8b5b4d2a0b5e0d32b6f6d9b6f40c9f2b" alt="Murid HTML">
-            <div class="text">
-              <h3>Murid HTML</h3>
-              <p>Paket kursus HTML dasar → cocok untuk pemula</p>
-            </div>
-          </div>
-
-          <div class="benefits">
-            <strong>Keuntungan:</strong>
-            <ul>
-              <li>Materi bertahap, praktikum langsung</li>
-              <li>Template proyek portofolio siap pakai</li>
-              <li>Sertifikat digital setelah selesai</li>
-            </ul>
-          </div>
-
-          <div class="meta">
-            <div class="price">Rp 99.000</div>
-            <div style="display:flex; gap:8px">
-              <button class="btn" onclick="buy('Murid HTML')">Beli</button>
-              <button class="btn secondary" onclick="detail('Murid HTML')">Detail</button>
-            </div>
-          </div>
-        </article>
-
-        <!-- contoh kotak 2 -->
-        <article class="box">
-          <div class="title">
-            <img src="https://images.unsplash.com/photo-1526378723124-5f8e7b2c92a1?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=7a3a9f8d6b2a8d1f4b1f5b4c1a3d6e2a" alt="Kelas CSS">
-            <div class="text">
-              <h3>Kelas CSS Modern</h3>
-              <p>Desain UI responsif & animasi</p>
-            </div>
-          </div>
-
-          <div class="benefits">
-            <strong>Keuntungan:</strong>
-            <ul>
-              <li>Project UI nyata untuk portofolio</li>
-              <li>Belajar Flexbox, Grid, dan Animations</li>
-              <li>Akses grup mentor eksklusif</li>
-            </ul>
-          </div>
-
-          <div class="meta">
-            <div class="price">Rp 149.000</div>
-            <div style="display:flex; gap:8px">
-              <button class="btn" onclick="buy('Kelas CSS Modern')">Beli</button>
-              <button class="btn secondary" onclick="detail('Kelas CSS Modern')">Detail</button>
-            </div>
-          </div>
-        </article>
-
-        <!-- contoh kotak 3 -->
-        <article class="box">
-          <div class="title">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=1a2b3c4d5e6f7g8h9i0j" alt="Bundle Dev">
-            <div class="text">
-              <h3>Bundle Dev (HTML+CSS)</h3>
-              <p>Gabungan kursus cepat jadi web developer</p>
-            </div>
-          </div>
-
-          <div class="benefits">
-            <strong>Keuntungan:</strong>
-            <ul>
-              <li>Harga hemat + materi lengkap</li>
-              <li>Mentoring 1:1 selama 2 minggu</li>
-              <li>Access lifetime ke modul</li>
-            </ul>
-          </div>
-
-          <div class="meta">
-            <div class="price">Rp 229.000</div>
-            <div style="display:flex; gap:8px">
-              <button class="btn" onclick="buy('Bundle Dev (HTML+CSS)')">Beli</button>
-              <button class="btn secondary" onclick="detail('Bundle Dev (HTML+CSS)')">Detail</button>
-            </div>
-          </div>
-        </article>
-
-        <!-- kamu bisa duplikat .box untuk tambah item -->
-      </div>
-    </section>
-
   </main>
 
   <!-- Bottom nav -->
   <nav class="bottom-nav">
-    <a onclick="showPage('home')">🏠 Beranda</a>
-    <a class="center-big" onclick="showPage('store')">🛍️ Store</a>
-    <a onclick="showPage('pt')">All PT Zyxxennn</a>
+    <a onclick="alert('Beranda')">🏠 Beranda</a>
+    <a class="center-big" onclick="alert('Store aktif')">🛍️ Store</a>
+    <a onclick="alert('All PT Zyxxennn')">All PT Zyxxennn</a>
   </nav>
 
   <script>
-    // navigasi sederhana: scroll ke store / show sections
-    function showPage(name){
-      if(name === 'store'){
-        // scroll ke store section
-        const el = document.querySelector('.store-section');
-        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-      } else if(name === 'home'){
-        window.scrollTo({top:0, behavior:'smooth'});
-      } else if(name === 'pt'){
-        alert('Tampilkan halaman "All PT Zyxxennn" (implementasikan sesuai kebutuhan).');
-      }
-    }
-
     function buy(item){
-      alert('Mulai proses pembelian: ' + item + '\n(Implementasikan gateway pembayaran sesuai kebutuhan)');
+      alert('Beli: ' + item);
     }
     function detail(item){
-      alert('Tampilkan detail untuk: ' + item + '\n(Bisa buat modal atau halaman terpisah)');
+      alert('Detail untuk ' + item + '\n(Bisa tampilkan modal atau halaman baru)');
     }
   </script>
 </body>
