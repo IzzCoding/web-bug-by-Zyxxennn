@@ -27,12 +27,13 @@
     .box:hover{transform:translateY(-5px)}
 
     .box h3{font-size:16px;font-weight:600}
+
     .desc{
       font-size:13px;color:#444;line-height:1.4;
-      max-height:40px;overflow:hidden;text-overflow:ellipsis;
-      transition:max-height 0.3s ease;
+      max-height:0;overflow:hidden;
+      transition:max-height 0.4s ease;
     }
-    .desc.show{max-height:300px;white-space:normal;overflow:auto}
+    .desc.show{max-height:300px;margin-top:5px}
 
     .toggle{
       font-size:12px;color:#f39c12;cursor:pointer;
@@ -67,8 +68,8 @@
       <!-- kotak 1 -->
       <div class="box">
         <h3>Murid HTML</h3>
-        <p class="desc">Belajar dasar HTML dengan modul singkat, contoh project nyata, dan akses materi premium untuk pemula hingga mahir.</p>
         <span class="toggle" onclick="toggleDesc(this)">Keuntungan ⌄</span>
+        <p class="desc">Belajar dasar HTML dengan modul singkat, contoh project nyata, dan akses materi premium untuk pemula hingga mahir.</p>
         <div class="meta">
           <span class="price">Rp 99.000</span>
           <button class="btn" onclick="buy('Murid HTML')">Beli</button>
@@ -78,8 +79,8 @@
       <!-- kotak 2 -->
       <div class="box">
         <h3>Kelas CSS Modern</h3>
-        <p class="desc">Panduan membuat desain website responsive dengan Flexbox, Grid, animasi transisi, dan tips praktis langsung dari mentor.</p>
         <span class="toggle" onclick="toggleDesc(this)">Keuntungan ⌄</span>
+        <p class="desc">Panduan membuat desain website responsive dengan Flexbox, Grid, animasi transisi, dan tips praktis langsung dari mentor.</p>
         <div class="meta">
           <span class="price">Rp 149.000</span>
           <button class="btn" onclick="buy('Kelas CSS Modern')">Beli</button>
@@ -89,8 +90,8 @@
       <!-- kotak 3 -->
       <div class="box">
         <h3>Bundle Dev (HTML+CSS)</h3>
-        <p class="desc">Paket hemat belajar HTML & CSS sekaligus, mentoring langsung, akses lifetime, serta bonus project siap pakai.</p>
         <span class="toggle" onclick="toggleDesc(this)">Keuntungan ⌄</span>
+        <p class="desc">Paket hemat belajar HTML & CSS sekaligus, mentoring langsung, akses lifetime, serta bonus project siap pakai.</p>
         <div class="meta">
           <span class="price">Rp 229.000</span>
           <button class="btn" onclick="buy('Bundle Dev')">Beli</button>
@@ -112,7 +113,7 @@
     }
 
     function toggleDesc(el){
-      let desc = el.previousElementSibling;
+      let desc = el.nextElementSibling;
       desc.classList.toggle('show');
       if(desc.classList.contains('show')){
         el.innerHTML = 'Keuntungan ⌃'; // panah ke atas
