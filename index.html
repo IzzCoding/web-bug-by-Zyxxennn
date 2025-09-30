@@ -55,7 +55,6 @@
       font-size: 12px;
       margin-top: 2px;
     }
-
     #beranda, #store, #partner { display: none; }
     #beranda.active, #store.active, #partner.active { display: block; }
 
@@ -95,19 +94,18 @@
     .arrow { display:inline-block; transition:transform 0.3s ease; }
     .arrow.rotate { transform:rotate(180deg); }
 
-    /* Tambahan: desain tombol BUY */
     .buy-btn {
-      background:#6a11cb; 
-      color:white; 
-      border:none; 
-      padding:8px 14px; 
+      background:#6a11cb;
+      color:white;
+      border:none;
+      padding:8px 14px;
       border-radius:8px;
-      cursor:pointer; 
-      font-size:14px; 
-      display:flex; 
-      align-items:center; 
+      cursor:pointer;
+      font-size:14px;
+      display:flex;
+      align-items:center;
       justify-content:center;
-      gap:5px; 
+      gap:5px;
       transition:transform 0.2s ease;
       margin-top:10px;
     }
@@ -116,7 +114,8 @@
     .keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
     .keuntungan.open { height:auto; opacity:1; }
     .keuntungan ul { padding-left:20px; margin:10px 0; }
-    .keuntungan li { opacity:0; transform:translateY(10px); transition:opacity 0.4s ease, transform 0.4s ease;
+    .keuntungan li {
+      opacity:0; transform:translateY(10px); transition:opacity 0.4s ease, transform 0.4s ease;
       font-size:15px; font-weight:500; color:#f1f1f1; list-style:none; position:relative; padding-left:24px;
     }
     .keuntungan.open li { opacity:1; transform:translateY(0); }
@@ -129,54 +128,53 @@
     .partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
     .partner-box ul li a:hover { transform: scale(1.05); }
 
-    /* Modal QRIS */
     #qrisModal {
-      display:none; 
-      position:fixed; 
-      top:0; left:0; 
-      width:100%; height:100%; 
-      background:rgba(0,0,0,0.8); 
-      z-index:2000; 
-      align-items:center; 
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background:rgba(0,0,0,0.8);
+      z-index:2000;
+      align-items:center;
       justify-content:center;
     }
     #qrisModal .qris-box {
-      background:#1c1c2b; 
-      padding:20px; 
-      border-radius:12px; 
-      width:90%; 
-      max-width:400px; 
-      text-align:center; 
+      background:#1c1c2b;
+      padding:20px;
+      border-radius:12px;
+      width:90%;
+      max-width:400px;
+      text-align:center;
       color:white;
       box-shadow:0 0 15px rgba(0,255,204,0.6);
     }
     #qrisModal img {
-      width:220px; 
-      margin:15px auto; 
-      display:block; 
+      width:220px;
+      margin:15px auto;
+      display:block;
       border-radius:12px;
       box-shadow:0 0 20px rgba(0,255,204,0.5);
     }
     #qrisModal input {
-      margin:10px 0; 
-      padding:10px; 
-      width:100%; 
-      border-radius:8px; 
+      margin:10px 0;
+      padding:10px;
+      width:100%;
+      border-radius:8px;
       border:none;
     }
     #qrisModal button {
-      padding:10px 16px; 
-      border:none; 
-      border-radius:8px; 
-      cursor:pointer; 
-      font-weight:600; 
+      padding:10px 16px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
       margin-top:10px;
     }
     #kirimBtn { background:#00ffcc; color:#000; }
     .qris-close { background:#ff3b3b; color:white; }
+
   </style>
 </head>
-
 <body>
   <!-- BERANDA -->
   <div class="container" id="beranda">
@@ -184,7 +182,6 @@
       <h2>Izz Ajah</h2>
       <p>Informasi atau About</p>
     </div>
-
     <div class="owner-buttons">
       <button>Owner</button>
       <button>Channel Owner</button>
@@ -204,66 +201,54 @@
   <div class="container" id="store">
     <!-- PRODUK 1 -->
     <div class="card">
-      <h3>Akses Premium Bot Jashare</h3>
-      <div class="price">5.000</div>
+      <h3>Produk 1 - Murid HTML</h3>
+      <div class="price">$10</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
-        <li>Akses Premium Permanen</li>
-        <li>Tanpa Capek Promosi / Share Manual</li>
-        <li>Bisa Share Sepuasnya</li>
-        <li>100% Sukses Ke Kirim Semua</li>
-        <li>Insyaallah Jualan Lu Laku</li>
+        <li>Belajar HTML dari dasar</li>
+        <li>Gratis update materi</li>
+        <li>Support komunitas</li>
       </ul></div>
-      <button class="buy-btn" data-produk="PREMIUM BOT">Buy</button>
+      <button class="buy-btn" data-produk="Murid HTML">Buy</button>
     </div>
 
     <!-- PRODUK 2 -->
     <div class="card">
-      <h3>Akses Owner Bot Jashare</h3>
-      <div class="price">10.000</div>
+      <h3>Produk 2 - Murid CSS</h3>
+      <div class="price">$15</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
-        <li>Akses Owner Permanen</li>
-        <li>Bisa Jualan Akses Premium</li>
-        <li>Admin Di Grup Akses</li>
-        <li>Tanpa Capek Promosi / Share Manual</li>
-        <li>Bisa Share Dan Broadcast</li>
-        <li>100% Sukses Ke kirim Semua</li>
-        <li>Insyaallah Jualan Lu Laku</li>
+        <li>Belajar CSS step by step</li>
+        <li>Latihan real project</li>
+        <li>Dukungan mentor</li>
       </ul></div>
-      <button class="buy-btn" data-produk="OWNER BOT">Buy</button>
+      <button class="buy-btn" data-produk="Murid CSS">Buy</button>
     </div>
 
     <!-- PRODUK 3 -->
     <div class="card">
-      <h3>Akses Partner Bot Jashare</h3>
-      <div class="price">15.000</div>
+      <h3>Produk 3 - Murid JS</h3>
+      <div class="price">$20</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
-        <li>Akses Partner Permanen</li>
-        <li>Bisa Jualan Akses Owner</li>
-        <li>Bisa Jualan Akses Premium</li>
-        <li>Admin Di Grup Akses</li>
-        <li>Tanpa Capek Promosi / Share Manual</li>
-        <li>Bisa Share Dan Broadcast</li>
-        <li>100% Sukses Ke Kirim Semua</li>
-        <li>Insyaallah Jualan Lu Laku</li>
+        <li>Belajar logika JavaScript</li>
+        <li>Project interaktif</li>
+        <li>Tips interview kerja</li>
       </ul></div>
-      <button class="buy-btn" data-produk="PARTNER BOT">Buy</button>
+      <button class="buy-btn" data-produk="Murid JS">Buy</button>
     </div>
-  </div>
-  
+
     <!-- PRODUK 4 -->
     <div class="card">
-      <h3>Murid Html</h3>
-      <div class="price">5.000</div>
+      <h3>Produk 4 - Murid Python</h3>
+      <div class="price">$25</div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
-        <li>Mendapatkan Semua Html Gw</li>
-        <li>Di Kasih Cara Deploy</li>
-        <li>Dapat Html Payment Pribadi</li>
+        <li>Belajar Python dari dasar</li>
+        <li>Membuat project mini</li>
+        <li>Tips coding & debugging</li>
       </ul></div>
-      <button class="buy-btn" data-produk="Murid HTML">Buy</button>
+      <button class="buy-btn" data-produk="Murid Python">Buy</button>
     </div>
   </div>
 
@@ -285,7 +270,7 @@
     <button class="nav-btn" data-target="store">🛒<span>Store</span></button>
     <button class="nav-btn" data-target="partner">🤝<span>Partner</span></button>
   </div>
-  
+
   <!-- MODAL QRIS -->
   <div id="qrisModal">
     <div class="qris-box">
@@ -299,86 +284,86 @@
   </div>
 
   <script>
-/* NAVIGASI */
-const navBtns = document.querySelectorAll('.nav-btn');
-const sections = ['beranda','store','partner'];
+    /* NAVIGASI */
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const sections = ['beranda','store','partner'];
 
-navBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
-    document.getElementById(btn.dataset.target).classList.add('active');
-    if (btn.dataset.target === "beranda") showProgrammingBoxes();
-  });
-});
-document.getElementById('beranda').classList.add('active');
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
+        document.getElementById(btn.dataset.target).classList.add('active');
+        if (btn.dataset.target === "beranda") showProgrammingBoxes();
+      });
+    });
+    document.getElementById('beranda').classList.add('active');
 
-/* ANIMASI BOX PROGRAMMING */
-const programmingBoxes = document.querySelectorAll('.programming-box');
-function showProgrammingBoxes() {
-  programmingBoxes.forEach((box,i)=>
-    setTimeout(()=>box.classList.add('show'), i*150)
-  );
-}
-showProgrammingBoxes();
-
-/* TOGGLE KEUNTUNGAN PRODUK */
-const toggleBtns = document.querySelectorAll('.btn-toggle');
-toggleBtns.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const currentCard = btn.parentElement;
-    const keuntunganDiv = currentCard.querySelector('.keuntungan');
-    const arrow = btn.querySelector('.arrow');
-    const isOpen = keuntunganDiv.classList.contains('open');
-    document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
-    document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
-    if(!isOpen){ 
-      keuntunganDiv.classList.add('open'); 
-      arrow.classList.add('rotate'); 
+    /* ANIMASI BOX PROGRAMMING */
+    const programmingBoxes = document.querySelectorAll('.programming-box');
+    function showProgrammingBoxes() {
+      programmingBoxes.forEach((box,i)=>
+        setTimeout(()=>box.classList.add('show'), i*150)
+      );
     }
-  });
-});
+    showProgrammingBoxes();
 
-/* MODAL QRIS */
-const modal = document.getElementById('qrisModal');
-let produkDipilih = "";
+    /* TOGGLE KEUNTUNGAN PRODUK */
+    const toggleBtns = document.querySelectorAll('.btn-toggle');
+    toggleBtns.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const currentCard = btn.parentElement;
+        const keuntunganDiv = currentCard.querySelector('.keuntungan');
+        const arrow = btn.querySelector('.arrow');
+        const isOpen = keuntunganDiv.classList.contains('open');
+        document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
+        document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
+        if(!isOpen){
+          keuntunganDiv.classList.add('open');
+          arrow.classList.add('rotate');
+        }
+      });
+    });
 
-document.querySelectorAll('.buy-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    produkDipilih = btn.dataset.produk;
-    modal.style.display = "flex";
-  });
-});
-function closeModal(){ modal.style.display = "none"; }
+    /* MODAL QRIS */
+    const modal = document.getElementById('qrisModal');
+    let produkDipilih = "";
 
-/* KIRIM DATA KE TELEGRAM BOT */
-document.getElementById('kirimBtn').addEventListener('click', async ()=>{
-  const buktiFile = document.getElementById('buktiInput').files[0];
-  const telegramNama = document.getElementById('telegramInput').value;
-  if(!buktiFile || !telegramNama){
-    alert("Lengkapi bukti transfer & nama telegram!");
-    return;
-  }
-  const BOT_TOKEN = "8316854638:AAESN3ThtkFpE58uy8pe2wXd51L4bHd9XxM";  
-  const OWNER_CHAT_ID = "8447173769"; 
+    document.querySelectorAll('.buy-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        produkDipilih = btn.dataset.produk;
+        modal.style.display = "flex";
+      });
+    });
+    function closeModal(){ modal.style.display = "none"; }
 
-  const pesan = `📢 Bukti pembayaran baru!\n\n🛒 Produk: ${produkDipilih}\n👤 Telegram: ${telegramNama}`;
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({chat_id: OWNER_CHAT_ID, text: pesan})
-  });
+    /* KIRIM DATA KE TELEGRAM BOT */
+    document.getElementById('kirimBtn').addEventListener('click', async ()=>{
+      const buktiFile = document.getElementById('buktiInput').files[0];
+      const telegramNama = document.getElementById('telegramInput').value;
+      if(!buktiFile || !telegramNama){
+        alert("Lengkapi bukti transfer & nama telegram!");
+        return;
+      }
+      const BOT_TOKEN = "ISI_BOT_TOKEN_DISINI";
+      const OWNER_CHAT_ID = "ISI_CHAT_ID_OWNER";
 
-  const formData = new FormData();
-  formData.append("chat_id", OWNER_CHAT_ID);
-  formData.append("photo", buktiFile);
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-    method:"POST",
-    body: formData
-  });
+      const pesan = `📢 Bukti pembayaran baru!\n\n🛒 Produk: ${produkDipilih}\n👤 Telegram: ${telegramNama}`;
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({chat_id: OWNER_CHAT_ID, text: pesan})
+      });
 
-  alert("Bukti pembayaran terkirim ke owner!");
-  closeModal();
-});
+      const formData = new FormData();
+      formData.append("chat_id", OWNER_CHAT_ID);
+      formData.append("photo", buktiFile);
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+        method:"POST",
+        body: formData
+      });
+
+      alert("Bukti pembayaran terkirim ke owner!");
+      closeModal();
+    });
   </script>
 </body>
 </html>
