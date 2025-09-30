@@ -71,16 +71,25 @@
     }
 
     /* Animasi keuntungan list */
-    @keyframes fadeList {
+    @keyframes fadeListIn {
       to {opacity:1; transform:translateX(0);}
     }
+    @keyframes fadeListOut {
+      from {opacity:1; transform:translateX(0);}
+      to {opacity:0; transform:translateX(-15px);}
+    }
+
     .accordion.show li{
-      animation:fadeList .4s forwards;
+      animation:fadeListIn .4s forwards;
     }
     .accordion.show li:nth-child(1){animation-delay:.1s}
     .accordion.show li:nth-child(2){animation-delay:.25s}
     .accordion.show li:nth-child(3){animation-delay:.4s}
     .accordion.show li:nth-child(4){animation-delay:.55s}
+
+    .accordion.hide li{
+      animation:fadeListOut .3s forwards;
+    }
 
     .accordion li::before{
       content:"✅";
@@ -202,17 +211,24 @@
     }
 
     function toggleDesc(el){
-      // Tutup semua accordion dulu
-      document.querySelectorAll('.accordion').forEach(acc=>{
-        acc.classList.remove('show');
-      });
-      document.querySelectorAll('.toggle').forEach(tg=>{
-        tg.innerHTML = 'Keuntungan ⌄';
-      });
-
-      // Buka accordion milik yang diklik
       let acc = el.nextElementSibling;
-      if(!acc.classList.contains('show')){
+
+      if(acc.classList.contains('show')){
+        // Tutup dengan animasi keluar
+        acc.classList.remove('show');
+        acc.classList.add('hide');
+        el.innerHTML = 'Keuntungan ⌄';
+        setTimeout(()=> acc.classList.remove('hide'), 300); 
+      } else {
+        // Tutup semua accordion dulu
+        document.querySelectorAll('.accordion').forEach(a=>{
+          a.classList.remove('show'); a.classList.remove('hide');
+        });
+        document.querySelectorAll('.toggle').forEach(tg=>{
+          tg.innerHTML = 'Keuntungan ⌄';
+        });
+
+        // Buka yang dipilih
         acc.classList.add('show');
         el.innerHTML = 'Keuntungan ⌃';
       }
