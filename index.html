@@ -5,223 +5,128 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Store Zyxxennn</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    padding-bottom: 80px; /* memberi ruang untuk navbar tetap terlihat */
-  }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  padding-bottom: 100px; /* Memberi ruang untuk navbar */
+}
 
-  .container {
-    max-width: 800px;
-    margin: 60px auto 20px auto;
-    padding: 20px;
-  }
+.container {
+  max-width: 800px;
+  margin: 60px auto 20px auto;
+  padding: 20px;
+}
 
-  /* NAVBAR FIXED */
-  .navbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(90deg, #6a11cb, #2575fc);
-    display: flex;
-    justify-content: space-around;
-    padding: 12px 0;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.4);
-    z-index: 999;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-  }
+/* NAVBAR FIXED SELALU DI BAWAH */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  padding: 12px 0;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
+  z-index: 1000;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
 
-  .nav-btn {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.3s ease;
-  }
+.nav-btn {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
 
-  .nav-btn:hover {
-    background: rgba(255,255,255,0.2);
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  }
+.nav-btn:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
 
-  .nav-btn span {
-    font-size: 12px;
-    margin-top: 2px;
-    color: #fff;
-  }
+.nav-btn span {
+  font-size: 12px;
+  margin-top: 2px;
+}
 
-  /* BERANDA */
-  #beranda { display: none; }
-  #beranda.active { display: block; }
+/* SECTION BERANDA */
+#beranda, #store, #partner {
+  display: none;
+}
+#beranda.active, #store.active, #partner.active {
+  display: block;
+}
 
-  .beranda-header h2 { margin: 0; font-size: 28px; text-align: center; }
-  .beranda-header p { text-align: center; margin-top: 6px; font-size: 16px; color: #ccc; }
+/* SECTION STYLING */
+.beranda-header h2 { text-align: center; margin:0; font-size:28px; }
+.beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
 
-  .owner-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 16px 0;
-    flex-wrap: wrap;
-  }
+.owner-buttons {
+  display:flex; justify-content:center; gap:12px; margin:16px 0; flex-wrap:wrap;
+}
+.owner-buttons button {
+  background:#ff6a00; border:none; padding:10px 16px; border-radius:10px; color:white;
+  cursor:pointer; font-weight:500; transition:transform 0.2s ease;
+}
+.owner-buttons button:hover { transform: scale(1.05); }
 
-  .owner-buttons button {
-    background: #ff6a00;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-    transition: transform 0.2s ease;
-  }
+.programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
+.programming-box {
+  background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; text-align:center;
+  width:100px; opacity:0; transform:translateY(20px); transition:all 0.6s ease;
+}
+.programming-box.show { opacity:1; transform:translateY(0); }
+.programming-box img { width:50px; height:50px; display:block; margin:0 auto 8px; }
 
-  .owner-buttons button:hover { transform: scale(1.05); }
+/* CARD STORE */
+.card { background: rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-bottom:18px;
+  backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.25); overflow:hidden;
+  transition:transform 0.2s ease, background 0.3s ease;
+}
+.card:hover { background: rgba(255,255,255,0.12); transform:translateY(-3px); }
+.card h3 { margin:0 0 6px 0; font-size:18px; }
+.card .price { font-weight:600; margin-bottom:12px; color:#00ffcc; }
 
-  .programming-boxes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 20px;
-  }
+.btn-toggle {
+  background:#6a11cb; color:white; border:none; padding:8px 14px; border-radius:8px;
+  cursor:pointer; font-size:14px; display:flex; align-items:center; gap:5px; transition:transform 0.2s ease;
+}
+.btn-toggle:hover { transform: scale(1.05); }
+.arrow { display:inline-block; transition:transform 0.3s ease; }
+.arrow.rotate { transform:rotate(180deg); }
 
-  .programming-box {
-    background: rgba(255,255,255,0.08);
-    padding: 16px;
-    border-radius: 12px;
-    text-align: center;
-    width: 100px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease;
-  }
+.keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
+.keuntungan.open { height:auto; opacity:1; }
+.keuntungan ul { padding-left:20px; margin:10px 0; }
+.keuntungan li { opacity:0; transform:translateY(10px); transition:opacity 0.4s ease, transform 0.4s ease; font-size:15px; font-weight:500; color:#f1f1f1; list-style:none; position:relative; padding-left:24px; }
+.keuntungan.open li { opacity:1; transform:translateY(0); }
+.keuntungan li::before { content:"✔"; position:absolute; left:0; color:#00ffcc; font-weight:bold; text-shadow:0 0 8px #00ffcc,0 0 12px #00ffaa; }
 
-  .programming-box.show { opacity: 1; transform: translateY(0); }
-
-  .programming-box img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 8px;
-  }
-
-  /* STORE */
-  #store { display: none; }
-  #store.active { display: block; }
-
-  .card {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 16px;
-    backdrop-filter: blur(10px);
-    margin-bottom: 18px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    overflow: hidden;
-    transition: transform 0.2s ease, background 0.3s ease;
-  }
-
-  .card:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); }
-  .card h3 { margin: 0 0 6px 0; font-size: 18px; }
-  .card .price { font-weight: 600; margin-bottom: 12px; color: #00ffcc; }
-
-  .btn-toggle {
-    background: #6a11cb;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: transform 0.2s ease;
-  }
-
-  .btn-toggle:hover { transform: scale(1.05); }
-
-  .arrow { display: inline-block; transition: transform 0.3s ease; }
-  .arrow.rotate { transform: rotate(180deg); }
-
-  .keuntungan {
-    margin-top: 12px;
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: height 0.4s ease, opacity 0.4s ease;
-  }
-
-  .keuntungan.open { height: auto; opacity: 1; }
-
-  .keuntungan ul { padding-left: 20px; margin: 10px 0; }
-
-  .keuntungan li {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: #f1f1f1;
-    list-style: none;
-    position: relative;
-    padding-left: 24px;
-  }
-
-  .keuntungan.open li { opacity: 1; transform: translateY(0); }
-
-  .keuntungan li::before {
-    content: "✔";
-    position: absolute;
-    left: 0;
-    color: #00ffcc;
-    font-weight: bold;
-    text-shadow: 0 0 8px #00ffcc, 0 0 12px #00ffaa;
-  }
-
-  /* ALL PARTNER */
-  #partner { display: none; }
-  #partner.active { display: block; }
-
-  .partner-box {
-    background: rgba(255,255,255,0.08);
-    padding: 16px;
-    border-radius: 12px;
-    margin-top: 20px;
-  }
-
-  .partner-box h3 { text-align: center; margin-bottom: 12px; }
-  .partner-box ul { padding-left: 0; list-style: none; text-align: center; }
-  .partner-box ul li { margin: 6px 0; }
-  .partner-box ul li a {
-    color: #00ffcc;
-    text-decoration: none;
-    font-weight: 500;
-    transition: transform 0.2s ease;
-  }
-  .partner-box ul li a:hover { transform: scale(1.05); }
+/* PARTNER */
+.partner-box { background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; margin-top:20px; }
+.partner-box h3 { text-align:center; margin-bottom:12px; }
+.partner-box ul { padding-left:0; list-style:none; text-align:center; }
+.partner-box ul li { margin:6px 0; }
+.partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
+.partner-box ul li a:hover { transform: scale(1.05); }
 
 </style>
 </head>
 <body>
 
-<!-- BERANDA -->
 <div class="container" id="beranda">
   <div class="beranda-header">
     <h2>Izz Ajah</h2>
@@ -240,7 +145,6 @@
   </div>
 </div>
 
-<!-- STORE -->
 <div class="container" id="store">
   <div class="card">
     <h3>Produk 1 - Murid HTML</h3>
@@ -274,7 +178,6 @@
   </div>
 </div>
 
-<!-- ALL PARTNER -->
 <div class="container" id="partner">
   <div class="partner-box">
     <h3>ALL PARTNER Zyxxennn</h3>
@@ -286,7 +189,6 @@
   </div>
 </div>
 
-<!-- NAVBAR -->
 <div class="navbar">
   <button class="nav-btn" data-target="beranda">🏠<span>Beranda</span></button>
   <button class="nav-btn" data-target="store">🛒<span>Store</span></button>
@@ -294,47 +196,35 @@
 </div>
 
 <script>
-  // Toggle section
-  const navBtns = document.querySelectorAll('.nav-btn');
-  const sections = ['beranda','store','partner'];
-  navBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
-      document.getElementById(btn.dataset.target).classList.add('active');
-      showProgrammingBoxes();
-    });
+const navBtns = document.querySelectorAll('.nav-btn');
+const sections = ['beranda','store','partner'];
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
+    document.getElementById(btn.dataset.target).classList.add('active');
+    showProgrammingBoxes();
   });
+});
+document.getElementById('beranda').classList.add('active');
 
-  // Default section
-  document.getElementById('beranda').classList.add('active');
+const programmingBoxes = document.querySelectorAll('.programming-box');
+function showProgrammingBoxes() {
+  programmingBoxes.forEach((box,i)=>setTimeout(()=>box.classList.add('show'),i*150));
+}
+showProgrammingBoxes();
 
-  // Tampilkan programming boxes dengan animasi
-  const programmingBoxes = document.querySelectorAll('.programming-box');
-  function showProgrammingBoxes() {
-    programmingBoxes.forEach((box, i) => {
-      setTimeout(() => box.classList.add('show'), i*150);
-    });
-  }
-  showProgrammingBoxes();
-
-  // Toggle keuntungan
-  const buttons = document.querySelectorAll('.btn-toggle');
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const currentCard = btn.parentElement;
-      const keuntunganDiv = currentCard.querySelector('.keuntungan');
-      const arrow = btn.querySelector('.arrow');
-      const isOpen = keuntunganDiv.classList.contains('open');
-
-      document.querySelectorAll('.keuntungan').forEach(div => div.classList.remove('open'));
-      document.querySelectorAll('.arrow').forEach(a => a.classList.remove('rotate'));
-
-      if (!isOpen) {
-        keuntunganDiv.classList.add('open');
-        arrow.classList.add('rotate');
-      }
-    });
+const buttons = document.querySelectorAll('.btn-toggle');
+buttons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const currentCard=btn.parentElement;
+    const keuntunganDiv=currentCard.querySelector('.keuntungan');
+    const arrow=btn.querySelector('.arrow');
+    const isOpen=keuntunganDiv.classList.contains('open');
+    document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
+    document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
+    if(!isOpen){ keuntunganDiv.classList.add('open'); arrow.classList.add('rotate'); }
   });
+});
 </script>
 </body>
 </html>
