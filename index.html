@@ -95,6 +95,24 @@
     .arrow { display:inline-block; transition:transform 0.3s ease; }
     .arrow.rotate { transform:rotate(180deg); }
 
+    /* Tambahan: desain tombol BUY */
+    .buy-btn {
+      background:#6a11cb; 
+      color:white; 
+      border:none; 
+      padding:8px 14px; 
+      border-radius:8px;
+      cursor:pointer; 
+      font-size:14px; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center;
+      gap:5px; 
+      transition:transform 0.2s ease;
+      margin-top:10px;
+    }
+    .buy-btn:hover { transform: scale(1.05); }
+
     .keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
     .keuntungan.open { height:auto; opacity:1; }
     .keuntungan ul { padding-left:20px; margin:10px 0; }
@@ -110,7 +128,7 @@
     .partner-box ul li { margin:6px 0; }
     .partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
     .partner-box ul li a:hover { transform: scale(1.05); }
-  </style>
+</style>
 </head>
 
 <body>
