@@ -46,14 +46,15 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
-      transition: background 0.3s ease;
       display: flex;
       align-items: center;
       gap: 5px;
+      transition: transform 0.2s ease; /* hanya efek membesar */
     }
 
     .btn-toggle:hover {
-      background: #2575fc;
+      background: #6a11cb; /* tetap, tidak berubah warna */
+      transform: scale(1.05); /* efek elegan membesar */
     }
 
     .arrow {
