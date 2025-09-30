@@ -49,11 +49,11 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      transition: transform 0.2s ease; /* hanya efek membesar */
+      transition: transform 0.2s ease;
     }
 
     .btn-toggle:hover {
-      background: #6a11cb; /* tetap, tidak berubah warna */
+      background: #6a11cb; /* tetap ungu */
       transform: scale(1.05); /* efek elegan membesar */
     }
 
@@ -70,12 +70,14 @@
     .keuntungan {
       margin-top: 12px;
       max-height: 0;
+      opacity: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
     }
 
     .keuntungan.open {
       max-height: 500px; /* cukup besar agar muat isi */
+      opacity: 1;
     }
 
     .keuntungan ul {
