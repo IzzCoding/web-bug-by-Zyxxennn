@@ -95,19 +95,19 @@
     .arrow { display:inline-block; transition:transform 0.3s ease; }
     .arrow.rotate { transform:rotate(180deg); }
 
-    /* ✅ Buy button style */
+    /* Tambahan: desain tombol BUY */
     .buy-btn {
-      background:#6a11cb;
-      color:white;
-      border:none;
-      padding:8px 14px;
+      background:#6a11cb; 
+      color:white; 
+      border:none; 
+      padding:8px 14px; 
       border-radius:8px;
-      cursor:pointer;
-      font-size:14px;
-      display:flex;
-      align-items:center;
+      cursor:pointer; 
+      font-size:14px; 
+      display:flex; 
+      align-items:center; 
       justify-content:center;
-      gap:5px;
+      gap:5px; 
       transition:transform 0.2s ease;
       margin-top:10px;
     }
@@ -129,75 +129,51 @@
     .partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
     .partner-box ul li a:hover { transform: scale(1.05); }
 
-    /* ✅ QRIS modal */
+    /* Modal QRIS */
     #qrisModal {
-      display: none; 
-      position: fixed; 
-      top: 0; 
-      left: 0; 
-      width: 100%; 
-      height: 100%; 
-      background: rgba(0,0,0,0.8); 
-      z-index: 2000; 
-      align-items: center; 
-      justify-content: center;
+      display:none; 
+      position:fixed; 
+      top:0; left:0; 
+      width:100%; height:100%; 
+      background:rgba(0,0,0,0.8); 
+      z-index:2000; 
+      align-items:center; 
+      justify-content:center;
     }
-    .qris-box {
-      background: #1c1c2b; 
-      padding: 20px; 
-      border-radius: 16px; 
-      width: 90%; 
-      max-width: 400px; 
-      text-align: center; 
-      color: white; 
-      box-shadow: 0 0 20px rgba(0,255,204,0.4);
-      animation: fadeInUp 0.4s ease;
+    #qrisModal .qris-box {
+      background:#1c1c2b; 
+      padding:20px; 
+      border-radius:12px; 
+      width:90%; 
+      max-width:400px; 
+      text-align:center; 
+      color:white;
+      box-shadow:0 0 15px rgba(0,255,204,0.6);
     }
-    .qris-box h3 {
-      margin-bottom: 12px; 
-      font-size: 20px; 
-      color: #00ffcc; 
-      text-shadow: 0 0 8px #00ffaa;
+    #qrisModal img {
+      width:220px; 
+      margin:15px auto; 
+      display:block; 
+      border-radius:12px;
+      box-shadow:0 0 20px rgba(0,255,204,0.5);
     }
-    .qris-box img {
-      width: 220px; 
-      margin: 15px auto; 
-      display: block; 
-      border-radius: 12px; 
-      box-shadow: 0 0 15px rgba(0,255,204,0.3);
+    #qrisModal input {
+      margin:10px 0; 
+      padding:10px; 
+      width:100%; 
+      border-radius:8px; 
+      border:none;
     }
-    .qris-box input {
-      margin: 10px 0; 
-      padding: 10px; 
-      width: 100%; 
-      border-radius: 10px; 
-      border: none; 
-      outline: none;
+    #qrisModal button {
+      padding:10px 16px; 
+      border:none; 
+      border-radius:8px; 
+      cursor:pointer; 
+      font-weight:600; 
+      margin-top:10px;
     }
-    .qris-box button {
-      background: #00ffcc; 
-      color: #000; 
-      padding: 10px 16px; 
-      border: none; 
-      border-radius: 10px; 
-      cursor: pointer; 
-      font-weight: 600; 
-      margin-top: 10px; 
-      transition: transform 0.2s ease, background 0.3s ease;
-    }
-    .qris-box button:hover {
-      transform: scale(1.05);
-      background: #00ffaa;
-    }
-    .qris-close {
-      margin-top: 12px; 
-      background: #ff3b3b !important; 
-      color: white !important;
-    }
-    @keyframes fadeInUp {
-      from { opacity:0; transform: translateY(30px); }
-      to { opacity:1; transform: translateY(0); }
-    }
+    #kirimBtn { background:#00ffcc; color:#000; }
+    .qris-close { background:#ff3b3b; color:white; }
   </style>
 </head>
 
@@ -285,33 +261,20 @@
     <button class="nav-btn" data-target="partner">🤝<span>Partner</span></button>
   </div>
   
-  <!-- MODAL QRIS & UPLOAD -->
-  <div id="qrisModal" 
-       style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-              background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
-    <div style="background:#1c1c2b; padding:20px; border-radius:12px; width:90%; max-width:400px; text-align:center; color:white;">
+  <!-- MODAL QRIS -->
+  <div id="qrisModal">
+    <div class="qris-box">
       <h3>Pembayaran via QRIS</h3>
-      <!-- Ganti URL QRIS di bawah ini -->
-      <img src="https://your-qris-url.com/qris.png" alt="QRIS" style="width:200px; margin:15px auto; display:block; border-radius:8px;">
-      
-      <!-- Upload bukti transfer -->
-      <input type="file" id="buktiInput" accept="image/*" style="margin:10px 0; display:block; width:100%; padding:8px; border-radius:8px; border:none;">
-
-      <!-- Input nama telegram -->
-      <input type="text" id="telegramInput" placeholder="Masukkan Nama Telegram" style="margin:10px 0; padding:10px; width:100%; border-radius:8px; border:none;">
-      
-      <!-- Tombol kirim -->
-      <button id="kirimBtn" style="background:#00ffcc; color:#000; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; font-weight:600; margin-top:10px;">Kirim</button>
-      <br>
-      <!-- Tombol tutup -->
-      <button onclick="closeModal()" style="margin-top:12px; background:#ff3b3b; border:none; color:white; padding:8px 14px; border-radius:8px; cursor:pointer;">Tutup</button>
+      <img src="https://your-qris-url.com/qris.png" alt="QRIS">
+      <input type="file" id="buktiInput" accept="image/*">
+      <input type="text" id="telegramInput" placeholder="Masukkan Nama Telegram">
+      <button id="kirimBtn">Kirim</button>
+      <button class="qris-close" onclick="closeModal()">Tutup</button>
     </div>
   </div>
-  
+
   <script>
-/* -------------------------------
-   NAVIGASI
---------------------------------*/
+/* NAVIGASI */
 const navBtns = document.querySelectorAll('.nav-btn');
 const sections = ['beranda','store','partner'];
 
@@ -322,14 +285,9 @@ navBtns.forEach(btn => {
     if (btn.dataset.target === "beranda") showProgrammingBoxes();
   });
 });
-
-// Default buka Beranda
 document.getElementById('beranda').classList.add('active');
 
-
-/* -------------------------------
-   ANIMASI BOX PROGRAMMING
---------------------------------*/
+/* ANIMASI BOX PROGRAMMING */
 const programmingBoxes = document.querySelectorAll('.programming-box');
 function showProgrammingBoxes() {
   programmingBoxes.forEach((box,i)=>
@@ -338,10 +296,7 @@ function showProgrammingBoxes() {
 }
 showProgrammingBoxes();
 
-
-/* -------------------------------
-   TOGGLE KEUNTUNGAN PRODUK
---------------------------------*/
+/* TOGGLE KEUNTUNGAN PRODUK */
 const toggleBtns = document.querySelectorAll('.btn-toggle');
 toggleBtns.forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -349,10 +304,8 @@ toggleBtns.forEach(btn=>{
     const keuntunganDiv = currentCard.querySelector('.keuntungan');
     const arrow = btn.querySelector('.arrow');
     const isOpen = keuntunganDiv.classList.contains('open');
-
     document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
     document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
-
     if(!isOpen){ 
       keuntunganDiv.classList.add('open'); 
       arrow.classList.add('rotate'); 
@@ -360,46 +313,29 @@ toggleBtns.forEach(btn=>{
   });
 });
 
+/* MODAL QRIS */
+const modal = document.getElementById('qrisModal');
+let produkDipilih = "";
 
-<!-- MODAL QRIS & UPLOAD -->
-<div id="qrisModal" class="qris-modal">
-  <div class="qris-content">
-    <h3>💳 Pembayaran via QRIS</h3>
-    
-    <!-- Ganti URL QRIS di bawah ini -->
-    <div class="qris-box">
-      <img src="https://your-qris-url.com/qris.png" alt="QRIS">
-    </div>
-    
-    <!-- Upload bukti transfer -->
-    <input type="file" id="buktiInput" accept="image/*" placeholder="Upload Bukti Transfer">
+document.querySelectorAll('.buy-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    produkDipilih = btn.dataset.produk;
+    modal.style.display = "flex";
+  });
+});
+function closeModal(){ modal.style.display = "none"; }
 
-    <!-- Input nama telegram -->
-    <input type="text" id="telegramInput" placeholder="Masukkan Nama Telegram">
-    
-    <!-- Tombol kirim -->
-    <button id="kirimBtn" class="btn-kirim">📤 Kirim</button>
-    <button onclick="closeModal()" class="btn-tutup">❌ Tutup</button>
-  </div>
-</div>
-
-
-/* -------------------------------
-   KIRIM DATA KE TELEGRAM BOT
---------------------------------*/
+/* KIRIM DATA KE TELEGRAM BOT */
 document.getElementById('kirimBtn').addEventListener('click', async ()=>{
   const buktiFile = document.getElementById('buktiInput').files[0];
   const telegramNama = document.getElementById('telegramInput').value;
-
   if(!buktiFile || !telegramNama){
     alert("Lengkapi bukti transfer & nama telegram!");
     return;
   }
+  const BOT_TOKEN = "ISI_BOT_TOKEN_DISINI";  
+  const OWNER_CHAT_ID = "ISI_CHAT_ID_OWNER"; 
 
-  const BOT_TOKEN = "ISI_BOT_TOKEN_DISINI";  // ganti dengan token bot
-  const OWNER_CHAT_ID = "ISI_CHAT_ID_OWNER"; // ganti dengan chat id owner
-
-  // kirim text info
   const pesan = `📢 Bukti pembayaran baru!\n\n🛒 Produk: ${produkDipilih}\n👤 Telegram: ${telegramNama}`;
   await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method:"POST",
@@ -407,7 +343,6 @@ document.getElementById('kirimBtn').addEventListener('click', async ()=>{
     body: JSON.stringify({chat_id: OWNER_CHAT_ID, text: pesan})
   });
 
-  // kirim foto bukti
   const formData = new FormData();
   formData.append("chat_id", OWNER_CHAT_ID);
   formData.append("photo", buktiFile);
