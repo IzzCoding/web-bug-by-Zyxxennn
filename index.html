@@ -51,10 +51,7 @@
       transform: scale(1.1);
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
-    .nav-btn span {
-      font-size: 12px;
-      margin-top: 2px;
-    }
+    .nav-btn span { font-size: 12px; margin-top: 2px; }
     #beranda, #store, #partner { display: none; }
     #beranda.active, #store.active, #partner.active { display: block; }
 
@@ -187,9 +184,25 @@
     }
     #kirimBtn { background:#00ffcc; color:#000; }
     .qris-close { background:#ff3b3b; color:white; }
+
+    /* STOCK HABIS / PRODUK CLOSE */
+    .card.out-of-stock {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .card.out-of-stock .buy-btn {
+      background: gray;
+      cursor: not-allowed;
+    }
+    .card.out-of-stock h3::after {
+      content: " (Produk Close)";
+      color: #ff3b3b;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+
   <!-- BERANDA -->
   <div class="container" id="beranda">
     <div class="beranda-header">
@@ -309,6 +322,31 @@
     <button class="nav-btn" data-target="partner">🤝<span>Partner</span></button>
   </div>
 
+  <script>
+    function showTab(tab) {
+      document.querySelectorAll('.container').forEach(c=>c.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+    }
+
+    document.querySelectorAll('.btn-toggle').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        let keuntungan=btn.nextElementSibling;
+        let arrow=btn.querySelector('.arrow');
+        keuntungan.classList.toggle('open');
+        arrow.classList.toggle('rotate');
+      });
+    });
+
+    // Produk Close
+    document.querySelectorAll('.card').forEach(card=>{
+      const stock = parseInt(card.dataset.stock || "1");
+      const buyBtn = card.querySelector('.buy-btn');
+      if(stock <= 0){
+        card.classList.add('out-of-stock');
+        buyBtn.textContent = "Produk Close";
+      }
+    });
+    
   <!-- MODAL QRIS -->
   <div id="qrisModal">
     <div class="qris-box">
