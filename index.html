@@ -6,83 +6,90 @@
   <title>Zyxxennn Payment</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1d1f27, #2e3240);
-      color: #fff;
       margin: 0;
-      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow-x: hidden;
     }
     .container {
-      background: #2a2d3a;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
       padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      max-width: 400px;
+      max-width: 420px;
       width: 100%;
       text-align: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      animation: fadeUp 0.6s ease;
     }
     h1 {
+      font-size: 28px;
       margin-bottom: 25px;
-      font-size: 26px;
-      color: #00d4ff;
+      background: linear-gradient(90deg, #00d4ff, #7c5cff, #ff4d6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
     }
     .method {
-      background: #363a49;
-      padding: 15px;
-      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 16px;
+      border-radius: 14px;
       margin-bottom: 20px;
       text-align: left;
     }
     .method strong {
+      font-size: 15px;
       color: #00d4ff;
       display: block;
       margin-bottom: 6px;
     }
     .copy-btn {
-      background: #00d4ff;
-      color: #111;
+      background: linear-gradient(135deg,#00d4ff,#0077ff);
       border: none;
       padding: 8px 14px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
-      transition: all 0.2s ease;
+      font-weight: bold;
+      color: #fff;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,122,255,0.3);
     }
     .copy-btn:hover {
-      background: #00b8e6;
+      box-shadow: 0 0 14px rgba(0,212,255,0.7);
     }
     .qris-btn {
-      background: #ff4d6d;
-      color: #fff;
+      background: linear-gradient(135deg,#ff4d6d,#ff0066);
       border: none;
-      padding: 12px 20px;
+      padding: 14px 22px;
       font-size: 15px;
       font-weight: bold;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
+      color: #fff;
       margin-top: 10px;
+      box-shadow: 0 4px 14px rgba(255,0,102,0.4);
       transition: 0.3s;
     }
     .qris-btn:hover {
-      background: #e04361;
+      box-shadow: 0 0 18px rgba(255,77,109,0.7);
     }
     .note {
-      margin-top: 14px;
+      margin-top: 16px;
       font-size: 13px;
       font-weight: bold;
       background: linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 8px rgba(124,92,255,0.4);
+      text-shadow: 0 0 10px rgba(124,92,255,0.6);
       animation: glow 3s infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 8px rgba(124,92,255,0.4); }
-      to { text-shadow: 0 0 16px rgba(124,92,255,0.8); }
     }
     /* Modal */
     .modal {
@@ -96,63 +103,52 @@
       align-items: center;
       animation: fadeIn 0.3s ease;
     }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
     .modal-card {
-      background: linear-gradient(160deg, rgba(30,30,45,0.95), rgba(20,20,30,0.92));
-      color:#fff;
-      padding:20px;
-      border-radius:16px;
-      max-width:420px;
-      width:90%;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.08);
-      transform: scale(0.7);
-      opacity: 0;
+      background: rgba(20,20,40,0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.1);
       animation: zoomIn 0.4s forwards;
     }
-    @keyframes zoomIn {
-      from {transform: scale(0.7); opacity: 0;}
-      to {transform: scale(1); opacity: 1;}
-    }
     .modal-card h3 {
-      margin:6px 0 14px;
-      font-size:20px;
-      background:linear-gradient(90deg,#7c5cff,#5ec9ff);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
+      margin-bottom: 15px;
+      font-size: 20px;
+      background: linear-gradient(90deg,#7c5cff,#00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .qris-img {
-      max-width:340px;
-      width:100%;
-      border-radius:14px;
-      border:2px solid rgba(124,92,255,0.7);
-      box-shadow:0 0 18px rgba(124,92,255,0.5);
+      max-width: 330px;
+      width: 100%;
+      border-radius: 16px;
+      border: 2px solid rgba(124,92,255,0.7);
+      box-shadow: 0 0 18px rgba(124,92,255,0.5);
     }
     .note-modal {
-      margin-top:14px;
-      font-size:14px;
-      font-weight:700;
-      background:linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      text-shadow:0 0 8px rgba(124,92,255,0.4);
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      background: linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(124,92,255,0.6);
       animation: glow 3s infinite alternate;
     }
     .modal-actions {
       margin-top: 18px;
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
     }
     .btn {
       flex: 1;
       padding: 10px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
       cursor: pointer;
       font-weight: bold;
@@ -160,31 +156,33 @@
       transition: 0.3s;
     }
     .btn.download {
-      background: #00d4ff;
-      color: #111;
+      background: linear-gradient(135deg,#00d4ff,#0077ff);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,122,255,0.3);
     }
     .btn.download:hover {
-      background: #00b8e6;
+      box-shadow: 0 0 14px rgba(0,212,255,0.7);
     }
     .btn.close {
-      background: #ff4d6d;
+      background: linear-gradient(135deg,#ff4d6d,#ff0066);
       color: #fff;
+      box-shadow: 0 4px 12px rgba(255,0,102,0.3);
     }
     .btn.close:hover {
-      background: #e04361;
+      box-shadow: 0 0 18px rgba(255,77,109,0.7);
     }
     /* Notifikasi */
     .notif {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      top: 20px;
+      right: 20px;
       background: #00c853;
       color: #fff;
       padding: 12px 18px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(-20px);
       transition: all 0.3s ease;
       z-index: 2000;
       font-weight: bold;
@@ -193,6 +191,11 @@
       opacity: 1;
       transform: translateY(0);
     }
+    /* Animasi */
+    @keyframes fadeUp {from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)}}
+    @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
+    @keyframes zoomIn {from{transform:scale(0.7);opacity:0;} to{transform:scale(1);opacity:1;}}
+    @keyframes glow {from{text-shadow:0 0 10px rgba(124,92,255,0.4);} to{text-shadow:0 0 20px rgba(124,92,255,0.8);}}
   </style>
 </head>
 <body>
