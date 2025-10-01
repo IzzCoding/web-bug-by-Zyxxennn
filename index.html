@@ -6,151 +6,138 @@
   <title>Zyxxennn Payment</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1a1f3c);
+      background: linear-gradient(135deg, #1d1f27, #2e3240);
       color: #fff;
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      transition: filter 0.3s ease;
+    }
+    body.blur {
+      filter: blur(5px);
     }
     .container {
-      max-width: 460px;
+      background: #2a2d3a;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      max-width: 400px;
       width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      backdrop-filter: blur(8px);
-      animation: fadeUp 0.6s ease;
+      text-align: center;
+      position: relative;
+      z-index: 1;
     }
     h1 {
-      text-align: center;
-      margin-bottom: 28px;
-      background: linear-gradient(90deg,#7c5cff,#5ec9ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      margin-bottom: 25px;
       font-size: 26px;
+      color: #00d4ff;
     }
     .method {
-      background: rgba(255,255,255,0.08);
-      padding: 16px;
-      border-radius: 14px;
-      margin-bottom: 18px;
-      transition: 0.3s;
-    }
-    .method:hover {
-      background: rgba(255,255,255,0.12);
+      background: #363a49;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      text-align: left;
     }
     .method strong {
+      color: #00d4ff;
       display: block;
-      font-size: 14px;
       margin-bottom: 6px;
-      color: #cbd5e1;
-    }
-    .method .value {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
     }
     .copy-btn {
-      background: linear-gradient(90deg,#7c5cff,#5ec9ff);
+      background: #00d4ff;
+      color: #111;
       border: none;
       padding: 8px 14px;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: 600;
-      color: #fff;
       font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 14px rgba(124,92,255,0.4);
-      transition: transform 0.2s, opacity 0.2s;
+      transition: all 0.2s ease;
     }
     .copy-btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
+      background: #00b8e6;
     }
     .qris-btn {
-      display: block;
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(90deg,#22c55e,#16a34a);
+      background: #ff4d6d;
       color: #fff;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(22,163,74,0.5);
-      transition: transform 0.2s;
-    }
-    .qris-btn:hover {
-      transform: scale(1.02);
-    }
-
-    /* Modal */
-    .qris-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 100;
-    }
-    .qris-modal.open {
-      visibility: visible;
-      opacity: 1;
-    }
-    .qris-card {
-      background: #fff;
-      border-radius: 18px;
-      padding: 24px;
-      text-align: center;
-      max-width: 340px;
-      animation: scaleIn 0.4s ease;
-    }
-    .qris-card h2 {
-      margin: 0 0 12px;
-      font-size: 18px;
-      color: #111;
-    }
-    .qris-card img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
-    .close-btn {
-      margin-top: 14px;
-      background: #ef4444;
-      color: #fff;
-      padding: 10px 16px;
       border: none;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: bold;
       border-radius: 10px;
       cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s;
+      margin-top: 10px;
+      transition: 0.3s;
     }
-    .close-btn:hover {
-      background: #dc2626;
+    .qris-btn:hover {
+      background: #e04361;
     }
-
-    @keyframes fadeUp {
-      from {opacity:0;transform:translateY(20px)}
-      to {opacity:1;transform:translateY(0)}
+    /* QRIS Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
+      backdrop-filter: blur(10px);
     }
-    @keyframes scaleIn {
-      from {transform: scale(0.8);opacity:0}
-      to {transform: scale(1);opacity:1}
+    .modal-content {
+      background: #2a2d3a;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+      transform: scale(0.7);
+      opacity: 0;
+      animation: zoomIn 0.4s forwards;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    .modal-content img {
+      width: 250px;
+      border-radius: 10px;
+    }
+    .close {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #fff;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes zoomIn {
+      from {transform: scale(0.7); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+    /* Notifikasi */
+    .notif {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #00c853;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 2000;
+      font-weight: bold;
+    }
+    .notif.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -159,46 +146,57 @@
     <h1>Zyxxennn Payment</h1>
 
     <div class="method">
-      <strong>No Dana (a/n Zyxxennn)</strong>
-      <div class="value" id="dana">0812xxxxxxx</div>
-      <button class="copy-btn" onclick="copyText('dana')">📋 Copy</button>
+      <strong>Dana</strong>
+      <p>No: 081234567890<br>a/n: Zyxxennn</p>
+      <button class="copy-btn" onclick="copyText('081234567890')">Salin</button>
     </div>
 
     <div class="method">
-      <strong>No GoPay (a/n Zyxxennn)</strong>
-      <div class="value" id="gopay">0857xxxxxxx</div>
-      <button class="copy-btn" onclick="copyText('gopay')">📋 Copy</button>
+      <strong>GoPay</strong>
+      <p>No: 089876543210<br>a/n: Zyxxennn</p>
+      <button class="copy-btn" onclick="copyText('089876543210')">Salin</button>
     </div>
 
     <div class="method">
-      <strong>No OVO (a/n Zyxxennn)</strong>
-      <div class="value" id="ovo">0895xxxxxxx</div>
-      <button class="copy-btn" onclick="copyText('ovo')">📋 Copy</button>
+      <strong>OVO</strong>
+      <p>No: 087712345678<br>a/n: Zyxxennn</p>
+      <button class="copy-btn" onclick="copyText('087712345678')">Salin</button>
     </div>
 
-    <button class="qris-btn" onclick="openQRIS()">📲 Tampilkan QRIS</button>
+    <button class="qris-btn" onclick="openQRIS()">Tampilkan QRIS</button>
   </div>
 
   <!-- Modal QRIS -->
-  <div id="qrisModal" class="qris-modal">
-    <div class="qris-card">
-      <h2>Scan QRIS Zyxxennn</h2>
-      <img src="qris-example.png" alt="QRIS Zyxxennn" />
-      <button class="close-btn" onclick="closeQRIS()">Tutup</button>
+  <div id="qrisModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeQRIS()">&times;</span>
+      <h2>QRIS Zyxxennn</h2>
+      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
     </div>
   </div>
 
+  <!-- Notifikasi -->
+  <div id="notif" class="notif">✅ Disalin</div>
+
   <script>
-    function copyText(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text);
-      alert("✅ Disalin: " + text);
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        let notif = document.getElementById("notif");
+        notif.classList.add("show");
+        setTimeout(() => {
+          notif.classList.remove("show");
+        }, 2000);
+      });
     }
+
     function openQRIS() {
-      document.getElementById('qrisModal').classList.add('open');
+      document.getElementById("qrisModal").style.display = "flex";
+      document.body.classList.add("blur");
     }
+
     function closeQRIS() {
-      document.getElementById('qrisModal').classList.remove('open');
+      document.getElementById("qrisModal").style.display = "none";
+      document.body.classList.remove("blur");
     }
   </script>
 </body>
