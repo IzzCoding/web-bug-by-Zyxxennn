@@ -8,25 +8,21 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
+      height: 100vh;
+      overflow-x: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #fff;
-      overflow-x: hidden;
-      position: relative;
+      background: black;
     }
 
-    /* Efek Bintang */
+    /* Layer bintang */
     .stars, .stars2, .stars3 {
       position: fixed;
-      top:0; left:0;
-      width: 100%;
-      height: 100%;
-      display: block;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: transparent;
       z-index: 0;
-      pointer-events: none;
     }
     .stars {
       background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
@@ -43,222 +39,204 @@
       opacity: 0.3;
     }
     @keyframes moveStars {
-      from {background-position: 0 0;}
-      to {background-position: -10000px 5000px;}
+      from { background-position: 0 0; }
+      to { background-position: -10000px 5000px; }
     }
 
+    /* Container utama */
     .container {
-      background: rgba(20,20,30,0.85);
-      padding: 25px;
-      border-radius: 18px;
-      width: 95%;
-      max-width: 420px;
-      text-align: center;
-      box-shadow: 0 0 30px rgba(0,0,0,0.7);
-      backdrop-filter: blur(10px);
-      z-index: 1;
       position: relative;
+      z-index: 1;
+      background: rgba(20,20,30,0.9);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
     }
-
-    .container h1 {
-      font-size: 26px;
-      margin-bottom: 18px;
-      background: linear-gradient(90deg,#7c5cff,#00d4ff,#ff4d6d);
+    .container h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00d4ff, #8e2de2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
     }
 
-    .payment-card {
+    /* Card e-wallet */
+    .card {
       background: rgba(255,255,255,0.08);
+      border-radius: 15px;
       padding: 15px;
-      margin: 14px 0;
-      border-radius: 14px;
+      margin: 15px 0;
+      position: relative;
       text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 0 12px rgba(255,255,255,0.1);
     }
-
-    .payment-info {
-      flex: 1;
-      margin-left: 12px;
+    .card img {
+      width: 60px;
+      display: block;
+      margin-bottom: 8px;
     }
-
-    .payment-info h3 {
-      font-size: 16px;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .payment-info p {
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    .btn {
-      background: linear-gradient(135deg, #8e2de2, #4a00e0, #00d4ff);
-      background-size: 200% 200%;
+    .card .number {
+      font-size: 1.2rem;
+      font-weight: bold;
       color: #fff;
-      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .card .name {
+      font-size: 0.95rem;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
+    .card button {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      padding: 7px 15px;
       border: none;
-      padding: 10px 18px;
-      border-radius: 50px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #8e2de2, #00d4ff);
+      color: #fff;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.4s ease;
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
-      animation: gradientMove 5s ease infinite;
+      box-shadow: 0 0 10px rgba(0,212,255,0.4);
+      transition: 0.3s;
+    }
+    .card button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Tombol QRIS */
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #8e2de2, #00d4ff);
+      color: white;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(0,212,255,0.6);
     }
     .btn:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 25px rgba(142, 45, 226, 0.9),
-                  0 0 40px rgba(0, 212, 255, 0.7);
-    }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      transform: scale(1.08);
     }
 
-    .note {
-      margin-top: 16px;
-      font-size: 13px;
-      font-weight: 500;
-      background: linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 10px rgba(124,92,255,0.6);
-      animation: glow 3s infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 8px rgba(124,92,255,0.6); }
-      to { text-shadow: 0 0 18px rgba(0,212,255,0.9); }
+    /* Notif copy */
+    .notif {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: none;
+      z-index: 999;
     }
 
     /* Modal QRIS */
     .modal {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: rgba(0,0,0,0.7);
       display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: 999;
     }
-    .modal-card {
-      background: rgba(20,20,30,0.9);
+    .modal-content {
+      background: #111;
       padding: 20px;
-      border-radius: 18px;
+      border-radius: 15px;
       text-align: center;
-      width: 95%;
-      max-width: 380px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.8);
-      backdrop-filter: blur(12px);
-      animation: zoomIn 0.4s ease;
+      max-width: 350px;
+      width: 90%;
     }
-    .modal-card h3 {
-      margin-bottom: 14px;
-      background: linear-gradient(90deg,#7c5cff,#00d4ff);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    .qris-img {
-      max-width: 300px;
+    .modal-content img {
       width: 100%;
-      border-radius: 14px;
-      border: 2px solid rgba(124,92,255,0.7);
-      box-shadow: 0 0 20px rgba(124,92,255,0.6);
+      border-radius: 10px;
+      margin-bottom: 15px;
     }
-    .note-modal {
-      margin-top: 14px;
-      font-size: 14px;
-      font-weight: 600;
-      background: linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
+    .modal-content p {
+      color: #bbb;
+      font-size: 0.9rem;
+      background: linear-gradient(90deg, #00d4ff, #8e2de2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 10px rgba(124,92,255,0.6);
-      animation: glow 3s infinite alternate;
-    }
-    .modal-actions {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-    }
-    @keyframes zoomIn {
-      from { transform: scale(0.8); opacity:0; }
-      to { transform: scale(1); opacity:1; }
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <!-- Efek Bintang -->
+  <!-- Bintang -->
   <div class="stars"></div>
   <div class="stars2"></div>
   <div class="stars3"></div>
 
+  <!-- Konten -->
   <div class="container">
-    <h1>Zyxxennn Payment</h1>
+    <h2>Zyxxennn Payment</h2>
 
     <!-- Dana -->
-    <div class="payment-card">
-      <img src="https://i.ibb.co/tLdPSjz/dana.png" alt="Dana" width="40">
-      <div class="payment-info">
-        <h3>0857 1234 5678</h3>
-        <p>a/n Zyxxennn</p>
-      </div>
-      <button class="btn" onclick="copyText('085712345678')">Copy</button>
+    <div class="card">
+      <img src="https://i.ibb.co/fdStzJc/dana.png" alt="Dana">
+      <div class="number">0857 1234 5678</div>
+      <div class="name">a/n Zyxxennn</div>
+      <button onclick="copyText('085712345678')">Copy</button>
     </div>
 
     <!-- Gopay -->
-    <div class="payment-card">
-      <img src="https://i.ibb.co/LkJk4PZ/gopay.png" alt="Gopay" width="40">
-      <div class="payment-info">
-        <h3>0812 9876 5432</h3>
-        <p>a/n Zyxxennn</p>
-      </div>
-      <button class="btn" onclick="copyText('081298765432')">Copy</button>
+    <div class="card">
+      <img src="https://i.ibb.co/jL6ZtPr/gopay.png" alt="Gopay">
+      <div class="number">0812 9876 5432</div>
+      <div class="name">a/n Zyxxennn</div>
+      <button onclick="copyText('081298765432')">Copy</button>
     </div>
 
     <!-- OVO -->
-    <div class="payment-card">
-      <img src="https://i.ibb.co/4Y6zmc3/ovo.png" alt="OVO" width="40">
-      <div class="payment-info">
-        <h3>0896 5555 3333</h3>
-        <p>a/n Zyxxennn</p>
-      </div>
-      <button class="btn" onclick="copyText('089655553333')">Copy</button>
+    <div class="card">
+      <img src="https://i.ibb.co/qFTh0nF/ovo.png" alt="OVO">
+      <div class="number">0896 5555 3333</div>
+      <div class="name">a/n Zyxxennn</div>
+      <button onclick="copyText('089655553333')">Copy</button>
     </div>
 
-    <!-- QRIS -->
-    <button class="btn" style="margin-top:15px;" onclick="openQRIS()">Tampilkan QRIS</button>
-    <p class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
+    <button class="btn" onclick="showQR()">Tampilkan QRIS</button>
+    <p style="margin-top:15px;font-size:0.9rem;color:#ccc;">
+      ⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡
+    </p>
   </div>
 
   <!-- Modal QRIS -->
-  <div id="qrisModal" class="modal">
-    <div class="modal-card">
-      <h3>QRIS Zyxxennn</h3>
-      <img class="qris-img" src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS Zyxxennn">
-      <p class="note-modal">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
-      <div class="modal-actions">
-        <button class="btn" onclick="closeQRIS()">Tutup</button>
-      </div>
+  <div class="modal" id="qrisModal">
+    <div class="modal-content">
+      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
+      <p>⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
+      <button class="btn" onclick="closeQR()">Tutup</button>
     </div>
   </div>
+
+  <!-- Notifikasi -->
+  <div class="notif" id="notif">✅ Disalin</div>
 
   <script>
     function copyText(text) {
       navigator.clipboard.writeText(text).then(() => {
-        alert("✅ Nomor berhasil disalin!");
+        let notif = document.getElementById('notif');
+        notif.style.display = 'block';
+        setTimeout(() => { notif.style.display = 'none'; }, 2000);
       });
     }
-    function openQRIS(){
-      document.getElementById("qrisModal").style.display="flex";
+    function showQR() {
+      document.getElementById('qrisModal').style.display = 'flex';
     }
-    function closeQRIS(){
-      document.getElementById("qrisModal").style.display="none";
+    function closeQR() {
+      document.getElementById('qrisModal').style.display = 'none';
     }
   </script>
 </body>
