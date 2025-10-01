@@ -6,30 +6,43 @@
   <title>Zyxxennn Payment</title>
   <style>
     body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #0f172a, #1a1f3c);
       color: #fff;
-      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       padding: 20px;
     }
     .container {
-      max-width: 420px;
-      margin: auto;
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      max-width: 460px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      animation: fadeUp 0.6s ease;
     }
     h1 {
       text-align: center;
-      margin-bottom: 24px;
-      color: #7c5cff;
+      margin-bottom: 28px;
+      background: linear-gradient(90deg,#7c5cff,#5ec9ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 26px;
     }
     .method {
       background: rgba(255,255,255,0.08);
-      padding: 14px;
-      border-radius: 12px;
-      margin-bottom: 14px;
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      transition: 0.3s;
+    }
+    .method:hover {
+      background: rgba(255,255,255,0.12);
     }
     .method strong {
       display: block;
@@ -38,46 +51,61 @@
       color: #cbd5e1;
     }
     .method .value {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
     }
     .copy-btn {
       background: linear-gradient(90deg,#7c5cff,#5ec9ff);
       border: none;
-      padding: 8px 12px;
-      border-radius: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
       color: #fff;
-      transition: 0.2s;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(124,92,255,0.4);
+      transition: transform 0.2s, opacity 0.2s;
     }
     .copy-btn:hover {
+      transform: translateY(-2px);
       opacity: 0.9;
     }
     .qris-btn {
       display: block;
       width: 100%;
-      margin-top: 18px;
-      padding: 12px;
+      margin-top: 20px;
+      padding: 14px;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       background: linear-gradient(90deg,#22c55e,#16a34a);
       color: #fff;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 16px;
       cursor: pointer;
+      box-shadow: 0 6px 18px rgba(22,163,74,0.5);
+      transition: transform 0.2s;
     }
+    .qris-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* Modal */
     .qris-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.75);
       display: flex;
       justify-content: center;
       align-items: center;
       visibility: hidden;
       opacity: 0;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
+      z-index: 100;
     }
     .qris-modal.open {
       visibility: visible;
@@ -85,24 +113,44 @@
     }
     .qris-card {
       background: #fff;
-      border-radius: 14px;
-      padding: 20px;
+      border-radius: 18px;
+      padding: 24px;
       text-align: center;
-      max-width: 320px;
+      max-width: 340px;
+      animation: scaleIn 0.4s ease;
+    }
+    .qris-card h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: #111;
     }
     .qris-card img {
       width: 100%;
       border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
     .close-btn {
-      margin-top: 12px;
+      margin-top: 14px;
       background: #ef4444;
       color: #fff;
-      padding: 8px 12px;
+      padding: 10px 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
+      transition: 0.2s;
+    }
+    .close-btn:hover {
+      background: #dc2626;
+    }
+
+    @keyframes fadeUp {
+      from {opacity:0;transform:translateY(20px)}
+      to {opacity:1;transform:translateY(0)}
+    }
+    @keyframes scaleIn {
+      from {transform: scale(0.8);opacity:0}
+      to {transform: scale(1);opacity:1}
     }
   </style>
 </head>
@@ -113,27 +161,28 @@
     <div class="method">
       <strong>No Dana (a/n Zyxxennn)</strong>
       <div class="value" id="dana">0812xxxxxxx</div>
-      <button class="copy-btn" onclick="copyText('dana')">Copy</button>
+      <button class="copy-btn" onclick="copyText('dana')">📋 Copy</button>
     </div>
 
     <div class="method">
       <strong>No GoPay (a/n Zyxxennn)</strong>
       <div class="value" id="gopay">0857xxxxxxx</div>
-      <button class="copy-btn" onclick="copyText('gopay')">Copy</button>
+      <button class="copy-btn" onclick="copyText('gopay')">📋 Copy</button>
     </div>
 
     <div class="method">
       <strong>No OVO (a/n Zyxxennn)</strong>
       <div class="value" id="ovo">0895xxxxxxx</div>
-      <button class="copy-btn" onclick="copyText('ovo')">Copy</button>
+      <button class="copy-btn" onclick="copyText('ovo')">📋 Copy</button>
     </div>
 
-    <button class="qris-btn" onclick="openQRIS()">Tampilkan QRIS</button>
+    <button class="qris-btn" onclick="openQRIS()">📲 Tampilkan QRIS</button>
   </div>
 
   <!-- Modal QRIS -->
   <div id="qrisModal" class="qris-modal">
     <div class="qris-card">
+      <h2>Scan QRIS Zyxxennn</h2>
       <img src="qris-example.png" alt="QRIS Zyxxennn" />
       <button class="close-btn" onclick="closeQRIS()">Tutup</button>
     </div>
@@ -143,7 +192,7 @@
     function copyText(id) {
       const text = document.getElementById(id).textContent;
       navigator.clipboard.writeText(text);
-      alert("Berhasil disalin: " + text);
+      alert("✅ Disalin: " + text);
     }
     function openQRIS() {
       document.getElementById('qrisModal').classList.add('open');
