@@ -1,202 +1,162 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Zyxxennn Payment</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1d1f27, #2e3240);
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      transition: filter 0.3s ease;
+    :root{ --bg1:#1d1f27; --bg2:#2e3240; --card:#2a2d3a; --muted:#cbd5e1; --accent:#00d4ff; --accent2:#ff4d6d; --success:#00c853;}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, sans-serif;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
     }
-    body.blur {
-      filter: blur(5px);
+    .container{
+      width:100%;
+      max-width:420px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius:16px;
+      padding:26px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+      backdrop-filter:blur(6px);
+      transition:filter .28s ease;
+      text-align:center;
     }
-    .container {
-      background: #2a2d3a;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      z-index: 1;
+    h1{margin-bottom:18px;font-size:22px;background:linear-gradient(90deg,#7c5cff,#5ec9ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .method{background:rgba(255,255,255,0.05);border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .method .left{ text-align:left;}
+    .method .label{ font-size:13px;color:var(--muted);}
+    .method .value{ font-size:15px;font-weight:700;}
+    .btn{border:0;cursor:pointer;padding:8px 12px;border-radius:10px;font-weight:700;}
+    .btn.copy{background:linear-gradient(90deg,#7c5cff,#5ec9ff);color:#061025;}
+    .qris-btn{width:100%;margin-top:14px;padding:12px;border-radius:12px;background:linear-gradient(90deg,var(--accent2),#e04361);color:#fff;font-weight:800;}
+    
+    /* teks transfer */
+    .note{
+      margin-top:12px;
+      font-size:14px;
+      font-weight:700;
+      background:linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 8px rgba(124,92,255,0.4);
+      animation: glow 3s infinite alternate;
     }
-    h1 {
-      margin-bottom: 25px;
-      font-size: 26px;
-      color: #00d4ff;
+    @keyframes glow{
+      from{text-shadow:0 0 8px rgba(0,212,255,0.6);}
+      to{text-shadow:0 0 14px rgba(255,77,109,0.7);}
     }
-    .method {
-      background: #363a49;
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      text-align: left;
+
+    /* modal */
+    .modal{display:none;position:fixed;inset:0;background:rgba(3,6,12,0.65);backdrop-filter:blur(8px);z-index:999;align-items:center;justify-content:center;padding:20px;}
+    .modal.open{display:flex;}
+    .modal-card{background:#fff;color:#111;padding:18px;border-radius:14px;max-width:420px;width:100%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.4);}
+    .modal-card h3{margin:6px 0 12px;}
+    .qris-img{max-width:360px;width:100%;border-radius:10px;}
+    .modal-actions{margin-top:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+    .btn.download{background:linear-gradient(90deg,#22c55e,#16a34a);color:#fff;}
+    .btn.close{background:#ef4444;color:#fff;}
+    .note-modal{
+      margin-top:14px;
+      font-size:14px;
+      font-weight:700;
+      background:linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 8px rgba(124,92,255,0.4);
+      animation: glow 3s infinite alternate;
     }
-    .method strong {
-      color: #00d4ff;
-      display: block;
-      margin-bottom: 6px;
-    }
-    .copy-btn {
-      background: #00d4ff;
-      color: #111;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-    .copy-btn:hover {
-      background: #00b8e6;
-    }
-    .qris-btn {
-      background: #ff4d6d;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      font-size: 15px;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: 0.3s;
-    }
-    .qris-btn:hover {
-      background: #e04361;
-    }
-    /* QRIS Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-    .modal-content {
-      background: #2a2d3a;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      position: relative;
-      transform: scale(0.7);
-      opacity: 0;
-      animation: zoomIn 0.4s forwards;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    }
-    .modal-content img {
-      width: 250px;
-      border-radius: 10px;
-    }
-    .close {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 22px;
-      cursor: pointer;
-      color: #fff;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    @keyframes zoomIn {
-      from {transform: scale(0.7); opacity: 0;}
-      to {transform: scale(1); opacity: 1;}
-    }
-    /* Notifikasi */
-    .notif {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #00c853;
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      z-index: 2000;
-      font-weight: bold;
-    }
-    .notif.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+    /* notif */
+    .notif{position:fixed;right:20px;bottom:20px;background:var(--success);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;opacity:0;transform:translateY(20px);transition:.3s;z-index:2000;}
+    .notif.show{opacity:1;transform:translateY(0);}
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="mainCard">
     <h1>Zyxxennn Payment</h1>
 
     <div class="method">
-      <strong>Dana</strong>
-      <p>No: 081234567890<br>a/n: Zyxxennn</p>
-      <button class="copy-btn" onclick="copyText('081234567890')">Salin</button>
+      <div class="left">
+        <span class="label">Dana — a/n Zyxxennn</span>
+        <div class="value" id="danaVal">081234567890</div>
+      </div>
+      <button class="btn copy" onclick="doCopy('danaVal')">Copy</button>
     </div>
 
     <div class="method">
-      <strong>GoPay</strong>
-      <p>No: 089876543210<br>a/n: Zyxxennn</p>
-      <button class="copy-btn" onclick="copyText('089876543210')">Salin</button>
+      <div class="left">
+        <span class="label">GoPay — a/n Zyxxennn</span>
+        <div class="value" id="gopayVal">089876543210</div>
+      </div>
+      <button class="btn copy" onclick="doCopy('gopayVal')">Copy</button>
     </div>
 
     <div class="method">
-      <strong>OVO</strong>
-      <p>No: 087712345678<br>a/n: Zyxxennn</p>
-      <button class="copy-btn" onclick="copyText('087712345678')">Salin</button>
+      <div class="left">
+        <span class="label">OVO — a/n Zyxxennn</span>
+        <div class="value" id="ovoVal">087712345678</div>
+      </div>
+      <button class="btn copy" onclick="doCopy('ovoVal')">Copy</button>
     </div>
 
     <button class="qris-btn" onclick="openQRIS()">Tampilkan QRIS</button>
+    <p class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
   </div>
 
-  <!-- Modal QRIS -->
+  <!-- Modal -->
   <div id="qrisModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeQRIS()">&times;</span>
-      <h2>QRIS Zyxxennn</h2>
-      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
+    <div class="modal-card">
+      <h3>QRIS Zyxxennn</h3>
+      <img class="qris-img" src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS Zyxxennn">
+      <p class="note-modal">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
+      <div class="modal-actions">
+        <button class="btn download" onclick="downloadQRIS()">Download QRIS</button>
+        <button class="btn close" onclick="closeQRIS()">Tutup</button>
+      </div>
     </div>
   </div>
 
-  <!-- Notifikasi -->
+  <!-- notif -->
   <div id="notif" class="notif">✅ Disalin</div>
 
   <script>
-    function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        let notif = document.getElementById("notif");
-        notif.classList.add("show");
-        setTimeout(() => {
-          notif.classList.remove("show");
-        }, 2000);
-      });
-    }
+    const notifEl = document.getElementById("notif");
+    const QRIS_URL = "https://files.catbox.moe/2ifiot.jpg";
 
-    function openQRIS() {
-      document.getElementById("qrisModal").style.display = "flex";
-      document.body.classList.add("blur");
+    function showNotif(text){
+      notifEl.textContent = text;
+      notifEl.classList.add("show");
+      clearTimeout(notifEl._t);
+      notifEl._t = setTimeout(()=> notifEl.classList.remove("show"),1800);
     }
-
-    function closeQRIS() {
-      document.getElementById("qrisModal").style.display = "none";
-      document.body.classList.remove("blur");
+    function doCopy(id){
+      const text=document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(()=>showNotif("✅ Disalin"),()=>showNotif("⚠️ Gagal"));
+    }
+    function openQRIS(){
+      document.getElementById("qrisModal").classList.add("open");
+    }
+    function closeQRIS(){
+      document.getElementById("qrisModal").classList.remove("open");
+    }
+    async function downloadQRIS(){
+      try{
+        const res=await fetch(QRIS_URL); const blob=await res.blob();
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement("a");
+        a.href=url; a.download="qris-zyxxennn.jpg";
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+        showNotif("✅ QRIS Tersimpan");
+      }catch(e){ window.open(QRIS_URL,"_blank"); showNotif("⚠️ Dibuka di tab baru"); }
     }
   </script>
 </body>
