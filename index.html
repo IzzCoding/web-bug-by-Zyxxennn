@@ -68,31 +68,32 @@
     .card {
       background: rgba(255,255,255,0.08);
       border-radius: 15px;
-      padding: 15px;
+      padding: 12px 15px;
       margin: 15px 0;
-      position: relative;
-      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .card img {
-      width: 60px;
-      display: block;
-      margin-bottom: 8px;
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+    .card .info {
+      flex-grow: 1;
+      text-align: left;
     }
     .card .number {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      color: #fff;
-      margin-bottom: 4px;
+      color: #fff; /* Putih */
     }
     .card .name {
-      font-size: 0.95rem;
-      color: #aaa;
-      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #ddd; /* Abu terang */
     }
     .card button {
-      position: absolute;
-      right: 15px;
-      bottom: 15px;
       padding: 7px 15px;
       border: none;
       border-radius: 20px;
@@ -121,9 +122,7 @@
       transition: 0.3s;
       box-shadow: 0 0 15px rgba(0,212,255,0.6);
     }
-    .btn:hover {
-      transform: scale(1.08);
-    }
+    .btn:hover { transform: scale(1.08); }
 
     /* Notif copy */
     .notif {
@@ -185,24 +184,30 @@
     <!-- Dana -->
     <div class="card">
       <img src="https://i.ibb.co/fdStzJc/dana.png" alt="Dana">
-      <div class="number">0857 1234 5678</div>
-      <div class="name">a/n Zyxxennn</div>
+      <div class="info">
+        <div class="number">0857 1234 5678</div>
+        <div class="name">a/n Zyxxennn</div>
+      </div>
       <button onclick="copyText('085712345678')">Copy</button>
     </div>
 
     <!-- Gopay -->
     <div class="card">
       <img src="https://i.ibb.co/jL6ZtPr/gopay.png" alt="Gopay">
-      <div class="number">0812 9876 5432</div>
-      <div class="name">a/n Zyxxennn</div>
+      <div class="info">
+        <div class="number">0812 9876 5432</div>
+        <div class="name">a/n Zyxxennn</div>
+      </div>
       <button onclick="copyText('081298765432')">Copy</button>
     </div>
 
     <!-- OVO -->
     <div class="card">
       <img src="https://i.ibb.co/qFTh0nF/ovo.png" alt="OVO">
-      <div class="number">0896 5555 3333</div>
-      <div class="name">a/n Zyxxennn</div>
+      <div class="info">
+        <div class="number">0896 5555 3333</div>
+        <div class="name">a/n Zyxxennn</div>
+      </div>
       <button onclick="copyText('089655553333')">Copy</button>
     </div>
 
