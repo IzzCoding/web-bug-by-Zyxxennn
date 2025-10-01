@@ -34,12 +34,13 @@
     }
     .payment-card {
       background: rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 15px;
-      margin-bottom: 18px;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      text-align: center;
       position: relative;
       overflow: hidden;
     }
@@ -51,41 +52,35 @@
       width: 200%;
       height: 200%;
       background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
-      animation: rotate 10s linear infinite;
+      animation: rotate 12s linear infinite;
     }
     @keyframes rotate {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    .card-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 1;
-    }
     .logo {
-      width: 40px;
-      height: 40px;
+      width: 55px;
+      height: 55px;
       border-radius: 50%;
       object-fit: contain;
       background: white;
-      padding: 5px;
-    }
-    .details {
-      text-align: left;
+      padding: 6px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .number {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
-      letter-spacing: 1px;
+      margin-bottom: 4px;
     }
     .owner {
       font-size: 14px;
       opacity: 0.9;
+      margin-bottom: 10px;
     }
     .copy-btn {
       z-index: 1;
-      padding: 6px 14px;
+      padding: 8px 18px;
       border: none;
       border-radius: 10px;
       background: linear-gradient(90deg, #5ec9ff, #7c5cff);
@@ -218,35 +213,23 @@
     <h1>Zyxxennn Payment</h1>
 
     <div class="payment-card">
-      <div class="card-left">
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Dana_logo.png" alt="Dana">
-        <div class="details">
-          <div class="number">0812-3456-7890</div>
-          <div class="owner">a/n Zyxxennn</div>
-        </div>
-      </div>
+      <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Dana_logo.png" alt="Dana">
+      <div class="number">0812-3456-7890</div>
+      <div class="owner">a/n Zyxxennn</div>
       <button class="copy-btn" onclick="copyText('081234567890')">Copy</button>
     </div>
 
     <div class="payment-card">
-      <div class="card-left">
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/46/GoPay_logo.svg" alt="Gopay">
-        <div class="details">
-          <div class="number">0857-1234-5678</div>
-          <div class="owner">a/n Zyxxennn</div>
-        </div>
-      </div>
+      <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/46/GoPay_logo.svg" alt="Gopay">
+      <div class="number">0857-1234-5678</div>
+      <div class="owner">a/n Zyxxennn</div>
       <button class="copy-btn" onclick="copyText('085712345678')">Copy</button>
     </div>
 
     <div class="payment-card">
-      <div class="card-left">
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/67/Logo_ovo_purple.svg" alt="OVO">
-        <div class="details">
-          <div class="number">0896-1234-5678</div>
-          <div class="owner">a/n Zyxxennn</div>
-        </div>
-      </div>
+      <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/67/Logo_ovo_purple.svg" alt="OVO">
+      <div class="number">0896-1234-5678</div>
+      <div class="owner">a/n Zyxxennn</div>
       <button class="copy-btn" onclick="copyText('089612345678')">Copy</button>
     </div>
 
