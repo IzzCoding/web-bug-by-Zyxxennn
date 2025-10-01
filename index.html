@@ -164,14 +164,44 @@
       width: 250px;
       border-radius: 15px;
     }
-    .close {
-      margin-top: 15px;
-      background: #ff004c;
+    .close, .download {
+      margin-top: 12px;
       border: none;
       color: #fff;
       padding: 8px 16px;
       border-radius: 20px;
       cursor: pointer;
+    }
+    .close {
+      background: #ff004c;
+    }
+    .download {
+      background: #00c853;
+      margin-left: 10px;
+    }
+
+    /* Notif Copy */
+    .toast {
+      visibility: hidden;
+      min-width: 200px;
+      margin-left: -100px;
+      background: rgba(0,212,255,0.9);
+      color: #fff;
+      text-align: center;
+      border-radius: 25px;
+      padding: 12px;
+      position: fixed;
+      z-index: 1000;
+      left: 50%;
+      bottom: 30px;
+      font-size: 14px;
+      transition: 0.4s;
+    }
+
+    .toast.show {
+      visibility: visible;
+      transform: translateY(-10px);
+      opacity: 1;
     }
   </style>
 </head>
@@ -215,16 +245,24 @@
   <!-- Modal QRIS -->
   <div class="modal" id="qrisModal">
     <div class="modal-content">
-      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
+      <img id="qrisImage" src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
       <div class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</div>
       <button class="close" onclick="closeQRIS()">Tutup</button>
+      <a id="downloadLink" href="https://files.catbox.moe/2ifiot.jpg" download="qris-zyxxennn.jpg">
+        <button class="download">Download QRIS</button>
+      </a>
     </div>
   </div>
+
+  <!-- Toast Notif -->
+  <div id="toast" class="toast">✅ Disalin</div>
 
   <script>
     function copyText(text) {
       navigator.clipboard.writeText(text).then(() => {
-        alert("✅ Disalin: " + text);
+        let toast = document.getElementById("toast");
+        toast.className = "toast show";
+        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2000);
       });
     }
     function openQRIS() {
