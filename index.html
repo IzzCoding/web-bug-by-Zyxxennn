@@ -3,442 +3,154 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zyxxennn Official</title>
+  <title>Zyxxennn Payment</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: white;
-      padding-bottom: 100px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 60px auto 20px auto;
+      background: linear-gradient(135deg, #0f172a, #1a1f3c);
+      color: #fff;
+      margin: 0;
       padding: 20px;
     }
-    .navbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
-      padding: 12px 0;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
-      z-index: 1000;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     }
-    .nav-btn {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: none;
-      padding: 10px 16px;
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #7c5cff;
+    }
+    .method {
+      background: rgba(255,255,255,0.08);
+      padding: 14px;
       border-radius: 12px;
+      margin-bottom: 14px;
+    }
+    .method strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+    .method .value {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .copy-btn {
+      background: linear-gradient(90deg,#7c5cff,#5ec9ff);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 14px;
+      color: #fff;
+      transition: 0.2s;
+    }
+    .copy-btn:hover {
+      opacity: 0.9;
+    }
+    .qris-btn {
+      display: block;
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg,#22c55e,#16a34a);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .qris-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      transition: all 0.3s ease;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
     }
-    .nav-btn:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    .qris-modal.open {
+      visibility: visible;
+      opacity: 1;
     }
-    .nav-btn span { font-size: 12px; margin-top: 2px; }
-    #beranda, #store, #partner { display: none; }
-    #beranda.active, #store.active, #partner.active { display: block; }
-
-    .beranda-header h2 { text-align: center; margin:0; font-size:28px; }
-    .beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
-
-    .owner-buttons {
-      display:flex; 
-      justify-content:center; 
-      gap:16px; 
-      margin:20px 0; 
-      flex-wrap:wrap;
+    .qris-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      max-width: 320px;
     }
-    .owner-btn {
-      text-decoration:none;
-      padding:12px 20px;
-      border-radius:12px;
-      font-weight:600;
-      color:white;
-      text-align:center;
-      transition: all 0.3s ease;
-      box-shadow:0 4px 12px rgba(0,0,0,0.3);
-      font-size:14px;
+    .qris-card img {
+      width: 100%;
+      border-radius: 12px;
     }
-    .owner-btn.owner { background: linear-gradient(45deg,#ff416c,#ff4b2b); }
-    .owner-btn.channel { background: linear-gradient(45deg,#00c6ff,#0072ff); }
-    .owner-btn.grup { background: linear-gradient(45deg,#f7971e,#ffd200); color:#000; }
-    .owner-btn.saweria { background: linear-gradient(45deg,#7b4397,#dc2430); }
-    .owner-btn:hover { transform: scale(1.1); }
-
-    .programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
-    .programming-box {
-      background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; text-align:center;
-      width:100px; opacity:0; transform:translateY(20px); transition:all 0.6s ease;
-    }
-    .programming-box.show { opacity:1; transform:translateY(0); }
-    .programming-box .emoji { font-size:40px; display:block; margin:0 auto 8px; }
-
-    .card { background: rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-bottom:18px;
-      backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.25); overflow:hidden;
-      transition:transform 0.2s ease, background 0.3s ease;
-    }
-    .card:hover { background: rgba(255,255,255,0.12); transform:translateY(-3px); }
-    .card h3 { margin:0 0 6px 0; font-size:18px; }
-    .card .price { font-weight:600; margin-bottom:12px; color:#00ffcc; }
-
-    .btn-toggle {
-      background:#6a11cb; color:white; border:none; padding:8px 14px; border-radius:8px;
-      cursor:pointer; font-size:14px; display:flex; align-items:center; gap:5px; transition:transform 0.2s ease;
-    }
-    .btn-toggle:hover { transform: scale(1.05); }
-    .arrow { display:inline-block; transition:transform 0.3s ease; }
-    .arrow.rotate { transform:rotate(180deg); }
-
-    .buy-btn {
-      background:#6a11cb;
-      color:white;
-      border:none;
-      padding:8px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:14px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:5px;
-      transition:transform 0.2s ease;
-      margin-top:10px;
-    }
-    .buy-btn:hover { transform: scale(1.05); }
-
-    .keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
-    .keuntungan.open { height:auto; opacity:1; }
-    .keuntungan ul { padding-left:20px; margin:10px 0; }
-    .keuntungan li {
-      opacity:0; transform:translateY(10px); transition:opacity 0.4s ease, transform 0.4s ease;
-      font-size:15px; font-weight:500; color:#f1f1f1; list-style:none; position:relative; padding-left:24px;
-    }
-    .keuntungan.open li { opacity:1; transform:translateY(0); }
-    .keuntungan li::before { content:"✔"; position:absolute; left:0; color:#00ffcc; font-weight:bold; text-shadow:0 0 8px #00ffcc,0 0 12px #00ffaa; }
-
-    .partner-box { background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; margin-top:20px; }
-    .partner-box h3 { text-align:center; margin-bottom:12px; }
-    .partner-box ul { padding-left:0; list-style:none; text-align:center; }
-    .partner-box ul li { margin:6px 0; }
-    .partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
-    .partner-box ul li a:hover { transform: scale(1.05); }
-
-    #qrisModal {
-      display:none;
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(0,0,0,0.8);
-      z-index:2000;
-      align-items:center;
-      justify-content:center;
-    }
-    #qrisModal .qris-box {
-      background:#1c1c2b;
-      padding:20px;
-      border-radius:12px;
-      width:90%;
-      max-width:400px;
-      text-align:center;
-      color:white;
-      box-shadow:0 0 15px rgba(0,255,204,0.6);
-    }
-    #qrisModal img {
-      width:220px;
-      margin:15px auto;
-      display:block;
-      border-radius:12px;
-      box-shadow:0 0 20px rgba(0,255,204,0.5);
-    }
-    #qrisModal input {
-      margin:10px 0;
-      padding:10px;
-      width:100%;
-      border-radius:8px;
-      border:none;
-    }
-    #qrisModal button {
-      padding:10px 16px;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:600;
-      margin-top:10px;
-    }
-    #kirimBtn { background:#00ffcc; color:#000; }
-    .qris-close { background:#ff3b3b; color:white; }
-
-    /* STOCK HABIS / PRODUK CLOSE */
-    .card.out-of-stock {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-    .card.out-of-stock .buy-btn {
-      background: gray;
-      cursor: not-allowed;
-    }
-    .card.out-of-stock h3::after {
-      content: " (Produk Close)";
-      color: #ff3b3b;
-      font-weight: bold;
+    .close-btn {
+      margin-top: 12px;
+      background: #ef4444;
+      color: #fff;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Zyxxennn Payment</h1>
 
-  <!-- BERANDA -->
-  <div class="container" id="beranda">
-    <div class="beranda-header">
-      <h2>Zyxxennn Official</h2>
-      <p>Informasi atau About</p>
-    </div>
-    <div class="owner-buttons">
-      <a href="https://t.me/Zyxxennn" target="_blank" class="owner-btn owner">OWNER</a>
-      <a href="https://t.me/ZyxxennnCH" target="_blank" class="owner-btn channel">CHANNEL OWNER</a>
-      <a href="https://t.me/RoomZyxxennn" target="_blank" class="owner-btn grup">GRUP OWNER</a>
-      <a href="https://saweria.co/ZyxxennnOffociall" target="_blank" class="owner-btn saweria">SAWERIA</a>
+    <div class="method">
+      <strong>No Dana (a/n Zyxxennn)</strong>
+      <div class="value" id="dana">0812xxxxxxx</div>
+      <button class="copy-btn" onclick="copyText('dana')">Copy</button>
     </div>
 
-    <div class="programming-boxes">
-      <div class="programming-box"><div class="emoji">🌐</div><span>HTML</span></div>
-      <div class="programming-box"><div class="emoji">🔷</div><span>CSS</span></div>
-      <div class="programming-box"><div class="emoji">🟨</div><span>JavaScript</span></div>
-      <div class="programming-box"><div class="emoji">🐍</div><span>Python</span></div>
+    <div class="method">
+      <strong>No GoPay (a/n Zyxxennn)</strong>
+      <div class="value" id="gopay">0857xxxxxxx</div>
+      <button class="copy-btn" onclick="copyText('gopay')">Copy</button>
     </div>
+
+    <div class="method">
+      <strong>No OVO (a/n Zyxxennn)</strong>
+      <div class="value" id="ovo">0895xxxxxxx</div>
+      <button class="copy-btn" onclick="copyText('ovo')">Copy</button>
+    </div>
+
+    <button class="qris-btn" onclick="openQRIS()">Tampilkan QRIS</button>
   </div>
 
-  <!-- STORE -->
-  <div class="container" id="store">
-    <!-- PRODUK 1 -->
-    <div class="card" data-stock="0">
-      <h3>Akses Premium Bot Jashare</h3>
-      <div class="price">5.000</div>
-      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>Get Akses Premium Permanen</li>
-        <li>Tidak Capek Promosi / Share Manual</li>
-        <li>Share Sepuasnya</li>
-        <li>100% Sukses Share Ke Semua Grup</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Akses Premium">Buy</button>
-    </div>
-
-    <!-- PRODUK 2 -->
-    <div class="card">
-      <h3>Akses Owner Bot Jashare</h3>
-      <div class="price">10.000</div>
-      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>Get Akses Owner Permanen</li>
-        <li>Bisa Menjual Akses Premium</li>
-        <li>Get Admin Grup Akses</li>
-        <li>Tidak Capek Promosi / Share Manual</li>
-        <li>Share Sepuasnya</li>
-        <li>100% Sukses Share Ke Semua Grup</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Akses Owner">Buy</button>
-    </div>
-
-    <!-- PRODUK 3 -->
-    <div class="card">
-      <h3>Akses Partner Bot Jashare</h3>
-      <div class="price">15.000</div>
-      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>Get Akses Premium Permanen</li>
-        <li>Bisa Menjual Akses Owner</li>
-        <li>Bisa Menjual Akses Premium</li>
-        <li>Get Admin Grup Akses</li>
-        <li>Tidak Capek Promosi / Share Manual</li>
-        <li>Share Sepuasnya</li>
-        <li>100% Sukses Share Ke Grup</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Akses Partner">Buy</button>
-    </div>
-
-    <!-- PRODUK 4 -->
-    <div class="card">
-      <h3>Jasa Buat Website Store + Payment</h3>
-      <div class="price">5.000</div>
-      <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>Bebas Request Produk</li>
-        <li>Store Website Nama Lu</li>
-        <li>Html Dari Gw</li>
-        <li>Paymentnya Nama Lu</li>
-        <li>Siap Pakai / Langsung Pakai</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Jasa Website">Buy</button>
-    </div>
-
-    <!-- PRODUK 5 -->
-<div class="card">
-  <h3>Panel Unli</h3>
-  <div class="price">1.000</div>
-  <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-  <div class="keuntungan"><ul>
-    <li>Bergaransi</li>
-    <li>Server Lancar</li>
-    <li>Anti Intip Server</li>
-    <li>Server Masih Sepi</li>
-  </ul></div>
-  <button class="buy-btn" data-produk="Nama Produk">Buy</button>
-</div>
-  </div>
-
-  <!-- PARTNER -->
-  <div class="container" id="partner">
-    <div class="partner-box">
-      <h3>ALL PARTNER Zyxxennn</h3>
-      <ul>
-        <li><a href="https://t.me/Zyxxennn" target="_blank"></a></li>
-        <li><a href="https://t.me/Partner2" target="_blank"></a></li>
-        <li><a href="https://t.me/Partner3" target="_blank"></a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <button class="nav-btn" data-target="beranda">🏠<span>Beranda</span></button>
-    <button class="nav-btn" data-target="store">🛒<span>Store</span></button>
-    <button class="nav-btn" data-target="partner">🤝<span>Partner</span></button>
-  </div>
-
-  <script>
-    function showTab(tab) {
-      document.querySelectorAll('.container').forEach(c=>c.classList.remove('active'));
-      document.getElementById(tab).classList.add('active');
-    }
-
-    document.querySelectorAll('.btn-toggle').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        let keuntungan=btn.nextElementSibling;
-        let arrow=btn.querySelector('.arrow');
-        keuntungan.classList.toggle('open');
-        arrow.classList.toggle('rotate');
-      });
-    });
-
-    // Produk Close
-    document.querySelectorAll('.card').forEach(card=>{
-      const stock = parseInt(card.dataset.stock || "1");
-      const buyBtn = card.querySelector('.buy-btn');
-      if(stock <= 0){
-        card.classList.add('out-of-stock');
-        buyBtn.textContent = "Produk Close";
-      }
-    });
-    
-  <!-- MODAL QRIS -->
-  <div id="qrisModal">
-    <div class="qris-box">
-      <h3>🍁 Pembayaran via QRIS 💫</h3>
-      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
-      <input type="file" id="buktiInput" accept="image/*">
-      <input type="text" id="telegramInput" placeholder="Username Telegram Contoh @Zyxxennn">
-      <button id="kirimBtn">Kirim</button>
-      <button class="qris-close" onclick="closeModal()">Tutup</button>
+  <!-- Modal QRIS -->
+  <div id="qrisModal" class="qris-modal">
+    <div class="qris-card">
+      <img src="qris-example.png" alt="QRIS Zyxxennn" />
+      <button class="close-btn" onclick="closeQRIS()">Tutup</button>
     </div>
   </div>
 
   <script>
-    /* NAVIGASI */
-    const navBtns = document.querySelectorAll('.nav-btn');
-    const sections = ['beranda','store','partner'];
-    navBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
-        document.getElementById(btn.dataset.target).classList.add('active');
-        if (btn.dataset.target === "beranda") showProgrammingBoxes();
-      });
-    });
-    document.getElementById('beranda').classList.add('active');
-
-    /* ANIMASI BOX PROGRAMMING */
-    const programmingBoxes = document.querySelectorAll('.programming-box');
-    function showProgrammingBoxes() {
-      programmingBoxes.forEach((box,i)=>
-        setTimeout(()=>box.classList.add('show'), i*150)
-      );
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text);
+      alert("Berhasil disalin: " + text);
     }
-    showProgrammingBoxes();
-
-    /* TOGGLE KEUNTUNGAN PRODUK */
-    const toggleBtns = document.querySelectorAll('.btn-toggle');
-    toggleBtns.forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const currentCard = btn.parentElement;
-        const keuntunganDiv = currentCard.querySelector('.keuntungan');
-        const arrow = btn.querySelector('.arrow');
-        const isOpen = keuntunganDiv.classList.contains('open');
-        document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
-        document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
-        if(!isOpen){
-          keuntunganDiv.classList.add('open');
-          arrow.classList.add('rotate');
-        }
-      });
-    });
-
-    /* MODAL QRIS */
-    const modal = document.getElementById('qrisModal');
-    let produkDipilih = "";
-
-    document.querySelectorAll('.buy-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        produkDipilih = btn.dataset.produk;
-        modal.style.display = "flex";
-      });
-    });
-    function closeModal(){ modal.style.display = "none"; }
-
-    /* KIRIM DATA KE TELEGRAM BOT */
-    document.getElementById('kirimBtn').addEventListener('click', async ()=>{
-      const buktiFile = document.getElementById('buktiInput').files[0];
-      const telegramNama = document.getElementById('telegramInput').value;
-      if(!buktiFile || !telegramNama){
-        alert("Lengkapi bukti transfer & nama telegram!");
-        return;
-      }
-      const BOT_TOKEN = "8316854638:AAESN3ThtkFpE58uy8pe2wXd51L4bHd9XxM";
-      const OWNER_CHAT_ID = "8447173769";
-
-      const pesan = `📢 Bukti pembayaran baru!\n\n🛒 Produk: ${produkDipilih}\n👤 Telegram: ${telegramNama}`;
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({chat_id: OWNER_CHAT_ID, text: pesan})
-      });
-
-      const formData = new FormData();
-      formData.append("chat_id", OWNER_CHAT_ID);
-      formData.append("photo", buktiFile);
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-        method:"POST",
-        body: formData
-      });
-
-      alert("Bukti pembayaran terkirim ke owner ✅");
-      closeModal();
-    });
+    function openQRIS() {
+      document.getElementById('qrisModal').classList.add('open');
+    }
+    function closeQRIS() {
+      document.getElementById('qrisModal').classList.remove('open');
+    }
   </script>
 </body>
 </html>
