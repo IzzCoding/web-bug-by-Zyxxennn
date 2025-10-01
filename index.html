@@ -62,13 +62,28 @@
     .beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
 
     .owner-buttons {
-      display:flex; justify-content:center; gap:12px; margin:16px 0; flex-wrap:wrap;
+      display:flex; 
+      justify-content:center; 
+      gap:16px; 
+      margin:20px 0; 
+      flex-wrap:wrap;
     }
-    .owner-buttons button {
-      background:#ff6a00; border:none; padding:10px 16px; border-radius:10px; color:white;
-      cursor:pointer; font-weight:500; transition:transform 0.2s ease;
+    .owner-btn {
+      text-decoration:none;
+      padding:12px 20px;
+      border-radius:12px;
+      font-weight:600;
+      color:white;
+      text-align:center;
+      transition: all 0.3s ease;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      font-size:14px;
     }
-    .owner-buttons button:hover { transform: scale(1.05); }
+    .owner-btn.owner { background: linear-gradient(45deg,#ff416c,#ff4b2b); }
+    .owner-btn.channel { background: linear-gradient(45deg,#00c6ff,#0072ff); }
+    .owner-btn.grup { background: linear-gradient(45deg,#f7971e,#ffd200); color:#000; }
+    .owner-btn.saweria { background: linear-gradient(45deg,#7b4397,#dc2430); }
+    .owner-btn:hover { transform: scale(1.1); }
 
     .programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
     .programming-box {
@@ -172,7 +187,6 @@
     }
     #kirimBtn { background:#00ffcc; color:#000; }
     .qris-close { background:#ff3b3b; color:white; }
-
   </style>
 </head>
 <body>
@@ -183,10 +197,10 @@
       <p>Informasi atau About</p>
     </div>
     <div class="owner-buttons">
-      <button>Owner</button>
-      <button>Channel Owner</button>
-      <button>Grup Owner</button>
-      <button>Saweria</button>
+      <a href="https://t.me/Zyxxennn" target="_blank" class="owner-btn owner">OWNER</a>
+      <a href="https://t.me/ZyxxennnCH" target="_blank" class="owner-btn channel">CHANNEL OWNER</a>
+      <a href="https://t.me/RoomZyxxennn" target="_blank" class="owner-btn grup">GRUP OWNER</a>
+      <a href="https://saweria.co/ZyxxennnOffociall" target="_blank" class="owner-btn saweria">SAWERIA</a>
     </div>
 
     <div class="programming-boxes">
@@ -208,7 +222,7 @@
         <li>Get Akses Premium Permanen</li>
         <li>Tidak Capek Promosi / Share Manual</li>
         <li>Share Sepuasnya</li>
-        <li>100% Sukses Share Ke Semua Grup<li>
+        <li>100% Sukses Share Ke Semua Grup</li>
       </ul></div>
       <button class="buy-btn" data-produk="Akses Premium">Buy</button>
     </div>
@@ -221,10 +235,10 @@
       <div class="keuntungan"><ul>
         <li>Get Akses Owner Permanen</li>
         <li>Bisa Menjual Akses Premium</li>
-        <li>Get Admin Grup Akses<li>
+        <li>Get Admin Grup Akses</li>
         <li>Tidak Capek Promosi / Share Manual</li>
-        <li>Share Sepuasnya<li>
-        <li>100% Sukses Share Ke Semua Grup<li>
+        <li>Share Sepuasnya</li>
+        <li>100% Sukses Share Ke Semua Grup</li>
       </ul></div>
       <button class="buy-btn" data-produk="Akses Owner">Buy</button>
     </div>
@@ -238,10 +252,10 @@
         <li>Get Akses Premium Permanen</li>
         <li>Bisa Menjual Akses Owner</li>
         <li>Bisa Menjual Akses Premium</li>
-        <li>Get Admin Grup Akses<li>
-        <li>Tidak Capek Promosi / Share Manual<li>
-        <li>Share Sepuasnya<li>
-        <li> 100% Sukses Share Ke Grup<li>
+        <li>Get Admin Grup Akses</li>
+        <li>Tidak Capek Promosi / Share Manual</li>
+        <li>Share Sepuasnya</li>
+        <li>100% Sukses Share Ke Grup</li>
       </ul></div>
       <button class="buy-btn" data-produk="Akses Partner">Buy</button>
     </div>
@@ -253,10 +267,10 @@
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
       <div class="keuntungan"><ul>
         <li>Bebas Request Produk</li>
-        <li>Store Website Nama Lu<li>
+        <li>Store Website Nama Lu</li>
         <li>Html Dari Gw</li>
         <li>Paymentnya Nama Lu</li>
-        <li>Siap Pakai / Langsung Pakai<li>
+        <li>Siap Pakai / Langsung Pakai</li>
       </ul></div>
       <button class="buy-btn" data-produk="Jasa Website">Buy</button>
     </div>
@@ -297,7 +311,6 @@
     /* NAVIGASI */
     const navBtns = document.querySelectorAll('.nav-btn');
     const sections = ['beranda','store','partner'];
-
     navBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
