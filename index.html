@@ -5,36 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zyxxennn Payment</title>
   <style>
-    /* Fix agar tidak geser */
+    /* Reset */
     html, body {
       margin: 0;
       padding: 0;
       overflow-x: hidden;
       font-family: 'Poppins', sans-serif;
-      background: #f4f6fb;
-      color: #222;
+      color: #fff;
+      height: 100%;
+    }
+
+    /* Galaxy Background */
+    body {
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .stars {
+      width: 1px;
+      height: 1px;
+      background: transparent;
+      box-shadow: 
+        1000px 200px #fff, 200px 400px #fff, 800px 600px #fff,
+        300px 900px #fff, 1200px 700px #fff, 1500px 200px #fff,
+        1800px 1000px #fff, 600px 1200px #fff, 900px 400px #fff;
+      animation: animStar 50s linear infinite;
+    }
+
+    @keyframes animStar {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-2000px); }
     }
 
     .container {
       max-width: 480px;
       margin: auto;
       padding: 20px;
+      position: relative;
+      z-index: 10;
     }
 
     h1 {
       text-align: center;
       margin-bottom: 25px;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 700;
-      color: #333;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255,255,255,0.6);
     }
 
     .payment-card {
-      background: #fff;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -43,8 +70,8 @@
     }
 
     .payment-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
     }
 
     .logo {
@@ -53,21 +80,21 @@
       border-radius: 50%;
       object-fit: contain;
       margin-bottom: 12px;
-      border: 2px solid #eee;
-      padding: 6px;
+      background: #fff;
+      padding: 8px;
     }
 
     .number {
       font-size: 17px;
       font-weight: 600;
       margin-bottom: 4px;
-      color: #111;
+      color: #fff;
     }
 
     .owner {
       font-size: 14px;
       margin-bottom: 10px;
-      color: #666;
+      color: #ddd;
     }
 
     .copy-btn {
@@ -107,7 +134,8 @@
       font-size: 13px;
       font-weight: 500;
       text-align: center;
-      color: #444;
+      color: #eee;
+      text-shadow: 0 0 6px rgba(255,255,255,0.4);
     }
 
     /* Modal */
@@ -116,7 +144,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
       z-index: 1000;
@@ -124,13 +152,15 @@
     }
 
     .modal-card {
-      background: #fff;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(12px);
       padding: 20px;
       border-radius: 16px;
       max-width: 420px;
       width: 100%;
       text-align: center;
       animation: zoomIn 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     }
 
     @keyframes zoomIn {
@@ -142,7 +172,7 @@
       margin-bottom: 14px;
       font-size: 18px;
       font-weight: 700;
-      color: #333;
+      color: #fff;
     }
 
     .qris-img {
@@ -151,12 +181,13 @@
       border-radius: 12px;
       border: 2px solid #eee;
       margin-bottom: 14px;
+      background: #fff;
     }
 
     .note-modal {
       font-size: 13px;
       font-weight: 500;
-      color: #444;
+      color: #eee;
       margin-bottom: 16px;
     }
 
@@ -181,7 +212,7 @@
     }
     .btn.close {
       background: #e5e7eb;
-      color: #333;
+      color: #111;
     }
     .btn:hover {
       opacity: 0.9;
@@ -199,10 +230,13 @@
       display: none;
       font-weight: 600;
       font-size: 14px;
+      z-index: 2000;
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
+
   <div class="container">
     <h1>Zyxxennn Payment</h1>
 
@@ -228,7 +262,7 @@
     </div>
 
     <button class="qris-btn" onclick="openQRIS()">Tampilkan QRIS</button>
-    <p class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
+    <p class="note">✨ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ✨</p>
   </div>
 
   <!-- Modal -->
@@ -236,7 +270,7 @@
     <div class="modal-card">
       <h3>QRIS Zyxxennn</h3>
       <img class="qris-img" src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS Zyxxennn">
-      <p class="note-modal">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
+      <p class="note-modal">✨ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ✨</p>
       <div class="modal-actions">
         <button class="btn download" onclick="downloadQRIS()">Download QRIS</button>
         <button class="btn close" onclick="closeQRIS()">Tutup</button>
