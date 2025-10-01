@@ -5,222 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zyxxennn Payment</title>
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: url('https://i.ibb.co/8DdYtQ4/galaxy.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      overflow-x: hidden;
-    }
-    .container {
-      max-width: 420px;
-      margin: 0 auto;
-      padding: 20px;
+      background: #fff;
       text-align: center;
     }
     h1 {
       font-size: 28px;
-      margin-bottom: 25px;
-      text-shadow: 0 0 8px #00f7ff;
+      margin: 20px 0;
+      color: #00f0ff;
+      text-shadow: 0 0 10px #00f0ff;
     }
-
-    .payment-item {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
+    .card {
+      background: #fff;
+      border-radius: 15px;
       padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      text-align: center;
+      margin: 15px auto;
+      width: 85%;
+      max-width: 350px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .payment-item img.logo {
-      width: 70px;
-      height: 70px;
+    .card img {
+      width: 100%;
+      max-height: 150px;
       object-fit: contain;
-      margin-bottom: 12px;
+      border-radius: 10px;
     }
-    .payment-item .number {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-    .payment-item .name {
-      font-size: 15px;
-      opacity: 0.9;
-      margin-bottom: 12px;
-    }
-    .copy-btn {
+    .btn {
+      display: inline-block;
       padding: 10px 20px;
+      margin-top: 15px;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      color: white;
+      font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
-      font-size: 14px;
+      color: #fff;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
     }
-    .copy-btn:hover {
-      opacity: 0.85;
+    .btn-qris {
+      margin-top: 25px;
+      background: linear-gradient(45deg, #ff00cc, #3333ff);
     }
-
-    .qris-btn {
-      margin-top: 20px;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #ff00cc, #3333ff);
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
-      transition: 0.3s;
-    }
-    .qris-btn:hover {
-      opacity: 0.85;
-    }
-
-    .note {
-      margin-top: 12px;
-      font-size: 14px;
+    p {
+      font-size: 12px;
+      margin-top: 15px;
       font-style: italic;
-      opacity: 0.9;
-      text-shadow: 0 0 5px #000;
+      color: #555;
     }
-
-    /* Modal QRIS */
-    .modal {
+    /* Popup QRIS */
+    .qris-popup {
       display: none;
       position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
     }
-    .modal-content {
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      position: relative;
+    .qris-popup img {
       max-width: 90%;
-    }
-    .modal-content img {
-      width: 100%;
-      max-width: 320px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #00f7ff;
-    }
-    .modal-content .note {
-      margin-top: 15px;
-      color: white;
-      font-size: 14px;
-    }
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 22px;
-      color: white;
-      cursor: pointer;
-    }
-
-    /* Notif disalin */
-    .toast {
-      visibility: hidden;
-      min-width: 160px;
-      background-color: #00c6ff;
-      color: white;
-      text-align: center;
-      border-radius: 8px;
-      padding: 10px;
-      position: fixed;
-      z-index: 10000;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 14px;
-    }
-    .toast.show {
-      visibility: visible;
-      animation: fadein 0.5s, fadeout 0.5s 2.2s;
-    }
-    @keyframes fadein {
-      from { bottom: 10px; opacity: 0; }
-      to { bottom: 30px; opacity: 1; }
-    }
-    @keyframes fadeout {
-      from { bottom: 30px; opacity: 1; }
-      to { bottom: 10px; opacity: 0; }
+      max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #000;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Zyxxennn Payment</h1>
+  <h1>Zyxxennn Payment</h1>
 
-    <!-- Dana -->
-    <div class="payment-item">
-      <img src="https://i.ibb.co/DfQFqtd/dana.png" alt="Dana" class="logo">
-      <div class="number">0857 1234 5678</div>
-      <div class="name">a/n Zyxxennn</div>
-      <button class="copy-btn" onclick="copyText('0857 1234 5678')">Copy</button>
-    </div>
-
-    <!-- Gopay -->
-    <div class="payment-item">
-      <img src="https://i.ibb.co/7V0mhn3/gopay.png" alt="Gopay" class="logo">
-      <div class="number">0857 9876 5432</div>
-      <div class="name">a/n Zyxxennn</div>
-      <button class="copy-btn" onclick="copyText('0857 9876 5432')">Copy</button>
-    </div>
-
-    <!-- OVO -->
-    <div class="payment-item">
-      <img src="https://i.ibb.co/6vgYv4p/ovo.png" alt="OVO" class="logo">
-      <div class="number">0857 1111 2222</div>
-      <div class="name">a/n Zyxxennn</div>
-      <button class="copy-btn" onclick="copyText('0857 1111 2222')">Copy</button>
-    </div>
-
-    <!-- QRIS -->
-    <button class="qris-btn" onclick="openModal()">Tampilkan QRIS</button>
-    <div class="note">Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer</div>
+  <div class="card">
+    <img src="https://i.ibb.co/3pWm5mW/bca.png" alt="BCA">
+    <button class="btn" onclick="copyText('1234567890')">Copy</button>
   </div>
 
-  <!-- Modal QRIS -->
-  <div id="qrisModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
-      <div class="note">Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer</div>
-    </div>
+  <div class="card">
+    <img src="https://i.ibb.co/vc7Z7jq/ovo.png" alt="OVO">
+    <button class="btn" onclick="copyText('081234567890')">Copy</button>
   </div>
 
-  <!-- Toast -->
-  <div id="toast" class="toast">✅ Disalin</div>
+  <div class="card">
+    <img src="https://i.ibb.co/NZnFShj/dana.png" alt="DANA">
+    <button class="btn" onclick="copyText('089876543210')">Copy</button>
+  </div>
+
+  <button class="btn btn-qris" onclick="showQRIS()">Tampilkan QRIS</button>
+
+  <p>Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer</p>
+
+  <!-- Popup QRIS -->
+  <div id="qrisPopup" class="qris-popup" onclick="closeQRIS()">
+    <img src="https://i.ibb.co/rf1w5my/qris.png" alt="QRIS">
+  </div>
 
   <script>
     function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        let toast = document.getElementById("toast");
-        toast.className = "toast show";
-        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
-      });
+      navigator.clipboard.writeText(text);
+      alert("Nomor berhasil disalin: " + text);
     }
-
-    function openModal() {
-      document.getElementById("qrisModal").style.display = "flex";
+    function showQRIS() {
+      document.getElementById("qrisPopup").style.display = "flex";
     }
-    function closeModal() {
-      document.getElementById("qrisModal").style.display = "none";
+    function closeQRIS() {
+      document.getElementById("qrisPopup").style.display = "none";
     }
   </script>
 </body>
