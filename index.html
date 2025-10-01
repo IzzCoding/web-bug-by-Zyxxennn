@@ -1,242 +1,232 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Zyxxennn Payment</title>
-<style>
-  /* reset & layout */
-  * { box-sizing: border-box; }
-  html,body { height:100%; margin:0; padding:0; overflow-x:hidden; font-family: Inter, Poppins, system-ui, sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-  body{
-    color:#fff;
-    line-height:1.35;
-    background: linear-gradient(180deg,#03021a 0%, #071033 60%, #000 100%);
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    padding:28px 12px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zyxxennn Payment</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://i.ibb.co/Zz1vT8M/galaxy-bg.jpg') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow-x: hidden;
+    }
 
-  /* subtle galaxy: stars (CSS) + nebula blobs */
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background-image: radial-gradient(#fff 0.8px, transparent 1px);
-    background-size: 6px 6px;
-    opacity:0.35;
-    transform:translateZ(0);
-    mix-blend-mode: screen;
-    animation: starsMove 140s linear infinite;
-    z-index:0;
-  }
-  body::after{
-    content:"";
-    position:fixed;
-    left:8%;
-    top:6%;
-    width:700px;height:600px;
-    background: radial-gradient(circle at 30% 30%, rgba(124,92,255,0.25), rgba(0,212,255,0.08) 40%, transparent 60%);
-    filter: blur(80px);
-    opacity:0.9;
-    z-index:0;
-  }
-  @keyframes starsMove { from{background-position:0 0} to{background-position: -2000px 2000px;} }
+    .container {
+      background: rgba(20,20,30,0.85);
+      padding: 25px;
+      border-radius: 18px;
+      width: 95%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+    }
 
-  /* main container (center column) */
-  .wrap {
-    position:relative;
-    z-index:2;
-    width:100%;
-    max-width:420px;
-    text-align:center;
-  }
+    .container h1 {
+      font-size: 26px;
+      margin-bottom: 18px;
+      background: linear-gradient(90deg,#7c5cff,#00d4ff,#ff4d6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-  h1 {
-    margin:0 0 18px;
-    font-size:22px;
-    font-weight:700;
-    letter-spacing:0.2px;
-    color: #d7f7ff;
-    text-shadow: 0 6px 28px rgba(0,212,255,0.08), 0 2px 6px rgba(0,0,0,0.6);
-  }
+    .payment-card {
+      background: rgba(255,255,255,0.08);
+      padding: 15px;
+      margin: 14px 0;
+      border-radius: 14px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
 
-  /* card */
-  .card {
-    background: rgba(255,255,255,0.04);
-    border-radius:16px;
-    padding:18px 16px;
-    margin:14px 0;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    min-height:120px;
-  }
+    .payment-info {
+      flex: 1;
+      margin-left: 12px;
+    }
 
-  /* inline SVG logos sized */
-  .logo {
-    width:84px;
-    height:84px;
-    display:block;
-    margin-bottom:12px;
-  }
+    .payment-info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
 
-  .number {
-    font-size:18px;
-    font-weight:700;
-    color:#fff;
-    margin:4px 0;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  }
-  .owner {
-    font-size:13px;
-    color:#e6eef6;
-    opacity:0.95;
-    margin-bottom:12px;
-  }
+    .payment-info p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
 
-  /* copy button under each card */
-  .copy {
-    appearance:none;
-    border:0;
-    padding:10px 18px;
-    border-radius:12px;
-    font-weight:700;
-    cursor:pointer;
-    background: linear-gradient(90deg,#00d4ff 0%, #7c5cff 100%);
-    color:#001018;
-    box-shadow: 0 10px 30px rgba(124,92,255,0.12), 0 4px 10px rgba(0,212,255,0.12);
-    transition: transform .14s ease, box-shadow .14s ease, opacity .14s ease;
-  }
-  .copy:active{ transform: translateY(1px) scale(.995); }
-  .copy:hover{ box-shadow: 0 14px 40px rgba(124,92,255,0.22); }
+    .btn {
+      background: linear-gradient(135deg, #8e2de2, #4a00e0, #00d4ff);
+      background-size: 200% 200%;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+      animation: gradientMove 5s ease infinite;
+    }
 
-  /* QRIS button */
-  .qris-btn {
-    margin-top:18px;
-    appearance:none;
-    border:0;
-    padding:12px 22px;
-    border-radius:14px;
-    background: linear-gradient(90deg,#ff4d6d,#7c5cff,#00d4ff);
-    color:#fff;
-    font-weight:800;
-    cursor:pointer;
-    box-shadow: 0 18px 40px rgba(124,92,255,0.10);
-  }
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 25px rgba(142, 45, 226, 0.9),
+                  0 0 40px rgba(0, 212, 255, 0.7);
+    }
 
-  .hint {
-    margin-top:12px;
-    font-size:13px;
-    color: #dfefff;
-    opacity:0.85;
-    text-align:center;
-    margin-bottom:30px;
-  }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-  /* toast */
-  #toast {
-    position:fixed;
-    left:50%;
-    transform:translateX(-50%) translateY(10px);
-    bottom:24px;
-    background: linear-gradient(90deg,#00d4ff,#7c5cff);
-    color:#001018;
-    padding:10px 14px;
-    border-radius:999px;
-    font-weight:700;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    opacity:0;
-    transition: opacity .2s ease, transform .2s ease;
-    z-index:9999;
-  }
-  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      background: linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(124,92,255,0.6);
+      animation: glow 3s infinite alternate;
+    }
 
-  /* QRIS modal (fullscreen) */
-  #qrisModal {
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.85);
-    z-index:9998;
-    justify-content:center;
-    align-items:center;
-    padding:18px;
-  }
-  #qrisModal .box {
-    max-width:92vw;
-    max-height:92vh;
-    border-radius:14px;
-  }
-  #qrisModal img {
-    width:100%;
-    height:auto;
-    display:block;
-    border-radius:10px;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.6), 0 0 30px rgba(0,212,255,0.08);
-  }
+    @keyframes glow {
+      from { text-shadow: 0 0 8px rgba(124,92,255,0.6); }
+      to { text-shadow: 0 0 18px rgba(0,212,255,0.9); }
+    }
 
-  /* mobile tweaks */
-  @media (max-width:420px){
-    .logo { width:72px; height:72px; }
-    .card { padding:16px; }
-    .number { font-size:17px; }
-  }
-</style>
+    /* Modal QRIS */
+    .modal {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-card {
+      background: rgba(20,20,30,0.9);
+      padding: 20px;
+      border-radius: 18px;
+      text-align: center;
+      width: 95%;
+      max-width: 380px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      backdrop-filter: blur(12px);
+      animation: zoomIn 0.4s ease;
+    }
+    .modal-card h3 {
+      margin-bottom: 14px;
+      background: linear-gradient(90deg,#7c5cff,#00d4ff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .qris-img {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 14px;
+      border: 2px solid rgba(124,92,255,0.7);
+      box-shadow: 0 0 20px rgba(124,92,255,0.6);
+    }
+    .note-modal {
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(90deg,#00d4ff,#7c5cff,#ff4d6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(124,92,255,0.6);
+      animation: glow 3s infinite alternate;
+    }
+    .modal-actions {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity:0; }
+      to { transform: scale(1); opacity:1; }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Zyxxennn Payment</h1>
 
-<div class="wrap" role="main" aria-label="Zyxxennn Payment">
-  <h1>Zyxxennn Payment</h1>
+    <!-- Dana -->
+    <div class="payment-card">
+      <img src="https://i.ibb.co/tLdPSjz/dana.png" alt="Dana" width="40">
+      <div class="payment-info">
+        <h3>0857 1234 5678</h3>
+        <p>a/n Zyxxennn</p>
+      </div>
+      <button class="btn" onclick="copyText('085712345678')">Copy</button>
+    </div>
 
-  <!-- 1. Dana card (logo uses inline SVG to avoid broken external images) -->
-  <div class="card" aria-label="Dana">
-    <!-- simple SVG logo (rounded gradient + text) -->
-    <svg class="logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="danaTitle danaDesc">
-      <title id="danaTitle">Dana logo</title>
-      <desc id="danaDesc">Dana icon</desc>
-      <defs>
-        <linearGradient id="g1" x1="0" x2="1">
-          <stop offset="0" stop-color="#00d4ff"/>
-          <stop offset="1" stop-color="#0072ff"/>
-        </linearGradient>
-      </defs>
-      <rect rx="24" width="120" height="120" fill="url(#g1)"/>
-      <text x="50%" y="56%" font-size="28" font-weight="700" fill="#fff" text-anchor="middle" font-family="Poppins, sans-serif">Dana</text>
-    </svg>
+    <!-- Gopay -->
+    <div class="payment-card">
+      <img src="https://i.ibb.co/LkJk4PZ/gopay.png" alt="Gopay" width="40">
+      <div class="payment-info">
+        <h3>0812 9876 5432</h3>
+        <p>a/n Zyxxennn</p>
+      </div>
+      <button class="btn" onclick="copyText('081298765432')">Copy</button>
+    </div>
 
-    <div class="number">0857 1234 5678</div>
-    <div class="owner">a/n Zyxxennn</div>
-    <button class="copy" data-value="085712345678" onclick="copyCard(this)">Copy</button>
+    <!-- OVO -->
+    <div class="payment-card">
+      <img src="https://i.ibb.co/4Y6zmc3/ovo.png" alt="OVO" width="40">
+      <div class="payment-info">
+        <h3>0896 5555 3333</h3>
+        <p>a/n Zyxxennn</p>
+      </div>
+      <button class="btn" onclick="copyText('089655553333')">Copy</button>
+    </div>
+
+    <!-- QRIS -->
+    <button class="btn" style="margin-top:15px;" onclick="openQRIS()">Tampilkan QRIS</button>
+    <p class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
   </div>
 
-  <!-- 2. GoPay card -->
-  <div class="card" aria-label="GoPay">
-    <svg class="logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="gopayTitle">
-      <title id="gopayTitle">GoPay logo</title>
-      <defs>
-        <linearGradient id="g2" x1="0" x2="1">
-          <stop offset="0" stop-color="#7c5cff"/>
-          <stop offset="1" stop-color="#00d4ff"/>
-        </linearGradient>
-      </defs>
-      <circle cx="60" cy="60" r="56" fill="url(#g2)"/>
-      <text x="50%" y="56%" font-size="26" font-weight="700" fill="#fff" text-anchor="middle">GoPay</text>
-    </svg>
-
-    <div class="number">0812 9876 5432</div>
-    <div class="owner">a/n Zyxxennn</div>
-    <button class="copy" data-value="081298765432" onclick="copyCard(this)">Copy</button>
+  <!-- Modal QRIS -->
+  <div id="qrisModal" class="modal">
+    <div class="modal-card">
+      <h3>QRIS Zyxxennn</h3>
+      <img class="qris-img" src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS Zyxxennn">
+      <p class="note-modal">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</p>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeQRIS()">Tutup</button>
+      </div>
+    </div>
   </div>
 
-  <!-- 3. OVO card -->
-  <div class="card" aria-label="OVO">
-    <svg class="logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ovoTitle">
-      <title id="ovoTitle">OVO logo</title>
-      <defs>
-        <linearGradient id="g3" x1="0" x2="1">
-          <stop offset="0" stop-color="#ff4d6d"/>
-          <stop offset="1" stop-color="#7c5cff"/>
-        </
+  <script>
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("✅ Nomor berhasil disalin!");
+      });
+    }
+    function openQRIS(){
+      document.getElementById("qrisModal").style.display="flex";
+    }
+    function closeQRIS(){
+      document.getElementById("qrisModal").style.display="none";
+    }
+  </script>
+</body>
+</html>
