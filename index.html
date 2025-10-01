@@ -9,64 +9,98 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-    body {
       font-family: 'Poppins', sans-serif;
-      background: url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-      background-size: cover;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       overflow-x: hidden;
     }
+
+    /* Background galaxy + stars */
+    .stars, .stars2, .stars3 {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .stars {
+      background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
+      animation: moveStars 100s linear infinite;
+    }
+    .stars2 {
+      background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
+      animation: moveStars 200s linear infinite;
+      opacity: 0.5;
+    }
+    .stars3 {
+      background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
+      animation: moveStars 300s linear infinite;
+      opacity: 0.3;
+    }
+    @keyframes moveStars {
+      from {background-position: 0 0;}
+      to {background-position: -10000px 5000px;}
+    }
+
     .container {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 25px;
+      position: relative;
+      z-index: 1;
+      background: rgba(20, 20, 30, 0.9);
+      padding: 30px;
       border-radius: 20px;
       width: 95%;
-      max-width: 420px;
-      box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+      max-width: 400px;
       text-align: center;
+      box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
     }
-    h1 {
+
+    .title {
       font-size: 1.6em;
+      font-weight: bold;
+      margin-bottom: 20px;
       background: linear-gradient(90deg, #00d4ff, #8e2de2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
     }
+
     .payment-item {
       background: rgba(255, 255, 255, 0.05);
       border-radius: 15px;
-      padding: 12px 16px;
-      margin: 12px 0;
+      padding: 20px;
+      margin: 15px 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
     }
+
     .payment-item img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
+      width: 60px;
+      margin-bottom: 10px;
     }
-    .payment-info {
-      flex: 1;
-      text-align: left;
+
+    .number {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 5px 0;
       color: #fff;
     }
-    .payment-info .number {
-      font-size: 1.1em;
-      font-weight: 600;
-      margin-bottom: 3px;
+
+    .name {
+      font-size: 0.95em;
+      opacity: 0.85;
+      margin-bottom: 10px;
       color: #fff;
     }
-    .payment-info .name {
-      font-size: 0.9em;
-      opacity: 0.8;
-      color: #fff;
-    }
+
     .copy-btn {
       background: linear-gradient(135deg, #00d4ff, #8e2de2);
       border: none;
@@ -78,152 +112,126 @@
       transition: 0.3s;
       box-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
     }
+
     .copy-btn:hover {
       transform: scale(1.08);
       box-shadow: 0 0 18px rgba(142, 45, 226, 0.8);
     }
-    .btn {
-      background: linear-gradient(135deg, #8e2de2, #4a00e0, #00d4ff);
-      background-size: 200% 200%;
-      color: #fff;
-      font-weight: 600;
+
+    .qris-btn {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #8e2de2, #00d4ff);
       border: none;
+      border-radius: 30px;
       padding: 12px 22px;
-      border-radius: 50px;
+      color: #fff;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.4s ease;
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
-      animation: gradientMove 5s ease infinite;
-      margin-top: 18px;
+      transition: 0.3s;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
     }
-    .btn:hover {
+    .qris-btn:hover {
       transform: scale(1.07);
-      box-shadow: 0 0 25px rgba(142, 45, 226, 0.9),
-                  0 0 40px rgba(0, 212, 255, 0.7);
     }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+
     .note {
       margin-top: 15px;
       font-size: 0.9em;
       color: #fff;
+      text-align: center;
       opacity: 0.9;
     }
-    .note span {
-      color: #ffd700;
-    }
-    .qris-popup {
+
+    /* Modal QRIS */
+    .modal {
+      display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: flex;
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      z-index: 1000;
-      display: none;
+      z-index: 999;
     }
-    .qris-popup img {
-      width: 300px;
-      max-width: 80%;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0, 212, 255, 0.9);
-    }
-    .qris-popup .note {
-      margin-top: 15px;
-      font-size: 0.95em;
-      text-align: center;
-    }
-    .close-btn {
-      margin-top: 18px;
-      background: crimson;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .close-btn:hover {
-      background: darkred;
-    }
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 212, 255, 0.9);
-      color: #fff;
-      padding: 10px 20px;
+    .modal-content {
+      background: rgba(20,20,30,0.95);
+      padding: 20px;
       border-radius: 20px;
-      font-weight: 600;
-      display: none;
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
-      z-index: 2000;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0,212,255,0.7);
+    }
+    .modal-content img {
+      width: 250px;
+      border-radius: 15px;
+    }
+    .close {
+      margin-top: 15px;
+      background: #ff004c;
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+
   <div class="container">
-    <h1>Zyxxennn Payment</h1>
+    <div class="title">Zyxxennn Payment</div>
 
+    <!-- Dana -->
     <div class="payment-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/233/233914.png" alt="Dana">
-      <div class="payment-info">
-        <div class="number">0857 1234 5678</div>
-        <div class="name">a/n Zyxxennn</div>
-      </div>
-      <button class="copy-btn" onclick="copyText('085712345678')">Copy</button>
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968259.png" alt="Dana">
+      <div class="number">0857 1234 5678</div>
+      <div class="name">a/n Zyxxennn</div>
+      <button class="copy-btn" onclick="copyText('0857 1234 5678')">Copy</button>
     </div>
 
+    <!-- Gopay -->
     <div class="payment-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/233/233901.png" alt="Gopay">
-      <div class="payment-info">
-        <div class="number">0812 9876 5432</div>
-        <div class="name">a/n Zyxxennn</div>
-      </div>
-      <button class="copy-btn" onclick="copyText('081298765432')">Copy</button>
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968299.png" alt="Gopay">
+      <div class="number">0812 9876 5432</div>
+      <div class="name">a/n Zyxxennn</div>
+      <button class="copy-btn" onclick="copyText('0812 9876 5432')">Copy</button>
     </div>
 
+    <!-- OVO -->
     <div class="payment-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/233/233842.png" alt="OVO">
-      <div class="payment-info">
-        <div class="number">0896 5555 3333</div>
-        <div class="name">a/n Zyxxennn</div>
-      </div>
-      <button class="copy-btn" onclick="copyText('089655553333')">Copy</button>
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" alt="OVO">
+      <div class="number">0896 5555 3333</div>
+      <div class="name">a/n Zyxxennn</div>
+      <button class="copy-btn" onclick="copyText('0896 5555 3333')">Copy</button>
     </div>
 
-    <button class="btn" onclick="showQris()">Tampilkan QRIS</button>
+    <button class="qris-btn" onclick="openQRIS()">Tampilkan QRIS</button>
+
     <div class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</div>
   </div>
 
-  <div class="qris-popup" id="qrisPopup">
-    <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
-    <div class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</div>
-    <button class="close-btn" onclick="closeQris()">Tutup</button>
+  <!-- Modal QRIS -->
+  <div class="modal" id="qrisModal">
+    <div class="modal-content">
+      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
+      <div class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</div>
+      <button class="close" onclick="closeQRIS()">Tutup</button>
+    </div>
   </div>
-
-  <div class="toast" id="toast">✅ Disalin</div>
 
   <script>
     function copyText(text) {
       navigator.clipboard.writeText(text).then(() => {
-        let toast = document.getElementById("toast");
-        toast.style.display = "block";
-        setTimeout(() => { toast.style.display = "none"; }, 2000);
+        alert("✅ Disalin: " + text);
       });
     }
-    function showQris() {
-      document.getElementById("qrisPopup").style.display = "flex";
+    function openQRIS() {
+      document.getElementById('qrisModal').style.display = 'flex';
     }
-    function closeQris() {
-      document.getElementById("qrisPopup").style.display = "none";
+    function closeQRIS() {
+      document.getElementById('qrisModal').style.display = 'none';
     }
   </script>
 </body>
