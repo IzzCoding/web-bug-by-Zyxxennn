@@ -5,217 +5,170 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zyxxennn Payment</title>
   <style>
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
     }
-
     body {
-      background: #000;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://i.ibb.co/8DdYtQ4/galaxy.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
       overflow-x: hidden;
     }
-
-    /* Background galaxy + stars */
-    .stars, .stars2, .stars3 {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .stars {
-      background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
-      animation: moveStars 100s linear infinite;
-    }
-    .stars2 {
-      background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
-      animation: moveStars 200s linear infinite;
-      opacity: 0.5;
-    }
-    .stars3 {
-      background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
-      animation: moveStars 300s linear infinite;
-      opacity: 0.3;
-    }
-    @keyframes moveStars {
-      from {background-position: 0 0;}
-      to {background-position: -10000px 5000px;}
-    }
-
     .container {
-      position: relative;
-      z-index: 1;
-      background: rgba(20, 20, 30, 0.9);
-      padding: 30px;
-      border-radius: 20px;
-      width: 95%;
-      max-width: 400px;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 20px;
       text-align: center;
-      box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
     }
-
-    .title {
-      font-size: 1.6em;
-      font-weight: bold;
-      margin-bottom: 20px;
-      background: linear-gradient(90deg, #00d4ff, #8e2de2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    h1 {
+      font-size: 28px;
+      margin-bottom: 25px;
+      text-shadow: 0 0 8px #00f7ff;
     }
 
     .payment-item {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
       padding: 20px;
-      margin: 15px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      text-align: center;
     }
-
-    .payment-item img {
-      width: 60px;
-      margin-bottom: 10px;
+    .payment-item img.logo {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      margin-bottom: 12px;
     }
-
-    .number {
-      font-size: 1.2em;
+    .payment-item .number {
+      font-size: 18px;
       font-weight: bold;
-      margin: 5px 0;
-      color: #fff;
+      margin-bottom: 6px;
     }
-
-    .name {
-      font-size: 0.95em;
-      opacity: 0.85;
-      margin-bottom: 10px;
-      color: #fff;
+    .payment-item .name {
+      font-size: 15px;
+      opacity: 0.9;
+      margin-bottom: 12px;
     }
-
     .copy-btn {
-      background: linear-gradient(135deg, #00d4ff, #8e2de2);
+      padding: 10px 20px;
       border: none;
-      border-radius: 25px;
-      padding: 8px 16px;
-      color: #fff;
-      font-weight: 600;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: white;
       cursor: pointer;
       transition: 0.3s;
-      box-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
+      font-size: 14px;
     }
-
     .copy-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 18px rgba(142, 45, 226, 0.8);
+      opacity: 0.85;
     }
 
     .qris-btn {
       margin-top: 20px;
-      background: linear-gradient(135deg, #8e2de2, #00d4ff);
+      padding: 12px 24px;
       border: none;
-      border-radius: 30px;
-      padding: 12px 22px;
-      color: #fff;
-      font-weight: bold;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff00cc, #3333ff);
+      color: white;
       cursor: pointer;
+      font-size: 15px;
       transition: 0.3s;
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
     }
     .qris-btn:hover {
-      transform: scale(1.07);
+      opacity: 0.85;
     }
 
     .note {
-      margin-top: 15px;
-      font-size: 0.9em;
-      color: #fff;
-      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+      font-style: italic;
       opacity: 0.9;
+      text-shadow: 0 0 5px #000;
     }
 
     /* Modal QRIS */
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
       justify-content: center;
       align-items: center;
-      z-index: 999;
     }
     .modal-content {
-      background: rgba(20,20,30,0.95);
+      background: rgba(255,255,255,0.1);
       padding: 20px;
-      border-radius: 20px;
+      border-radius: 15px;
       text-align: center;
-      box-shadow: 0 0 30px rgba(0,212,255,0.7);
+      position: relative;
+      max-width: 90%;
     }
     .modal-content img {
-      width: 250px;
-      border-radius: 15px;
+      width: 100%;
+      max-width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00f7ff;
     }
-    .close, .download {
-      margin-top: 12px;
-      border: none;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 20px;
+    .modal-content .note {
+      margin-top: 15px;
+      color: white;
+      font-size: 14px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      color: white;
       cursor: pointer;
     }
-    .close {
-      background: #ff004c;
-    }
-    .download {
-      background: #00c853;
-      margin-left: 10px;
-    }
 
-    /* Notif Copy */
+    /* Notif disalin */
     .toast {
       visibility: hidden;
-      min-width: 200px;
-      margin-left: -100px;
-      background: rgba(0,212,255,0.9);
-      color: #fff;
+      min-width: 160px;
+      background-color: #00c6ff;
+      color: white;
       text-align: center;
-      border-radius: 25px;
-      padding: 12px;
+      border-radius: 8px;
+      padding: 10px;
       position: fixed;
-      z-index: 1000;
-      left: 50%;
+      z-index: 10000;
       bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 14px;
-      transition: 0.4s;
     }
-
     .toast.show {
       visibility: visible;
-      transform: translateY(-10px);
-      opacity: 1;
+      animation: fadein 0.5s, fadeout 0.5s 2.2s;
+    }
+    @keyframes fadein {
+      from { bottom: 10px; opacity: 0; }
+      to { bottom: 30px; opacity: 1; }
+    }
+    @keyframes fadeout {
+      from { bottom: 30px; opacity: 1; }
+      to { bottom: 10px; opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="stars2"></div>
-  <div class="stars3"></div>
-
   <div class="container">
-    <div class="title">Zyxxennn Payment</div>
+    <h1>Zyxxennn Payment</h1>
 
     <!-- Dana -->
     <div class="payment-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968259.png" alt="Dana">
+      <img src="https://i.ibb.co/DfQFqtd/dana.png" alt="Dana" class="logo">
       <div class="number">0857 1234 5678</div>
       <div class="name">a/n Zyxxennn</div>
       <button class="copy-btn" onclick="copyText('0857 1234 5678')">Copy</button>
@@ -223,38 +176,35 @@
 
     <!-- Gopay -->
     <div class="payment-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968299.png" alt="Gopay">
-      <div class="number">0812 9876 5432</div>
+      <img src="https://i.ibb.co/7V0mhn3/gopay.png" alt="Gopay" class="logo">
+      <div class="number">0857 9876 5432</div>
       <div class="name">a/n Zyxxennn</div>
-      <button class="copy-btn" onclick="copyText('0812 9876 5432')">Copy</button>
+      <button class="copy-btn" onclick="copyText('0857 9876 5432')">Copy</button>
     </div>
 
     <!-- OVO -->
     <div class="payment-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" alt="OVO">
-      <div class="number">0896 5555 3333</div>
+      <img src="https://i.ibb.co/6vgYv4p/ovo.png" alt="OVO" class="logo">
+      <div class="number">0857 1111 2222</div>
       <div class="name">a/n Zyxxennn</div>
-      <button class="copy-btn" onclick="copyText('0896 5555 3333')">Copy</button>
+      <button class="copy-btn" onclick="copyText('0857 1111 2222')">Copy</button>
     </div>
 
-    <button class="qris-btn" onclick="openQRIS()">Tampilkan QRIS</button>
-
-    <div class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</div>
+    <!-- QRIS -->
+    <button class="qris-btn" onclick="openModal()">Tampilkan QRIS</button>
+    <div class="note">Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer</div>
   </div>
 
   <!-- Modal QRIS -->
-  <div class="modal" id="qrisModal">
+  <div id="qrisModal" class="modal">
     <div class="modal-content">
-      <img id="qrisImage" src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
-      <div class="note">⚡ Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer ⚡</div>
-      <button class="close" onclick="closeQRIS()">Tutup</button>
-      <a id="downloadLink" href="https://files.catbox.moe/2ifiot.jpg" download="qris-zyxxennn.jpg">
-        <button class="download">Download QRIS</button>
-      </a>
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <img src="https://files.catbox.moe/2ifiot.jpg" alt="QRIS">
+      <div class="note">Transfer Sesuai Nominal Dan Jangan Lupa Screenshot Bukti Transfer</div>
     </div>
   </div>
 
-  <!-- Toast Notif -->
+  <!-- Toast -->
   <div id="toast" class="toast">✅ Disalin</div>
 
   <script>
@@ -262,14 +212,15 @@
       navigator.clipboard.writeText(text).then(() => {
         let toast = document.getElementById("toast");
         toast.className = "toast show";
-        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2000);
+        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
       });
     }
-    function openQRIS() {
-      document.getElementById('qrisModal').style.display = 'flex';
+
+    function openModal() {
+      document.getElementById("qrisModal").style.display = "flex";
     }
-    function closeQRIS() {
-      document.getElementById('qrisModal').style.display = 'none';
+    function closeModal() {
+      document.getElementById("qrisModal").style.display = "none";
     }
   </script>
 </body>
