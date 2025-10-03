@@ -536,7 +536,7 @@ toggleBtns.forEach(btn=>{
     const isOpen = targetDiv.classList.contains('open');
 
     // Tutup semua di card ini (hanya dalam card, bukan global)
-    currentCard.querySelectorAll('.fitur, .keuntungan').forEach(div=>div.classList.remove('open'));
+    currentCard.querySelectorAll('.fitur, .efek, .keuntungan').forEach(div=>div.classList.remove('open'));
     currentCard.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
 
     // Buka yang ditekan
