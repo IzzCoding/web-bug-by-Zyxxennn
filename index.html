@@ -125,6 +125,45 @@
       margin-top:10px;
     }
     .buy-btn:hover { transform: scale(1.05); }
+    
+    .fitur {
+  margin-top:12px;
+  height:0;
+  opacity:0;
+  overflow:hidden;
+  transition:height 0.4s ease, opacity 0.4s ease;
+}
+.fitur.open {
+  height:auto;
+  opacity:1;
+}
+.fitur ul {
+  padding-left:20px;
+  margin:10px 0;
+}
+.fitur li {
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 0.4s ease, transform 0.4s ease;
+  font-size:15px;
+  font-weight:500;
+  color:#f1f1f1;
+  list-style:none;
+  position:relative;
+  padding-left:24px;
+}
+.fitur.open li {
+  opacity:1;
+  transform:translateY(0);
+}
+.fitur li::before {
+  content:"⭐";
+  position:absolute;
+  left:0;
+  color:#ffcc00;
+  font-weight:bold;
+  text-shadow:0 0 8px #ffcc00,0 0 12px #ffaa00;
+}
 
     .keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
     .keuntungan.open { height:auto; opacity:1; }
@@ -226,8 +265,7 @@
       <div class="price">CEO SC 75.000</div>
       <div class="price">STAFF SC 100.000</div>
       <button class="btn-toggle">Efek? <span class="arrow">▼</span></button>
-      <div class="keuntungan">
-       <ul>
+      <div class="fitur"><ul>
         <li>FORCLOSE</li>
         <li>BLANK</li>
         <li>DELAY HARD</li>
@@ -236,19 +274,15 @@
         <li>FREEZE X UI<li>
         <li>CRASH UI<li>
         <li>BLANK UI<li>
-       </ul>
-      </div>
-      
+      </ul></div>
       <button class="btn-toggle">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan">
-       <ul>
+      <div class="keuntungan"><ul>
         <li>Bebas Request Produk</li>
         <li>Store Website Nama Lu</li>
         <li>Html Dari Gw</li>
         <li>Paymentnya Nama Lu</li>
         <li>Siap Pakai / Langsung Pakai</li>
-       </ul>
-      </div>
+      </ul></div>
       <button class="buy-btn" data-produk="Akses Premium">Buy</button>
     </div>
 
@@ -368,22 +402,27 @@
     }
     showProgrammingBoxes();
 
-    /* TOGGLE KEUNTUNGAN PRODUK */
-    const toggleBtns = document.querySelectorAll('.btn-toggle');
-    toggleBtns.forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const currentCard = btn.parentElement;
-        const keuntunganDiv = currentCard.querySelector('.keuntungan');
-        const arrow = btn.querySelector('.arrow');
-        const isOpen = keuntunganDiv.classList.contains('open');
-        document.querySelectorAll('.keuntungan').forEach(div=>div.classList.remove('open'));
-        document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
-        if(!isOpen){
-          keuntunganDiv.classList.add('open');
-          arrow.classList.add('rotate');
-        }
-      });
-    });
+/* TOGGLE FITUR & KEUNTUNGAN PRODUK */
+const toggleBtns = document.querySelectorAll('.btn-toggle');
+toggleBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const currentCard = btn.parentElement;
+    const target = btn.dataset.target; // fitur / keuntungan
+    const targetDiv = currentCard.querySelector('.' + target);
+    const arrow = btn.querySelector('.arrow');
+    const isOpen = targetDiv.classList.contains('open');
+
+    // Tutup semua di card ini (hanya dalam card, bukan global)
+    currentCard.querySelectorAll('.fitur, .keuntungan').forEach(div=>div.classList.remove('open'));
+    currentCard.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
+
+    // Buka yang ditekan
+    if(!isOpen){
+      targetDiv.classList.add('open');
+      arrow.classList.add('rotate');
+    }
+  });
+});
 
     /* MODAL QRIS */
     const modal = document.getElementById('qrisModal');
