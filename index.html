@@ -125,6 +125,16 @@
       margin-top:10px;
     }
     .buy-btn:hover { transform: scale(1.05); }
+    
+        .fitur { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
+    .fitur.open { height:auto; opacity:1; }
+    .fitur ul { padding-left:20px; margin:10px 0; }
+    .fitur li {
+      opacity:0; transform:translateY(10px); transition:opacity 0.4s ease, transform 0.4s ease;
+      font-size:15px; font-weight:500; color:#f1f1f1; list-style:none; position:relative; padding-left:24px;
+    }
+    .fitur.open li { opacity:1; transform:translateY(0); }
+    .fitur li::before { content:"✔"; position:absolute; left:0; color:#00ffcc; font-weight:bold; text-shadow:0 0 8px #00ffcc,0 0 12px #00ffaa; }
 
     .keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
     .keuntungan.open { height:auto; opacity:1; }
@@ -226,7 +236,7 @@
       <div class="price">CEO SC 75.000</div>
       <div class="price">STAFF SC 100.000</div>
       <button class="btn-toggle">Fitur? <span class="arrow">▼</span></button>
-      <div class="Fitur"><ul>
+      <div class="fitur"><ul>
         <li>Get Akses Premium Permanen</li>
         <li>Tidak Capek Promosi / Share Manual</li>
         <li>Share Sepuasnya</li>
