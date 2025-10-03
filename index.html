@@ -126,6 +126,45 @@
     }
     .buy-btn:hover { transform: scale(1.05); }
     
+        .efek {
+  margin-top:12px;
+  height:0;
+  opacity:0;
+  overflow:hidden;
+  transition:height 0.4s ease, opacity 0.4s ease;
+}
+.efek.open {
+  height:auto;
+  opacity:1;
+}
+.efek ul {
+  padding-left:20px;
+  margin:10px 0;
+}
+.efek li {
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 0.4s ease, transform 0.4s ease;
+  font-size:15px;
+  font-weight:500;
+  color:#f1f1f1;
+  list-style:none;
+  position:relative;
+  padding-left:24px;
+}
+.efek.open li {
+  opacity:1;
+  transform:translateY(0);
+}
+.efek li::before {
+  content:"🍁";
+  position:absolute;
+  left:0;
+  color:#ffcc00;
+  font-weight:bold;
+  text-shadow:0 0 8px #ffcc00,0 0 12px #ffaa00;
+}
+    
     .fitur {
   margin-top:12px;
   height:0;
@@ -376,14 +415,14 @@
         <li>CUMA DAPET SC NYA</li>
         <li>NGGA DAPET SC UPDATE LAGI</li>
       </ul></div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan Full Up<span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
+      <button class="btn-toggle" data-target="fitur">Keuntungan Full Up<span class="arrow">▼</span></button>
+      <div class="fitur"><ul>
         <li>MASUK GRUP RESS SC</li>
         <li>MENDAPATKAN SC UPDATE TERBARU</li>
         <li>TIDAK BISA MENJUAL SC<li>
       </ul></div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan Reseller<span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
+      <button class="btn-toggle" data-target="efek">Keuntungan Reseller<span class="arrow">▼</span></button>
+      <div class="efek"><ul>
         <li>MASUK GRUP RESS SC</li>
         <li>MENDAPATKAN SC UPDATE TERBARU</li>
         <li>BISA MENJUAL SC<li>
@@ -491,7 +530,7 @@ const toggleBtns = document.querySelectorAll('.btn-toggle');
 toggleBtns.forEach(btn=>{
   btn.addEventListener('click',()=>{
     const currentCard = btn.parentElement;
-    const target = btn.dataset.target; // fitur / keuntungan
+    const target = btn.dataset.target; // fitur // efek / keuntungan
     const targetDiv = currentCard.querySelector('.' + target);
     const arrow = btn.querySelector('.arrow');
     const isOpen = targetDiv.classList.contains('open');
