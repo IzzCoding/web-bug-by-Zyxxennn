@@ -1,684 +1,651 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alyzz | Store</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: white;
-      padding-bottom: 100px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 60px auto 20px auto;
-      padding: 20px;
-    }
-    .navbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
-      padding: 12px 0;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
-      z-index: 1000;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-    }
-    .nav-btn {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-    .nav-btn:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-    .nav-btn span {
-      font-size: 12px;
-      margin-top: 2px;
-    }
-    #beranda, #store, #partner { display: none; }
-    #beranda.active, #store.active, #partner.active { display: block; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dexter Attacker · Sila Divine</title>
+    <!-- FONT AWESOME 6 (FREE) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- GOOGLE FONT: INTER & JETBRAINS MONO -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .beranda-header h2 { text-align: center; margin:0; font-size:28px; }
-    .beranda-header p { text-align:center; margin-top:6px; color:#ccc; }
+        body {
+            background: #0a0c0f;
+            background-image: radial-gradient(circle at 15% 30%, rgba(255, 70, 70, 0.03) 0%, transparent 25%),
+                              radial-gradient(circle at 85% 70%, rgba(255, 200, 50, 0.03) 0%, transparent 30%);
+            font-family: 'Inter', sans-serif;
+            color: #eef2f5;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+        }
 
-    .owner-buttons {
-      display:flex; 
-      justify-content:center; 
-      gap:16px; 
-      margin:20px 0; 
-      flex-wrap:wrap;
-    }
-    .owner-btn {
-      text-decoration:none;
-      padding:12px 20px;
-      border-radius:12px;
-      font-weight:600;
-      color:white;
-      text-align:center;
-      transition: all 0.3s ease;
-      box-shadow:0 4px 12px rgba(0,0,0,0.3);
-      font-size:14px;
-    }
-    .owner-btn.owner { background: linear-gradient(45deg,#ff416c,#ff4b2b); }
-    .owner-btn.channel { background: linear-gradient(45deg,#00c6ff,#0072ff); }
-    .owner-btn.grup { background: linear-gradient(45deg,#f7971e,#ffd200); color:#000; }
-    .owner-btn.saweria { background: linear-gradient(45deg,#7b4397,#dc2430); }
-    .owner-btn:hover { transform: scale(1.1); }
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
 
-    .programming-boxes { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:20px; }
-    .programming-box {
-      background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; text-align:center;
-      width:100px; opacity:0; transform:translateY(20px); transition:all 0.6s ease;
-    }
-    .programming-box.show { opacity:1; transform:translateY(0); }
-    .programming-box .emoji { font-size:40px; display:block; margin:0 auto 8px; }
+        /* HEADER DIVINE */
+        .divine-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            border-bottom: 1px solid rgba(255, 60, 60, 0.2);
+            padding-bottom: 1.5rem;
+        }
 
-    .card { background: rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-bottom:18px;
-      backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.25); overflow:hidden;
-      transition:transform 0.2s ease, background 0.3s ease;
-    }
-    .card:hover { background: rgba(255,255,255,0.12); transform:translateY(-3px); }
-    .card h3 { margin:0 0 6px 0; font-size:18px; }
-    .card .price { font-weight:600; margin-bottom:12px; color:#00ffcc; }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
 
-    .btn-toggle {
-      background:#6a11cb; color:white; border:none; padding:8px 14px; border-radius:8px;
-      cursor:pointer; font-size:14px; display:flex; align-items:center; gap:5px; transition:transform 0.2s ease;
-    }
-    .btn-toggle:hover { transform: scale(1.05); }
-    .arrow { display:inline-block; transition:transform 0.3s ease; }
-    .arrow.rotate { transform:rotate(180deg); }
+        .wheel-icon {
+            font-size: 2.2rem;
+            color: #ff4d4d;
+            animation: spinSlow 8s infinite linear;
+            filter: drop-shadow(0 0 8px rgba(255, 70, 70, 0.6));
+        }
 
-    .buy-btn {
-      background:#6a11cb;
-      color:white;
-      border:none;
-      padding:8px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:14px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:5px;
-      transition:transform 0.2s ease;
-      margin-top:10px;
-    }
-    .buy-btn:hover { transform: scale(1.05); }
-    
-        .efek {
-  margin-top:12px;
-  height:0;
-  opacity:0;
-  overflow:hidden;
-  transition:height 0.4s ease, opacity 0.4s ease;
-}
-.efek.open {
-  height:auto;
-  opacity:1;
-}
-.efek ul {
-  padding-left:20px;
-  margin:10px 0;
-}
-.efek li {
-  opacity:0;
-  transform:translateY(10px);
-  transition:opacity 0.4s ease, transform 0.4s ease;
-  font-size:15px;
-  font-weight:500;
-  color:#f1f1f1;
-  list-style:none;
-  position:relative;
-  padding-left:24px;
-}
-.efek.open li {
-  opacity:1;
-  transform:translateY(0);
-}
-.efek li::before {
-  content:"🍁";
-  position:absolute;
-  left:0;
-  color:#ffcc00;
-  font-weight:bold;
-  text-shadow:0 0 8px #ffcc00,0 0 12px #ffaa00;
-}
-    
-    .fitur {
-  margin-top:12px;
-  height:0;
-  opacity:0;
-  overflow:hidden;
-  transition:height 0.4s ease, opacity 0.4s ease;
-}
-.fitur.open {
-  height:auto;
-  opacity:1;
-}
-.fitur ul {
-  padding-left:20px;
-  margin:10px 0;
-}
-.fitur li {
-  opacity:0;
-  transform:translateY(10px);
-  transition:opacity 0.4s ease, transform 0.4s ease;
-  font-size:15px;
-  font-weight:500;
-  color:#f1f1f1;
-  list-style:none;
-  position:relative;
-  padding-left:24px;
-}
-.fitur.open li {
-  opacity:1;
-  transform:translateY(0);
-}
-.fitur li::before {
-  content:"⭐";
-  position:absolute;
-  left:0;
-  color:#ffcc00;
-  font-weight:bold;
-  text-shadow:0 0 8px #ffcc00,0 0 12px #ffaa00;
-}
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
-    .keuntungan { margin-top:12px; height:0; opacity:0; overflow:hidden; transition:height 0.4s ease, opacity 0.4s ease; }
-    .keuntungan.open { height:auto; opacity:1; }
-    .keuntungan ul { padding-left:20px; margin:10px 0; }
-    .keuntungan li {
-      opacity:0; transform:translateY(10px); transition:opacity 0.4s ease, transform 0.4s ease;
-      font-size:15px; font-weight:500; color:#f1f1f1; list-style:none; position:relative; padding-left:24px;
-    }
-    .keuntungan.open li { opacity:1; transform:translateY(0); }
-    .keuntungan li::before { content:"✔"; position:absolute; left:0; color:#00ffcc; font-weight:bold; text-shadow:0 0 8px #00ffcc,0 0 12px #00ffaa; }
+        .title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
 
-    .partner-box { background: rgba(255,255,255,0.08); padding:16px; border-radius:12px; margin-top:20px; }
-    .partner-box h3 { text-align:center; margin-bottom:12px; }
-    .partner-box ul { padding-left:0; list-style:none; text-align:center; }
-    .partner-box ul li { margin:6px 0; }
-    .partner-box ul li a { color:#00ffcc; text-decoration:none; font-weight:500; transition:transform 0.2s ease; }
-    .partner-box ul li a:hover { transform: scale(1.05); }
+        .title span {
+            background: linear-gradient(145deg, #ff6a6a, #ff3838);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 0.2rem;
+        }
 
-    #qrisModal {
-      display:none;
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(0,0,0,0.8);
-      z-index:2000;
-      align-items:center;
-      justify-content:center;
-    }
-    #qrisModal .qris-box {
-      background:#1c1c2b;
-      padding:20px;
-      border-radius:12px;
-      width:90%;
-      max-width:400px;
-      text-align:center;
-      color:white;
-      box-shadow:0 0 15px rgba(0,255,204,0.6);
-    }
-    #qrisModal img {
-      width:220px;
-      margin:15px auto;
-      display:block;
-      border-radius:12px;
-      box-shadow:0 0 20px rgba(0,255,204,0.5);
-    }
-    #qrisModal input {
-      margin:10px 0;
-      padding:10px;
-      width:100%;
-      border-radius:8px;
-      border:none;
-    }
-    #qrisModal button {
-      padding:10px 16px;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:600;
-      margin-top:10px;
-    }
-    #kirimBtn { background:#00ffcc; color:#000; }
-    .qris-close { background:#ff3b3b; color:white; }
-  </style>
+        .badge-creator {
+            background: rgba(255, 70, 70, 0.1);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 100, 100, 0.3);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #ffb8b8;
+        }
+
+        .badge-creator i {
+            color: #ff8888;
+        }
+
+        /* STAT PANEL / WHEEL STATUS */
+        .wheel-panel {
+            background: rgba(12, 15, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a2e34;
+            border-radius: 28px;
+            padding: 1.2rem 2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.7);
+            border-left: 6px solid #ff4d4d;
+        }
+
+        .rotation-box {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rotation-icon {
+            font-size: 1.8rem;
+            color: #ffbe5c;
+        }
+
+        .adapt-text {
+            font-weight: 500;
+            color: #b0b9c5;
+        }
+
+        .adapt-level {
+            background: #1e1e2a;
+            padding: 0.5rem 1.1rem;
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            border: 1px solid #ff4d4d;
+            color: #ffb3b3;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 2.2fr 1.3fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ATTACK CARD GRID */
+        .attack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.3rem;
+        }
+
+        .attack-card {
+            background: linear-gradient(145deg, #12161c, #0c0f14);
+            border-radius: 20px;
+            padding: 1.5rem 1.2rem;
+            border: 1px solid #272c33;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 0 #080a0c;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attack-card:hover {
+            border-color: #ff5e5e;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #080a0c, 0 0 15px rgba(255, 80, 80, 0.3);
+        }
+
+        .attack-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: #ff8888;
+        }
+
+        .attack-title {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .attack-badge {
+            background: #ff3b3b;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .attack-desc {
+            color: #98a1ad;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .attack-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #262d35;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            color: #bfc8d2;
+            font-size: 0.8rem;
+        }
+
+        /* AI ASSISTANT SECTION */
+        .ai-section {
+            background: radial-gradient(circle at 20% 30%, #1a141e, #0d0f13);
+            border-radius: 28px;
+            padding: 1.8rem;
+            border: 1px solid #3d3345;
+            box-shadow: 0 0 30px rgba(200, 80, 255, 0.12);
+            position: relative;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .ai-avatar {
+            background: #2a1f2e;
+            border-radius: 18px;
+            padding: 0.7rem;
+            font-size: 1.7rem;
+            color: #ffaa70;
+            border: 1px solid #ff7b4a;
+        }
+
+        .ai-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffd9b5, #ffa07a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.01em;
+        }
+
+        .ai-sub {
+            color: #bca9d1;
+            font-size: 0.8rem;
+        }
+
+        .ai-chat {
+            background: #0e1116;
+            border-radius: 18px;
+            padding: 1.2rem;
+            border: 1px solid #3d3445;
+            margin-bottom: 1.3rem;
+        }
+
+        .ai-message {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .ai-message i {
+            color: #ffb48a;
+            margin-top: 0.2rem;
+        }
+
+        .ai-input-group {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            background: #0a0c10;
+            border: 1px solid #373e46;
+            border-radius: 50px;
+            padding: 0.9rem 1.3rem;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            outline: none;
+            transition: 0.1s;
+        }
+
+        .ai-input:focus {
+            border-color: #ff7f4a;
+            box-shadow: 0 0 0 2px rgba(255, 120, 70, 0.2);
+        }
+
+        .ai-send {
+            background: #ff5e4a;
+            border: none;
+            border-radius: 50px;
+            padding: 0 1.5rem;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.1s;
+            border-bottom: 4px solid #b13222;
+        }
+
+        .ai-send:hover {
+            background: #ff7555;
+            border-bottom-width: 2px;
+            transform: translateY(2px);
+        }
+
+        /* SECOND ROW : OTHER TOOLS */
+        .tools-section {
+            background: #0e1217;
+            border-radius: 26px;
+            padding: 1.8rem;
+            margin-top: 1.2rem;
+            border: 1px solid #2b3138;
+        }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tool-item {
+            background: #1a1f26;
+            padding: 0.8rem 1.2rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            border: 1px solid #373f49;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.1s;
+        }
+
+        .tool-item i {
+            color: #ff8a6f;
+        }
+
+        .tool-item:hover {
+            border-color: #ff6b6b;
+            background: #1f252e;
+        }
+
+        /* TERMINAL / OUTPUT */
+        .terminal {
+            background: #080b0e;
+            border-radius: 18px;
+            padding: 1.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid #2e353d;
+            margin-top: 2.2rem;
+            border-left: 6px solid #ff4d4d;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            color: #b1c3d6;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-body {
+            color: #cbd5e6;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #7a8793;
+            font-size: 0.8rem;
+            border-top: 1px solid #252c33;
+            padding-top: 1.8rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- BERANDA -->
-  <div class="container" id="beranda">
-    <div class="beranda-header">
-      <h2>Alyzz | Store</h2>
-      <p>Informasi atau About</p>
+    <div class="container">
+        <!-- HEADER: DEXTER / MAHORAGA SIGNATURE -->
+        <div class="divine-header">
+            <div class="logo">
+                <i class="fas fa-sync-alt wheel-icon"></i>
+                <div class="title">attacker<span>⸸DEXTER</span></div>
+            </div>
+            <div class="badge-creator">
+                <i class="fas fa-crown"></i> CREATOR: DEXTER · SILA DIVINE
+                <i class="fas fa-shield-alt" style="margin-left: 0.5rem; color: #ff9999;"></i>
+            </div>
+        </div>
+
+        <!-- WHEEL STATUS / ADAPTATION (MAHORAGA VIBE) -->
+        <div class="wheel-panel">
+            <div class="rotation-box">
+                <i class="fas fa-compact-disc rotation-icon" style="color: #ff6060;"></i>
+                <span class="adapt-text"><span style="font-weight:800; color:white;">WHEEL PUTARAN</span> · ADAPTASI LEVEL 01</span>
+                <span class="adapt-level"><i class="fas fa-rotate"></i> 1/∞</span>
+            </div>
+            <div style="display:flex; gap:1.5rem; align-items:center;">
+                <span style="color:#b1bac4;"><i class="fas fa-bolt" style="color:#ffb456;"></i> IMMUNITY: BASIC</span>
+                <span style="background:#1e1e2a; padding:0.3rem 1rem; border-radius:30px; border:1px solid #ff7777;">
+                    <i class="fas fa-skull"></i> DEXTER ONLY
+                </span>
+            </div>
+        </div>
+
+        <!-- GRID: ATTACK CARD (LEFT) + AI (RIGHT) -->
+        <div class="grid-2col">
+            <!-- LEFT SIDE: ATTACK GRID -->
+            <div>
+                <h3 style="margin-bottom:1.2rem; font-weight:600; display:flex; gap:0.8rem; align-items:center;"><i class="fas fa-bullseye" style="color:#ff7070;"></i> ATTACK VECTOR · bersiap</h3>
+                <div class="attack-grid">
+                    <!-- DDOS CARD -->
+                    <div class="attack-card" onclick="showOutput('🚀 DDOS ATTACK launched ke target. Volumetric flood · SYN/ACK · Wheel berputar.')">
+                        <i class="fas fa-network-wired attack-icon"></i>
+                        <div class="attack-title">
+                            DDOS <span class="attack-badge">L4/L7</span>
+                        </div>
+                        <div class="attack-desc">
+                            Flood HTTP, TCP, UDP. Booter style. Tekan target sampai down.
+                        </div>
+                        <div class="attack-footer">
+                            <span><i class="fas fa-bolt"></i> 1.2Tbps simulated</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <!-- SPAM OTP WA -->
+                    <div class="attack-card" onclick="showOutput('📲 OTP SPAM - WhatsApp. 100+ request dalam 30 detik. Nomor: +62xxxx tergantung input.')">
+                        <i class="fas fa-message attack-icon" style="color:#6fc9ff;"></i>
+                        <div class="attack-title">
+                            SPAM OTP WA <span class="attack-badge">BOMB</span>
+                        </div>
+                        <div class="attack-desc">
+                            SMS/WA OTP flood. Burn kuota sms korban. Multi provider.
+                        </div>
+                        <div class="attack-footer">
+                            <span><i class="fas fa-clock"></i> 1.2s/delivery</span>
+                            <i class="fas fa-bomb"></i>
+                        </div>
+                    </div>
+                    <!-- EMAIL BOMB -->
+                    <div class="attack-card" onclick="showOutput('📧 EMAIL BOMBER aktif · 500+ email masuk ke inbox target dalam 1 menit.')">
+                        <i class="fas fa-envelope attack-icon" style="color:#ffb789;"></i>
+                        <div class="attack-title">
+                            EMAIL BOMB
+                        </div>
+                        <div class="attack-desc">
+                            Spam massal. Bypass filter. Anonymous sender.
+                        </div>
+                        <div class="attack-footer">
+                            <span>SMTP relay</span>
+                            <i class="fas fa-skull"></i>
+                        </div>
+                    </div>
+                    <!-- SQL INJECTION SIMULATE -->
+                    <div class="attack-card" onclick="showOutput('💉 SQL INJECTION · query dumping. \' OR 1=1 -- -  admin bypass.')">
+                        <i class="fas fa-database attack-icon" style="color:#b3ff8a;"></i>
+                        <div class="attack-title">
+                            SQL INJECT
+                        </div>
+                        <div class="attack-desc">
+                            Ekstrak data, bypass login, deface.
+                        </div>
+                        <div class="attack-footer">
+                            <span>MySQL/MSSQL</span>
+                            <i class="fas fa-code"></i>
+                        </div>
+                    </div>
+                    <!-- XSS / DEFACE -->
+                    <div class="attack-card" onclick="showOutput('🌀 XSS PAYLOAD injected · cookie stealer / deface alert.')">
+                        <i class="fas fa-code attack-icon" style="color:#ffae70;"></i>
+                        <div class="attack-title">
+                            XSS DEFACE
+                        </div>
+                        <div class="attack-desc">
+                            Cross-site scripting. Deface halaman web.
+                        </div>
+                        <div class="attack-footer">
+                            <span>session grab</span>
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <!-- BRUTEFORCE -->
+                    <div class="attack-card" onclick="showOutput('🔐 BRUTEFORCE · wordlist rockyou · 1000 attempt/menit.')">
+                        <i class="fas fa-lock attack-icon" style="color:#ff7c7c;"></i>
+                        <div class="attack-title">
+                            BRUTEFORCE
+                        </div>
+                        <div class="attack-desc">
+                            SSH, FTP, cPanel, WordPress.
+                        </div>
+                        <div class="attack-footer">
+                            <span>hybrid attack</span>
+                            <i class="fas fa-key"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- add small extra attack prompt -->
+                <div style="margin-top: 1.2rem; background: #0c1016; padding: 0.8rem 1.2rem; border-radius: 60px; border:1px dashed #ff7b7b; display: inline-block;">
+                    <i class="fas fa-plus-circle" style="color: #ff8a8a;"></i> 12 attack lainnya terkunci · butuh adaptasi level 02 🌀
+                </div>
+            </div>
+
+            <!-- RIGHT: DEXTER AI SECTION  -->
+            <div class="ai-section">
+                <div class="ai-header">
+                    <div class="ai-avatar">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div>
+                        <div class="ai-name">DEXTER ai</div>
+                        <div class="ai-sub">◈ divine adaptation · wheel embedded</div>
+                    </div>
+                    <span style="margin-left: auto; background: #ff3b3b; padding: 0.25rem 0.8rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">SILA CORE</span>
+                </div>
+                <!-- AI CHAT AREA (static demo) -->
+                <div class="ai-chat">
+                    <div class="ai-message">
+                        <i class="fas fa-robot"></i>
+                        <div style="background: #1a1f28; padding: 0.8rem 1.2rem; border-radius: 18px; border-bottom-left-radius: 4px; width:100%;">
+                            <span style="color: #ffc49b;">Dexter ai:</span> Gw udah adaptasi 47 teknik serangan. Pilih target, gw execute. Wheel berputar untuk master.
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; color:#a8b3c0; font-size:0.85rem; display:flex; gap:1.2rem;">
+                        <span><i class="fas fa-bolt"></i> predict attack</span>
+                        <span><i class="fas fa-shield-hacked"></i> bypass waf</span>
+                        <span><i class="fas fa-infinity"></i> ∞ loop</span>
+                    </div>
+                </div>
+                <!-- AI INPUT COMMAND -->
+                <div class="ai-input-group">
+                    <input type="text" class="ai-input" placeholder="perintah ke Dexter ai ..." id="aiCommandInput">
+                    <button class="ai-send" onclick="showOutput('🧠 DEXTER ai: Memproses perintah · "' + document.getElementById('aiCommandInput').value + '" · simulasi adaptasi. Wheel tambah putaran.')">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <p style="font-size:0.7rem; color:#7d8a99; margin-top:0.8rem;">
+                    <i class="fas fa-crown" style="color:gold;"></i> hanya Dexter yang bisa full akses. saat ini mode demo.
+                </p>
+            </div>
+        </div>
+
+        <!-- OTHER ATTACK TOOLS / ADVANCED  -->
+        <div class="tools-section">
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                <i class="fas fa-toolbox" style="color: #ff8f8f;"></i>
+                <h4 style="font-weight:600;">⚔️ ARSENAL · fitur pendukung</h4>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-item" onclick="showOutput('🛜 WIFI DEAUTH · deauthentication attack · broadcast target.')">
+                    <i class="fas fa-wifi"></i> WIFI DEAUTH
+                </div>
+                <div class="tool-item" onclick="showOutput('📸 CAM HACK · ip camera scanner · default creds.')">
+                    <i class="fas fa-camera"></i> CAM HACK
+                </div>
+                <div class="tool-item" onclick="showOutput('🕵️ OSINT · email/username lookup · data breach.')">
+                    <i class="fas fa-user-secret"></i> OSINT
+                </div>
+                <div class="tool-item" onclick="showOutput('💣 RANSOMWARE SIM · file encrypter demo · .locked extension')">
+                    <i class="fas fa-file-lock"></i> RANSOM SIM
+                </div>
+                <div class="tool-item" onclick="showOutput('🌐 DNS SPOOF · redirect domain to evil server.')">
+                    <i class="fas fa-globe"></i> DNS SPOOF
+                </div>
+                <div class="tool-item" onclick="showOutput('📡 BLUETOOTH BOMB · L2CAP flood · pair spam')">
+                    <i class="fa-brands fa-bluetooth"></i> BT BOMB
+                </div>
+                <div class="tool-item" onclick="showOutput('⚙️ AUTO EXPLOIT · eternalblue · ms17-010')">
+                    <i class="fas fa-biohazard"></i> ETERNALBLUE
+                </div>
+            </div>
+        </div>
+
+        <!-- TERMINAL / OUTPUT LOG (MUST APPEAR) -->
+        <div class="terminal" id="outputTerminal">
+            <div class="terminal-header">
+                <i class="fas fa-terminal" style="color:#ff6a6a;"></i>
+                <span style="font-weight:700;">ATTACK LOG · wheel synchronization</span>
+                <span style="margin-left:auto; background:#000; padding:0.2rem 0.7rem; border-radius:20px; font-size:0.7rem;">🟢 ready</span>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                [⸸] Mahoraga adaptation active. Sila divine general online.<br>
+                [⸸] Wheel rotation: 1 · user: DEXTER · attack interface loaded.<br>
+                [⸸] Pilih attack di atas atau command AI → output muncul disini.
+            </div>
+        </div>
+
+        <!-- FOOTER - CREATOR CREDENTIAL -->
+        <div class="footer-note">
+            <i class="fas fa-sync-alt" style="color: #ff6666; margin-right: 0.4rem;"></i> Cursed Mahoraga · adaptation system · created by DEXTER <span style="color:#ff9999;">⸷ SILA DIVINE ⸸</span><br>
+            <span style="letter-spacing: 2px;">██████▓▒░  wheel berputar tanpa henti  ░░▒▓██████</span>
+        </div>
     </div>
-    <div class="owner-buttons">
-      <a href="https://t.me/alwaysLyzz" target="_blank" class="owner-btn owner">OWNER</a>
-      <a href="https://t.me/AlyzzXch" target="_blank" class="owner-btn channel">CHANNEL OWNER</a>
-      <a href="https://t.me/LuciferPublick" target="_blank" class="owner-btn grup">GRUP OWNER</a>
-      <a href="https://saweria.co/Alyzzz" target="_blank" class="owner-btn saweria">SAWERIA</a>
-    </div>
 
-    <div class="programming-boxes">
-      <div class="programming-box"><div class="emoji">🌐</div><span>HTML</span></div>
-      <div class="programming-box"><div class="emoji">🔷</div><span>CSS</span></div>
-      <div class="programming-box"><div class="emoji">🟨</div><span>JavaScript</span></div>
-      <div class="programming-box"><div class="emoji">🐍</div><span>Python</span></div>
-    </div>
-  </div>
+    <script>
+        // OUTPUT UPDATE FUNCTION (adaptation style)
+        function showOutput(message) {
+            const terminalBody = document.getElementById('terminalBody');
+            const timestamp = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            terminalBody.innerHTML = `[${timestamp}] [⸸] ADAPTASI · wheel berputar<br>[⸸] ${message}<br>[⸸] immunity: berkembang · serangan berikutnya lebih kuat. 🌀`;
+            
+            // bonus: setiap interaksi, putaran wheel bertambah secara visual
+            const wheelLevel = document.querySelector('.adapt-level');
+            if (wheelLevel) {
+                // just for style, ga di save state, tapi menambah kesan adaptasi.
+                wheelLevel.innerHTML = '<i class="fas fa-rotate"></i> 2/∞ (evolusi)';
+                wheelLevel.style.borderColor = '#ff9f4b';
+            }
+        }
 
-  <!-- STORE -->
-  <div class="container" id="store">
-   <!-- PRODUK 1 -->
-    <div class="card">
-      <h3>PO AKAME X FOX V9</h3>
-      <div class="price">HARGA PO 5.000 NO UP</div>
-      <div class="price">HARGA PO 10.000 FULL UP</div>
-      <div class="price">HARGA RILIS 10.000 NO UP</div>
-      <div class="price">HARGA RILIS 20.000 FULL UP</div>
-      <div class="price">HARGA RESELLER SC 30.000</div>
-      <div class="price">HARGA PARTNER SC 40.000</div>
-      <div class="price">HARGA OWNER SC 50.000</div>
-      <div class="price">HARGA TANGAN KANAN SC 65.000</div>
-      <div class="price">HARGA CEO SC 75.000</div>
-      <div class="price">HARGA MODERATOR SC 90.000</div>
-      <div class="price">HARGA STAFF SC 100.000</div>
-      <button class="btn-toggle" data-target="fitur">Efek? <span class="arrow">▼</span></button>
-      <div class="fitur"><ul>
-        <li>FORCLOSE</li>
-        <li>BLANK</li>
-        <li>DELAY HARD</li>
-        <li>DELAY INVIS</li>
-        <li>DELAY BETA</li>
-        <li>FREEZE X UI</li>
-        <li>CRASH UI</li>
-        <li>BLANK UI</li>
-      </ul></div>
-      <button class="btn-toggle" data-target="keuntungan">Keamanan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>ENC</li>
-        <li>ADD DB</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Sc Akame">Buy</button>
-    </div>
+        // tambahan biar makin responsive AI input (enter)
+        document.addEventListener('DOMContentLoaded', function() {
+            const aiInput = document.getElementById('aiCommandInput');
+            if(aiInput) {
+                aiInput.addEventListener('keypress', function(e) {
+                    if(e.key === 'Enter') {
+                        document.querySelector('.ai-send').click();
+                    }
+                });
+            }
+        });
 
-    <!-- PRODUK 2 -->
-    <div class="card">
-      <h3>APLIKASI BUG TOXIC AVENGER</h3>
-      <div class="price">HARGA AKSES PERBULAN 10.000</div>
-      <div class="price">HARGA AKSES PERMANEN 15.000</div>
-      <div class="price">HARGA RESELLER 25K</div>
-      <div class="price">HARGA PARTNER 35.000</div>
-      <div class="price">HARGA MODERATOR 40.000</div>
-      <div class="price">HARGA OWNER 45.000</div>
-      <button class="btn-toggle" data-target="fitur">Fitur? <span class="arrow">▼</span></button>
-      <div class="fitur"><ul>
-        <li>CRASH INFINITY</li>
-        <li>DELAY INVISIBLE</li>
-        <li>BULLDOTEXX</li>
-        <li>CRASH OS</li>
-        <li>FORCLOSE</li>
-      </ul></div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>BEBAS BUG MENGGUNAKAN SENDER</li>
-        <li>BEBAS SPAM SEPUASNYA</li>
-        <li>BEBAS BUG BERAPA NOMOR PUN</li>
-        <li>BEBAS MENGGUNAKAN COMMAND</li>
-        <li>MEMILIKI KEAMANAN USERNAME DAN PASSWORD</li>
-        <li>TANPA ADANYA MENGGUNAKAN PANEL</li>
-        <li>CUKUP LOGIN, LALU GUNAKAN APLIKASI NYA</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Toxic Avenger">Buy</button>
-    </div>
+        // override biar smooth, adaptive
+        console.log("Mahoraga adapted - DEXTER attacker interface");
+    </script>
 
-    <!-- PRODUK 3 -->
-    <div class="card">
-      <h3>RESELLER PANEL</h3>
-      <div class="price">HARGA 5.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>BISA JUALAN PANEL 1GB - UNLI</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Reseller Panel">Buy</button>
-    </div>
-
-    <!-- PRODUK 4 -->
-    <div class="card">
-      <h3>ADMIN PANEL</h3>
-      <div class="price">HARGA 7.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>BISA JUALAN PANEL 1G - UNLI</li>
-        <li>BISA OPEN RESS PANEL</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Admin Panel">Buy</button>
-    </div>
-
-    <!-- PRODUK 5 -->
-<div class="card">
-  <h3>PT PANEL</h3>
-  <div class="price">HARGA 15.000</div>
-  <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-  <div class="keuntungan"><ul>
-    <li>BISA JUALAN PANEL 1GB - UNLI</li>
-    <li>BISA OPEN RESS PANEL</li>
-    <li>BISA OPEN ADP/ADMIN PANEL</li>
-  </ul></div>
-  <button class="buy-btn" data-produk="Pt Panel">Buy</button>
-</div>
-  
-    <!-- PRODUK 6 -->
-    <div class="card">
-      <h3>OWN PANEL</h3>
-      <div class="price">HARGA 30.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>BISA JUALAN PANEL 1GB - UNLI</li>
-        <li>BISA OPEN RESS PANEL</li>
-        <li>BISA OPEN ADP/ADMIN PANEL<li>
-        <li>BISA OPEN PT PANEL<li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Own Panel">Buy</button>
-    </div>
-
-    <!-- PRODUK 7 -->
-    <div class="card">
-      <h3>SC SCRAY DEATH</h3>
-      <div class="price">HARGA NO UP 15.000</div>
-      <div class="price">HARGA FULL UP 25.000</div>
-      <div class="price">RESELLER SC 35.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan No Up <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>CUMA DAPET SC NYA</li>
-        <li>NGGA DAPET SC UPDATE LAGI</li>
-      </ul></div>
-      <button class="btn-toggle" data-target="fitur">Keuntungan Full Up<span class="arrow">▼</span></button>
-      <div class="fitur"><ul>
-        <li>MASUK GRUP RESS SC</li>
-        <li>MENDAPATKAN SC UPDATE TERBARU</li>
-        <li>TIDAK BISA MENJUAL SC<li>
-      </ul></div>
-      <button class="btn-toggle" data-target="efek">Keuntungan Reseller<span class="arrow">▼</span></button>
-      <div class="efek"><ul>
-        <li>MASUK GRUP RESS SC</li>
-        <li>MENDAPATKAN SC UPDATE TERBARU</li>
-        <li>BISA MENJUAL SC<li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Scary Death">Buy</button>
-    </div>
-
-    <!-- PRODUK 8 -->
-    <div class="card">
-      <h3>SC BOT LIMIT</h3>
-      <div class="price">Harga 10.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>PUNYA BOT LIMIT SENDIRI</li>
-        <li>BISA CHAT SAMA BUYYER KALO BUYYER NYA LIMIT</li>
-        <li>GAMPANG KOMUNIKASI SAMA BUYYER<li>
-        <li>DLL<li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Sc Limit">Buy</button>
-    </div>
-
-    <!-- PRODUK 9 -->
-    <div class="card">
-      <h3>MURBANS</h3>
-      <div class="price">HARGA 20.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-        <li>𝖦𝖤𝖳 𝖬𝖳 𝖦𝖠𝖢𝖮𝖱</li>
-        <li>𝖦𝖤𝖳 𝖬𝖤𝖳𝖧𝖮𝖣 𝟤 𝖭𝖮</li>
-        <li>𝖦𝖤𝖳 𝖬𝖳 𝖳𝖤𝖬𝖡𝖴𝖲 𝖭𝖮 𝖮𝖫𝖣<li>
-        <li>𝖦𝖤𝖳 𝖬𝖳 𝖳𝖤𝖬𝖡𝖴𝖲 𝖶𝖠 𝖡𝖨𝖲𝖭𝖨𝖲<li>
-        <li>𝖦𝖤𝖳 𝖬𝖳 𝖥𝖱𝖤𝖲𝖧 𝖠𝖫𝖫 𝖦𝖠𝖢𝖮𝖱<li>
-        <li>𝖦𝖤𝖳 𝖠𝖯𝖪 𝖶𝖠 𝖥𝖢 𝖭𝖤𝖶 𝖴𝖯<li>
-        <li>𝖦𝖤𝖳 𝖠𝖯𝖪 𝖢𝖤𝖪 𝖡𝖠𝖭𝖲<li>
-        <li>𝖦𝖤𝖳 𝖬𝖤𝖳𝖧𝖮𝖣𝖤 𝖢𝖮𝖬𝖡𝖮<li>
-        <li>𝖦𝖤𝖳 𝖳𝖴𝖳𝖮𝖱 𝖡𝖠𝖭𝖣 𝖯𝖠𝖪𝖤 𝟤 𝖭𝖮<li>
-        <li>𝖦𝖤𝖳 𝖳𝖴𝖳𝖮𝖱 𝖡𝖠𝖭𝖣 𝖳𝖠𝖭𝖯𝖠 𝖪𝖨𝖱𝖨𝖬 𝖬𝖳<li>
-        <li>𝖦𝖤𝖳 𝖳𝖴𝖳𝖮𝖱 𝖡𝖠𝖭𝖣 𝖳𝖠𝖭𝖯𝖠 𝖡𝖠𝖫𝖤𝖲<li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Bot Telegram">Buy</button>
-    </div>
-    
-    <!-- PRODUK 10 -->
-    <div class="card">
-      <h3>PANEL PRIVATE</h3>
-      <div class="price">HARGA 2.000 - 12.000</div>
-      <button class="btn-toggle" data-target="fitur">List Harga <span class="arrow">▼</span></button>
-      <div class="fitur"><ul>
-        <li>1GB 2.000</li>
-        <li>2GB 3.000</li>
-        <li>3GB 4.000<li>
-        <li>4GB 5.000<li>
-        <li>5GB 6.000<li>
-        <li>6GB 7.000<li>
-        <li>7GB 8.000<li>
-        <li>8GB 9.000<li>
-        <li>9GB 10.000<li>
-        <li>10GB 11.000</li>
-        <li>UNLI 12.000<li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Panel Private">Buy</button>
-    </div>
-    
-    <!-- PRODUK 9 -->
-    <div class="card">
-      <h3>RESELLER PANEL PRIVATE</h3>
-      <div class="price">HARGA 20.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-      <li>GET SC CPANEL NO ENC/JASEB NO ENC</li>
-        <li>BISA JUALAN PANEL PRIVATE 1GB - UNLI</li>
-        <li>SERVER PRIVATE</li>
-        <li>ANTI DEL PANEL</li>
-        <li>ANTI INTIP INTIP</li>
-        <li>BAGUS BUAT PROJECT SC</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Reseller Private">Buy</button>
-    </div>
-    
-        <!-- PRODUK 10 -->
-    <div class="card">
-      <h3>ADMIN PANEL PRIVATE</h3>
-      <div class="price">HARGA 30.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-      <li>GET SC PHANTOM FULL UP</li>
-        <li>GET SC CPANEL NO ENC</li>
-        <li>GET SC JASEB NO ENC</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Adp Private">Buy</button>
-    </div>
-    
-        <!-- PRODUK 11 -->
-    <div class="card">
-      <h3>PT PANEL PRIVATE</h3>
-      <div class="price">HARGA 40.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-      <li>GET RESS SC PHANTOM</li>
-        <li>GET SC CPANEL NO ENC</li>
-        <li>GET SC JASEB NO ENC</li>
-        <li>GET ADMIN CH</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Pt Panel Private">Buy</button>
-    </div>
-    
-        <!-- PRODUK 12 -->
-    <div class="card">
-      <h3>TK PANEL PRIVATE</h3>
-      <div class="price">HARGA 60.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-      <li>GET RESS SC PHANTOM</li>
-        <li>GET SC CPANEL NO ENC</li>
-        <li>GET SC JASEB NO ENC</li>
-        <li>GET ADMIN CH</li>
-        <li>GET MURBUG TREDICT</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Pt Panel Private">Buy</button>
-    </div>
-    
-        <!-- PRODUK 13 -->
-    <div class="card">
-      <h3>OWN PANEL PRIVATE</h3>
-      <div class="price">HARGA 70.000</div>
-      <button class="btn-toggle" data-target="keuntungan">Keuntungan <span class="arrow">▼</span></button>
-      <div class="keuntungan"><ul>
-      <li>GET RESS SC PHANTOM</li>
-        <li>GET SC CPANEL NO ENC</li>
-        <li>GET SC JASEB NO ENC</li>
-        <li>GET ADMIN CH</li>
-        <li>GET VPS R16 C4</li>
-        <li>GET APK BUG</li>
-        <li>GET RESS APK BUG</li>
-        <li>GET MOD APK BUG</li>
-      </ul></div>
-      <button class="buy-btn" data-produk="Own Panel Private">Buy</button>
-    </div>
-  </div>
-
-  <!-- PARTNER -->
-  <div class="container" id="partner">
-    <div class="partner-box">
-      <h3>All Partner Alyzz | Store</h3>
-      <ul>
-        <li><a href="https://t.me/Zyxxennn" target="_blank"></a></li>
-        <li><a href="https://t.me/Partner2" target="_blank"></a></li>
-        <li><a href="https://t.me/Partner3" target="_blank"></a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <button class="nav-btn" data-target="beranda">🏠<span>Beranda</span></button>
-    <button class="nav-btn" data-target="store">🛒<span>Store</span></button>
-    <button class="nav-btn" data-target="partner">🤝<span>Partner</span></button>
-  </div>
-
-  <!-- MODAL QRIS -->
-  <div id="qrisModal">
-    <div class="qris-box">
-      <h3>🍁 Pembayaran via QRIS 💫</h3>
-      <img src="https://files.catbox.moe/0dp92m.jpg" alt="QRIS">
-      <input type="file" id="buktiInput" accept="image/*">
-      <input type="text" id="telegramInput" placeholder="Username Telegram Contoh @Alyzz">
-      <button id="kirimBtn">Kirim</button>
-      <button class="qris-close" onclick="closeModal()">Tutup</button>
-    </div>
-  </div>
-
-  <script>
-    /* NAVIGASI */
-    const navBtns = document.querySelectorAll('.nav-btn');
-    const sections = ['beranda','store','partner'];
-    navBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        sections.forEach(sec => document.getElementById(sec).classList.remove('active'));
-        document.getElementById(btn.dataset.target).classList.add('active');
-        if (btn.dataset.target === "beranda") showProgrammingBoxes();
-      });
-    });
-    document.getElementById('beranda').classList.add('active');
-
-    /* ANIMASI BOX PROGRAMMING */
-    const programmingBoxes = document.querySelectorAll('.programming-box');
-    function showProgrammingBoxes() {
-      programmingBoxes.forEach((box,i)=>
-        setTimeout(()=>box.classList.add('show'), i*150)
-      );
-    }
-    showProgrammingBoxes();
-
-/* TOGGLE FITUR & KEUNTUNGAN PRODUK */
-const toggleBtns = document.querySelectorAll('.btn-toggle');
-toggleBtns.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const currentCard = btn.parentElement;
-    const target = btn.dataset.target; // fitur // efek / keuntungan
-    const targetDiv = currentCard.querySelector('.' + target);
-    const arrow = btn.querySelector('.arrow');
-    const isOpen = targetDiv.classList.contains('open');
-
-    // Tutup semua di card ini (hanya dalam card, bukan global)
-    currentCard.querySelectorAll('.fitur, .efek, .keuntungan').forEach(div=>div.classList.remove('open'));
-    currentCard.querySelectorAll('.arrow').forEach(a=>a.classList.remove('rotate'));
-
-    // Buka yang ditekan
-    if(!isOpen){
-      targetDiv.classList.add('open');
-      arrow.classList.add('rotate');
-    }
-  });
-});
-
-    /* MODAL QRIS */
-    const modal = document.getElementById('qrisModal');
-    let produkDipilih = "";
-
-    document.querySelectorAll('.buy-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        produkDipilih = btn.dataset.produk;
-        modal.style.display = "flex";
-      });
-    });
-    function closeModal(){ modal.style.display = "none"; }
-
-    /* KIRIM DATA KE TELEGRAM BOT */
-    document.getElementById('kirimBtn').addEventListener('click', async ()=>{
-      const buktiFile = document.getElementById('buktiInput').files[0];
-      const telegramNama = document.getElementById('telegramInput').value;
-      if(!buktiFile || !telegramNama){
-        alert("Lengkapi bukti transfer & nama telegram!");
-        return;
-      }
-      const BOT_TOKEN = "8389486091:AAGLkqA_7XxgT2osVgmdoMHLzbiLk8DFApI";
-      const OWNER_CHAT_ID = "7648286037";
-
-      const pesan = `📢 Bukti pembayaran baru!\n\n🛒 Produk: ${produkDipilih}\n👤 Telegram: ${telegramNama}`;
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({chat_id: OWNER_CHAT_ID, text: pesan})
-      });
-
-      const formData = new FormData();
-      formData.append("chat_id", OWNER_CHAT_ID);
-      formData.append("photo", buktiFile);
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-        method:"POST",
-        body: formData
-      });
-
-      alert("Bukti pembayaran terkirim ke owner ✅");
-      closeModal();
-    });
-  </script>
+    <!-- Font Awesome brand kits (bluetooth) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </body>
-</html>
+                                               </html>
