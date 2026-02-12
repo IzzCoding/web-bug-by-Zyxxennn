@@ -3,55 +3,786 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEXTER · Sila Divine Attacker</title>
+    <title>DEXTER · SILA DIVINE ATTACKER · FULL ARSENAL</title>
+    
+    <!-- Fonts & Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="/static/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <style>
+        /* ========== DIVINE STYLING - MAHORAGA DARK THEME ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c0f;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 70, 70, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(255, 200, 50, 0.05) 0%, transparent 35%),
+                repeating-linear-gradient(45deg, rgba(20,20,30,0.2) 0px, rgba(20,20,30,0.2) 2px, transparent 2px, transparent 8px);
+            font-family: 'Inter', sans-serif;
+            color: #f0f4fa;
+            line-height: 1.6;
+            padding: 2rem 1.8rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* ----- DIVINE HEADER ----- */
+        .divine-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            border-bottom: 1px solid rgba(255, 70, 70, 0.25);
+            padding-bottom: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .wheel-icon {
+            font-size: 2.4rem;
+            color: #ff4d4d;
+            animation: spinSlow 10s infinite linear;
+            filter: drop-shadow(0 0 10px rgba(255, 50, 50, 0.6));
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .title span {
+            background: linear-gradient(145deg, #ff6a6a, #ff3838);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 0.3rem;
+            position: relative;
+        }
+
+        .title span::after {
+            content: "⸸";
+            position: absolute;
+            top: -10px;
+            right: -15px;
+            font-size: 1.2rem;
+            color: #ff9999;
+        }
+
+        .badge-creator {
+            background: rgba(255, 70, 70, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 100, 100, 0.4);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #ffc8c8;
+        }
+
+        /* ----- WHEEL STATUS PANEL (ADAPTATION TRACKER) ----- */
+        .wheel-panel {
+            background: rgba(10, 12, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2f353e;
+            border-radius: 32px;
+            padding: 1.3rem 2.2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 15px 35px -10px #000000;
+            border-left: 8px solid #ff4d4d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wheel-panel::before {
+            content: "🌀";
+            position: absolute;
+            right: 20px;
+            bottom: 5px;
+            opacity: 0.1;
+            font-size: 4rem;
+            transform: rotate(15deg);
+        }
+
+        .rotation-box {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .rotation-icon {
+            font-size: 2rem;
+            color: #ffbe5c;
+        }
+
+        .adapt-text {
+            font-weight: 600;
+            color: #c6d0db;
+        }
+
+        .adapt-level {
+            background: #1a1e26;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            border: 1px solid #ff4d4d;
+            color: #ffb3b3;
+            font-size: 1.1rem;
+        }
+
+        .creator-badge {
+            background: rgba(255, 215, 0, 0.15);
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            border: 1px solid #ffd700;
+            color: #ffe066;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* ----- MAIN GRID: ATTACK PANEL (KIRI) + AI (KANAN) ----- */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 2.2fr 1.3fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ===== ATTACK PANEL - FULL GRID 12+ FITUR ===== */
+        .attack-panel {
+            background: #0e1219;
+            border-radius: 28px;
+            padding: 1.8rem 1.8rem;
+            border: 1px solid #2d343e;
+            box-shadow: 0 10px 25px -5px #000000;
+        }
+
+        .attack-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .attack-header h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .attack-header h3 i {
+            color: #ff7070;
+        }
+
+        .level-req {
+            background: #1c212a;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #b0c0ce;
+        }
+
+        /* ATTACK GRID - 4x4 LAYOUT 16 FITUR */
+        .attack-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .attack-card {
+            background: linear-gradient(145deg, #151b23, #0e1217);
+            border-radius: 18px;
+            padding: 1.2rem 1rem;
+            border: 1px solid #2c343d;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .attack-card.unlocked {
+            border-color: #4a4f5a;
+            cursor: pointer;
+        }
+
+        .attack-card.unlocked:hover {
+            border-color: #ff6b6b;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 0 #080a0c, 0 0 18px rgba(255, 80, 80, 0.3);
+        }
+
+        .attack-card.locked {
+            opacity: 0.5;
+            filter: grayscale(0.7);
+            cursor: not-allowed;
+            border-color: #3a3f48;
+        }
+
+        .attack-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+            color: #ff9f9f;
+        }
+
+        .attack-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .attack-badge {
+            background: #ff4d4d;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 800;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .attack-badge.locked {
+            background: #4a4f5a;
+            color: #ddd;
+        }
+
+        .attack-desc {
+            color: #9aa4b0;
+            font-size: 0.75rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .attack-req {
+            font-size: 0.65rem;
+            color: #b1b9c4;
+            border-top: 1px solid #2a3038;
+            padding-top: 0.6rem;
+            margin-top: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* TARGET INPUT & EXECUTE */
+        .target-input-area {
+            background: #0b0f14;
+            border-radius: 60px;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid #323a44;
+            margin-top: 0.8rem;
+        }
+
+        .target-input-area i {
+            color: #a0aebd;
+            margin-left: 1rem;
+        }
+
+        #targetInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.9rem 0.8rem;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        #launchBtn {
+            background: #ff4d4d;
+            border: none;
+            border-radius: 50px;
+            padding: 0.9rem 2rem;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            border-bottom: 4px solid #b33232;
+            transition: 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        #launchBtn:hover {
+            background: #ff6666;
+            border-bottom-width: 2px;
+            transform: translateY(2px);
+        }
+
+        /* ===== DEXTER AI - REAL AI CHAT ===== */
+        .ai-section {
+            background: radial-gradient(circle at 30% 20%, #1c1522, #0d0f15);
+            border-radius: 28px;
+            padding: 1.8rem 1.5rem;
+            border: 1px solid #453a52;
+            box-shadow: 0 0 40px rgba(180, 80, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .ai-avatar {
+            background: #2d2236;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 1.8rem;
+            color: #ffbc8c;
+            border: 1px solid #ff8656;
+        }
+
+        .ai-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffe6bf, #ffb07c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.01em;
+        }
+
+        .ai-sub {
+            color: #c7b3dc;
+            font-size: 0.8rem;
+        }
+
+        .ai-core-badge {
+            background: #ff5e4a;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-left: auto;
+            border-bottom: 3px solid #a13a2e;
+        }
+
+        /* AI CHAT BOX */
+        .ai-chat {
+            background: #0e1118;
+            border-radius: 20px;
+            padding: 1.2rem;
+            height: 280px;
+            overflow-y: auto;
+            border: 1px solid #423952;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .ai-message {
+            display: flex;
+            gap: 0.7rem;
+            align-items: flex-start;
+        }
+
+        .ai-message i {
+            margin-top: 0.3rem;
+            color: #ffb48a;
+        }
+
+        .message-content {
+            background: #1a1f2a;
+            padding: 0.7rem 1.1rem;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 85%;
+            color: #e2e9f0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .ai-message.user .message-content {
+            background: #26222e;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .sender {
+            color: #ffb48a;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* AI INPUT */
+        .ai-input-group {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            background: #0c0f14;
+            border: 1px solid #464056;
+            border-radius: 60px;
+            padding: 0.9rem 1.4rem;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .ai-input:focus {
+            border-color: #ff8a5c;
+            box-shadow: 0 0 0 2px rgba(255, 120, 70, 0.2);
+        }
+
+        .ai-send {
+            background: #ff5e4a;
+            border: none;
+            border-radius: 60px;
+            padding: 0 1.6rem;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            border-bottom: 4px solid #b13222;
+            transition: 0.1s;
+        }
+
+        .ai-send:hover {
+            background: #ff7555;
+            border-bottom-width: 2px;
+            transform: translateY(2px);
+        }
+
+        .ai-quick-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .ai-quick-actions span {
+            background: #1e2530;
+            padding: 0.4rem 1.1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border: 1px solid #59516b;
+            color: #d4dbe6;
+            transition: 0.1s;
+        }
+
+        .ai-quick-actions span:hover {
+            border-color: #ff8a6f;
+            background: #292f3b;
+        }
+
+        /* ----- TERMINAL OUTPUT ----- */
+        .terminal {
+            background: #0a0d11;
+            border-radius: 22px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-left: 8px solid #ff4d4d;
+            margin-top: 2rem;
+            border: 1px solid #313843;
+            border-left-width: 8px;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            color: #b3c7e0;
+            margin-bottom: 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .terminal-status {
+            margin-left: auto;
+            background: #1c222b;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            color: #b5ffa1;
+        }
+
+        .terminal-body {
+            color: #d6e3f0;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        /* ----- FOOTER ----- */
+        .footer-note {
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #8695a2;
+            font-size: 0.8rem;
+            border-top: 1px solid #2d343e;
+            padding-top: 2rem;
+            letter-spacing: 1px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1300px) {
+            .attack-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+            .attack-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .attack-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .blink {
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- Divine Header -->
+        <!-- ========== DIVINE HEADER ========== -->
         <div class="divine-header">
             <div class="logo">
                 <i class="fas fa-sync-alt wheel-icon"></i>
-                <div class="title">attacker<span>⸸DEXTER</span></div>
+                <div class="title">attacker<span>DEXTER</span></div>
             </div>
             <div class="badge-creator" id="userBadge">
-                <i class="fas fa-crown"></i> <span id="usernameDisplay">LOADING...</span>
-                <i class="fas fa-shield-alt" style="margin-left: 0.5rem;"></i>
+                <i class="fas fa-crown"></i> 
+                <span id="usernameDisplay">LOADING...</span>
+                <i class="fas fa-shield-hacked" style="margin-left: 0.6rem; color: #ffaaaa;"></i>
             </div>
         </div>
 
-        <!-- Wheel Status Panel -->
+        <!-- ========== WHEEL STATUS ========== -->
         <div class="wheel-panel">
             <div class="rotation-box">
                 <i class="fas fa-compact-disc rotation-icon"></i>
-                <span class="adapt-text">ADAPTASI LEVEL <span id="adaptLevel">01</span></span>
-                <span class="adapt-level" id="wheelCount"><i class="fas fa-rotate"></i> 0/∞</span>
+                <span class="adapt-text">ADAPTASI LEVEL</span>
+                <span class="adapt-level" id="adaptLevel">01</span>
+                <span style="margin-left: 0.5rem; color: #b5c8dd;"><i class="fas fa-rotate"></i> WHEEL: <span id="wheelCount">0</span>/∞</span>
             </div>
-            <div style="display:flex; gap:1.5rem;">
-                <span style="color:#b1bac4;"><i class="fas fa-bolt"></i> IMMUNITY: <span id="immunityStatus">BASIC</span></span>
-                <span class="creator-badge" id="creatorBadge" style="display:none;">
-                    <i class="fas fa-skull"></i> CREATOR MODE
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <span style="color: #b1c4d8;"><i class="fas fa-bolt" style="color: #ffb86b;"></i> IMMUNITAS: <span id="immunityStatus">AWAKENING</span></span>
+                <span class="creator-badge" id="creatorBadge" style="display: none;">
+                    <i class="fas fa-skull"></i> CREATOR ABSOLUTE
                 </span>
             </div>
         </div>
 
-        <!-- Main Grid: Attack Panel + Dexter AI -->
+        <!-- ========== GRID UTAMA: ATTACK + AI ========== -->
         <div class="grid-2col">
-            <!-- Attack Panel -->
+            <!-- ===== KIRI: ATTACK GRID - 16 FITUR LENGKAP ===== -->
             <div class="attack-panel">
-                <h3><i class="fas fa-bullseye"></i> ATTACK VECTOR · ADAPTIVE</h3>
-                <div class="attack-grid" id="attackGrid"></div>
-                <div class="target-input">
-                    <input type="text" id="targetInput" placeholder="target IP/URL/phone ...">
-                    <button onclick="launchAttack()" id="launchBtn">
-                        <i class="fas fa-bolt"></i> EXECUTE
+                <div class="attack-header">
+                    <h3><i class="fas fa-bullseye"></i> ARSENAL · SILA DIVINE</h3>
+                    <span class="level-req"><i class="fas fa-lock"></i> UNLOCK: ADAPTASI LEVEL</span>
+                </div>
+                
+                <!-- ATTACK GRID - 16 CARD, SEMUA UDAH ADA, LOCK VISUAL SESUAI LEVEL -->
+                <div class="attack-grid" id="attackGrid">
+                    <!-- BARIS 1: LEVEL 1-2 -->
+                    <div class="attack-card" data-attack="DDOS" data-level="1" id="attack-ddos">
+                        <i class="fas fa-network-wired attack-icon"></i>
+                        <div class="attack-title">
+                            DDOS <span class="attack-badge">L4/L7</span>
+                        </div>
+                        <div class="attack-desc">HTTP/HTTPS flood, SYN, UDP. Tekan target sampai down.</div>
+                        <div class="attack-req"><i class="fas fa-lock-open"></i> Level 1</div>
+                    </div>
+                    <div class="attack-card" data-attack="OTP SPAM" data-level="1" id="attack-otp">
+                        <i class="fas fa-message attack-icon" style="color: #6fc9ff;"></i>
+                        <div class="attack-title">
+                            OTP SPAM <span class="attack-badge">BOMB</span>
+                        </div>
+                        <div class="attack-desc">WhatsApp, SMS, Email OTP flood. Multi provider.</div>
+                        <div class="attack-req"><i class="fas fa-lock-open"></i> Level 1</div>
+                    </div>
+                    <div class="attack-card" data-attack="PORT SCAN" data-level="2" id="attack-port">
+                        <i class="fas fa-search attack-icon" style="color: #a0d6ff;"></i>
+                        <div class="attack-title">
+                            PORT SCAN
+                        </div>
+                        <div class="attack-desc">Service discovery, open port detection.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 2</div>
+                    </div>
+                    <div class="attack-card" data-attack="BRUTEFORCE" data-level="2" id="attack-bruteforce">
+                        <i class="fas fa-lock attack-icon" style="color: #ffae70;"></i>
+                        <div class="attack-title">
+                            BRUTEFORCE
+                        </div>
+                        <div class="attack-desc">SSH, FTP, cPanel, WordPress, email.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 2</div>
+                    </div>
+                    
+                    <!-- BARIS 2: LEVEL 2-3 -->
+                    <div class="attack-card" data-attack="EMAIL BOMB" data-level="2" id="attack-email">
+                        <i class="fas fa-envelope attack-icon" style="color: #ffb789;"></i>
+                        <div class="attack-title">
+                            EMAIL BOMB
+                        </div>
+                        <div class="attack-desc">Mass mail spam, anonymous relay.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 2</div>
+                    </div>
+                    <div class="attack-card" data-attack="SQL INJECT" data-level="3" id="attack-sqli">
+                        <i class="fas fa-database attack-icon" style="color: #b3ff8a;"></i>
+                        <div class="attack-title">
+                            SQL INJECT
+                        </div>
+                        <div class="attack-desc">SQLi automation, data extraction, bypass login.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
+                    </div>
+                    <div class="attack-card" data-attack="XSS" data-level="3" id="attack-xss">
+                        <i class="fas fa-code attack-icon" style="color: #ffb3b3;"></i>
+                        <div class="attack-title">
+                            XSS DEFACE
+                        </div>
+                        <div class="attack-desc">Cross-site scripting, cookie grab, deface.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
+                    </div>
+                    <div class="attack-card" data-attack="WIFI DEAUTH" data-level="3" id="attack-wifi">
+                        <i class="fas fa-wifi attack-icon" style="color: #9bd7ff;"></i>
+                        <div class="attack-title">
+                            WIFI DEAUTH
+                        </div>
+                        <div class="attack-desc">Deauthentication attack, disconnect clients.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
+                    </div>
+                    
+                    <!-- BARIS 3: LEVEL 3-4 -->
+                    <div class="attack-card" data-attack="CAM HACK" data-level="3" id="attack-cam">
+                        <i class="fas fa-camera attack-icon" style="color: #d9b3ff;"></i>
+                        <div class="attack-title">
+                            CAM HACK
+                        </div>
+                        <div class="attack-desc">IP camera scanner, default creds, stream grab.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
+                    </div>
+                    <div class="attack-card" data-attack="DNS SPOOF" data-level="4" id="attack-dns">
+                        <i class="fas fa-globe attack-icon" style="color: #ffad87;"></i>
+                        <div class="attack-title">
+                            DNS SPOOF
+                        </div>
+                        <div class="attack-desc">Redirect domain ke evil server, phishing.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
+                    </div>
+                    <div class="attack-card" data-attack="RANSOM SIM" data-level="4" id="attack-ransom">
+                        <i class="fas fa-file-lock attack-icon" style="color: #ff6b6b;"></i>
+                        <div class="attack-title">
+                            RANSOM SIM
+                        </div>
+                        <div class="attack-desc">File encrypter simulator, .locked extension.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
+                    </div>
+                    <div class="attack-card" data-attack="ETERNALBLUE" data-level="4" id="attack-eb">
+                        <i class="fas fa-biohazard attack-icon" style="color: #aaffaa;"></i>
+                        <div class="attack-title">
+                            ETERNALBLUE
+                        </div>
+                        <div class="attack-desc">MS17-010 exploit, Windows RCE.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
+                    </div>
+                    
+                    <!-- BARIS 4: LEVEL 4-5 -->
+                    <div class="attack-card" data-attack="BLUETOOTH BOMB" data-level="4" id="attack-bt">
+                        <i class="fa-brands fa-bluetooth attack-icon" style="color: #9ad0ff;"></i>
+                        <div class="attack-title">
+                            BT BOMB
+                        </div>
+                        <div class="attack-desc">L2CAP flood, pair spam, bluesnarf.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
+                    </div>
+                    <div class="attack-card" data-attack="ZERO DAY" data-level="5" id="attack-zero">
+                        <i class="fas fa-skull attack-icon" style="color: #ff9191;"></i>
+                        <div class="attack-title">
+                            0-DAY GEN
+                        </div>
+                        <div class="attack-desc">Custom exploit generation, unknown vuln.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 5</div>
+                    </div>
+                    <div class="attack-card" data-attack="AI CORRUPT" data-level="5" id="attack-ai">
+                        <i class="fas fa-brain attack-icon" style="color: #d98cff;"></i>
+                        <div class="attack-title">
+                            AI CORRUPT
+                        </div>
+                        <div class="attack-desc">Model poisoning, adversarial attack.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 5</div>
+                    </div>
+                    <div class="attack-card" data-attack="CAN BUS" data-level="5" id="attack-can">
+                        <i class="fas fa-car attack-icon" style="color: #b5b5ff;"></i>
+                        <div class="attack-title">
+                            CAN BUS
+                        </div>
+                        <div class="attack-desc">Vehicle hacking, ECU injection.</div>
+                        <div class="attack-req"><i class="fas fa-lock"></i> Level 5</div>
+                    </div>
+                </div>
+
+                <!-- TARGET INPUT & EXECUTE -->
+                <div class="target-input-area">
+                    <i class="fas fa-crosshairs"></i>
+                    <input type="text" id="targetInput" placeholder="target IP/URL/phone/domain ...">
+                    <button id="launchBtn">
+                        <i class="fas fa-bolt"></i> <span id="attackBtnText">DDOS</span>
                     </button>
                 </div>
+                <p style="color: #8a99aa; font-size: 0.75rem; margin-top: 0.8rem;">
+                    <i class="fas fa-info-circle"></i> Klik card attack untuk memilih serangan. Fitur terkunci sesuai level adaptasi.
+                </p>
             </div>
 
-            <!-- Dexter AI - REAL AI CHAT -->
+            <!-- ===== KANAN: DEXTER AI - REAL AI CHAT ===== -->
             <div class="ai-section">
                 <div class="ai-header">
                     <div class="ai-avatar">
@@ -59,206 +790,320 @@
                     </div>
                     <div>
                         <div class="ai-name">DEXTER ai</div>
-                        <div class="ai-sub"><span id="aiStatus">◈ wheel synchronizing</span></div>
+                        <div class="ai-sub" id="aiStatus">◈ wheel synchronizing</div>
                     </div>
                     <span class="ai-core-badge">SILA CORE</span>
                 </div>
                 
-                <!-- AI Chat Messages -->
+                <!-- AI CHAT MESSAGES -->
                 <div class="ai-chat" id="aiChatBox">
                     <div class="ai-message system">
                         <i class="fas fa-robot"></i>
                         <div class="message-content">
                             <span class="sender">Dexter AI:</span>
-                            Wheel berputar. Gw siap adaptasi. Tanya apapun tentang attack, security, atau target.
+                            Wheel berputar. Gw adalah Sila Divine General dalam bentuk digital. Tanya apapun tentang attack, vulnerability, atau strategi penetration testing. 🌀
                         </div>
                     </div>
                 </div>
                 
-                <!-- AI Input -->
+                <!-- AI INPUT -->
                 <div class="ai-input-group">
                     <input type="text" class="ai-input" id="aiPrompt" 
-                           placeholder="Tanya Dexter AI tentang attack method, vulnerability, atau strategi...">
-                    <button class="ai-send" onclick="sendAIPrompt()">
+                           placeholder="Tanya Dexter AI ... ex: cara bypass WAF, generate shell, analisis target">
+                    <button class="ai-send" id="aiSendBtn">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
                 
-                <!-- AI Quick Actions -->
+                <!-- QUICK ACTIONS -->
                 <div class="ai-quick-actions">
-                    <span onclick="quickAIAction('analisis celah keamanan website')">
-                        <i class="fas fa-shield"></i> Analisis target
-                    </span>
-                    <span onclick="quickAIAction('cara bypass firewall')">
-                        <i class="fas fa-fire"></i> Bypass FW
-                    </span>
-                    <span onclick="quickAIAction('buatkan payload reverse shell')">
-                        <i class="fas fa-code"></i> Generate payload
-                    </span>
+                    <span onclick="quickAIAction('cara bypass cloudflare')"><i class="fas fa-cloud"></i> Bypass CF</span>
+                    <span onclick="quickAIAction('generate reverse shell php')"><i class="fas fa-code"></i> Reverse shell</span>
+                    <span onclick="quickAIAction('analisis vulnerability website ecommerce')"><i class="fas fa-shield"></i> Analisis target</span>
+                    <span onclick="quickAIAction('cara membuat keylogger')"><i class="fas fa-keyboard"></i> Keylogger</span>
+                    <span onclick="quickAIAction('sqlmap advanced tutorial')"><i class="fas fa-database"></i> SQLMap</span>
                 </div>
             </div>
         </div>
 
-        <!-- Attack Output Terminal -->
+        <!-- ========== TERMINAL OUTPUT / ADAPTATION LOG ========== -->
         <div class="terminal" id="outputTerminal">
             <div class="terminal-header">
                 <i class="fas fa-terminal"></i>
                 <span>ATTACK LOG · ADAPTATION TRACKER</span>
-                <span class="terminal-status">🟢 READY</span>
+                <span class="terminal-status" id="terminalStatus">🟢 ONLINE</span>
             </div>
             <div class="terminal-body" id="terminalBody">
-                [⸸] Mahoraga adaptation system initialized.<br>
-                [⸸] Input username untuk memulai wheel.
+                [⸸] Mahoraga adaptation system initialized. Wheel berputar pertama.<br>
+                [⸸] Masukkan username untuk binding identitas.
             </div>
+        </div>
+
+        <!-- ========== FOOTER ========== -->
+        <div class="footer-note">
+            <i class="fas fa-sync-alt" style="color: #ff6666;"></i> CURSED MAHORAGA · SILA DIVINE GENERAL<br>
+            <span style="color: #ffaaaa; letter-spacing: 3px;">██████▓▒░  ADAPTASI TAK TERBATAS  ░░▒▓██████</span><br>
+            <span style="font-size: 0.7rem;">Created by DEXTER · The Adaptation Architects</span>
         </div>
     </div>
 
-    <script src="/static/script.js"></script>
     <script>
-        // Get username from URL or prompt
-        let username = "{{ username }}";
-        if (!username || username === "") {
-            username = prompt("[ Cursed Mahoraga ] Aktifkan username lu, Shikigami terkuat butuh identitas:", "DEXTER");
-            if (!username) username = "USER";
-            window.location.href = `/?user=${username}`;
-        }
-        
-        document.getElementById('usernameDisplay').innerText = username;
-        
-        // Initialize user with backend
-        fetch('/api/init', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({username: username})
-        })
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById('adaptLevel').innerText = data.level.toString().padStart(2, '0');
-            document.getElementById('wheelCount').innerHTML = `<i class="fas fa-rotate"></i> ${data.wheel}/∞`;
-            
-            if (data.is_creator) {
-                document.getElementById('creatorBadge').style.display = 'inline-block';
-                document.getElementById('aiStatus').innerHTML = '◈ divine access · absolute';
-            }
-            
-            // Load attack grid based on level
-            loadAttackGrid(data.level);
+        // ========== SOCKET.IO INIT ==========
+        const socket = io();
+        socket.on('connect', function() {
+            console.log('[MAHORAGA] Wheel online');
         });
-        
-        function loadAttackGrid(level) {
-            const grid = document.getElementById('attackGrid');
-            const attacks = [
-                {name: 'DDOS', icon: 'fa-network-wired', desc: 'HTTP/S flood', level: 1},
-                {name: 'OTP SPAM', icon: 'fa-message', desc: 'WhatsApp/SMS bomb', level: 1},
-                {name: 'PORT SCAN', icon: 'fa-search', desc: 'Service discovery', level: 2},
-                {name: 'BRUTEFORCE', icon: 'fa-lock', desc: 'SSH/FTP/WordPress', level: 2},
-                {name: 'SQL INJECT', icon: 'fa-database', desc: 'SQLi automation', level: 3},
-                {name: 'XSS', icon: 'fa-code', desc: 'Payload injection', level: 3}
-            ];
-            
-            grid.innerHTML = attacks.map(attack => `
-                <div class="attack-card ${level >= attack.level ? '' : 'locked'}" 
-                     onclick="selectAttack('${attack.name}')">
-                    <i class="fas ${attack.icon} attack-icon"></i>
-                    <div class="attack-title">
-                        ${attack.name}
-                        ${level < attack.level ? '<span class="attack-badge locked">🔒 Lv.'+attack.level+'</span>' : ''}
-                    </div>
-                    <div class="attack-desc">${attack.desc}</div>
-                </div>
-            `).join('');
-        }
-        
+
+        // ========== GLOBAL VARIABLES ==========
+        let username = "{{ username }}";
+        let currentLevel = 1;
+        let currentWheel = 0;
         let selectedAttack = 'DDOS';
-        function selectAttack(attack) {
-            selectedAttack = attack;
-            document.getElementById('launchBtn').innerHTML = `<i class="fas fa-bolt"></i> ${attack}`;
+        let isCreator = false;
+
+        // ========== INITIAL SETUP ==========
+        (function init() {
+            // Username handling
+            if (!username || username === "") {
+                username = prompt("[ Cursed Mahoraga ] Masukkan username untuk mengaktifkan wheel:", "DEXTER");
+                if (!username) username = "USER";
+                window.location.href = `/?user=${username}`;
+            }
+            document.getElementById('usernameDisplay').innerText = username;
+
+            // Fetch user data from backend
+            fetch('/api/init', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username })
+            })
+            .then(res => res.json())
+            .then(data => {
+                currentLevel = data.level;
+                currentWheel = data.wheel;
+                isCreator = data.is_creator;
+                
+                // Update UI
+                document.getElementById('adaptLevel').innerText = data.level.toString().padStart(2, '0');
+                document.getElementById('wheelCount').innerText = data.wheel;
+                
+                // Immunity status based on level
+                const immunityMap = {
+                    1: 'AWAKENING', 2: 'EVOLUTION', 3: 'TRANSCENDENCE', 
+                    4: 'DIVINITY', 5: 'SUPREMACY'
+                };
+                document.getElementById('immunityStatus').innerText = immunityMap[data.level] || 'ABSOLUTE';
+                
+                // Creator badge
+                if (data.is_creator) {
+                    document.getElementById('creatorBadge').style.display = 'flex';
+                    document.getElementById('aiStatus').innerHTML = '◈ divine access · absolute control';
+                }
+                
+                // Update attack card locks based on level
+                updateAttackLocks(data.level);
+            });
+
+            // Set default selected attack
+            selectAttack('DDOS');
+            
+            // Event listeners
+            document.getElementById('launchBtn').addEventListener('click', launchAttack);
+            document.getElementById('aiSendBtn').addEventListener('click', sendAIPrompt);
+            document.getElementById('aiPrompt').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendAIPrompt();
+            });
+        })();
+
+        // ========== ATTACK CARD LOCK SYSTEM ==========
+        function updateAttackLocks(level) {
+            const cards = document.querySelectorAll('.attack-card');
+            cards.forEach(card => {
+                const requiredLevel = parseInt(card.dataset.level || '1');
+                if (level >= requiredLevel) {
+                    card.classList.add('unlocked');
+                    card.classList.remove('locked');
+                    card.style.cursor = 'pointer';
+                    // Add click handler
+                    card.onclick = function(e) {
+                        e.stopPropagation();
+                        const attackName = this.dataset.attack;
+                        selectAttack(attackName);
+                    };
+                } else {
+                    card.classList.add('locked');
+                    card.classList.remove('unlocked');
+                    card.style.cursor = 'not-allowed';
+                    card.onclick = function(e) {
+                        e.stopPropagation();
+                        document.getElementById('terminalBody').innerHTML = `[⸸] [LOCKED] ${this.dataset.attack} membutuhkan adaptasi level ${this.dataset.level}. Wheel berputar lebih dulu. 🌀`;
+                    };
+                }
+            });
         }
-        
-        function launchAttack() {
+
+        // ========== SELECT ATTACK ==========
+        window.selectAttack = function(attackName) {
+            selectedAttack = attackName;
+            document.getElementById('attackBtnText').innerText = attackName;
+            
+            // Visual feedback - highlight selected card
+            const cards = document.querySelectorAll('.attack-card');
+            cards.forEach(card => {
+                card.style.borderColor = card.dataset.attack === attackName ? '#ff6b6b' : '';
+                card.style.boxShadow = card.dataset.attack === attackName ? '0 0 15px rgba(255,80,80,0.5)' : '';
+            });
+        };
+
+        // ========== LAUNCH ATTACK ==========
+        window.launchAttack = function() {
             const target = document.getElementById('targetInput').value;
             if (!target) {
                 alert('Isi target, Master.');
                 return;
             }
-            
-            let endpoint = '';
-            if (selectedAttack === 'DDOS') endpoint = '/api/attack/ddos';
-            else if (selectedAttack === 'OTP SPAM') endpoint = '/api/attack/otp';
-            else if (selectedAttack === 'PORT SCAN') endpoint = '/api/attack/scan';
-            else {
-                document.getElementById('terminalBody').innerHTML = `[⸸] ${selectedAttack} membutuhkan adaptasi level lebih tinggi. 🌀`;
+
+            // Check if attack is unlocked
+            const attackCard = document.querySelector(`[data-attack="${selectedAttack}"]`);
+            if (attackCard && attackCard.classList.contains('locked')) {
+                document.getElementById('terminalBody').innerHTML = `[⸸] [ACCESS DENIED] ${selectedAttack} belum teradaptasi. Butuh level ${attackCard.dataset.level}. 🌀`;
                 return;
             }
+
+            // Determine endpoint
+            let endpoint = '';
+            let payload = { username: username };
             
-            fetch(endpoint, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    username: username,
-                    target: target,
-                    phone: target
+            if (selectedAttack === 'DDOS') {
+                endpoint = '/api/attack/ddos';
+                payload.target = target;
+            } else if (selectedAttack === 'OTP SPAM') {
+                endpoint = '/api/attack/otp';
+                payload.phone = target;
+            } else if (selectedAttack === 'PORT SCAN') {
+                endpoint = '/api/attack/scan';
+                payload.target = target;
+            } else {
+                // For other attacks, show simulation message
+                document.getElementById('terminalBody').innerHTML = `[${new Date().toLocaleTimeString()}] [⸸] ${selectedAttack} diluncurkan ke target: ${target}<br>[⸸] Wheel berputar. Adaptasi untuk serangan ini berlangsung.<br>[⸸] Status: SIMULASI (backend penuh di level ${attackCard?.dataset.level || '3+'}) 🌀🌀`;
+                return;
+            }
+
+            // Execute real attack if endpoint exists
+            if (endpoint) {
+                fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 })
-            })
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('terminalBody').innerHTML = `[${new Date().toLocaleTimeString()}] [⸸] ${data.message || 'Attack launched'}<br>[⸸] Target: ${target}<br>[⸸] Wheel berputar lebih kuat. 🌀🌀`;
-            });
-        }
-        
-        function sendAIPrompt() {
-            const prompt = document.getElementById('aiPrompt').value;
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('terminalBody').innerHTML = `[${new Date().toLocaleTimeString()}] [⸸] ${data.message || 'Attack launched'}<br>[⸸] Target: ${target}<br>[⸸] Status: ACTIVE · Wheel berputar cepat 🌀🌀`;
+                })
+                .catch(err => {
+                    document.getElementById('terminalBody').innerHTML = `[⸸] Error: ${err.message}. Tapi gw adaptasi. 🌀`;
+                });
+            }
+        };
+
+        // ========== DEXTER AI - REAL AI CHAT ==========
+        window.sendAIPrompt = function() {
+            const prompt = document.getElementById('aiPrompt').value.trim();
             if (!prompt) return;
-            
-            // Add user message to chat
+
             const chatBox = document.getElementById('aiChatBox');
+            
+            // Add user message
             chatBox.innerHTML += `
                 <div class="ai-message user">
                     <i class="fas fa-user"></i>
                     <div class="message-content">
                         <span class="sender">${username}:</span>
-                        ${prompt}
+                        ${escapeHTML(prompt)}
                     </div>
                 </div>
             `;
-            
-            // Show loading
+
+            // Clear input
+            document.getElementById('aiPrompt').value = '';
+
+            // Add loading message
+            const loadingId = 'loading-' + Date.now();
             chatBox.innerHTML += `
-                <div class="ai-message system" id="loadingMsg">
+                <div class="ai-message system" id="${loadingId}">
                     <i class="fas fa-spinner fa-pulse"></i>
                     <div class="message-content">
                         Wheel berputar... menganalisis.
                     </div>
                 </div>
             `;
-            
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Call backend AI
             fetch('/api/ai/chat', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({username: username, prompt: prompt})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username, prompt: prompt })
             })
             .then(res => res.json())
             .then(data => {
-                document.getElementById('loadingMsg')?.remove();
+                // Remove loading message
+                document.getElementById(loadingId)?.remove();
+                
+                // Add AI response
                 chatBox.innerHTML += `
                     <div class="ai-message system">
                         <i class="fas fa-robot"></i>
                         <div class="message-content">
                             <span class="sender">Dexter AI:</span>
-                            ${data.response.replace(/\n/g, '<br>')}
+                            ${escapeHTML(data.response).replace(/\n/g, '<br>')}
                         </div>
                     </div>
                 `;
                 chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(err => {
+                document.getElementById(loadingId)?.remove();
+                chatBox.innerHTML += `
+                    <div class="ai-message system">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="message-content">
+                            <span class="sender">Dexter AI:</span>
+                            Wheel error: ${err.message}. Tapi gw tetap adaptasi. Coba lagi, Master.
+                        </div>
+                    </div>
+                `;
             });
-            
-            document.getElementById('aiPrompt').value = '';
-        }
-        
-        function quickAIAction(query) {
+        };
+
+        // ========== QUICK AI ACTION ==========
+        window.quickAIAction = function(query) {
             document.getElementById('aiPrompt').value = query;
             sendAIPrompt();
+        };
+
+        // ========== HELPER: ESCAPE HTML ==========
+        function escapeHTML(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========== EXPOSE GLOBALS ==========
+        window.launchAttack = launchAttack;
+        window.sendAIPrompt = sendAIPrompt;
+        window.quickAIAction = quickAIAction;
+        window.selectAttack = selectAttack;
+    </script>
+    
+    <!-- Socket.IO connection -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        // Fallback jika variabel username dari Jinja2 tidak ada
+        if (typeof username === 'undefined' || username === '{{ username }}') {
+            let username = new URLSearchParams(window.location.search).get('user') || 'USER';
+            window.location.href = `/?user=${username}`;
         }
     </script>
 </body>
-                        </html>
+                    </html>
