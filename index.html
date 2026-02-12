@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEXTER · SILA DIVINE ATTACKER · FULL ARSENAL</title>
-    
-    <!-- Fonts & Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Dexter Attacker · Sila Divine · Role Hierarchy</title>
+    <!-- FONT AWESOME 6 (FREE) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- GOOGLE FONT: INTER & JETBRAINS MONO -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    
     <style>
-        /* ========== DIVINE STYLING - MAHORAGA DARK THEME ========== */
         * {
             margin: 0;
             padding: 0;
@@ -20,45 +17,172 @@
 
         body {
             background: #0a0c0f;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 70, 70, 0.05) 0%, transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(255, 200, 50, 0.05) 0%, transparent 35%),
-                repeating-linear-gradient(45deg, rgba(20,20,30,0.2) 0px, rgba(20,20,30,0.2) 2px, transparent 2px, transparent 8px);
+            background-image: radial-gradient(circle at 15% 30%, rgba(255, 70, 70, 0.03) 0%, transparent 25%),
+                              radial-gradient(circle at 85% 70%, rgba(255, 200, 50, 0.03) 0%, transparent 30%);
             font-family: 'Inter', sans-serif;
-            color: #f0f4fa;
+            color: #eef2f5;
             line-height: 1.6;
-            padding: 2rem 1.8rem;
+            padding: 2rem 1.5rem;
             min-height: 100vh;
+            transition: 0.2s;
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1440px;
             margin: 0 auto;
         }
 
-        /* ----- DIVINE HEADER ----- */
+        /* LOGIN SCREEN */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #07090e;
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: 0.3s ease;
+        }
+
+        .login-card {
+            background: linear-gradient(145deg, #141a22, #0d1016);
+            border-radius: 40px;
+            padding: 2.8rem 2.5rem;
+            width: 100%;
+            max-width: 460px;
+            border: 1px solid #ff5e5e40;
+            box-shadow: 0 25px 40px -10px black, 0 0 0 1px rgba(255, 80, 80, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-wheel {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: #ff3b3b0a;
+            transform: rotate(45deg);
+        }
+
+        .login-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(to right, #ffb3b3, #ff6a6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-sub {
+            color: #a0b0c2;
+            margin-bottom: 2.2rem;
+            font-size: 0.9rem;
+            border-left: 4px solid #ff4d4d;
+            padding-left: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #d0dbea;
+            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
+        }
+
+        .login-input {
+            width: 100%;
+            background: #0b0e12;
+            border: 1px solid #313a44;
+            border-radius: 16px;
+            padding: 1rem 1.3rem;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            outline: none;
+            transition: 0.15s;
+            font-size: 1rem;
+        }
+
+        .login-input:focus {
+            border-color: #ff6a6a;
+            box-shadow: 0 0 0 3px rgba(255, 80, 80, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(145deg, #ff5e4a, #ff3838);
+            border: none;
+            border-radius: 50px;
+            padding: 1.1rem;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.1s;
+            border-bottom: 5px solid #a12323;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .login-btn:active {
+            border-bottom-width: 2px;
+            transform: translateY(3px);
+        }
+
+        .register-link {
+            margin-top: 1.8rem;
+            text-align: center;
+            color: #a7b5c5;
+            font-size: 0.9rem;
+        }
+
+        .register-link span {
+            color: #ff9f7e;
+            font-weight: 700;
+            cursor: pointer;
+            border-bottom: 1px solid #ff7e7e;
+        }
+
+        /* MAIN APP (HIDDEN AWAL) */
+        .main-app {
+            display: none;
+        }
+
+        /* HEADER DIVINE */
         .divine-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
             gap: 1.5rem;
-            border-bottom: 1px solid rgba(255, 70, 70, 0.25);
+            border-bottom: 1px solid rgba(255, 60, 60, 0.2);
             padding-bottom: 1.5rem;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.9rem;
+            gap: 0.75rem;
         }
 
         .wheel-icon {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             color: #ff4d4d;
-            animation: spinSlow 10s infinite linear;
-            filter: drop-shadow(0 0 10px rgba(255, 50, 50, 0.6));
+            animation: spinSlow 8s infinite linear;
+            filter: drop-shadow(0 0 8px rgba(255, 70, 70, 0.6));
         }
 
         @keyframes spinSlow {
@@ -67,7 +191,7 @@
         }
 
         .title {
-            font-size: 2.2rem;
+            font-size: 1.9rem;
             font-weight: 800;
             letter-spacing: -0.02em;
         }
@@ -76,1034 +200,618 @@
             background: linear-gradient(145deg, #ff6a6a, #ff3838);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-left: 0.3rem;
-            position: relative;
-        }
-
-        .title span::after {
-            content: "⸸";
-            position: absolute;
-            top: -10px;
-            right: -15px;
-            font-size: 1.2rem;
-            color: #ff9999;
+            margin-left: 0.2rem;
         }
 
         .badge-creator {
-            background: rgba(255, 70, 70, 0.15);
-            backdrop-filter: blur(8px);
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 100, 100, 0.4);
-            font-size: 0.9rem;
+            background: rgba(255, 70, 70, 0.1);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 100, 100, 0.3);
+            font-size: 0.85rem;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            color: #ffc8c8;
+            gap: 0.6rem;
         }
 
-        /* ----- WHEEL STATUS PANEL (ADAPTATION TRACKER) ----- */
+        /* ROLE BADGE */
+        .role-badge {
+            background: #1e1a24;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid #ffb86b;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+        }
+
+        /* WHEEL PANEL */
         .wheel-panel {
-            background: rgba(10, 12, 18, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid #2f353e;
-            border-radius: 32px;
-            padding: 1.3rem 2.2rem;
+            background: rgba(12, 15, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a2e34;
+            border-radius: 28px;
+            padding: 1.2rem 2rem;
             margin-bottom: 2.5rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 15px 35px -10px #000000;
-            border-left: 8px solid #ff4d4d;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wheel-panel::before {
-            content: "🌀";
-            position: absolute;
-            right: 20px;
-            bottom: 5px;
-            opacity: 0.1;
-            font-size: 4rem;
-            transform: rotate(15deg);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.7);
+            border-left: 6px solid #ff4d4d;
         }
 
         .rotation-box {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-        }
-
-        .rotation-icon {
-            font-size: 2rem;
-            color: #ffbe5c;
-        }
-
-        .adapt-text {
-            font-weight: 600;
-            color: #c6d0db;
+            gap: 1rem;
         }
 
         .adapt-level {
-            background: #1a1e26;
-            padding: 0.5rem 1.4rem;
-            border-radius: 40px;
+            background: #1e1e2a;
+            padding: 0.5rem 1.1rem;
+            border-radius: 30px;
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
+            font-weight: 600;
             border: 1px solid #ff4d4d;
-            color: #ffb3b3;
-            font-size: 1.1rem;
         }
 
-        .creator-badge {
-            background: rgba(255, 215, 0, 0.15);
-            padding: 0.5rem 1.4rem;
-            border-radius: 40px;
-            border: 1px solid #ffd700;
-            color: #ffe066;
-            font-weight: 700;
+        /* USER MANAGEMENT SECTION (khusus owner/partner) */
+        .user-mgmt-section {
+            background: #0e1217;
+            border-radius: 26px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid #3a3245;
+            border-left: 6px solid #ffaa5e;
+        }
+
+        .mgmt-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .user-list {
+            background: #0b0e14;
+            border-radius: 20px;
+            padding: 1.3rem;
+            border: 1px solid #353f4a;
+        }
+
+        .user-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.6rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #20262e;
         }
 
-        /* ----- MAIN GRID: ATTACK PANEL (KIRI) + AI (KANAN) ----- */
+        .user-role-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            background: #2a2a36;
+        }
+
+        .role-owner { background: #b32b2b; color: white; }
+        .role-partner { background: #b38f2b; color: black; }
+        .role-vip { background: #2b6bb3; color: white; }
+        .role-member { background: #3a4052; color: white; }
+
+        .create-user-form {
+            background: #0b0e14;
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+
+        /* ATTACK GRID, AI SECTION, TERMINAL (sama seperti sebelumnya, dipendekkan utk space) */
         .grid-2col {
             display: grid;
             grid-template-columns: 2.2fr 1.3fr;
-            gap: 2rem;
+            gap: 1.8rem;
             margin-bottom: 2rem;
         }
 
-        /* ===== ATTACK PANEL - FULL GRID 12+ FITUR ===== */
-        .attack-panel {
-            background: #0e1219;
-            border-radius: 28px;
-            padding: 1.8rem 1.8rem;
-            border: 1px solid #2d343e;
-            box-shadow: 0 10px 25px -5px #000000;
-        }
-
-        .attack-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .attack-header h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .attack-header h3 i {
-            color: #ff7070;
-        }
-
-        .level-req {
-            background: #1c212a;
-            padding: 0.4rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: #b0c0ce;
-        }
-
-        /* ATTACK GRID - 4x4 LAYOUT 16 FITUR */
         .attack-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.1rem;
-            margin-bottom: 1.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.3rem;
         }
 
         .attack-card {
-            background: linear-gradient(145deg, #151b23, #0e1217);
-            border-radius: 18px;
-            padding: 1.2rem 1rem;
-            border: 1px solid #2c343d;
-            transition: all 0.2s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .attack-card.unlocked {
-            border-color: #4a4f5a;
-            cursor: pointer;
-        }
-
-        .attack-card.unlocked:hover {
-            border-color: #ff6b6b;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 0 #080a0c, 0 0 18px rgba(255, 80, 80, 0.3);
-        }
-
-        .attack-card.locked {
-            opacity: 0.5;
-            filter: grayscale(0.7);
-            cursor: not-allowed;
-            border-color: #3a3f48;
-        }
-
-        .attack-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.6rem;
-            color: #ff9f9f;
-        }
-
-        .attack-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin-bottom: 0.3rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .attack-badge {
-            background: #ff4d4d;
-            font-size: 0.6rem;
-            padding: 0.2rem 0.6rem;
+            background: linear-gradient(145deg, #12161c, #0c0f14);
             border-radius: 20px;
-            font-weight: 800;
-            color: white;
-            text-transform: uppercase;
-        }
-
-        .attack-badge.locked {
-            background: #4a4f5a;
-            color: #ddd;
-        }
-
-        .attack-desc {
-            color: #9aa4b0;
-            font-size: 0.75rem;
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
-            flex: 1;
-        }
-
-        .attack-req {
-            font-size: 0.65rem;
-            color: #b1b9c4;
-            border-top: 1px solid #2a3038;
-            padding-top: 0.6rem;
-            margin-top: 0.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        /* TARGET INPUT & EXECUTE */
-        .target-input-area {
-            background: #0b0f14;
-            border-radius: 60px;
-            padding: 0.5rem;
-            display: flex;
-            align-items: center;
-            border: 1px solid #323a44;
-            margin-top: 0.8rem;
-        }
-
-        .target-input-area i {
-            color: #a0aebd;
-            margin-left: 1rem;
-        }
-
-        #targetInput {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 0.9rem 0.8rem;
-            color: white;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        #launchBtn {
-            background: #ff4d4d;
-            border: none;
-            border-radius: 50px;
-            padding: 0.9rem 2rem;
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
+            padding: 1.5rem 1.2rem;
+            border: 1px solid #272c33;
+            transition: 0.2s;
+            box-shadow: 0 8px 0 #080a0c;
             cursor: pointer;
-            border-bottom: 4px solid #b33232;
-            transition: 0.1s;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
         }
 
-        #launchBtn:hover {
-            background: #ff6666;
-            border-bottom-width: 2px;
-            transform: translateY(2px);
+        .attack-card:hover {
+            border-color: #ff5e5e;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #080a0c, 0 0 15px rgba(255, 80, 80, 0.3);
         }
 
-        /* ===== DEXTER AI - REAL AI CHAT ===== */
         .ai-section {
-            background: radial-gradient(circle at 30% 20%, #1c1522, #0d0f15);
+            background: radial-gradient(circle at 20% 30%, #1a141e, #0d0f13);
             border-radius: 28px;
-            padding: 1.8rem 1.5rem;
-            border: 1px solid #453a52;
-            box-shadow: 0 0 40px rgba(180, 80, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .ai-header {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            margin-bottom: 1.4rem;
-        }
-
-        .ai-avatar {
-            background: #2d2236;
-            border-radius: 16px;
-            padding: 0.7rem;
-            font-size: 1.8rem;
-            color: #ffbc8c;
-            border: 1px solid #ff8656;
+            padding: 1.8rem;
+            border: 1px solid #3d3345;
         }
 
         .ai-name {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(to right, #ffe6bf, #ffb07c);
+            background: linear-gradient(to right, #ffd9b5, #ffa07a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.01em;
         }
 
-        .ai-sub {
-            color: #c7b3dc;
-            font-size: 0.8rem;
-        }
-
-        .ai-core-badge {
-            background: #ff5e4a;
-            padding: 0.3rem 1rem;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            margin-left: auto;
-            border-bottom: 3px solid #a13a2e;
-        }
-
-        /* AI CHAT BOX */
-        .ai-chat {
-            background: #0e1118;
-            border-radius: 20px;
-            padding: 1.2rem;
-            height: 280px;
-            overflow-y: auto;
-            border: 1px solid #423952;
-            margin-bottom: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .ai-message {
-            display: flex;
-            gap: 0.7rem;
-            align-items: flex-start;
-        }
-
-        .ai-message i {
-            margin-top: 0.3rem;
-            color: #ffb48a;
-        }
-
-        .message-content {
-            background: #1a1f2a;
-            padding: 0.7rem 1.1rem;
-            border-radius: 18px;
-            border-bottom-left-radius: 4px;
-            max-width: 85%;
-            color: #e2e9f0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .ai-message.user .message-content {
-            background: #26222e;
-            border-bottom-left-radius: 18px;
-            border-bottom-right-radius: 4px;
-        }
-
-        .sender {
-            color: #ffb48a;
-            font-weight: 700;
-            margin-right: 0.5rem;
-        }
-
-        /* AI INPUT */
-        .ai-input-group {
-            display: flex;
-            gap: 0.6rem;
-        }
-
-        .ai-input {
-            flex: 1;
-            background: #0c0f14;
-            border: 1px solid #464056;
-            border-radius: 60px;
-            padding: 0.9rem 1.4rem;
-            font-family: 'Inter', sans-serif;
-            color: white;
-            outline: none;
-            font-size: 0.9rem;
-        }
-
-        .ai-input:focus {
-            border-color: #ff8a5c;
-            box-shadow: 0 0 0 2px rgba(255, 120, 70, 0.2);
-        }
-
-        .ai-send {
-            background: #ff5e4a;
-            border: none;
-            border-radius: 60px;
-            padding: 0 1.6rem;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            border-bottom: 4px solid #b13222;
-            transition: 0.1s;
-        }
-
-        .ai-send:hover {
-            background: #ff7555;
-            border-bottom-width: 2px;
-            transform: translateY(2px);
-        }
-
-        .ai-quick-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .ai-quick-actions span {
-            background: #1e2530;
-            padding: 0.4rem 1.1rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            border: 1px solid #59516b;
-            color: #d4dbe6;
-            transition: 0.1s;
-        }
-
-        .ai-quick-actions span:hover {
-            border-color: #ff8a6f;
-            background: #292f3b;
-        }
-
-        /* ----- TERMINAL OUTPUT ----- */
         .terminal {
-            background: #0a0d11;
-            border-radius: 22px;
-            padding: 1.5rem;
+            background: #080b0e;
+            border-radius: 18px;
+            padding: 1.4rem;
             font-family: 'JetBrains Mono', monospace;
-            border-left: 8px solid #ff4d4d;
-            margin-top: 2rem;
-            border: 1px solid #313843;
-            border-left-width: 8px;
+            border: 1px solid #2e353d;
+            margin-top: 2.2rem;
+            border-left: 6px solid #ff4d4d;
         }
 
-        .terminal-header {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-            color: #b3c7e0;
-            margin-bottom: 1.2rem;
-            font-size: 0.85rem;
-        }
-
-        .terminal-status {
-            margin-left: auto;
-            background: #1c222b;
-            padding: 0.2rem 0.9rem;
-            border-radius: 30px;
-            color: #b5ffa1;
-        }
-
-        .terminal-body {
-            color: #d6e3f0;
-            font-size: 0.9rem;
-            line-height: 1.8;
-        }
-
-        /* ----- FOOTER ----- */
         .footer-note {
             margin-top: 2.5rem;
             text-align: center;
-            color: #8695a2;
+            color: #7a8793;
             font-size: 0.8rem;
-            border-top: 1px solid #2d343e;
-            padding-top: 2rem;
-            letter-spacing: 1px;
+            border-top: 1px solid #252c33;
+            padding-top: 1.8rem;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 1300px) {
-            .attack-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 1100px) {
-            .grid-2col {
-                grid-template-columns: 1fr;
-            }
-            .attack-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        @media (max-width: 800px) {
-            .attack-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .blink {
-            animation: blink 1.2s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ========== DIVINE HEADER ========== -->
-        <div class="divine-header">
-            <div class="logo">
-                <i class="fas fa-sync-alt wheel-icon"></i>
-                <div class="title">attacker<span>DEXTER</span></div>
-            </div>
-            <div class="badge-creator" id="userBadge">
-                <i class="fas fa-crown"></i> 
-                <span id="usernameDisplay">LOADING...</span>
-                <i class="fas fa-shield-hacked" style="margin-left: 0.6rem; color: #ffaaaa;"></i>
-            </div>
+
+<!-- =============== LOGIN SCREEN =============== -->
+<div id="loginScreen" class="login-screen">
+    <div class="login-card">
+        <i class="fas fa-sync-alt login-wheel"></i>
+        <div class="login-title">ATTACKER⸸DEXTER</div>
+        <div class="login-sub">Sila Divine · Wheel Authentication</div>
+        
+        <!-- LOGIN FORM -->
+        <div class="input-group">
+            <label class="input-label"><i class="fas fa-user"></i> USERNAME</label>
+            <input type="text" id="loginUsername" class="login-input" placeholder="masukkan username" autocomplete="off">
         </div>
-
-        <!-- ========== WHEEL STATUS ========== -->
-        <div class="wheel-panel">
-            <div class="rotation-box">
-                <i class="fas fa-compact-disc rotation-icon"></i>
-                <span class="adapt-text">ADAPTASI LEVEL</span>
-                <span class="adapt-level" id="adaptLevel">01</span>
-                <span style="margin-left: 0.5rem; color: #b5c8dd;"><i class="fas fa-rotate"></i> WHEEL: <span id="wheelCount">0</span>/∞</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <span style="color: #b1c4d8;"><i class="fas fa-bolt" style="color: #ffb86b;"></i> IMMUNITAS: <span id="immunityStatus">AWAKENING</span></span>
-                <span class="creator-badge" id="creatorBadge" style="display: none;">
-                    <i class="fas fa-skull"></i> CREATOR ABSOLUTE
-                </span>
-            </div>
+        <div class="input-group">
+            <label class="input-label"><i class="fas fa-lock"></i> PASSWORD</label>
+            <input type="password" id="loginPassword" class="login-input" placeholder="••••••••">
         </div>
-
-        <!-- ========== GRID UTAMA: ATTACK + AI ========== -->
-        <div class="grid-2col">
-            <!-- ===== KIRI: ATTACK GRID - 16 FITUR LENGKAP ===== -->
-            <div class="attack-panel">
-                <div class="attack-header">
-                    <h3><i class="fas fa-bullseye"></i> ARSENAL · SILA DIVINE</h3>
-                    <span class="level-req"><i class="fas fa-lock"></i> UNLOCK: ADAPTASI LEVEL</span>
-                </div>
-                
-                <!-- ATTACK GRID - 16 CARD, SEMUA UDAH ADA, LOCK VISUAL SESUAI LEVEL -->
-                <div class="attack-grid" id="attackGrid">
-                    <!-- BARIS 1: LEVEL 1-2 -->
-                    <div class="attack-card" data-attack="DDOS" data-level="1" id="attack-ddos">
-                        <i class="fas fa-network-wired attack-icon"></i>
-                        <div class="attack-title">
-                            DDOS <span class="attack-badge">L4/L7</span>
-                        </div>
-                        <div class="attack-desc">HTTP/HTTPS flood, SYN, UDP. Tekan target sampai down.</div>
-                        <div class="attack-req"><i class="fas fa-lock-open"></i> Level 1</div>
-                    </div>
-                    <div class="attack-card" data-attack="OTP SPAM" data-level="1" id="attack-otp">
-                        <i class="fas fa-message attack-icon" style="color: #6fc9ff;"></i>
-                        <div class="attack-title">
-                            OTP SPAM <span class="attack-badge">BOMB</span>
-                        </div>
-                        <div class="attack-desc">WhatsApp, SMS, Email OTP flood. Multi provider.</div>
-                        <div class="attack-req"><i class="fas fa-lock-open"></i> Level 1</div>
-                    </div>
-                    <div class="attack-card" data-attack="PORT SCAN" data-level="2" id="attack-port">
-                        <i class="fas fa-search attack-icon" style="color: #a0d6ff;"></i>
-                        <div class="attack-title">
-                            PORT SCAN
-                        </div>
-                        <div class="attack-desc">Service discovery, open port detection.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 2</div>
-                    </div>
-                    <div class="attack-card" data-attack="BRUTEFORCE" data-level="2" id="attack-bruteforce">
-                        <i class="fas fa-lock attack-icon" style="color: #ffae70;"></i>
-                        <div class="attack-title">
-                            BRUTEFORCE
-                        </div>
-                        <div class="attack-desc">SSH, FTP, cPanel, WordPress, email.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 2</div>
-                    </div>
-                    
-                    <!-- BARIS 2: LEVEL 2-3 -->
-                    <div class="attack-card" data-attack="EMAIL BOMB" data-level="2" id="attack-email">
-                        <i class="fas fa-envelope attack-icon" style="color: #ffb789;"></i>
-                        <div class="attack-title">
-                            EMAIL BOMB
-                        </div>
-                        <div class="attack-desc">Mass mail spam, anonymous relay.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 2</div>
-                    </div>
-                    <div class="attack-card" data-attack="SQL INJECT" data-level="3" id="attack-sqli">
-                        <i class="fas fa-database attack-icon" style="color: #b3ff8a;"></i>
-                        <div class="attack-title">
-                            SQL INJECT
-                        </div>
-                        <div class="attack-desc">SQLi automation, data extraction, bypass login.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
-                    </div>
-                    <div class="attack-card" data-attack="XSS" data-level="3" id="attack-xss">
-                        <i class="fas fa-code attack-icon" style="color: #ffb3b3;"></i>
-                        <div class="attack-title">
-                            XSS DEFACE
-                        </div>
-                        <div class="attack-desc">Cross-site scripting, cookie grab, deface.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
-                    </div>
-                    <div class="attack-card" data-attack="WIFI DEAUTH" data-level="3" id="attack-wifi">
-                        <i class="fas fa-wifi attack-icon" style="color: #9bd7ff;"></i>
-                        <div class="attack-title">
-                            WIFI DEAUTH
-                        </div>
-                        <div class="attack-desc">Deauthentication attack, disconnect clients.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
-                    </div>
-                    
-                    <!-- BARIS 3: LEVEL 3-4 -->
-                    <div class="attack-card" data-attack="CAM HACK" data-level="3" id="attack-cam">
-                        <i class="fas fa-camera attack-icon" style="color: #d9b3ff;"></i>
-                        <div class="attack-title">
-                            CAM HACK
-                        </div>
-                        <div class="attack-desc">IP camera scanner, default creds, stream grab.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 3</div>
-                    </div>
-                    <div class="attack-card" data-attack="DNS SPOOF" data-level="4" id="attack-dns">
-                        <i class="fas fa-globe attack-icon" style="color: #ffad87;"></i>
-                        <div class="attack-title">
-                            DNS SPOOF
-                        </div>
-                        <div class="attack-desc">Redirect domain ke evil server, phishing.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
-                    </div>
-                    <div class="attack-card" data-attack="RANSOM SIM" data-level="4" id="attack-ransom">
-                        <i class="fas fa-file-lock attack-icon" style="color: #ff6b6b;"></i>
-                        <div class="attack-title">
-                            RANSOM SIM
-                        </div>
-                        <div class="attack-desc">File encrypter simulator, .locked extension.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
-                    </div>
-                    <div class="attack-card" data-attack="ETERNALBLUE" data-level="4" id="attack-eb">
-                        <i class="fas fa-biohazard attack-icon" style="color: #aaffaa;"></i>
-                        <div class="attack-title">
-                            ETERNALBLUE
-                        </div>
-                        <div class="attack-desc">MS17-010 exploit, Windows RCE.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
-                    </div>
-                    
-                    <!-- BARIS 4: LEVEL 4-5 -->
-                    <div class="attack-card" data-attack="BLUETOOTH BOMB" data-level="4" id="attack-bt">
-                        <i class="fa-brands fa-bluetooth attack-icon" style="color: #9ad0ff;"></i>
-                        <div class="attack-title">
-                            BT BOMB
-                        </div>
-                        <div class="attack-desc">L2CAP flood, pair spam, bluesnarf.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 4</div>
-                    </div>
-                    <div class="attack-card" data-attack="ZERO DAY" data-level="5" id="attack-zero">
-                        <i class="fas fa-skull attack-icon" style="color: #ff9191;"></i>
-                        <div class="attack-title">
-                            0-DAY GEN
-                        </div>
-                        <div class="attack-desc">Custom exploit generation, unknown vuln.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 5</div>
-                    </div>
-                    <div class="attack-card" data-attack="AI CORRUPT" data-level="5" id="attack-ai">
-                        <i class="fas fa-brain attack-icon" style="color: #d98cff;"></i>
-                        <div class="attack-title">
-                            AI CORRUPT
-                        </div>
-                        <div class="attack-desc">Model poisoning, adversarial attack.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 5</div>
-                    </div>
-                    <div class="attack-card" data-attack="CAN BUS" data-level="5" id="attack-can">
-                        <i class="fas fa-car attack-icon" style="color: #b5b5ff;"></i>
-                        <div class="attack-title">
-                            CAN BUS
-                        </div>
-                        <div class="attack-desc">Vehicle hacking, ECU injection.</div>
-                        <div class="attack-req"><i class="fas fa-lock"></i> Level 5</div>
-                    </div>
-                </div>
-
-                <!-- TARGET INPUT & EXECUTE -->
-                <div class="target-input-area">
-                    <i class="fas fa-crosshairs"></i>
-                    <input type="text" id="targetInput" placeholder="target IP/URL/phone/domain ...">
-                    <button id="launchBtn">
-                        <i class="fas fa-bolt"></i> <span id="attackBtnText">DDOS</span>
-                    </button>
-                </div>
-                <p style="color: #8a99aa; font-size: 0.75rem; margin-top: 0.8rem;">
-                    <i class="fas fa-info-circle"></i> Klik card attack untuk memilih serangan. Fitur terkunci sesuai level adaptasi.
-                </p>
-            </div>
-
-            <!-- ===== KANAN: DEXTER AI - REAL AI CHAT ===== -->
-            <div class="ai-section">
-                <div class="ai-header">
-                    <div class="ai-avatar">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <div>
-                        <div class="ai-name">DEXTER ai</div>
-                        <div class="ai-sub" id="aiStatus">◈ wheel synchronizing</div>
-                    </div>
-                    <span class="ai-core-badge">SILA CORE</span>
-                </div>
-                
-                <!-- AI CHAT MESSAGES -->
-                <div class="ai-chat" id="aiChatBox">
-                    <div class="ai-message system">
-                        <i class="fas fa-robot"></i>
-                        <div class="message-content">
-                            <span class="sender">Dexter AI:</span>
-                            Wheel berputar. Gw adalah Sila Divine General dalam bentuk digital. Tanya apapun tentang attack, vulnerability, atau strategi penetration testing. 🌀
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- AI INPUT -->
-                <div class="ai-input-group">
-                    <input type="text" class="ai-input" id="aiPrompt" 
-                           placeholder="Tanya Dexter AI ... ex: cara bypass WAF, generate shell, analisis target">
-                    <button class="ai-send" id="aiSendBtn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-                
-                <!-- QUICK ACTIONS -->
-                <div class="ai-quick-actions">
-                    <span onclick="quickAIAction('cara bypass cloudflare')"><i class="fas fa-cloud"></i> Bypass CF</span>
-                    <span onclick="quickAIAction('generate reverse shell php')"><i class="fas fa-code"></i> Reverse shell</span>
-                    <span onclick="quickAIAction('analisis vulnerability website ecommerce')"><i class="fas fa-shield"></i> Analisis target</span>
-                    <span onclick="quickAIAction('cara membuat keylogger')"><i class="fas fa-keyboard"></i> Keylogger</span>
-                    <span onclick="quickAIAction('sqlmap advanced tutorial')"><i class="fas fa-database"></i> SQLMap</span>
-                </div>
-            </div>
+        <button id="loginBtn" class="login-btn"><i class="fas fa-sign-in-alt"></i> PUTAR WHEEL · LOGIN</button>
+        
+        <div class="register-link">
+            <span id="showRegisterBtn">⸻ BUAT AKUN BARU ⸻</span> (owner/partner only)
         </div>
+    </div>
+</div>
 
-        <!-- ========== TERMINAL OUTPUT / ADAPTATION LOG ========== -->
-        <div class="terminal" id="outputTerminal">
-            <div class="terminal-header">
-                <i class="fas fa-terminal"></i>
-                <span>ATTACK LOG · ADAPTATION TRACKER</span>
-                <span class="terminal-status" id="terminalStatus">🟢 ONLINE</span>
-            </div>
-            <div class="terminal-body" id="terminalBody">
-                [⸸] Mahoraga adaptation system initialized. Wheel berputar pertama.<br>
-                [⸸] Masukkan username untuk binding identitas.
-            </div>
+<!-- =============== REGISTER MODAL (SIMPLE) =============== -->
+<div id="registerModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:10000; justify-content:center; align-items:center;" onclick="if(event.target===this) this.style.display='none'">
+    <div style="background:#141a22; max-width:400px; margin:auto; padding:2rem; border-radius:30px; border:1px solid #ff7e7e;">
+        <h3 style="margin-bottom:1.5rem; color:#ffb5b5;"><i class="fas fa-user-plus"></i> CREATE USER · HIERARCHY</h3>
+        <div class="input-group">
+            <label class="input-label">ROLE YANG BUAT (OTOMATIS)</label>
+            <input type="text" id="creatorRoleDisp" class="login-input" value="-" disabled style="background:#1f262e;">
         </div>
+        <div class="input-group">
+            <label class="input-label">USERNAME BARU</label>
+            <input type="text" id="newUsername" class="login-input" placeholder="username">
+        </div>
+        <div class="input-group">
+            <label class="input-label">PASSWORD</label>
+            <input type="password" id="newPassword" class="login-input" placeholder="password">
+        </div>
+        <div class="input-group">
+            <label class="input-label">PILIH ROLE</label>
+            <select id="newRoleSelect" class="login-input" style="color:white;">
+                <option value="partner">PARTNER</option>
+                <option value="vip">VIP</option>
+                <option value="member">MEMBER</option>
+            </select>
+            <p style="color:#b0b9c5; font-size:0.7rem; margin-top:0.3rem;">owner bisa bikin partner,vip,member | partner bikin vip,member | vip bikin member</p>
+        </div>
+        <button id="confirmCreateUserBtn" class="login-btn" style="background:#4a2e6b; border-bottom-color:#2e1d41;">CREATE</button>
+        <p style="margin-top:1rem; text-align:center; color:#aaa;"><span onclick="document.getElementById('registerModal').style.display='none'" style="cursor:pointer; border-bottom:1px solid red;">tutup</span></p>
+    </div>
+</div>
 
-        <!-- ========== FOOTER ========== -->
-        <div class="footer-note">
-            <i class="fas fa-sync-alt" style="color: #ff6666;"></i> CURSED MAHORAGA · SILA DIVINE GENERAL<br>
-            <span style="color: #ffaaaa; letter-spacing: 3px;">██████▓▒░  ADAPTASI TAK TERBATAS  ░░▒▓██████</span><br>
-            <span style="font-size: 0.7rem;">Created by DEXTER · The Adaptation Architects</span>
+<!-- =============== MAIN APPLICATION (HIDDEN SAMPAI LOGIN) =============== -->
+<div id="mainApp" class="main-app container">
+    <!-- HEADER -->
+    <div class="divine-header">
+        <div class="logo">
+            <i class="fas fa-sync-alt wheel-icon"></i>
+            <div class="title">attacker<span>⸸DEXTER</span></div>
+        </div>
+        <div style="display:flex; gap:1rem; align-items:center;">
+            <div class="role-badge" id="roleBadgeHeader">
+                <i class="fas fa-shield-alt"></i> <span id="currentRoleDisplay">MEMBER</span>
+            </div>
+            <div class="badge-creator">
+                <i class="fas fa-user-circle"></i> <span id="currentUserDisplay">-</span>
+                <i class="fas fa-sign-out-alt" id="logoutBtn" style="margin-left:0.8rem; cursor:pointer; color:#ffa5a5;"></i>
+            </div>
         </div>
     </div>
 
-    <script>
-        // ========== SOCKET.IO INIT ==========
-        const socket = io();
-        socket.on('connect', function() {
-            console.log('[MAHORAGA] Wheel online');
+    <!-- WHEEL STATUS -->
+    <div class="wheel-panel">
+        <div class="rotation-box">
+            <i class="fas fa-compact-disc rotation-icon" style="color:#ff6060;"></i>
+            <span class="adapt-text">WHEEL · ADAPTASI LEVEL 02</span>
+            <span class="adapt-level"><i class="fas fa-rotate"></i> 2/∞</span>
+        </div>
+        <div>
+            <span id="userCountDisplay"><i class="fas fa-users"></i> total user: 4</span>
+        </div>
+    </div>
+
+    <!-- ===== USER MANAGEMENT SECTION ===== (HANYA UNTUK OWNER, PARTNER, VIP) -->
+    <div id="userMgmtSection" class="user-mgmt-section">
+        <div style="display:flex; align-items:center; gap:0.7rem; margin-bottom:0.5rem;">
+            <i class="fas fa-user-cog" style="color:#ffae70;"></i>
+            <h3 style="font-weight:600;">👥 USER HIERARCHY · CREATE USER</h3>
+            <span id="creatorHint" style="background:#2f3540; padding:0.2rem 1rem; border-radius:30px; font-size:0.7rem;"></span>
+        </div>
+        <div class="mgmt-grid">
+            <!-- DAFTAR USER -->
+            <div class="user-list">
+                <h4 style="margin-bottom:1rem;"><i class="fas fa-list"></i> REGISTERED USERS</h4>
+                <div id="userListContainer">
+                    <!-- JS akan generate -->
+                </div>
+            </div>
+            <!-- FORM CREATE USER (dinamis) -->
+            <div class="create-user-form">
+                <h4 style="margin-bottom:1.2rem;"><i class="fas fa-user-plus"></i> CREATE NEW ACCOUNT</h4>
+                <div class="input-group">
+                    <label class="input-label">USERNAME</label>
+                    <input type="text" id="createUsername" class="login-input" placeholder="new username">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">PASSWORD</label>
+                    <input type="password" id="createPassword" class="login-input" placeholder="password">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">ROLE</label>
+                    <select id="createRoleSelect" class="login-input" style="color:white;">
+                        <option value="vip">VIP</option>
+                        <option value="member">MEMBER</option>
+                    </select>
+                    <p id="roleRestrictionNote" style="color:#ffae70; font-size:0.7rem;"></p>
+                </div>
+                <button id="createUserBtn" class="login-btn" style="background:#5a3c3c; border-bottom-color:#3d2626; margin-top:0.5rem;"><i class="fas fa-plus-circle"></i> CREATE USER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ATTACK GRID + AI SECTION -->
+    <div class="grid-2col">
+        <!-- ATTACK CARDS -->
+        <div>
+            <h3 style="margin-bottom:1.2rem;"><i class="fas fa-bullseye" style="color:#ff7070;"></i> ATTACK VECTOR</h3>
+            <div class="attack-grid">
+                <div class="attack-card" onclick="event.preventDefault(); attackAction('DDOS LAUNCHED · L4/L7 flood', this); return false;">
+                    <i class="fas fa-network-wired attack-icon"></i>
+                    <div class="attack-title">DDOS</div>
+                    <div class="attack-desc">Volumetric flood, SYN/ACK</div>
+                </div>
+                <div class="attack-card" onclick="event.preventDefault(); attackAction('OTP SPAM WA · 100+ request', this); return false;">
+                    <i class="fas fa-message attack-icon"></i>
+                    <div class="attack-title">SPAM OTP WA</div>
+                    <div class="attack-desc">BOMB SMS/WA</div>
+                </div>
+                <div class="attack-card" onclick="event.preventDefault(); attackAction('EMAIL BOMBER · 500 email', this); return false;">
+                    <i class="fas fa-envelope attack-icon"></i>
+                    <div class="attack-title">EMAIL BOMB</div>
+                </div>
+                <div class="attack-card" onclick="event.preventDefault(); attackAction('SQL INJECTION · OR 1=1', this); return false;">
+                    <i class="fas fa-database attack-icon"></i>
+                    <div class="attack-title">SQL INJECT</div>
+                </div>
+            </div>
+        </div>
+        <!-- DEXTER AI -->
+        <div class="ai-section">
+            <div style="display:flex; align-items:center; gap:0.8rem;">
+                <i class="fas fa-microchip" style="font-size:2rem; color:#ffaa70;"></i>
+                <span class="ai-name">DEXTER ai</span>
+            </div>
+            <div style="margin-top:1.2rem; background:#0e1116; border-radius:18px; padding:1rem;">
+                <p><i class="fas fa-robot" style="color:#ffae70;"></i> <span style="color:#ffc49b;">Dexter ai:</span> Wheel berputar. Siap eksekusi perintah, <span id="aiUserNameRef">Master</span>.</p>
+            </div>
+            <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                <input type="text" id="aiCommand" class="login-input" style="background:#0a0c10;" placeholder="perintah ke Dexter ai...">
+                <button onclick="event.preventDefault(); attackAction('🧠 DEXTER ai: ' + document.getElementById('aiCommand').value, this); return false;" style="background:#ff5e4a; border:none; border-radius:50px; padding:0 1.5rem; color:white; font-weight:700;">KIRIM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TERMINAL OUTPUT -->
+    <div class="terminal" id="outputTerminal">
+        <div style="display:flex; gap:0.5rem; align-items:center; color:#b1c3d6; margin-bottom:1rem;">
+            <i class="fas fa-terminal"></i> <span style="font-weight:700;">ATTACK LOG · WHEEL SYNC</span>
+        </div>
+        <div id="terminalBody" style="color:#cbd5e6; font-family: 'JetBrains Mono', monospace; font-size:0.9rem;">
+            [⸸] Mahoraga aktif. Sila divine online.<br>
+            [⸸] Role: <span id="terminalRole">-</span> · User: <span id="terminalUser">-</span>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <i class="fas fa-sync-alt" style="color:#ff6666;"></i> Cursed Mahoraga · adaptation system · created by DEXTER ⸷ SILA DIVINE ⸸
+    </div>
+</div>
+
+<script>
+    // ==============================================
+    // CURSED MAHORAGA - ROLE HIERARCHY SYSTEM
+    // OWNER (Dexter) → PARTNER → VIP → MEMBER
+    // HIERARCHI PEMBUATAN AKUN: 
+    // Owner: bisa bikin partner, vip, member
+    // Partner: bisa bikin vip, member
+    // VIP: bisa bikin member
+    // MEMBER: TIDAK BISA BIKIN AKUN SAMA SEKALI
+    // ==============================================
+
+    // ---- GLOBAL STORAGE (user DB) ----
+    let users = [
+        { username: 'dexter', password: 'dexter123', role: 'owner' },  // OWNER ABSOLUTE
+        { username: 'partner1', password: 'partner123', role: 'partner' },
+        { username: 'vip1', password: 'vip123', role: 'vip' },
+        { username: 'member1', password: 'member123', role: 'member' }
+    ];
+
+    let currentUser = null; // { username, role }
+
+    // ---- HELPER FUNCTIONS ----
+    function saveToLocal() {
+        localStorage.setItem('mahoragaUsers', JSON.stringify(users));
+    }
+
+    function loadFromLocal() {
+        const stored = localStorage.getItem('mahoragaUsers');
+        if (stored) {
+            try { users = JSON.parse(stored); } catch(e) {}
+        } else {
+            // default users
+            users = [
+                { username: 'dexter', password: 'dexter123', role: 'owner' },
+                { username: 'partner1', password: 'partner123', role: 'partner' },
+                { username: 'vip1', password: 'vip123', role: 'vip' },
+                { username: 'member1', password: 'member123', role: 'member' }
+            ];
+            saveToLocal();
+        }
+    }
+
+    // ---- INIT LOAD ----
+    loadFromLocal();
+
+    // ---- LOGIN HANDLER ----
+    document.getElementById('loginBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const uname = document.getElementById('loginUsername').value.trim().toLowerCase();
+        const pwd = document.getElementById('loginPassword').value.trim();
+
+        const foundUser = users.find(u => u.username.toLowerCase() === uname && u.password === pwd);
+        if (foundUser) {
+            currentUser = { username: foundUser.username, role: foundUser.role };
+            // update UI
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            
+            // update all user display
+            document.getElementById('currentUserDisplay').innerText = foundUser.username;
+            document.getElementById('currentRoleDisplay').innerText = foundUser.role.toUpperCase();
+            document.getElementById('terminalRole').innerText = foundUser.role.toUpperCase();
+            document.getElementById('terminalUser').innerText = foundUser.username;
+            document.getElementById('aiUserNameRef').innerText = foundUser.username;
+            
+            // Siapkan user management sesuai role
+            renderUserList();
+            adjustUIBasedOnRole();
+        } else {
+            alert('❌ Wheel tidak berputar. Username/password salah.');
+        }
+    });
+
+    // ---- LOGOUT ----
+    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        currentUser = null;
+        document.getElementById('mainApp').style.display = 'none';
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+    });
+
+    // ---- REGISTER MODAL (SHOW) ----
+    document.getElementById('showRegisterBtn').addEventListener('click', function() {
+        if (!currentUser) {
+            alert('Lu harus login dulu.');
+            return;
+        }
+        // cek role
+        if (currentUser.role === 'member') {
+            alert('❌ MEMBER TIDAK BISA MEMBUAT AKUN.');
+            return;
+        }
+        document.getElementById('creatorRoleDisp').value = currentUser.role.toUpperCase();
+        // set select option berdasarkan role
+        const select = document.getElementById('newRoleSelect');
+        select.innerHTML = '';
+        if (currentUser.role === 'owner') {
+            select.innerHTML += '<option value="partner">PARTNER</option>';
+            select.innerHTML += '<option value="vip">VIP</option>';
+            select.innerHTML += '<option value="member">MEMBER</option>';
+        } else if (currentUser.role === 'partner') {
+            select.innerHTML += '<option value="vip">VIP</option>';
+            select.innerHTML += '<option value="member">MEMBER</option>';
+        } else if (currentUser.role === 'vip') {
+            select.innerHTML += '<option value="member">MEMBER</option>';
+        }
+        document.getElementById('registerModal').style.display = 'flex';
+    });
+
+    // ---- CONFIRM CREATE USER (from modal) ----
+    document.getElementById('confirmCreateUserBtn').addEventListener('click', function() {
+        const newUname = document.getElementById('newUsername').value.trim();
+        const newPass = document.getElementById('newPassword').value.trim();
+        const newRole = document.getElementById('newRoleSelect').value;
+
+        if (!newUname || !newPass) return alert('Username/password wajib.');
+        
+        // cek duplikat
+        if (users.find(u => u.username.toLowerCase() === newUname.toLowerCase())) {
+            return alert('Username sudah ada.');
+        }
+
+        // Validasi hak buat (owner, partner, vip)
+        if (!currentUser) return alert('login dulu');
+        if (currentUser.role === 'member') return alert('member tidak boleh create user');
+
+        // Tambah user
+        users.push({ username: newUname, password: newPass, role: newRole });
+        saveToLocal();
+        alert(`✅ User ${newUname} (${newRole}) berhasil dibuat.`);
+        document.getElementById('registerModal').style.display = 'none';
+        document.getElementById('newUsername').value = '';
+        document.getElementById('newPassword').value = '';
+        if (currentUser) renderUserList();
+    });
+
+    // ---- RENDER USER LIST (di management) ----
+    function renderUserList() {
+        const container = document.getElementById('userListContainer');
+        if (!container) return;
+        let html = '';
+        users.forEach(u => {
+            let roleClass = 'user-role-tag ';
+            if (u.role === 'owner') roleClass += 'role-owner';
+            else if (u.role === 'partner') roleClass += 'role-partner';
+            else if (u.role === 'vip') roleClass += 'role-vip';
+            else roleClass += 'role-member';
+            
+            html += `<div class="user-item">
+                        <span><i class="fas fa-user"></i> ${u.username}</span>
+                        <span class="${roleClass}">${u.role.toUpperCase()}</span>
+                      </div>`;
         });
+        container.innerHTML = html;
+        document.getElementById('userCountDisplay').innerHTML = `<i class="fas fa-users"></i> total user: ${users.length}`;
+    }
 
-        // ========== GLOBAL VARIABLES ==========
-        let username = "{{ username }}";
-        let currentLevel = 1;
-        let currentWheel = 0;
-        let selectedAttack = 'DDOS';
-        let isCreator = false;
-
-        // ========== INITIAL SETUP ==========
-        (function init() {
-            // Username handling
-            if (!username || username === "") {
-                username = prompt("[ Cursed Mahoraga ] Masukkan username untuk mengaktifkan wheel:", "DEXTER");
-                if (!username) username = "USER";
-                window.location.href = `/?user=${username}`;
-            }
-            document.getElementById('usernameDisplay').innerText = username;
-
-            // Fetch user data from backend
-            fetch('/api/init', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: username })
-            })
-            .then(res => res.json())
-            .then(data => {
-                currentLevel = data.level;
-                currentWheel = data.wheel;
-                isCreator = data.is_creator;
-                
-                // Update UI
-                document.getElementById('adaptLevel').innerText = data.level.toString().padStart(2, '0');
-                document.getElementById('wheelCount').innerText = data.wheel;
-                
-                // Immunity status based on level
-                const immunityMap = {
-                    1: 'AWAKENING', 2: 'EVOLUTION', 3: 'TRANSCENDENCE', 
-                    4: 'DIVINITY', 5: 'SUPREMACY'
-                };
-                document.getElementById('immunityStatus').innerText = immunityMap[data.level] || 'ABSOLUTE';
-                
-                // Creator badge
-                if (data.is_creator) {
-                    document.getElementById('creatorBadge').style.display = 'flex';
-                    document.getElementById('aiStatus').innerHTML = '◈ divine access · absolute control';
-                }
-                
-                // Update attack card locks based on level
-                updateAttackLocks(data.level);
-            });
-
-            // Set default selected attack
-            selectAttack('DDOS');
+    // ---- ADJUST UI BERDASARKAN ROLE (yabisa bikin user di panel) ----
+    function adjustUIBasedOnRole() {
+        const mgmtSection = document.getElementById('userMgmtSection');
+        const createRoleSelect = document.getElementById('createRoleSelect');
+        const roleNote = document.getElementById('roleRestrictionNote');
+        
+        if (!currentUser) return;
+        
+        // Tampilkan/sembunyikan user management
+        if (currentUser.role === 'owner' || currentUser.role === 'partner' || currentUser.role === 'vip') {
+            mgmtSection.style.display = 'block';
+            document.getElementById('creatorHint').innerHTML = `🔑 CREATE AS: ${currentUser.role.toUpperCase()}`;
             
-            // Event listeners
-            document.getElementById('launchBtn').addEventListener('click', launchAttack);
-            document.getElementById('aiSendBtn').addEventListener('click', sendAIPrompt);
-            document.getElementById('aiPrompt').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') sendAIPrompt();
-            });
-        })();
+            // Atur opsi create role
+            createRoleSelect.innerHTML = '';
+            if (currentUser.role === 'owner') {
+                createRoleSelect.innerHTML += '<option value="partner">PARTNER</option>';
+                createRoleSelect.innerHTML += '<option value="vip">VIP</option>';
+                createRoleSelect.innerHTML += '<option value="member">MEMBER</option>';
+                roleNote.innerText = 'Owner: bisa bikin partner, vip, member.';
+            } else if (currentUser.role === 'partner') {
+                createRoleSelect.innerHTML += '<option value="vip">VIP</option>';
+                createRoleSelect.innerHTML += '<option value="member">MEMBER</option>';
+                roleNote.innerText = 'Partner: bisa bikin vip & member.';
+            } else if (currentUser.role === 'vip') {
+                createRoleSelect.innerHTML += '<option value="member">MEMBER</option>';
+                roleNote.innerText = 'VIP: hanya bisa bikin member.';
+            }
+        } else {
+            mgmtSection.style.display = 'none'; // MEMBER ga liat menu user management
+        }
+        renderUserList();
+    }
 
-        // ========== ATTACK CARD LOCK SYSTEM ==========
-        function updateAttackLocks(level) {
-            const cards = document.querySelectorAll('.attack-card');
-            cards.forEach(card => {
-                const requiredLevel = parseInt(card.dataset.level || '1');
-                if (level >= requiredLevel) {
-                    card.classList.add('unlocked');
-                    card.classList.remove('locked');
-                    card.style.cursor = 'pointer';
-                    // Add click handler
-                    card.onclick = function(e) {
-                        e.stopPropagation();
-                        const attackName = this.dataset.attack;
-                        selectAttack(attackName);
-                    };
-                } else {
-                    card.classList.add('locked');
-                    card.classList.remove('unlocked');
-                    card.style.cursor = 'not-allowed';
-                    card.onclick = function(e) {
-                        e.stopPropagation();
-                        document.getElementById('terminalBody').innerHTML = `[⸸] [LOCKED] ${this.dataset.attack} membutuhkan adaptasi level ${this.dataset.level}. Wheel berputar lebih dulu. 🌀`;
-                    };
-                }
-            });
+    // ---- CREATE USER VIA PANEL (button di management) ----
+    document.getElementById('createUserBtn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!currentUser || currentUser.role === 'member') {
+            return alert('❌ Tidak punya izin create user.');
+        }
+        const uname = document.getElementById('createUsername').value.trim();
+        const pass = document.getElementById('createPassword').value.trim();
+        const role = document.getElementById('createRoleSelect').value;
+
+        if (!uname || !pass) return alert('Isi username & password.');
+        if (users.find(u => u.username.toLowerCase() === uname.toLowerCase())) {
+            return alert('Username sudah terdaftar.');
         }
 
-        // ========== SELECT ATTACK ==========
-        window.selectAttack = function(attackName) {
-            selectedAttack = attackName;
-            document.getElementById('attackBtnText').innerText = attackName;
-            
-            // Visual feedback - highlight selected card
-            const cards = document.querySelectorAll('.attack-card');
-            cards.forEach(card => {
-                card.style.borderColor = card.dataset.attack === attackName ? '#ff6b6b' : '';
-                card.style.boxShadow = card.dataset.attack === attackName ? '0 0 15px rgba(255,80,80,0.5)' : '';
-            });
-        };
-
-        // ========== LAUNCH ATTACK ==========
-        window.launchAttack = function() {
-            const target = document.getElementById('targetInput').value;
-            if (!target) {
-                alert('Isi target, Master.');
-                return;
-            }
-
-            // Check if attack is unlocked
-            const attackCard = document.querySelector(`[data-attack="${selectedAttack}"]`);
-            if (attackCard && attackCard.classList.contains('locked')) {
-                document.getElementById('terminalBody').innerHTML = `[⸸] [ACCESS DENIED] ${selectedAttack} belum teradaptasi. Butuh level ${attackCard.dataset.level}. 🌀`;
-                return;
-            }
-
-            // Determine endpoint
-            let endpoint = '';
-            let payload = { username: username };
-            
-            if (selectedAttack === 'DDOS') {
-                endpoint = '/api/attack/ddos';
-                payload.target = target;
-            } else if (selectedAttack === 'OTP SPAM') {
-                endpoint = '/api/attack/otp';
-                payload.phone = target;
-            } else if (selectedAttack === 'PORT SCAN') {
-                endpoint = '/api/attack/scan';
-                payload.target = target;
-            } else {
-                // For other attacks, show simulation message
-                document.getElementById('terminalBody').innerHTML = `[${new Date().toLocaleTimeString()}] [⸸] ${selectedAttack} diluncurkan ke target: ${target}<br>[⸸] Wheel berputar. Adaptasi untuk serangan ini berlangsung.<br>[⸸] Status: SIMULASI (backend penuh di level ${attackCard?.dataset.level || '3+'}) 🌀🌀`;
-                return;
-            }
-
-            // Execute real attack if endpoint exists
-            if (endpoint) {
-                fetch(endpoint, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById('terminalBody').innerHTML = `[${new Date().toLocaleTimeString()}] [⸸] ${data.message || 'Attack launched'}<br>[⸸] Target: ${target}<br>[⸸] Status: ACTIVE · Wheel berputar cepat 🌀🌀`;
-                })
-                .catch(err => {
-                    document.getElementById('terminalBody').innerHTML = `[⸸] Error: ${err.message}. Tapi gw adaptasi. 🌀`;
-                });
-            }
-        };
-
-        // ========== DEXTER AI - REAL AI CHAT ==========
-        window.sendAIPrompt = function() {
-            const prompt = document.getElementById('aiPrompt').value.trim();
-            if (!prompt) return;
-
-            const chatBox = document.getElementById('aiChatBox');
-            
-            // Add user message
-            chatBox.innerHTML += `
-                <div class="ai-message user">
-                    <i class="fas fa-user"></i>
-                    <div class="message-content">
-                        <span class="sender">${username}:</span>
-                        ${escapeHTML(prompt)}
-                    </div>
-                </div>
-            `;
-
-            // Clear input
-            document.getElementById('aiPrompt').value = '';
-
-            // Add loading message
-            const loadingId = 'loading-' + Date.now();
-            chatBox.innerHTML += `
-                <div class="ai-message system" id="${loadingId}">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    <div class="message-content">
-                        Wheel berputar... menganalisis.
-                    </div>
-                </div>
-            `;
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Call backend AI
-            fetch('/api/ai/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: username, prompt: prompt })
-            })
-            .then(res => res.json())
-            .then(data => {
-                // Remove loading message
-                document.getElementById(loadingId)?.remove();
-                
-                // Add AI response
-                chatBox.innerHTML += `
-                    <div class="ai-message system">
-                        <i class="fas fa-robot"></i>
-                        <div class="message-content">
-                            <span class="sender">Dexter AI:</span>
-                            ${escapeHTML(data.response).replace(/\n/g, '<br>')}
-                        </div>
-                    </div>
-                `;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            })
-            .catch(err => {
-                document.getElementById(loadingId)?.remove();
-                chatBox.innerHTML += `
-                    <div class="ai-message system">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <div class="message-content">
-                            <span class="sender">Dexter AI:</span>
-                            Wheel error: ${err.message}. Tapi gw tetap adaptasi. Coba lagi, Master.
-                        </div>
-                    </div>
-                `;
-            });
-        };
-
-        // ========== QUICK AI ACTION ==========
-        window.quickAIAction = function(query) {
-            document.getElementById('aiPrompt').value = query;
-            sendAIPrompt();
-        };
-
-        // ========== HELPER: ESCAPE HTML ==========
-        function escapeHTML(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        // Validasi tambahan sesuai hierarki (jaga2)
+        if (currentUser.role === 'partner' && (role !== 'vip' && role !== 'member')) {
+            return alert('Partner hanya bisa bikin VIP atau MEMBER');
+        }
+        if (currentUser.role === 'vip' && role !== 'member') {
+            return alert('VIP hanya bisa bikin MEMBER');
         }
 
-        // ========== EXPOSE GLOBALS ==========
-        window.launchAttack = launchAttack;
-        window.sendAIPrompt = sendAIPrompt;
-        window.quickAIAction = quickAIAction;
-        window.selectAttack = selectAttack;
-    </script>
-    
-    <!-- Socket.IO connection -->
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script>
-        // Fallback jika variabel username dari Jinja2 tidak ada
-        if (typeof username === 'undefined' || username === '{{ username }}') {
-            let username = new URLSearchParams(window.location.search).get('user') || 'USER';
-            window.location.href = `/?user=${username}`;
+        users.push({ username: uname, password: pass, role: role });
+        saveToLocal();
+        alert(`✅ User ${uname} (${role}) dibuat.`);
+        document.getElementById('createUsername').value = '';
+        document.getElementById('createPassword').value = '';
+        renderUserList();
+    });
+
+    // ---- ATTACK ACTION - ANTI REFRESH ----
+    window.attackAction = function(msg, el) {
+        if (!currentUser) return alert('Login dulu.');
+        const terminalBody = document.getElementById('terminalBody');
+        const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+        terminalBody.innerHTML = `[${timestamp}] [⸸] ADAPTASI · wheel berputar<br>[⸸] ${msg}<br>[⸸] Role: ${currentUser.role.toUpperCase()} · User: ${currentUser.username}`;
+        
+        // animasi wheel (opsional)
+        const wheel = document.querySelector('.adapt-level i');
+        if (wheel) {
+            // gak refresh
         }
-    </script>
+        return false;
+    };
+
+    // ---- HENTIKAN REFRESH SEMUA onclick tombol attack ----
+    // gunakan event delegation / prevent default sudah ada di onclick.
+    // plus untuk ai send button
+
+    // ---- INIT SESSION jika sudah login sebelumnya? (opsional) ----
+    window.onload = function() {
+        // Tampilkan login
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('mainApp').style.display = 'none';
+    };
+
+</script>
+
+<!-- Font Awesome (redundan aman) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </body>
-                    </html>
+</html>
