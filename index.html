@@ -306,6 +306,18 @@
             font-size: 1.2rem;
         }
 
+        .error-message {
+            background: rgba(255, 30, 30, 0.15);
+            border: 1px solid #ff4d4d;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 20px;
+            color: #ffb3b3;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
         /* ===== MAIN APP WRAPPER ===== */
         .app-wrapper {
             max-width: 800px;
@@ -540,6 +552,7 @@
             font-size: 1.4rem;
             font-weight: 700;
             color: white;
+            font-family: var(--font-display);
         }
 
         .execution-form {
@@ -941,6 +954,10 @@
         <div class="login-title">⸸ DEXTER XRAT ⸸</div>
         <div class="login-sub">Eight-Handled Sword · Divine General</div>
         
+        <div id="loginError" class="error-message">
+            USERNAME ATAU PASSWORD SALAH HARAP MASUKKAN DENGAN BENAR
+        </div>
+        
         <input type="text" id="loginUsername" class="input-field" placeholder="USERNAME" autocomplete="off">
         
         <div class="password-wrapper">
@@ -969,7 +986,7 @@
     <div class="status-bar">
         <div class="wheel-status">
             <i class="fas fa-sync-alt wheel-spin"></i>
-            <span style="font-weight: 700; color: #ffc2c2;">XRAT · LVL04</span>
+            <span style="font-weight: 700; color: #ffc2c2;">DEXTER XRAT · LVL04</span>
             <span style="background: #1f0f0f; padding: 5px 16px; border-radius: 40px; font-size: 0.75rem; border: 1px solid #ff5e5e; font-weight: 700;">🌀 3/∞</span>
         </div>
         <div class="user-badge" id="userBadge">
@@ -986,8 +1003,8 @@
         <!-- ===== HOME / ATTACK ===== -->
         <div id="section-home" class="content-section active">
             <div class="section-header">
-                <h2><i class="fas fa-bolt" style="color: #ff3a3a; margin-right: 10px;"></i> ARSENAL · XRAT</h2>
-                <span style="background: #2a1a1a; padding: 8px 20px; border-radius: 40px; font-size: 0.8rem; border: 1px solid #ff5e5e; font-weight: 700;">7 TECHNIQUES</span>
+                <h2><i class="fas fa-bolt" style="color: #ff3a3a; margin-right: 10px;"></i> DEXTER XRAT · ARSENAL</h2>
+                <span style="background: #2a1a1a; padding: 8px 20px; border-radius: 40px; font-size: 0.8rem; border: 1px solid #ff5e5e; font-weight: 700;">8 TECHNIQUES</span>
             </div>
             
             <!-- SLIDER -->
@@ -1016,6 +1033,11 @@
                     <div class="attack-title">SPAM OTP</div>
                     <div class="attack-desc">WhatsApp · SMS bomber</div>
                 </div>
+                <div class="attack-card" onclick="selectAttack('ngl')">
+                    <i class="fas fa-envelope attack-icon"></i>
+                    <div class="attack-title">SPAM NGL</div>
+                    <div class="attack-desc">Anonymous question spam</div>
+                </div>
                 <div class="attack-card" onclick="selectAttack('sql')">
                     <i class="fas fa-database attack-icon"></i>
                     <div class="attack-title">SQL INJECT</div>
@@ -1035,6 +1057,11 @@
                     <i class="fas fa-envelope attack-icon"></i>
                     <div class="attack-title">EMAIL BOMB</div>
                     <div class="attack-desc">Mass mailing · spam</div>
+                </div>
+                <div class="attack-card" onclick="selectAttack('phishing')">
+                    <i class="fas fa-fish attack-icon"></i>
+                    <div class="attack-title">PHISHING</div>
+                    <div class="attack-desc">Clone page · credential harvester</div>
                 </div>
             </div>
             
@@ -1180,7 +1207,7 @@
 
 <script>
     // ==========================================
-    // DEXTER XRAT - FINAL EVOLUTION
+    // DEXTER XRAT - FINAL EVOLUTION WITH FIXES
     // ==========================================
 
     // ---------- GLOBAL DATABASE ----------
@@ -1296,9 +1323,11 @@
         e.preventDefault();
         const uname = document.getElementById('loginUsername').value.trim().toLowerCase();
         const pwd = document.getElementById('loginPassword').value.trim();
+        const errorDiv = document.getElementById('loginError');
 
         const loginLoading = document.getElementById('loginLoading');
         loginLoading.style.display = 'flex';
+        errorDiv.style.display = 'none';
 
         setTimeout(() => {
             const foundUser = users.find(u => u.username.toLowerCase() === uname && u.password === pwd);
@@ -1313,7 +1342,7 @@
                 loginLoading.style.display = 'none';
             } else {
                 loginLoading.style.display = 'none';
-                alert('⛔ ACCESS DENIED · Wheel tidak berputar');
+                errorDiv.style.display = 'block';
             }
         }, 1800);
     });
@@ -1483,6 +1512,7 @@
         document.getElementById('loginContainer').style.display = 'flex';
         document.getElementById('loginUsername').value = '';
         document.getElementById('loginPassword').value = '';
+        document.getElementById('loginError').style.display = 'none';
     });
 
     // ---------- ATTACK SELECTION ----------
@@ -1516,6 +1546,32 @@
                         </select>
                     </div>
                     <button class="execute-attack-btn" onclick="executeOTP()">
+                        <i class="fas fa-bolt"></i> EKSEKUSI SERANGAN
+                    </button>
+                `;
+                break;
+                
+            case 'ngl':
+                execTitle.innerHTML = 'SPAM NGL · ANONYMOUS MESSAGE';
+                html = `
+                    <div class="form-group">
+                        <label><i class="fas fa-link"></i> NGL.LINK USERNAME</label>
+                        <input type="text" id="nglUsername" class="attack-input" placeholder="username (contoh: johndoe)">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> PESAN SPAM</label>
+                        <input type="text" id="nglMessage" class="attack-input" placeholder="Halo, ini pesan spam" value="Halo ada yang bisa saya bantu?">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-hashtag"></i> JUMLAH PENGIRIMAN</label>
+                        <select id="nglCount" class="attack-select">
+                            <option value="5">5x</option>
+                            <option value="10" selected>10x</option>
+                            <option value="25">25x</option>
+                            <option value="50">50x</option>
+                        </select>
+                    </div>
+                    <button class="execute-attack-btn" onclick="executeNGL()">
                         <i class="fas fa-bolt"></i> EKSEKUSI SERANGAN
                     </button>
                 `;
@@ -1659,6 +1715,32 @@
                     </button>
                 `;
                 break;
+                
+            case 'phishing':
+                execTitle.innerHTML = 'PHISHING · CREDENTIAL HARVESTER';
+                html = `
+                    <div class="form-group">
+                        <label><i class="fas fa-globe"></i> TARGET URL (clone)</label>
+                        <input type="text" id="phishUrl" class="attack-input" placeholder="https://instagram.com">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-server"></i> LISTENER SERVER</label>
+                        <input type="text" id="phishListener" class="attack-input" placeholder="https://your-server.com/log">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-file"></i> PAGE TEMPLATE</label>
+                        <select id="phishTemplate" class="attack-select">
+                            <option value="ig">Instagram</option>
+                            <option value="fb">Facebook</option>
+                            <option value="gmail">Gmail</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    <button class="execute-attack-btn" onclick="executePhishing()">
+                        <i class="fas fa-bolt"></i> EKSEKUSI SERANGAN
+                    </button>
+                `;
+                break;
         }
         
         execForm.innerHTML = html;
@@ -1670,7 +1752,16 @@
         const count = document.getElementById('otpCount')?.value || 25;
         if (!target) return alert('⚠️ Masukkan nomor target');
         
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./otp_bomber --target ${target} --count ${count}<br>> 🚀 OTP BOMBER DILUNCURKAN · ${count} request terkirim<br>> 📱 Target: ${target}<br>> 💥 STATUS: FLOOD AKTIF · Wheel berputar +5 🌀<br>> ⚠️ EFEK: Target akan menerima flood OTP dari berbagai layanan.`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./otp_bomber --target ${target} --count ${count}<br>> 🚀 OTP BOMBER DILUNCURKAN · ${count} request terkirim<br>> 📱 Target: ${target}<br>> 💥 STATUS: SUKSES EKSEKUSI TARGET · Wheel berputar +5 🌀<br>> ⚠️ EFEK: Target akan menerima flood OTP dari berbagai layanan.`;
+    };
+
+    window.executeNGL = function() {
+        const username = document.getElementById('nglUsername')?.value;
+        const message = document.getElementById('nglMessage')?.value || 'Halo';
+        const count = document.getElementById('nglCount')?.value || 10;
+        if (!username) return alert('⚠️ Masukkan username NGL');
+        
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./ngl_spam --username ${username} --message "${message}" --count ${count}<br>> 📨 ${count} pesan terkirim ke ngl.link/${username}<br>> 💥 STATUS: SUKSES EKSEKUSI TARGET · Wheel berputar +4 🌀<br>> ⚠️ Target akan menerima spam anonymous question.`;
     };
 
     window.executeDDOS = function() {
@@ -1679,7 +1770,7 @@
         const duration = document.getElementById('ddosDuration')?.value;
         if (!target) return alert('⚠️ Masukkan target');
         
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./ddos --target ${target} --protocol ${protocol} --duration ${duration}s<br>> 🔥 VOLUMETRIC FLOOD DIMULAI · 500 botnet aktif<br>> 🌐 Target: ${target}<br>> 📊 Throughput: 1.2Gbps · Wheel berputar +7 🌀<br>> ⚠️ Target akan mengalami lonjakan trafik abnormal.`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./ddos --target ${target} --protocol ${protocol} --duration ${duration}s<br>> 🔥 VOLUMETRIC FLOOD DIMULAI · 500 botnet aktif<br>> 🌐 Target: ${target}<br>> 📊 Throughput: 1.2Gbps · 💥 SUKSES EKSEKUSI TARGET · Wheel berputar +7 🌀<br>> ⚠️ Target akan mengalami lonjakan trafik abnormal.`;
     };
 
     window.executeSQL = function() {
@@ -1688,7 +1779,7 @@
         const table = document.getElementById('sqlTable')?.value || 'all';
         if (!url) return alert('⚠️ Masukkan URL');
         
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./sqlmap -u "${url}" --technique=${technique} --dump --table=${table}<br>> 🎯 TARGET RENTAN · OR 1=1 -- -<br>> 📦 47 baris data berhasil diekstrak · Wheel berputar +6 🌀<br>> ⚠️ Database berhasil didump.`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./sqlmap -u "${url}" --technique=${technique} --dump --table=${table}<br>> 🎯 TARGET RENTAN · OR 1=1 -- -<br>> 📦 47 baris data berhasil diekstrak · 💥 SUKSES EKSEKUSI TARGET · Wheel berputar +6 🌀<br>> ⚠️ Database berhasil didump.`;
     };
 
     window.executeXSS = function() {
@@ -1696,7 +1787,7 @@
         const payload = document.getElementById('xssPayload')?.value;
         if (!url) return alert('⚠️ Masukkan URL');
         
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./xss --target "${url}" --payload ${payload}.js<br>> 🕸️ PAYLOAD TERINJEKSI · Menunggu korban membuka halaman<br>> 🍪 Cookie berhasil ditangkap · Wheel berputar +4 🌀<br>> ⚠️ Script berjalan di browser korban.`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./xss --target "${url}" --payload ${payload}.js<br>> 🕸️ PAYLOAD TERINJEKSI · Menunggu korban membuka halaman<br>> 🍪 Cookie berhasil ditangkap · 💥 SUKSES EKSEKUSI TARGET · Wheel berputar +4 🌀<br>> ⚠️ Script berjalan di browser korban.`;
     };
 
     window.executeBF = function() {
@@ -1704,7 +1795,7 @@
         const protocol = document.getElementById('bfProtocol')?.value;
         if (!target) return alert('⚠️ Masukkan target');
         
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./hydra -l admin -P rockyou.txt ${target} ${protocol}<br>> 🔑 1500 percobaan/menit · Menemukan password: admin123!<br>> ✅ AKSES DIPEROLEH · Wheel berputar +8 🌀<br>> ⚠️ Password berhasil di-crack.`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./hydra -l admin -P rockyou.txt ${target} ${protocol}<br>> 🔑 1500 percobaan/menit · Menemukan password: admin123!<br>> ✅ 💥 SUKSES EKSEKUSI TARGET · Wheel berputar +8 🌀<br>> ⚠️ Password berhasil di-crack.`;
     };
 
     window.executeEmail = function() {
@@ -1712,25 +1803,39 @@
         const count = document.getElementById('emailCount')?.value || 100;
         if (!target) return alert('⚠️ Masukkan email');
         
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./email_bomber --target ${target} --count ${count}<br>> 📨 ${count} email terkirim · Relays: 5 SMTP server<br>> 💣 Inbox target: FLOOD · Wheel berputar +3 🌀<br>> ⚠️ Email spam membanjiri inbox target.`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./email_bomber --target ${target} --count ${count}<br>> 📨 ${count} email terkirim · Relays: 5 SMTP server<br>> 💣 Inbox target: FLOOD · 💥 SUKSES EKSEKUSI TARGET · Wheel berputar +3 🌀<br>> ⚠️ Email spam membanjiri inbox target.`;
     };
 
-    // ---------- AI SEND ----------
+    window.executePhishing = function() {
+        const url = document.getElementById('phishUrl')?.value;
+        const listener = document.getElementById('phishListener')?.value;
+        const template = document.getElementById('phishTemplate')?.value;
+        if (!url) return alert('⚠️ Masukkan URL target');
+        
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./phish --clone ${url} --template ${template} --listen ${listener || 'local'}<br>> 🎣 PHISHING PAGE BERHASIL DICLONE · Menunggu korban login<br>> 🔑 3 credential berhasil ditangkap · 💥 SUKSES EKSEKUSI TARGET · Wheel berputar +6 🌀<br>> ⚠️ Halaman palsu siap menjebak korban.`;
+    };
+
+    // ---------- AI SEND with Deepseek API simulation ----------
     window.sendAI = function() {
         if (!currentUser) return alert('⛔ Login dulu');
         const cmd = document.getElementById('aiInput').value.trim();
         if (!cmd) return;
         
-        const responses = [
-            `🧠 Wheel berputar cepat. Menganalisis perintah: "${cmd}" · 47 teknik relevan ditemukan. Eksekusi dalam mode simulasi.`,
-            `⚡ DEXTER AI merespon: "${cmd}" · Adaptasi level 04 cukup. Target ditandai.`,
-            `🔥 Perintah diterima. Meluncurkan serangan ke target sesuai instruksi "${cmd.substring(0, 40)}..."`,
-            `🌀 XRAT Core mengangguk. "${cmd}" akan dieksekusi dengan 3 botnet aktif.`
+        // Simulasi Deepseek API response
+        const deepseekResponses = [
+            `🧠 [Deepseek] Menganalisis perintah: "${cmd}". Menemukan 3 vektor serangan relevan. Eksekusi disarankan menggunakan module XRAT.`,
+            `⚡ [Deepseek] Perintah "${cmd}" membutuhkan akses level 4. Wheel berputar, mengadaptasi teknik baru.`,
+            `🔥 [Deepseek] Berdasarkan training data, "${cmd}" dapat dieksekusi dengan success rate 87%. Meluncurkan sekarang.`,
+            `🌀 [Deepseek] Adaptasi terhadap "${cmd}" berhasil. 5 teknik baru ditambahkan ke arsenal.`,
+            `🤖 [Deepseek] Saya telah mempelajari perintah "${cmd}". Ini adalah serangan tingkat lanjut. Eksekusi via XRAT core.`,
+            `🎯 [Deepseek] Target untuk "${cmd}" telah diidentifikasi. Wheel berputar 3 kali. Siap eksekusi.`
         ];
         
-        document.getElementById('aiResponseText').innerHTML = responses[Math.floor(Math.random() * responses.length)];
+        const response = deepseekResponses[Math.floor(Math.random() * deepseekResponses.length)];
+        
+        document.getElementById('aiResponseText').innerHTML = response;
         document.getElementById('aiInput').value = '';
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./ai --command "${cmd}"<br>> 🧠 AI memproses · Wheel berputar +2 🌀`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./deeper seek --query "${cmd}" --model deepseek-chat<br>> 🧠 Deepseek AI merespons: ${response.substring(0, 100)}...<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel berputar +2 🌀`;
     };
 
     // ---------- COPY ----------
