@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Dexter Attacker · Sila Divine · Full System</title>
-    <!-- FONT AWESOME 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- GOOGLE FONT -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dexter Attacker · Mahoraga UI</title>
+    
+    <!-- Font & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
+        /* ===== RESET & VARIABLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -16,427 +18,487 @@
         }
 
         body {
-            background: #0a0c0f;
-            background-image: radial-gradient(circle at 15% 30%, rgba(255, 70, 70, 0.03) 0%, transparent 25%),
-                              radial-gradient(circle at 85% 70%, rgba(255, 200, 50, 0.03) 0%, transparent 30%);
             font-family: 'Inter', sans-serif;
-            color: #eef2f5;
-            line-height: 1.6;
+            background: #0b0d10;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 70, 70, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 70%, rgba(255, 200, 50, 0.05) 0%, transparent 40%);
+            color: #fff;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            position: relative;
         }
 
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 1.5rem 1.5rem 2rem;
-        }
-
-        /* ========== LOGIN SCREEN ========== */
-        .login-screen {
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: #07090e;
-            backdrop-filter: blur(12px);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             z-index: 9999;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .loading-wheel {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 70, 70, 0.1);
+            border-top: 4px solid #ff4d4d;
+            border-radius: 50%;
+            animation: spin 1.2s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            margin-bottom: 24px;
+            box-shadow: 0 0 20px rgba(255, 70, 70, 0.3);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffb8b8, #ff6a6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            animation: pulse 1.8s infinite;
+        }
+
+        .loading-sub {
+            color: #8895a7;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .loading-sub i {
+            color: #ffae70;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* ===== MAIN WRAPPER ===== */
+        .app-wrapper {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 95vh;
+            position: relative;
+        }
+
+        /* ===== LOGIN CARD ===== */
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
         .login-card {
-            background: linear-gradient(145deg, #141a22, #0d1016);
+            background: rgba(18, 22, 28, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 80, 80, 0.2);
             border-radius: 40px;
-            padding: 2.8rem 2.5rem;
+            padding: 32px 28px;
             width: 100%;
             max-width: 460px;
-            border: 1px solid #ff5e5e40;
-            box-shadow: 0 25px 40px -10px black;
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.5);
             position: relative;
             overflow: hidden;
         }
 
-        .login-wheel {
+        .login-card::before {
+            content: '';
             position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 8rem;
-            color: #ff3b3b0a;
-            transform: rotate(45deg);
+            top: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,70,70,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .login-header {
+            margin-bottom: 32px;
         }
 
         .login-title {
             font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 0.4rem;
-            background: linear-gradient(to right, #ffb3b3, #ff6a6a);
+            background: linear-gradient(145deg, #ffb3b3, #ff4a4a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
         }
 
         .login-sub {
-            color: #a0b0c2;
-            margin-bottom: 2.2rem;
+            color: #9aa6b5;
             font-size: 0.9rem;
             border-left: 4px solid #ff4d4d;
-            padding-left: 1rem;
+            padding-left: 16px;
         }
 
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #d0dbea;
-            margin-bottom: 0.4rem;
-            letter-spacing: 1px;
-        }
-
-        .login-input {
+        .input-field {
+            background: rgba(12, 15, 20, 0.7);
+            border: 1px solid #2a313a;
+            border-radius: 20px;
+            padding: 14px 18px;
             width: 100%;
-            background: #0b0e12;
-            border: 1px solid #313a44;
-            border-radius: 16px;
-            padding: 1rem 1.3rem;
-            font-family: 'Inter', sans-serif;
             color: white;
-            outline: none;
-            transition: 0.15s;
             font-size: 1rem;
+            transition: 0.2s;
+            margin-bottom: 20px;
         }
 
-        .login-input:focus {
-            border-color: #ff6a6a;
+        .input-field:focus {
+            border-color: #ff5e5e;
+            outline: none;
             box-shadow: 0 0 0 3px rgba(255, 80, 80, 0.2);
+            background: #0c1016;
         }
 
         .login-btn {
-            width: 100%;
-            background: linear-gradient(145deg, #ff5e4a, #ff3838);
+            background: linear-gradient(145deg, #ff5a4a, #ff2e2e);
             border: none;
             border-radius: 50px;
-            padding: 1.1rem;
+            padding: 16px;
+            width: 100%;
             color: white;
             font-weight: 700;
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border-bottom: 5px solid #a12323;
             cursor: pointer;
             transition: 0.1s;
-            border-bottom: 5px solid #a12323;
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.7rem;
+            margin-top: 8px;
         }
 
-        .owner-wa-btn {
-            background: #25D366;
-            border-bottom-color: #128C7E;
-            margin-top: 0.8rem;
+        .login-btn:active {
+            border-bottom-width: 2px;
+            transform: translateY(3px);
         }
 
-        .owner-wa-btn i {
-            font-size: 1.2rem;
+        .wa-btn {
+            background: #1f2e2a;
+            border-bottom-color: #0e4d3a;
+            margin-top: 16px;
         }
 
-        /* ========== NAVIGATION BAR ========== */
-        .navbar {
-            background: rgba(10, 12, 18, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #ff4d4d40;
-            padding: 0.8rem 2rem;
+        .wa-btn i {
+            color: #25D366;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TOP BAR STATUS ===== */
+        .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 2rem;
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
-
-        .nav-brand i {
-            color: #ff4d4d;
-            animation: spinSlow 8s infinite linear;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 1.8rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1.2rem;
+            padding: 16px 20px;
+            background: rgba(12, 16, 22, 0.7);
+            backdrop-filter: blur(12px);
             border-radius: 30px;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #cbd5e6;
-            font-weight: 500;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 80, 80, 0.2);
         }
 
-        .nav-item:hover {
-            background: #ff4d4d20;
-            color: white;
+        .wheel-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .nav-item.active {
-            background: #ff4d4d;
-            color: white;
+        .wheel-spin {
+            color: #ff4d4d;
+            animation: spinSlow 6s infinite linear;
+            font-size: 1.3rem;
         }
 
-        .nav-item i {
-            font-size: 1rem;
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        /* ========== CONTENT SECTIONS ========== */
+        .user-badge {
+            background: rgba(255, 70, 70, 0.15);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 100, 100, 0.3);
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
         .content-section {
             display: none;
-            animation: fadeIn 0.3s ease;
+            padding: 0 4px 80px 4px;
         }
 
         .content-section.active {
             display: block;
+            animation: fadeIn 0.4s;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* ========== PROFILE CARD ========== */
-        .profile-card {
-            background: linear-gradient(145deg, #141a24, #0e121a);
-            border-radius: 30px;
-            padding: 2rem;
-            border: 1px solid #ff7e7e40;
-            max-width: 600px;
-            margin: 0 auto;
+        /* ===== ATTACK GRID ===== */
+        .attack-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
         }
 
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            background: #ff4d4d;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: white;
-            border: 3px solid #ffb3b3;
-        }
-
-        .profile-info {
-            flex: 1;
-        }
-
-        .profile-username {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .profile-role {
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .role-owner { background: #b32b2b; color: white; }
-        .role-partner { background: #b38f2b; color: black; }
-        .role-vip { background: #2b6bb3; color: white; }
-        .role-member { background: #3a4052; color: white; }
-
-        .credential-row {
-            background: #0a0d12;
-            border-radius: 16px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #2a313a;
-        }
-
-        .credential-label {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            color: #b0c0d0;
-        }
-
-        .credential-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-            background: #1e242c;
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
-            border: 1px solid #4a535e;
-        }
-
-        .copy-btn {
-            background: #2a313a;
-            border: none;
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
+        .attack-card {
+            background: linear-gradient(145deg, #161c24, #0f1318);
+            border-radius: 24px;
+            padding: 20px 16px;
+            border: 1px solid #2a313c;
+            box-shadow: 0 6px 0 #080a0e;
             cursor: pointer;
             transition: 0.2s;
         }
 
-        .copy-btn:hover {
-            background: #ff4d4d;
+        .attack-card:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #080a0e;
         }
 
-        /* ========== USER MANAGEMENT ========== */
-        .user-mgmt-section {
-            background: #0e1217;
-            border-radius: 26px;
-            padding: 1.8rem;
-            border: 1px solid #3a3245;
+        .attack-icon {
+            font-size: 1.8rem;
+            color: #ff8a8a;
+            margin-bottom: 12px;
+        }
+
+        .attack-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .attack-desc {
+            font-size: 0.75rem;
+            color: #9aa5b5;
+        }
+
+        /* ===== AI SECTION ===== */
+        .ai-card {
+            background: radial-gradient(circle at 30% 30%, #1e1a24, #12161c);
+            border-radius: 28px;
+            padding: 24px;
+            border: 1px solid #4a3a55;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .ai-avatar {
+            background: #2f2a36;
+            padding: 14px;
+            border-radius: 20px;
+            font-size: 1.8rem;
+            color: #ffb085;
+        }
+
+        .ai-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffdbb5, #ffae70);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ai-chat-box {
+            background: #0e121a;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid #3a3f4a;
+        }
+
+        .ai-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-input {
+            flex: 1;
+            background: #0a0e14;
+            border: 1px solid #3a424e;
+            border-radius: 50px;
+            padding: 14px 18px;
+            color: white;
+        }
+
+        .ai-send {
+            background: #ff5e4a;
+            border: none;
+            border-radius: 50px;
+            padding: 0 24px;
+            color: white;
+            font-weight: 700;
+            border-bottom: 4px solid #a83232;
+        }
+
+        /* ===== PROFILE CARD ===== */
+        .profile-card {
+            background: #131a22;
+            border-radius: 32px;
+            padding: 28px;
+            border: 1px solid #ff7e7e30;
+        }
+
+        .profile-row {
+            background: #0c1016;
+            border-radius: 18px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: #2a333e;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        /* ===== USER MANAGEMENT ===== */
+        .user-mgmt {
+            background: #121a24;
+            border-radius: 28px;
+            padding: 24px;
             border-left: 6px solid #ffaa5e;
         }
 
-        .mgmt-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
         .user-list {
-            background: #0b0e14;
+            background: #0c121a;
             border-radius: 20px;
-            padding: 1.3rem;
-            border: 1px solid #353f4a;
-            max-height: 400px;
+            padding: 16px;
+            max-height: 300px;
             overflow-y: auto;
         }
 
         .user-item {
             display: flex;
             justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #252e38;
+        }
+
+        /* ===== BOTTOM NAVBAR ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
             align-items: center;
-            padding: 0.7rem 0;
-            border-bottom: 1px solid #20262e;
+            background: rgba(10, 12, 18, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 70, 70, 0.25);
+            padding: 10px 8px 20px;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.5);
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 100;
         }
 
-        .user-role-tag {
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #8895aa;
             font-size: 0.7rem;
-            padding: 0.2rem 0.8rem;
+            padding: 8px 12px;
             border-radius: 30px;
-            background: #2a2a36;
-        }
-
-        /* ========== ATTACK GRID ========== */
-        .attack-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.3rem;
-            margin-top: 1.2rem;
-        }
-
-        .attack-card {
-            background: linear-gradient(145deg, #12161c, #0c0f14);
-            border-radius: 20px;
-            padding: 1.5rem 1.2rem;
-            border: 1px solid #272c33;
             transition: 0.2s;
-            box-shadow: 0 8px 0 #080a0c;
             cursor: pointer;
         }
 
-        .attack-card:hover {
-            border-color: #ff5e5e;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 0 #080a0c, 0 0 15px rgba(255, 80, 80, 0.3);
+        .nav-item i {
+            font-size: 1.3rem;
         }
 
-        .attack-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-            color: #ff8888;
+        .nav-item.active {
+            color: #ff6a6a;
+            background: rgba(255, 80, 80, 0.1);
         }
 
-        /* ========== AI SECTION ========== */
-        .ai-section {
-            background: radial-gradient(circle at 20% 30%, #1a141e, #0d0f13);
-            border-radius: 28px;
-            padding: 1.8rem;
-            border: 1px solid #3d3345;
-            margin-top: 2rem;
-        }
-
-        .ai-name {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #ffd9b5, #ffa07a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* ========== TERMINAL ========== */
-        .terminal {
-            background: #080b0e;
-            border-radius: 18px;
-            padding: 1.4rem;
-            font-family: 'JetBrains Mono', monospace;
-            border: 1px solid #2e353d;
-            margin-top: 2rem;
-            border-left: 6px solid #ff4d4d;
-        }
-
-        /* ========== WHEEL PANEL ========== */
-        .wheel-panel {
-            background: rgba(12, 15, 20, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid #2a2e34;
-            border-radius: 28px;
-            padding: 1.2rem 2rem;
-            margin-bottom: 2rem;
-            display: flex;
-            flex-wrap: wrap;
+        /* ===== LOADING ANIMASI LOGIN ===== */
+        .login-loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 9, 14, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
             align-items: center;
-            justify-content: space-between;
-            border-left: 6px solid #ff4d4d;
+            justify-content: center;
+            flex-direction: column;
         }
 
-        .adapt-level {
-            background: #1e1e2a;
-            padding: 0.5rem 1.1rem;
-            border-radius: 30px;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-            border: 1px solid #ff4d4d;
+        .wheel-loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255,100,100,0.2);
+            border-top: 3px solid #ff4d4d;
+            border-radius: 50%;
+            animation: spin 0.8s infinite linear;
+            margin-bottom: 20px;
         }
 
         .hidden { display: none; }
@@ -444,374 +506,233 @@
 </head>
 <body>
 
-<!-- ========== LOGIN SCREEN ========== -->
-<div id="loginScreen" class="login-screen">
-    <div class="login-card">
-        <i class="fas fa-sync-alt login-wheel"></i>
-        <div class="login-title">ATTACKER⸸DEXTER</div>
-        <div class="login-sub">Sila Divine · Wheel Authentication</div>
-        
-        <div class="input-group">
-            <label class="input-label"><i class="fas fa-user"></i> USERNAME</label>
-            <input type="text" id="loginUsername" class="login-input" placeholder="masukkan username" autocomplete="off">
-        </div>
-        <div class="input-group">
-            <label class="input-label"><i class="fas fa-lock"></i> PASSWORD</label>
-            <input type="password" id="loginPassword" class="login-input" placeholder="••••••••">
-        </div>
-        
-        <button id="loginBtn" class="login-btn"><i class="fas fa-sign-in-alt"></i> PUTAR WHEEL · LOGIN</button>
-        
-        <!-- TOMBOL OWNER KE WHATSAPP -->
-        <a href="https://wa.me/6281234567890?text=Saya%20ingin%20menjadi%20owner" target="_blank">
-            <button class="login-btn owner-wa-btn"><i class="fab fa-whatsapp"></i> OWNER · HUBUNGI WA</button>
-        </a>
-        
-        <div class="register-link" style="margin-top:1.8rem; text-align:center; color:#a7b5c5;">
-            <span id="showRegisterBtn" style="color:#ff9f7e; font-weight:700; cursor:pointer;">⸻ BUAT AKUN BARU (OWNER/PARTNER/VIP) ⸻</span>
-        </div>
+<!-- ===== LOADING SCREEN AWAL ===== -->
+<div id="initialLoading" class="loading-screen">
+    <div class="loading-wheel"></div>
+    <div class="loading-text">MAHORAGA</div>
+    <div class="loading-sub">
+        <i class="fas fa-sync-alt"></i> Wheel berputar · Sila Divine
     </div>
 </div>
 
-<!-- ========== REGISTER MODAL ========== -->
-<div id="registerModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; justify-content:center; align-items:center;" onclick="if(event.target===this) this.style.display='none'">
-    <div style="background:#141a22; max-width:400px; margin:auto; padding:2rem; border-radius:30px; border:1px solid #ff7e7e;">
-        <h3 style="margin-bottom:1.5rem; color:#ffb5b5;"><i class="fas fa-user-plus"></i> CREATE USER · HIERARCHY</h3>
-        <div class="input-group">
-            <label class="input-label">CREATOR ROLE</label>
-            <input type="text" id="creatorRoleDisp" class="login-input" value="-" disabled>
-        </div>
-        <div class="input-group">
-            <label class="input-label">USERNAME BARU</label>
-            <input type="text" id="newUsername" class="login-input" placeholder="username">
-        </div>
-        <div class="input-group">
-            <label class="input-label">PASSWORD</label>
-            <input type="password" id="newPassword" class="login-input" placeholder="password">
-        </div>
-        <div class="input-group">
-            <label class="input-label">PILIH ROLE</label>
-            <select id="newRoleSelect" class="login-input" style="color:white;">
-                <option value="partner">PARTNER</option>
-                <option value="vip">VIP</option>
-                <option value="member">MEMBER</option>
-            </select>
-        </div>
-        <button id="confirmCreateUserBtn" class="login-btn" style="background:#4a2e6b; border-bottom-color:#2e1d41;">CREATE USER</button>
-        <p style="margin-top:1rem; text-align:center; color:#aaa;"><span onclick="document.getElementById('registerModal').style.display='none'" style="cursor:pointer; border-bottom:1px solid red;">TUTUP</span></p>
-    </div>
+<!-- ===== LOGIN LOADING ANIMATION ===== -->
+<div id="loginLoading" class="login-loading">
+    <div class="wheel-loader"></div>
+    <div style="color: #ffae70; font-weight: 600; margin-top: 16px;">Memutar Wheel · Adaptasi</div>
+    <div style="color: #98a5b5; font-size: 0.8rem; margin-top: 8px;">username & password diverifikasi</div>
 </div>
 
-<!-- ========== MAIN APPLICATION ========== -->
-<div id="mainApp" class="main-app" style="display:none;">
+<!-- ===== MAIN APP ===== -->
+<div class="app-wrapper" id="appWrapper" style="display: none;">
     
-    <!-- NAVIGATION BAR -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <i class="fas fa-sync-alt"></i>
-            <span>ATTACKER<span style="color:#ff4d4d;">⸸DEXTER</span></span>
+    <!-- STATUS BAR ATAS -->
+    <div class="status-bar">
+        <div class="wheel-status">
+            <i class="fas fa-sync-alt wheel-spin"></i>
+            <span style="font-weight: 600;">Level 04</span>
+            <span style="background: #1e1e2a; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem;">🌀 3/∞</span>
         </div>
-        <div class="nav-menu">
-            <div class="nav-item active" data-section="home">
-                <i class="fas fa-home"></i> MENU UTAMA
-            </div>
-            <div class="nav-item" data-section="ai">
-                <i class="fas fa-microchip"></i> DEXTER AI
-            </div>
-            <div class="nav-item" data-section="create">
-                <i class="fas fa-user-plus"></i> CREATE USERNAME
-            </div>
-            <div class="nav-item" data-section="profile">
-                <i class="fas fa-id-card"></i> PROFILE
-            </div>
+        <div class="user-badge" id="userBadge">
+            <i class="fas fa-user-shield"></i>
+            <span id="navUsername">Dexter</span>
+            <span id="navRole" style="background: #3a2e3e; padding: 2px 8px; border-radius: 20px;">OWNER</span>
+            <i class="fas fa-sign-out-alt" id="logoutBtn" style="margin-left: 8px; color: #ffa5a5;"></i>
         </div>
-        <div style="display:flex; align-items:center; gap:1rem;">
-            <span style="color:#ffb3b3;" id="navUserDisplay"></span>
-            <i class="fas fa-sign-out-alt" id="logoutBtn" style="cursor:pointer; color:#ffa5a5; font-size:1.2rem;"></i>
-        </div>
-    </nav>
+    </div>
 
-    <div class="container">
-        <!-- WHEEL STATUS -->
-        <div class="wheel-panel">
-            <div style="display:flex; align-items:center; gap:1rem;">
-                <i class="fas fa-compact-disc" style="color:#ff6060; font-size:1.8rem;"></i>
-                <span>WHEEL ADAPTASI · LEVEL 03</span>
-                <span class="adapt-level"><i class="fas fa-rotate"></i> 3/∞</span>
-            </div>
-            <div id="totalUsersDisplay">
-                <i class="fas fa-users"></i> TOTAL USER: <span id="userCount">4</span>
-            </div>
-        </div>
-
-        <!-- ========== CONTENT SECTIONS ========== -->
+    <!-- ===== CONTENT SECTIONS ===== -->
+    <div class="main-content" id="mainContent">
         
-        <!-- SECTION 1: MENU UTAMA (HOME) -->
+        <!-- HOME / ATTACK -->
         <div id="section-home" class="content-section active">
-            <h2 style="margin-bottom:1.5rem;"><i class="fas fa-bullseye" style="color:#ff7070;"></i> ATTACK VECTOR</h2>
+            <h2 style="margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-bolt" style="color: #ff6a6a;"></i> Attack Vector
+            </h2>
             <div class="attack-grid">
-                <div class="attack-card" onclick="event.preventDefault(); attackAction('🚀 DDOS ATTACK · L4/L7 volumetric flood', this); return false;">
+                <div class="attack-card" onclick="attackAction('DDOS · L4/L7 flood')">
                     <i class="fas fa-network-wired attack-icon"></i>
-                    <div style="font-weight:700; font-size:1.2rem;">DDOS</div>
-                    <div style="color:#98a1ad; margin-top:0.3rem;">SYN flood, UDP, HTTP</div>
+                    <div class="attack-title">DDOS</div>
+                    <div class="attack-desc">Volumetric flood</div>
                 </div>
-                <div class="attack-card" onclick="event.preventDefault(); attackAction('📲 OTP SPAM WHATSAPP · 100+ request', this); return false;">
+                <div class="attack-card" onclick="attackAction('OTP SPAM · WhatsApp')">
                     <i class="fas fa-message attack-icon"></i>
-                    <div style="font-weight:700; font-size:1.2rem;">SPAM OTP WA</div>
-                    <div style="color:#98a1ad; margin-top:0.3rem;">BOMB SMS/OTP</div>
+                    <div class="attack-title">SPAM OTP</div>
+                    <div class="attack-desc">WA bomber</div>
                 </div>
-                <div class="attack-card" onclick="event.preventDefault(); attackAction('📧 EMAIL BOMBER · 500+ emails', this); return false;">
-                    <i class="fas fa-envelope attack-icon"></i>
-                    <div style="font-weight:700; font-size:1.2rem;">EMAIL BOMB</div>
-                    <div style="color:#98a1ad; margin-top:0.3rem;">Mass mailing</div>
-                </div>
-                <div class="attack-card" onclick="event.preventDefault(); attackAction('💉 SQL INJECTION · OR 1=1 -- -', this); return false;">
+                <div class="attack-card" onclick="attackAction('SQL INJECTION')">
                     <i class="fas fa-database attack-icon"></i>
-                    <div style="font-weight:700; font-size:1.2rem;">SQL INJECT</div>
-                    <div style="color:#98a1ad; margin-top:0.3rem;">Database dumping</div>
+                    <div class="attack-title">SQL Inject</div>
+                    <div class="attack-desc">Database dumping</div>
                 </div>
-                <div class="attack-card" onclick="event.preventDefault(); attackAction('🌀 XSS PAYLOAD · cookie stealer', this); return false;">
+                <div class="attack-card" onclick="attackAction('XSS PAYLOAD')">
                     <i class="fas fa-code attack-icon"></i>
-                    <div style="font-weight:700; font-size:1.2rem;">XSS DEFACE</div>
-                    <div style="color:#98a1ad; margin-top:0.3rem;">Session hijack</div>
+                    <div class="attack-title">XSS</div>
+                    <div class="attack-desc">Cookie stealer</div>
                 </div>
-                <div class="attack-card" onclick="event.preventDefault(); attackAction('🔐 BRUTEFORCE · rockyou.txt', this); return false;">
+                <div class="attack-card" onclick="attackAction('BRUTEFORCE')">
                     <i class="fas fa-lock attack-icon"></i>
-                    <div style="font-weight:700; font-size:1.2rem;">BRUTEFORCE</div>
-                    <div style="color:#98a1ad; margin-top:0.3rem;">SSH/FTP/cPanel</div>
+                    <div class="attack-title">Bruteforce</div>
+                    <div class="attack-desc">SSH/FTP</div>
+                </div>
+                <div class="attack-card" onclick="attackAction('EMAIL BOMB')">
+                    <i class="fas fa-envelope attack-icon"></i>
+                    <div class="attack-title">Email Bomb</div>
+                    <div class="attack-desc">Mass mailing</div>
                 </div>
             </div>
-            
-            <!-- TERMINAL -->
-            <div class="terminal">
-                <div style="display:flex; gap:0.5rem; align-items:center; color:#b1c3d6; margin-bottom:1rem;">
-                    <i class="fas fa-terminal"></i> 
-                    <span style="font-weight:700;">ATTACK LOG · WHEEL SYNC</span>
-                </div>
-                <div id="terminalBody" style="color:#cbd5e6; font-family:'JetBrains Mono'; font-size:0.9rem;">
-                    [⸸] Mahoraga aktif. Sila divine online.<br>
-                    [⸸] Pilih attack untuk memulai adaptasi.
-                </div>
+            <!-- Terminal Output -->
+            <div style="background: #0b0f14; border-radius: 20px; padding: 18px; margin-top: 20px; border-left: 6px solid #ff4d4d; font-family: 'JetBrains Mono'; font-size: 0.8rem;">
+                <div id="terminalOutput">[⸸] Wheel berputar. Pilih attack.</div>
             </div>
         </div>
 
-        <!-- SECTION 2: DEXTER AI -->
+        <!-- DEXTER AI -->
         <div id="section-ai" class="content-section">
-            <div class="ai-section">
-                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
-                    <div style="background:#2a1f2e; padding:1rem; border-radius:20px;">
-                        <i class="fas fa-microchip" style="font-size:2.5rem; color:#ffaa70;"></i>
-                    </div>
+            <div class="ai-card">
+                <div class="ai-header">
+                    <div class="ai-avatar"><i class="fas fa-microchip"></i></div>
                     <div>
-                        <div class="ai-name">DEXTER ai</div>
-                        <div style="color:#bca9d1;">Sila Divine Core · Adaptation Engine</div>
+                        <div class="ai-title">DEXTER ai</div>
+                        <div style="color: #b4a9c9; font-size: 0.75rem;">Sila Divine Core</div>
                     </div>
                 </div>
-                
-                <div style="background:#0e1116; border-radius:20px; padding:1.5rem; margin-bottom:1.5rem;">
-                    <div style="display:flex; gap:1rem; align-items:flex-start;">
-                        <i class="fas fa-robot" style="color:#ffae70; font-size:1.5rem;"></i>
-                        <div>
-                            <span style="color:#ffc49b; font-weight:700;">Dexter ai:</span>
-                            <p style="margin-top:0.5rem; color:#d0ddea;" id="aiResponse">Wheel berputar. Gw udah adaptasi 47 teknik serangan. Perintah lu, Master?</p>
-                        </div>
-                    </div>
+                <div class="ai-chat-box" id="aiChatBox">
+                    <i class="fas fa-robot" style="color: #ffae70;"></i>
+                    <span style="color: #ffc49b; margin-left: 8px;">Dexter ai:</span>
+                    <p id="aiResponseText" style="margin-top: 10px; color: #d0ddea;">Wheel berputar. Gw siap eksekusi.</p>
                 </div>
-                
-                <div style="display:flex; gap:1rem;">
-                    <input type="text" id="aiCommandInput" class="login-input" placeholder="contoh: hack server, spam wa, ddos target..." style="background:#0a0c10;">
-                    <button onclick="sendAICommand()" style="background:#ff5e4a; border:none; border-radius:50px; padding:0 2rem; color:white; font-weight:700; cursor:pointer; border-bottom:4px solid #b13222;">
-                        <i class="fas fa-paper-plane"></i> KIRIM
-                    </button>
+                <div class="ai-input-group">
+                    <input type="text" id="aiInput" class="ai-input" placeholder="perintah...">
+                    <button class="ai-send" onclick="sendAI()">Kirim</button>
                 </div>
             </div>
         </div>
 
-        <!-- SECTION 3: CREATE USERNAME (USER MANAGEMENT) -->
+        <!-- CREATE USERNAME (USER MANAGEMENT) -->
         <div id="section-create" class="content-section">
-            <div id="userMgmtSection" class="user-mgmt-section">
-                <div style="display:flex; align-items:center; gap:0.7rem; margin-bottom:1rem;">
-                    <i class="fas fa-user-cog" style="color:#ffae70;"></i>
-                    <h3 style="font-weight:600;">CREATE USER · ROLE HIERARCHY</h3>
+            <div class="user-mgmt">
+                <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                    <i class="fas fa-user-plus" style="color: #ffae70;"></i> Create User
+                </h3>
+                <div id="createPanel">
+                    <input type="text" id="newUsername" class="input-field" placeholder="Username" style="margin-bottom: 12px;">
+                    <input type="password" id="newPassword" class="input-field" placeholder="Password" style="margin-bottom: 12px;">
+                    <select id="newRoleSelect" class="input-field" style="color: white; margin-bottom: 20px;">
+                        <option value="vip">VIP</option>
+                        <option value="member">MEMBER</option>
+                    </select>
+                    <button id="createUserBtn" class="login-btn" style="background: #4a3a5a; border-bottom-color: #2e1d41;">Buat User</button>
                 </div>
-                
-                <div class="mgmt-grid">
-                    <!-- DAFTAR USER -->
-                    <div class="user-list">
-                        <h4 style="margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
-                            <i class="fas fa-list"></i> REGISTERED USERS
-                        </h4>
-                        <div id="userListContainer"></div>
-                    </div>
-                    
-                    <!-- FORM CREATE USER -->
-                    <div class="create-user-form" style="background:#0b0e14; border-radius:20px; padding:1.5rem;">
-                        <h4 style="margin-bottom:1.2rem;"><i class="fas fa-user-plus"></i> CREATE NEW ACCOUNT</h4>
-                        <div class="input-group">
-                            <label class="input-label">USERNAME</label>
-                            <input type="text" id="createUsername" class="login-input" placeholder="new username">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">PASSWORD</label>
-                            <input type="password" id="createPassword" class="login-input" placeholder="password">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">ROLE</label>
-                            <select id="createRoleSelect" class="login-input" style="color:white;">
-                                <option value="vip">VIP</option>
-                                <option value="member">MEMBER</option>
-                            </select>
-                            <p id="roleRestrictionNote" style="color:#ffae70; font-size:0.7rem; margin-top:0.3rem;"></p>
-                        </div>
-                        <button id="createUserBtn" class="login-btn" style="background:#5a3c3c; border-bottom-color:#3d2626;">
-                            <i class="fas fa-plus-circle"></i> CREATE USER
-                        </button>
-                    </div>
+                <div style="margin-top: 30px;">
+                    <h4 style="margin-bottom: 16px;">📋 Registered Users</h4>
+                    <div id="userListContainer" class="user-list"></div>
                 </div>
             </div>
         </div>
 
-        <!-- SECTION 4: PROFILE (LIHAT USERNAME & PASSWORD) -->
+        <!-- PROFILE -->
         <div id="section-profile" class="content-section">
             <div class="profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
+                    <div style="background: #ff4d4d; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
                         <i class="fas fa-user"></i>
                     </div>
-                    <div class="profile-info">
-                        <div class="profile-username" id="profileUsername">-</div>
-                        <span class="profile-role" id="profileRole">MEMBER</span>
+                    <div>
+                        <div style="font-size: 1.8rem; font-weight: 700;" id="profileName">Dexter</div>
+                        <span id="profileRoleTag" style="background: #b32b2b; padding: 4px 16px; border-radius: 40px; font-size: 0.8rem;">OWNER</span>
                     </div>
                 </div>
-                
-                <h4 style="margin-bottom:1.2rem; color:#ffb3b3;"><i class="fas fa-lock"></i> KREDENSIAL AKUN</h4>
-                
-                <div class="credential-row">
-                    <span class="credential-label">
-                        <i class="fas fa-user-circle"></i> USERNAME
-                    </span>
-                    <div style="display:flex; gap:0.8rem; align-items:center;">
-                        <span class="credential-value" id="profileUsernameValue">-</span>
-                        <button class="copy-btn" onclick="copyToClipboard('profileUsernameValue')">
-                            <i class="fas fa-copy"></i> COPY
-                        </button>
-                    </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-user-circle"></i> Username</span>
+                    <span style="font-family: monospace;" id="profileUsernameValue">dexter</span>
+                    <button class="copy-btn" onclick="copyText('profileUsernameValue')">Copy</button>
                 </div>
-                
-                <div class="credential-row">
-                    <span class="credential-label">
-                        <i class="fas fa-key"></i> PASSWORD
-                    </span>
-                    <div style="display:flex; gap:0.8rem; align-items:center;">
-                        <span class="credential-value" id="profilePasswordValue">-</span>
-                        <button class="copy-btn" onclick="copyToClipboard('profilePasswordValue')">
-                            <i class="fas fa-copy"></i> COPY
-                        </button>
-                    </div>
-                </div>
-                
-                <div style="margin-top:2rem; padding:1rem; background:#0a0d12; border-radius:16px; border-left:4px solid #ff4d4d;">
-                    <i class="fas fa-shield-alt" style="color:#ff9999;"></i> 
-                    <span style="color:#b0c0d0;">Wheel berputar untuk lu, <span id="profileGreeting">Warrior</span>. Jaga kredensial lu baik-baik.</span>
+                <div class="profile-row">
+                    <span><i class="fas fa-key"></i> Password</span>
+                    <span style="font-family: monospace;" id="profilePasswordValue">******</span>
+                    <button class="copy-btn" onclick="copyText('profilePasswordValue')">Copy</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <div class="bottom-nav">
+        <div class="nav-item active" data-section="home">
+            <i class="fas fa-home"></i>
+            <span>MENU UTAMA</span>
+        </div>
+        <div class="nav-item" data-section="ai">
+            <i class="fas fa-microchip"></i>
+            <span>DEXTER AI</span>
+        </div>
+        <div class="nav-item" data-section="create">
+            <i class="fas fa-user-plus"></i>
+            <span>CREATE USER</span>
+        </div>
+        <div class="nav-item" data-section="profile">
+            <i class="fas fa-id-card"></i>
+            <span>PROFILE</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== LOGIN CARD (AWAL) ===== -->
+<div id="loginContainer" class="login-container" style="display: flex;">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-title">ATTACKER⸸DEXTER</div>
+            <div class="login-sub">Sila Divine · Wheel Authentication</div>
+        </div>
+        <input type="text" id="loginUsername" class="input-field" placeholder="Username" autocomplete="off">
+        <input type="password" id="loginPassword" class="input-field" placeholder="Password">
+        <button id="loginBtn" class="login-btn">
+            <i class="fas fa-sync-alt"></i> PUTAR WHEEL · LOGIN
+        </button>
+        <a href="https://wa.me/6281234567890" target="_blank">
+            <button class="login-btn wa-btn"><i class="fab fa-whatsapp"></i> OWNER · HUBUNGI WA</button>
+        </a>
+        <div style="text-align: center; margin-top: 24px; color: #a7b5c5;">
+            <span id="showRegisterLink" style="color: #ff9f7e; font-weight: 700; cursor: pointer;">⸻ BUAT AKUN (OWNER/PARTNER/VIP) ⸻</span>
         </div>
     </div>
 </div>
 
 <script>
-    // ==============================================
-    // CURSED MAHORAGA - FULL SYSTEM DEXTER
-    // ROLE HIERARCHY: OWNER → PARTNER → VIP → MEMBER
-    // FITUR: NAVBAR, PROFILE LIHAT PASS, TOMBOL WA
-    // ==============================================
+    // ==========================================
+    // CURSED MAHORAGA - FRONTEND SEMPURNA
+    // ANIMASI, LOADING, BOTTOM NAV, ALL FITUR
+    // ==========================================
 
-    // ---------- GLOBAL DATABASE ----------
+    // ---------- GLOBAL DATA ----------
     let users = [
         { username: 'dexter', password: 'dexter123', role: 'owner' },
         { username: 'partner1', password: 'partner123', role: 'partner' },
         { username: 'vip1', password: 'vip123', role: 'vip' },
         { username: 'member1', password: 'member123', role: 'member' }
     ];
-
     let currentUser = null;
 
-    // ---------- LOCAL STORAGE ----------
-    function saveToLocal() {
-        localStorage.setItem('mahoragaUsers', JSON.stringify(users));
-    }
+    // ---------- LOADING AWAL ----------
+    window.onload = function() {
+        setTimeout(() => {
+            document.getElementById('initialLoading').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('initialLoading').style.display = 'none';
+            }, 800);
+        }, 1500);
+        initNav();
+        renderUserList();
+    };
 
-    function loadFromLocal() {
-        const stored = localStorage.getItem('mahoragaUsers');
-        if (stored) {
-            try { 
-                users = JSON.parse(stored); 
-            } catch(e) {}
-        } else {
-            saveToLocal();
-        }
-    }
-    loadFromLocal();
-
-    // ---------- HELPER FUNCTIONS ----------
-    function getRoleClass(role) {
-        switch(role) {
-            case 'owner': return 'role-owner';
-            case 'partner': return 'role-partner';
-            case 'vip': return 'role-vip';
-            default: return 'role-member';
-        }
-    }
-
-    function renderUserList() {
-        const container = document.getElementById('userListContainer');
-        if (!container) return;
-        let html = '';
-        users.forEach(u => {
-            html += `<div class="user-item">
-                        <span><i class="fas fa-user"></i> ${u.username}</span>
-                        <span class="user-role-tag ${getRoleClass(u.role)}">${u.role.toUpperCase()}</span>
-                      </div>`;
-        });
-        container.innerHTML = html;
-        document.getElementById('userCount').innerText = users.length;
-    }
-
-    function updateProfileDisplay() {
-        if (!currentUser) return;
-        document.getElementById('profileUsername').innerText = currentUser.username;
-        document.getElementById('profileRole').innerText = currentUser.role.toUpperCase();
-        document.getElementById('profileRole').className = `profile-role ${getRoleClass(currentUser.role)}`;
-        document.getElementById('profileUsernameValue').innerText = currentUser.username;
-        
-        // CARI PASSWORD DI DATABASE
-        const userData = users.find(u => u.username === currentUser.username);
-        document.getElementById('profilePasswordValue').innerText = userData ? userData.password : '******';
-        document.getElementById('profileGreeting').innerText = currentUser.username;
-    }
-
-    function copyToClipboard(elementId) {
-        const el = document.getElementById(elementId);
-        if (!el) return;
-        const text = el.innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            alert(`✅ Tersalin: ${text}`);
-        }).catch(() => {
-            alert('❌ Gagal menyalin');
-        });
-    }
-
-    // ---------- NAVIGATION ----------
-    function initNavigation() {
+    // ---------- BOTTOM NAVIGATION ----------
+    function initNav() {
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
-                // Remove active class
                 navItems.forEach(n => n.classList.remove('active'));
                 this.classList.add('active');
-                
-                // Show corresponding section
                 const section = this.dataset.section;
                 document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
                 document.getElementById(`section-${section}`).classList.add('active');
@@ -819,232 +740,154 @@
         });
     }
 
-    // ---------- ATTACK ACTION ----------
-    window.attackAction = function(msg, el) {
-        if (!currentUser) return alert('Login dulu.');
-        const terminalBody = document.getElementById('terminalBody');
-        const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
-        terminalBody.innerHTML = `[${timestamp}] [⸸] ADAPTASI · wheel berputar<br>[⸸] ${msg}<br>[⸸] Role: ${currentUser.role.toUpperCase()} · User: ${currentUser.username}`;
-        return false;
-    };
-
-    // ---------- AI COMMAND ----------
-    window.sendAICommand = function() {
-        if (!currentUser) return alert('Login dulu.');
-        const cmd = document.getElementById('aiCommandInput').value.trim();
-        if (!cmd) return alert('Masukkan perintah!');
-        
-        const responses = [
-            `Wheel berputar cepat. Gw analisis: ${cmd} · membutuhkan adaptasi level 04.`,
-            `Perintah diterima. Dexter ai akan execute "${cmd}" dalam mode simulasi.`,
-            `Adaptasi terhadap "${cmd}" dimulai. ETA 3.2 detik.`,
-            `Maaf Master, teknik "${cmd}" belum di-unlock. Tapi gw adaptasi sekarang.`
-        ];
-        const randomResp = responses[Math.floor(Math.random() * responses.length)];
-        document.getElementById('aiResponse').innerHTML = randomResp;
-        
-        // Juga tampilkan di terminal
-        attackAction(`🧠 DEXTER ai: ${cmd} · ${randomResp.substring(0, 50)}...`, null);
-        document.getElementById('aiCommandInput').value = '';
-    };
-
-    // ---------- LOGIN ----------
+    // ---------- LOGIN DENGAN ANIMASI LOADING ----------
     document.getElementById('loginBtn').addEventListener('click', function(e) {
         e.preventDefault();
         const uname = document.getElementById('loginUsername').value.trim().toLowerCase();
         const pwd = document.getElementById('loginPassword').value.trim();
 
-        const foundUser = users.find(u => u.username.toLowerCase() === uname && u.password === pwd);
-        if (foundUser) {
-            currentUser = { username: foundUser.username, role: foundUser.role };
-            
-            // Hide login, show main
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-            
-            // Update UI
-            document.getElementById('navUserDisplay').innerText = `${foundUser.username} (${foundUser.role.toUpperCase()})`;
-            document.getElementById('totalUsersDisplay').innerHTML = `<i class="fas fa-users"></i> TOTAL USER: ${users.length}`;
-            
-            // Profile
-            updateProfileDisplay();
-            
-            // User management visibility berdasarkan role
-            const mgmtSection = document.getElementById('userMgmtSection');
-            const createRoleSelect = document.getElementById('createRoleSelect');
-            const roleNote = document.getElementById('roleRestrictionNote');
-            
-            if (foundUser.role === 'owner' || foundUser.role === 'partner' || foundUser.role === 'vip') {
-                mgmtSection.style.display = 'block';
+        // TAMPILIN LOADING ANIMATION
+        const loginLoading = document.getElementById('loginLoading');
+        loginLoading.style.display = 'flex';
+
+        setTimeout(() => {
+            const foundUser = users.find(u => u.username.toLowerCase() === uname && u.password === pwd);
+            if (foundUser) {
+                currentUser = { username: foundUser.username, role: foundUser.role };
                 
-                // Atur opsi role
-                createRoleSelect.innerHTML = '';
-                if (foundUser.role === 'owner') {
-                    createRoleSelect.innerHTML += '<option value="partner">PARTNER</option>';
-                    createRoleSelect.innerHTML += '<option value="vip">VIP</option>';
-                    createRoleSelect.innerHTML += '<option value="member">MEMBER</option>';
-                    roleNote.innerText = 'Owner: bisa bikin partner, vip, member.';
-                } else if (foundUser.role === 'partner') {
-                    createRoleSelect.innerHTML += '<option value="vip">VIP</option>';
-                    createRoleSelect.innerHTML += '<option value="member">MEMBER</option>';
-                    roleNote.innerText = 'Partner: bisa bikin vip & member.';
-                } else if (foundUser.role === 'vip') {
-                    createRoleSelect.innerHTML += '<option value="member">MEMBER</option>';
-                    roleNote.innerText = 'VIP: hanya bisa bikin member.';
+                // Update UI
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('appWrapper').style.display = 'flex';
+                document.getElementById('navUsername').innerText = foundUser.username;
+                document.getElementById('navRole').innerText = foundUser.role.toUpperCase();
+                document.getElementById('profileName').innerText = foundUser.username;
+                document.getElementById('profileRoleTag').innerText = foundUser.role.toUpperCase();
+                document.getElementById('profileUsernameValue').innerText = foundUser.username;
+                
+                // Cari password
+                const userData = users.find(u => u.username === foundUser.username);
+                document.getElementById('profilePasswordValue').innerText = userData ? userData.password : '******';
+                
+                // Role badge
+                let roleColor = '';
+                if (foundUser.role === 'owner') roleColor = '#b32b2b';
+                else if (foundUser.role === 'partner') roleColor = '#b38f2b';
+                else if (foundUser.role === 'vip') roleColor = '#2b6bb3';
+                else roleColor = '#3a4052';
+                document.getElementById('profileRoleTag').style.background = roleColor;
+                
+                // Atur panel create user berdasarkan role
+                const createPanel = document.getElementById('createPanel');
+                if (foundUser.role === 'owner' || foundUser.role === 'partner' || foundUser.role === 'vip') {
+                    createPanel.style.display = 'block';
+                    const roleSelect = document.getElementById('newRoleSelect');
+                    roleSelect.innerHTML = '';
+                    if (foundUser.role === 'owner') {
+                        roleSelect.innerHTML += '<option value="partner">PARTNER</option><option value="vip">VIP</option><option value="member">MEMBER</option>';
+                    } else if (foundUser.role === 'partner') {
+                        roleSelect.innerHTML += '<option value="vip">VIP</option><option value="member">MEMBER</option>';
+                    } else if (foundUser.role === 'vip') {
+                        roleSelect.innerHTML += '<option value="member">MEMBER</option>';
+                    }
+                } else {
+                    createPanel.style.display = 'none';
                 }
+                
+                renderUserList();
+                loginLoading.style.display = 'none';
             } else {
-                mgmtSection.style.display = 'none'; // MEMBER ga bisa create
+                loginLoading.style.display = 'none';
+                alert('❌ Username/password salah. Wheel tidak berputar.');
             }
-            
-            renderUserList();
-            
-            // Reset ke section home
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.querySelector('.nav-item[data-section="home"]').classList.add('active');
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.getElementById('section-home').classList.add('active');
-        } else {
-            alert('❌ Wheel tidak berputar. Username/password salah.');
-        }
+        }, 1200); // Animasi 1.2 detik
     });
 
     // ---------- LOGOUT ----------
     document.getElementById('logoutBtn').addEventListener('click', function() {
         currentUser = null;
-        document.getElementById('mainApp').style.display = 'none';
-        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('appWrapper').style.display = 'none';
+        document.getElementById('loginContainer').style.display = 'flex';
         document.getElementById('loginUsername').value = '';
         document.getElementById('loginPassword').value = '';
     });
 
-    // ---------- REGISTER MODAL ----------
-    document.getElementById('showRegisterBtn').addEventListener('click', function() {
-        if (!currentUser) {
-            alert('Lu harus login dulu.');
-            return;
-        }
-        if (currentUser.role === 'member') {
-            alert('❌ MEMBER TIDAK BISA MEMBUAT AKUN.');
-            return;
-        }
-        document.getElementById('creatorRoleDisp').value = currentUser.role.toUpperCase();
-        
-        const select = document.getElementById('newRoleSelect');
-        select.innerHTML = '';
-        if (currentUser.role === 'owner') {
-            select.innerHTML += '<option value="partner">PARTNER</option>';
-            select.innerHTML += '<option value="vip">VIP</option>';
-            select.innerHTML += '<option value="member">MEMBER</option>';
-        } else if (currentUser.role === 'partner') {
-            select.innerHTML += '<option value="vip">VIP</option>';
-            select.innerHTML += '<option value="member">MEMBER</option>';
-        } else if (currentUser.role === 'vip') {
-            select.innerHTML += '<option value="member">MEMBER</option>';
-        }
-        document.getElementById('registerModal').style.display = 'flex';
-    });
+    // ---------- RENDER USER LIST ----------
+    function renderUserList() {
+        const container = document.getElementById('userListContainer');
+        if (!container) return;
+        let html = '';
+        users.forEach(u => {
+            html += `<div class="user-item"><span><i class="fas fa-user"></i> ${u.username}</span><span style="background: #2a2a36; padding: 4px 12px; border-radius: 30px;">${u.role.toUpperCase()}</span></div>`;
+        });
+        container.innerHTML = html;
+    }
 
-    // ---------- CONFIRM CREATE USER (MODAL) ----------
-    document.getElementById('confirmCreateUserBtn').addEventListener('click', function() {
-        if (!currentUser) return alert('Login dulu.');
-        const uname = document.getElementById('newUsername').value.trim();
-        const pass = document.getElementById('newPassword').value.trim();
-        const role = document.getElementById('newRoleSelect').value;
-        
-        if (!uname || !pass) return alert('Username/password wajib.');
-        if (users.find(u => u.username.toLowerCase() === uname.toLowerCase())) {
-            return alert('Username sudah ada.');
-        }
-        
-        users.push({ username: uname, password: pass, role: role });
-        saveToLocal();
-        alert(`✅ User ${uname} (${role}) berhasil dibuat.`);
-        document.getElementById('registerModal').style.display = 'none';
-        document.getElementById('newUsername').value = '';
-        document.getElementById('newPassword').value = '';
-        if (currentUser) {
-            renderUserList();
-            document.getElementById('totalUsersDisplay').innerHTML = `<i class="fas fa-users"></i> TOTAL USER: ${users.length}`;
-        }
-    });
-
-    // ---------- CREATE USER VIA PANEL ----------
-    document.getElementById('createUserBtn').addEventListener('click', function(e) {
-        e.preventDefault();
+    // ---------- CREATE USER ----------
+    document.getElementById('createUserBtn').addEventListener('click', function() {
         if (!currentUser || currentUser.role === 'member') {
             return alert('❌ Tidak punya izin create user.');
         }
-        const uname = document.getElementById('createUsername').value.trim();
-        const pass = document.getElementById('createPassword').value.trim();
-        const role = document.getElementById('createRoleSelect').value;
-        
+        const uname = document.getElementById('newUsername').value.trim();
+        const pass = document.getElementById('newPassword').value.trim();
+        const role = document.getElementById('newRoleSelect').value;
         if (!uname || !pass) return alert('Isi username & password.');
         if (users.find(u => u.username.toLowerCase() === uname.toLowerCase())) {
-            return alert('Username sudah terdaftar.');
+            return alert('Username sudah ada.');
         }
-        
-        // Validasi hierarki
-        if (currentUser.role === 'partner' && role !== 'vip' && role !== 'member') {
-            return alert('Partner hanya bisa bikin VIP atau MEMBER');
-        }
-        if (currentUser.role === 'vip' && role !== 'member') {
-            return alert('VIP hanya bisa bikin MEMBER');
-        }
-        
         users.push({ username: uname, password: pass, role: role });
-        saveToLocal();
         alert(`✅ User ${uname} (${role}) dibuat.`);
-        document.getElementById('createUsername').value = '';
-        document.getElementById('createPassword').value = '';
+        document.getElementById('newUsername').value = '';
+        document.getElementById('newPassword').value = '';
         renderUserList();
-        document.getElementById('totalUsersDisplay').innerHTML = `<i class="fas fa-users"></i> TOTAL USER: ${users.length}`;
     });
 
-    // ---------- INIT ----------
-    window.onload = function() {
-        initNavigation();
-        // Show login screen
-        document.getElementById('loginScreen').style.display = 'flex';
-        document.getElementById('mainApp').style.display = 'none';
+    // ---------- ATTACK ACTION ----------
+    window.attackAction = function(msg) {
+        if (!currentUser) return alert('Login dulu.');
+        document.getElementById('terminalOutput').innerHTML = `[⸸] ${msg} · Wheel berputar +1 🌀`;
     };
 
-    // ---------- EXPOSE GLOBAL ----------
-    window.copyToClipboard = copyToClipboard;
+    // ---------- AI SEND ----------
+    window.sendAI = function() {
+        if (!currentUser) return alert('Login dulu.');
+        const cmd = document.getElementById('aiInput').value.trim();
+        if (!cmd) return;
+        document.getElementById('aiResponseText').innerHTML = `🧠 Perintah "${cmd}" diterima. Wheel berputar cepat.`;
+        document.getElementById('aiInput').value = '';
+    };
+
+    // ---------- COPY TEXT ----------
+    window.copyText = function(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        navigator.clipboard.writeText(el.innerText).then(() => alert('✅ Tersalin'));
+    };
+
+    // ---------- REGISTER MODAL SEDERHANA ----------
+    document.getElementById('showRegisterLink').addEventListener('click', function() {
+        if (!currentUser) {
+            alert('Login dulu sebagai owner/partner/vip');
+            return;
+        }
+        if (currentUser.role === 'member') {
+            alert('Member tidak bisa buat akun');
+            return;
+        }
+        // Simulasi buat akun via prompt (untuk demo)
+        let newU = prompt('Username baru:');
+        if (!newU) return;
+        let newP = prompt('Password:');
+        if (!newP) return;
+        let newR = prompt('Role (partner/vip/member):');
+        if (newR && ['partner','vip','member'].includes(newR)) {
+            if (currentUser.role === 'partner' && !['vip','member'].includes(newR)) { alert('Partner hanya bisa vip/member'); return; }
+            if (currentUser.role === 'vip' && newR !== 'member') { alert('VIP hanya bisa member'); return; }
+            users.push({ username: newU, password: newP, role: newR });
+            alert(`✅ User ${newU} (${newR}) dibuat`);
+            renderUserList();
+        }
+    });
 </script>
 
-<!-- ========== BACKEND REAL ========== -->
-<!--
-    🌀 CARA DEVELOP BACKEND REAL:
-
-    1.  Gunakan Node.js + Express:
-        - Buat folder project, init `npm init -y`
-        - Install: `npm install express bcrypt jsonwebtoken mysql2 cors`
-        - Ganti localStorage dengan MySQL/PostgreSQL
-    
-    2.  Endpoint yang diperlukan:
-        POST /api/login      → validasi user
-        POST /api/register   → create user (dengan role validation)
-        GET  /api/users      → list users (role-based)
-        POST /api/attack     → log attack (simpan history)
-        POST /api/ai/command → AI response generator
-    
-    3.  Keamanan:
-        - Hash password pakai bcrypt
-        - JWT token untuk session
-        - Middleware untuk validasi role (owner, partner, vip, member)
-    
-    4.  Fitur Real:
-        - Ganti attack simulation dengan koneksi ke API eksternal
-        - Integrasi WhatsApp API untuk spam OTP (butuh lib seperti venom/baileys)
-        - Socket.IO untuk real-time terminal
-    
-    5.  Contoh struktur route:
-        app.post('/api/users/create', verifyRole(['owner','partner','vip']), (req, res) => {
-            // logic create user sesuai hierarki
-        });
--->
-
-<!-- TOMBOL WA OWNER (default nomor) -->
-<!-- Ganti nomor WhatsApp di href="https://wa.me/6281234567890" dengan nomor lu, Master Dexter -->
 </body>
 </html>
