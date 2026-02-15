@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEXTER XRAT · MAHORAGA DIVINE</title>
+    <title>DEXTER XRAT · SADAP HP PREMIUM</title>
     
     <!-- Font Awesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@400;600;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* ===== RESET & VARIABLES ===== */
@@ -21,26 +21,28 @@
             --primary: #ff2a2a;
             --primary-dark: #b30000;
             --primary-glow: rgba(255, 50, 50, 0.6);
+            --secondary: #00aaff;
             --bg-deep: #03030a;
-            --bg-card: rgba(8, 10, 18, 0.85);
-            --bg-card-solid: #0c0e1a;
+            --bg-card: rgba(10, 15, 25, 0.9);
+            --bg-card-solid: #0c1120;
             --text-bright: #ffffff;
-            --text-soft: #c0c8d5;
-            --text-muted: #8a95a8;
+            --text-soft: #d0d8e5;
+            --text-muted: #8a95b0;
             --border-glow: rgba(255, 60, 60, 0.4);
             --border-soft: rgba(255, 70, 70, 0.2);
             --shadow-heavy: 0 20px 40px -15px rgba(0, 0, 0, 0.8);
-            --shadow-glow: 0 0 20px rgba(255, 40, 40, 0.2);
-            --font-mono: 'JetBrains Mono', monospace;
+            --shadow-glow: 0 0 30px rgba(255, 40, 40, 0.2);
+            --font-main: 'Poppins', sans-serif;
             --font-display: 'Orbitron', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-main);
             background: var(--bg-deep);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(180, 20, 20, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(200, 30, 30, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 10% 20%, rgba(180, 20, 20, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(200, 30, 30, 0.2) 0%, transparent 40%),
                 repeating-linear-gradient(45deg, rgba(255, 30, 30, 0.03) 0px, rgba(255, 30, 30, 0.03) 2px, transparent 2px, transparent 20px);
             color: #fff;
             min-height: 100vh;
@@ -52,12 +54,9 @@
         }
 
         /* ===== CUSTOM SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track { background: #0f121a; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #ff3a3a; border-radius: 10px; box-shadow: 0 0 10px #ff0000; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a2a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; box-shadow: 0 0 15px var(--primary); }
 
         /* ===== LOADING SCREEN ===== */
         .loading-screen {
@@ -73,60 +72,63 @@
             justify-content: center;
             z-index: 9999;
             transition: opacity 0.8s;
-            background-image: radial-gradient(circle at 30% 40%, rgba(255, 30, 30, 0.2) 0%, transparent 50%);
+            background-image: radial-gradient(circle at 30% 40%, rgba(255, 30, 30, 0.3) 0%, transparent 60%);
         }
 
-        .loading-wheel {
-            width: 100px;
-            height: 100px;
-            border: 3px solid rgba(255, 30, 30, 0.1);
-            border-top: 3px solid #ff1a1a;
-            border-right: 3px solid #ff1a1a;
-            border-bottom: 3px solid rgba(255, 30, 30, 0.3);
+        .loading-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(145deg, #b32b2b, #5f0f0f);
             border-radius: 50%;
-            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            border: 4px solid #ff7a7a;
             box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            margin-bottom: 25px;
+            animation: pulseAvatar 2s infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes pulseAvatar {
+            0%, 100% { box-shadow: 0 0 50px rgba(255, 0, 0, 0.5); transform: scale(1); }
+            50% { box-shadow: 0 0 80px rgba(255, 0, 0, 0.8); transform: scale(1.05); }
         }
 
         .loading-text {
             font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 900;
+            font-size: 2.2rem;
+            font-weight: 800;
             background: linear-gradient(135deg, #ffc2c2, #ff3a3a, #b30000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 8px;
+            letter-spacing: 6px;
             text-shadow: 0 0 30px rgba(255, 50, 50, 0.7);
-            animation: pulse 2s infinite;
+            animation: glowPulse 1.5s infinite;
         }
 
-        @keyframes pulse {
+        @keyframes glowPulse {
             0%, 100% { text-shadow: 0 0 30px rgba(255, 50, 50, 0.7); }
             50% { text-shadow: 0 0 60px rgba(255, 0, 0, 0.9); }
         }
 
-        /* ===== LOGIN CARD - ELEGAN ===== */
+        /* ===== LOGIN CARD - PREMIUM ===== */
         .login-container {
             width: 100%;
-            max-width: 440px;
+            max-width: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .login-card {
-            background: rgba(8, 12, 22, 0.9);
+            background: rgba(12, 18, 30, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-glow);
-            border-radius: 36px;
-            padding: 40px 32px;
+            border-radius: 40px;
+            padding: 40px 35px;
             width: 100%;
             box-shadow: var(--shadow-heavy), var(--shadow-glow);
             position: relative;
@@ -136,42 +138,46 @@
         .login-card::before {
             content: '';
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255, 50, 50, 0.2) 0%, transparent 70%);
+            top: -80px;
+            right: -80px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 60, 60, 0.2) 0%, transparent 70%);
             border-radius: 50%;
+        }
+
+        .login-avatar {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(145deg, #b32b2b, #6f0f0f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            border: 3px solid #ffaeae;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
         }
 
         .login-title {
             font-family: var(--font-display);
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(145deg, #fff, #ff6a6a, #ff1a1a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 25px;
             letter-spacing: 2px;
-        }
-
-        .login-sub {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 70, 70, 0.3);
-            font-weight: 400;
-            letter-spacing: 1px;
         }
 
         .input-field {
             width: 100%;
-            background: rgba(15, 20, 30, 0.8);
+            background: rgba(18, 25, 40, 0.8);
             border: 1px solid #2a2f3c;
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 16px 20px;
             color: white;
             font-size: 0.95rem;
@@ -183,7 +189,7 @@
             border-color: var(--primary);
             outline: none;
             box-shadow: 0 0 0 3px rgba(255, 70, 70, 0.2);
-            background: rgba(20, 25, 38, 0.9);
+            background: rgba(22, 30, 48, 0.9);
         }
 
         .password-wrapper {
@@ -207,15 +213,13 @@
             transition: 0.2s;
         }
 
-        .toggle-password:hover {
-            color: #ff6a6a;
-        }
+        .toggle-password:hover { color: #ff6a6a; }
 
         .login-btn {
             width: 100%;
             background: linear-gradient(145deg, #ff3a3a, #b30000);
             border: none;
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 16px;
             color: white;
             font-weight: 700;
@@ -237,12 +241,6 @@
             transform: translateY(3px);
         }
 
-        .wa-btn {
-            background: #0f1a1f;
-            border-bottom-color: #06312a;
-            margin-top: 12px;
-        }
-
         .error-message {
             background: rgba(255, 40, 40, 0.15);
             border: 1px solid #ff4d4d;
@@ -252,12 +250,11 @@
             color: #ffb3b3;
             text-align: center;
             display: none;
-            font-size: 0.9rem;
         }
 
         /* ===== MAIN APP ===== */
         .app-wrapper {
-            max-width: 720px;
+            max-width: 780px;
             width: 100%;
             display: none;
             flex-direction: column;
@@ -266,12 +263,11 @@
 
         /* ===== STATUS BAR ===== */
         .status-bar {
-            background: rgba(8, 12, 22, 0.7);
+            background: rgba(10, 16, 28, 0.8);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-radius: 28px;
-            padding: 14px 22px;
-            margin-bottom: 24px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -282,17 +278,15 @@
         .wheel-status {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             background: rgba(255, 40, 40, 0.1);
-            padding: 8px 20px;
+            padding: 6px 18px;
             border-radius: 40px;
-            border: 1px solid rgba(255, 80, 80, 0.2);
         }
 
         .wheel-spin {
-            color: #ff4d4d;
+            color: var(--primary);
             animation: spinSlow 3s infinite linear;
-            filter: drop-shadow(0 0 5px rgba(255,0,0,0.5));
         }
 
         @keyframes spinSlow {
@@ -305,7 +299,7 @@
             align-items: center;
             gap: 12px;
             background: rgba(0, 0, 0, 0.4);
-            padding: 8px 20px;
+            padding: 6px 18px;
             border-radius: 40px;
             border: 1px solid rgba(255, 80, 80, 0.3);
         }
@@ -313,41 +307,152 @@
         #logoutBtn {
             cursor: pointer;
             color: #ffa5a5;
-            font-size: 1.1rem;
             transition: 0.2s;
         }
-        #logoutBtn:hover { color: #ff4d4d; }
+        #logoutBtn:hover { color: var(--primary); }
 
-        /* ===== SLIDER - FIXED TIDAK TERPOTONG ===== */
+        /* ===== DEVICE LIST ===== */
+        .device-list-section {
+            background: rgba(10, 16, 28, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-glow);
+        }
+
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .device-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: #ffc2c2;
+        }
+
+        .device-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 18px;
+            padding: 15px 18px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 70, 70, 0.2);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .device-item:hover {
+            border-color: #ff6a6a;
+            transform: translateX(5px);
+        }
+
+        .device-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .device-icon {
+            width: 40px;
+            height: 40px;
+            background: #1a1f2e;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6a6a;
+        }
+
+        .device-name {
+            font-weight: 600;
+        }
+
+        .device-date {
+            font-size: 0.8rem;
+            color: #a0a8b8;
+        }
+
+        .device-battery {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #4caf50;
+        }
+
+        /* ===== MENU UTAMA SECTION ===== */
+        .welcome-header {
+            background: rgba(10, 16, 28, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 18px 22px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-glow);
+        }
+
+        .welcome-left h2 {
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #fff, #ffb3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-left p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #a0b0c0;
+            font-size: 0.85rem;
+        }
+
+        .welcome-right {
+            text-align: right;
+        }
+
+        .welcome-right .role-badge {
+            background: #b32b2b;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ===== SLIDER ===== */
         .slider-container {
             width: 100%;
             overflow: visible;
-            margin-bottom: 28px;
-            position: relative;
-            padding: 5px 0;
+            margin-bottom: 25px;
         }
 
         .slider-track {
             display: flex;
-            gap: 16px;
+            gap: 15px;
             animation: slideSmooth 35s linear infinite;
-            padding: 0 5px;
+            padding: 5px;
         }
 
         .slider-item {
             flex: 0 0 300px;
-            height: 170px;
-            border-radius: 24px;
+            height: 160px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 2px solid rgba(255, 60, 60, 0.4);
-            box-shadow: 0 10px 20px -5px black, 0 0 25px rgba(255, 0, 0, 0.2);
+            border: 2px solid rgba(255, 60, 60, 0.5);
+            box-shadow: 0 10px 25px -5px black, 0 0 30px rgba(255, 0, 0, 0.2);
             transition: 0.3s;
         }
 
         .slider-item:hover {
             transform: scale(1.02);
             border-color: #ff6a6a;
-            box-shadow: 0 0 30px rgba(255, 50, 50, 0.5);
+            box-shadow: 0 0 40px rgba(255, 50, 50, 0.5);
         }
 
         .slider-item img {
@@ -358,281 +463,128 @@
 
         @keyframes slideSmooth {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-316px * 4)); }
+            100% { transform: translateX(calc(-315px * 4)); }
         }
 
-        /* ===== ATTACK GRID ===== */
-        .attack-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            margin-bottom: 24px;
-        }
-
-        .attack-card {
-            background: linear-gradient(145deg, #121624, #0a0e16);
-            border: 1px solid #2a2f3a;
-            border-radius: 24px;
-            padding: 20px 16px;
-            box-shadow: 0 8px 0 #03030a, 0 0 20px rgba(255, 30, 30, 0.1);
-            cursor: pointer;
-            transition: 0.1s;
+        /* ===== ABOUT CARD ===== */
+        .about-card {
+            background: rgba(10, 16, 28, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-glow);
             position: relative;
             overflow: hidden;
         }
 
-        .attack-card::after {
+        .about-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: #ff2a2a;
-            box-shadow: 0 0 15px #ff2a2a;
-        }
-
-        .attack-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 0 #03030a, 0 0 30px rgba(255, 50, 50, 0.3);
-            border-color: #ff5e5e;
-        }
-
-        .attack-card:active {
-            transform: translateY(5px);
-            box-shadow: 0 3px 0 #03030a;
-        }
-
-        .attack-icon {
-            font-size: 2rem;
-            color: #ff6a6a;
-            margin-bottom: 12px;
-            filter: drop-shadow(0 0 5px rgba(255,0,0,0.3));
-        }
-
-        .attack-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: white;
-            margin-bottom: 4px;
-        }
-
-        .attack-desc {
-            font-size: 0.7rem;
-            color: #9aa5b5;
-        }
-
-        /* ===== EXECUTION PANEL ===== */
-        .execution-panel {
-            background: rgba(8, 12, 22, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-glow);
-            box-shadow: var(--shadow-heavy);
-        }
-
-        .execution-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid rgba(255, 70, 70, 0.3);
-        }
-
-        .execution-header i {
-            font-size: 1.6rem;
-            color: #ff4d4d;
-        }
-
-        .execution-header h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            font-family: var(--font-display);
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: #b0b8c5;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .attack-input, .attack-select {
-            width: 100%;
-            background: rgba(15, 20, 30, 0.8);
-            border: 1px solid #2a2f3c;
-            border-radius: 16px;
-            padding: 14px 18px;
-            color: white;
-            font-size: 0.95rem;
-        }
-
-        .attack-input:focus {
-            border-color: #ff4d4d;
-            outline: none;
-        }
-
-        .execute-btn {
-            width: 100%;
-            background: linear-gradient(145deg, #ff3a3a, #b30000);
-            border: none;
-            border-radius: 18px;
-            padding: 16px;
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            border-bottom: 5px solid #630000;
-            cursor: pointer;
-            margin-top: 8px;
-            font-family: var(--font-display);
-            letter-spacing: 1px;
-        }
-
-        .execute-btn:active {
-            border-bottom-width: 2px;
-            transform: translateY(3px);
-        }
-
-        /* ===== TERMINAL ===== */
-        .terminal {
-            background: #02040c;
-            border-radius: 24px;
-            padding: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: #b0c6d0;
-            border-left: 6px solid #ff4d4d;
-            border: 1px solid rgba(255, 70, 70, 0.3);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-            margin-top: 20px;
-        }
-
-        /* ===== PROFILE CARD - ELEGAN ===== */
-        .profile-card {
-            background: linear-gradient(145deg, #121624, #0a0e16);
-            border-radius: 32px;
-            padding: 30px;
-            border: 1px solid rgba(255, 70, 70, 0.4);
-            box-shadow: var(--shadow-heavy), 0 0 30px rgba(255, 0, 0, 0.1);
-            max-width: 450px;
-            margin: 0 auto;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-bottom: 28px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 70, 70, 0.3);
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(145deg, #b32b2b, #6f0f0f);
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 70, 70, 0.1) 0%, transparent 70%);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            border: 3px solid #ffaeae;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
         }
 
-        .profile-info h2 {
+        .about-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: #ffaeae;
+            margin-bottom: 15px;
+        }
+
+        .about-card p {
+            color: #c0c8d5;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-warning {
+            color: #ffae70 !important;
+            font-weight: 500;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 70, 70, 0.3);
+        }
+
+        /* ===== CONTROL PANEL ===== */
+        .control-panel {
+            background: rgba(8, 14, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 25px;
+            border: 1px solid var(--border-glow);
+            margin-bottom: 20px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 70, 70, 0.3);
+        }
+
+        .panel-header i {
             font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 5px;
+            color: var(--primary);
         }
 
-        .profile-role {
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        .panel-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #fff, #ffb3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .profile-detail {
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .feature-card {
             background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 70, 70, 0.2);
             border-radius: 18px;
-            padding: 16px 20px;
-            margin-bottom: 14px;
+            padding: 15px 12px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            border: 1px solid #2a2a36;
+            gap: 8px;
+            cursor: pointer;
             transition: 0.2s;
         }
 
-        .profile-detail:hover {
-            border-color: #ff5e5e;
-            box-shadow: 0 0 15px rgba(255, 50, 50, 0.2);
+        .feature-card:hover {
+            border-color: #ff6a6a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(255, 0, 0, 0.2);
         }
 
-        .copy-btn {
-            background: #2a2a38;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            color: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border-bottom: 3px solid #0f0f1a;
-            transition: 0.1s;
-        }
-
-        .copy-btn:active {
-            transform: translateY(2px);
-            border-bottom-width: 1px;
-        }
-
-        /* ===== USER MANAGEMENT ===== */
-        .user-mgmt {
-            background: linear-gradient(145deg, #121624, #0a0e16);
-            border-radius: 32px;
-            padding: 28px;
-            border-left: 6px solid #ff4d4d;
-            border-top: 1px solid rgba(255,70,70,0.3);
-            border-right: 1px solid rgba(255,70,70,0.3);
-            border-bottom: 1px solid rgba(255,70,70,0.3);
-            box-shadow: var(--shadow-heavy);
-        }
-
-        .user-list {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 18px;
-            max-height: 320px;
-            overflow-y: auto;
-        }
-
-        .user-item {
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            background: #1a1f2e;
+            border-radius: 15px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid #2a2a38;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #ff6a6a;
         }
 
-        .user-item:last-child { border-bottom: none; }
-
-        .user-pass {
-            font-size: 0.8rem;
-            color: #aac3d0;
+        .feature-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
         }
 
         /* ===== BOTTOM NAV ===== */
@@ -641,25 +593,24 @@
             bottom: 0;
             left: 0;
             right: 0;
-            max-width: 720px;
+            max-width: 780px;
             margin: 0 auto;
-            background: rgba(5, 8, 18, 0.9);
+            background: rgba(5, 10, 22, 0.95);
             backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-top: 2px solid #ff3a3a;
+            border-top: 2px solid var(--primary);
             border-radius: 30px 30px 0 0;
             padding: 12px 12px 22px;
             display: flex;
             justify-content: space-around;
             z-index: 100;
-            box-shadow: 0 -10px 30px -5px black;
+            box-shadow: 0 -15px 30px -10px black;
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             color: #9aa5b8;
             font-size: 0.7rem;
             padding: 8px 18px;
@@ -673,7 +624,7 @@
         }
 
         .nav-item.active {
-            color: #ff4d4d;
+            color: var(--primary);
             background: rgba(255, 60, 60, 0.15);
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
@@ -685,7 +636,7 @@
 
         .content-section.active {
             display: block;
-            animation: fadeIn 0.3s;
+            animation: fadeIn 0.4s;
         }
 
         @keyframes fadeIn {
@@ -693,20 +644,102 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== UTILITY ===== */
-        .hidden { display: none; }
+        /* ===== EXECUTION MODAL ===== */
+        .execution-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #121826;
+            border-radius: 32px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #ff4d4d;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ff4d4d40;
+            padding-bottom: 15px;
+        }
+
+        .modal-header i {
+            font-size: 2rem;
+            color: #ff4d4d;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .modal-body {
+            color: #c0c8d5;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .modal-close {
+            background: #2a2a3a;
+            border: none;
+            border-radius: 15px;
+            padding: 12px;
+            width: 100%;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ===== TERMINAL ===== */
+        .terminal {
+            background: #03060c;
+            border-radius: 20px;
+            padding: 18px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #b0c6d0;
+            border-left: 6px solid var(--primary);
+            margin-top: 20px;
+        }
+
+        /* ===== DEVICE STATUS ===== */
+        .device-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+        }
+        .status-online { background: rgba(0, 200, 0, 0.2); color: #8bc34a; }
     </style>
 </head>
 <body>
 
 <!-- LOADING SCREEN -->
 <div id="loadingScreen" class="loading-screen">
-    <div class="loading-wheel"></div>
-    <div class="loading-text">DEXTER XRAT</div>
+    <div class="loading-avatar">
+        <i class="fas fa-user-secret"></i>
+    </div>
+    <div class="loading-text">LOADING DEXTER XRAT PROJECT</div>
 </div>
 
 <!-- LOGIN LOADING -->
-<div id="loginLoading" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; flex-direction: column;">
+<div id="loginLoading" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center; flex-direction: column;">
     <div style="width: 50px; height: 50px; border: 3px solid rgba(255,80,80,0.2); border-top: 3px solid #ff4d4d; border-radius: 50%; animation: spin 0.8s infinite; margin-bottom: 20px;"></div>
     <div style="color: #ffae70; font-family: Orbitron;">AUTHENTICATING</div>
 </div>
@@ -714,8 +747,10 @@
 <!-- LOGIN CARD -->
 <div id="loginContainer" class="login-container">
     <div class="login-card">
-        <div class="login-title">⸸ DEXTER XRAT ⸸</div>
-        <div class="login-sub">Eight-Handled Sword · Divine General</div>
+        <div class="login-avatar">
+            <i class="fas fa-user-secret"></i>
+        </div>
+        <div class="login-title">DEXTER XRAT PROJECT</div>
         
         <div id="loginError" class="error-message">USERNAME ATAU PASSWORD SALAH</div>
         
@@ -727,13 +762,11 @@
         </div>
         
         <button id="loginBtn" class="login-btn">
-            <i class="fas fa-sync-alt"></i> INITIALIZE WHEEL
+            <i class="fas fa-sync-alt"></i> LOGIN ACCOUNT
         </button>
         
-        <button class="login-btn wa-btn"><i class="fab fa-whatsapp"></i> CONTACT OWNER</button>
-        
-        <div style="text-align: center; margin-top: 24px;">
-            <span id="showRegisterLink" style="color: #ff9f7e; cursor: pointer; border-bottom: 1px dashed #ff7e7e; padding-bottom: 3px;">⸻ CREATE ACCOUNT ⸻</span>
+        <div style="text-align: center; margin-top: 20px;">
+            <span id="showRegisterLink" style="color: #ff9f7e; cursor: pointer; border-bottom: 1px dashed #ff7e7e;">OWNER</span>
         </div>
     </div>
 </div>
@@ -745,8 +778,7 @@
     <div class="status-bar">
         <div class="wheel-status">
             <i class="fas fa-sync-alt wheel-spin"></i>
-            <span style="font-weight: 600;">DEXTER XRAT</span>
-            <span style="background: #2a1a1a; padding: 4px 10px; border-radius: 40px; font-size: 0.7rem;">🌀 LVL4</span>
+            <span>DEXTER XRAT</span>
         </div>
         <div class="user-badge">
             <i class="fas fa-user-shield"></i>
@@ -756,167 +788,195 @@
         </div>
     </div>
 
+    <!-- DEVICE LIST SECTION -->
+    <div id="deviceListSection" class="device-list-section">
+        <div class="device-header">
+            <h3><i class="fas fa-mobile-alt"></i> TARGET TERJEBAK</h3>
+            <span style="background: #2a1f1f; padding: 5px 15px; border-radius: 30px;">3 online</span>
+        </div>
+        
+        <div class="device-item" onclick="selectDevice('iPhone 13 Pro')">
+            <div class="device-info">
+                <div class="device-icon"><i class="fab fa-apple"></i></div>
+                <div>
+                    <div class="device-name">iPhone 13 Pro</div>
+                    <div class="device-date">Terkena: 15/02/2026 14:23</div>
+                </div>
+            </div>
+            <div class="device-battery">
+                <i class="fas fa-battery-three-quarters"></i> 78%
+            </div>
+        </div>
+        
+        <div class="device-item" onclick="selectDevice('Samsung S23')">
+            <div class="device-info">
+                <div class="device-icon"><i class="fab fa-android"></i></div>
+                <div>
+                    <div class="device-name">Samsung Galaxy S23</div>
+                    <div class="device-date">Terkena: 14/02/2026 09:47</div>
+                </div>
+            </div>
+            <div class="device-battery">
+                <i class="fas fa-battery-half"></i> 45%
+            </div>
+        </div>
+        
+        <div class="device-item" onclick="selectDevice('Xiaomi 13T')">
+            <div class="device-info">
+                <div class="device-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div>
+                    <div class="device-name">Xiaomi 13T</div>
+                    <div class="device-date">Terkena: 13/02/2026 21:12</div>
+                </div>
+            </div>
+            <div class="device-battery">
+                <i class="fas fa-battery-quarter"></i> 23%
+            </div>
+        </div>
+    </div>
+
     <!-- CONTENT SECTIONS -->
     <div id="mainContent">
         
-        <!-- HOME -->
+        <!-- MENU UTAMA -->
         <div id="section-home" class="content-section active">
             
-            <!-- SLIDER - FIXED TIDAK TERPOTONG -->
+            <!-- WELCOME HEADER -->
+            <div class="welcome-header">
+                <div class="welcome-left">
+                    <h2>HAI <span id="welcomeUsername">DEXTER</span></h2>
+                    <p><i class="fas fa-mobile-alt" style="color: #ff6a6a;"></i> iPhone 13 Pro <span class="device-battery" style="display: inline-flex;"><i class="fas fa-battery-three-quarters"></i> 78%</span></p>
+                </div>
+                <div class="welcome-right">
+                    <div class="role-badge" id="welcomeRole">OWNER</div>
+                    <div style="font-size: 0.7rem; color: #ff9f7e; margin-top: 5px;">DEXTER XRAT</div>
+                </div>
+            </div>
+            
+            <!-- SLIDER -->
             <div class="slider-container">
                 <div class="slider-track">
-                    <div class="slider-item"><img src="https://i.pinimg.com/736x/83/6d/97/836d97143d3d71406e069d851ca9bbbe.jpg" alt="Gojo"></div>
-                    <div class="slider-item"><img src="https://i.pinimg.com/736x/be/61/7e/be617e3d99701274b4866d414e5c46ff.jpg" alt="Sukuna"></div>
-                    <div class="slider-item"><img src="https://i.pinimg.com/736x/da/56/56/da5656c7ec2ed7d379b012c3fb422fa3.jpg" alt="Mahoraga"></div>
+                    <div class="slider-item"><img src="https://i.pinimg.com/736x/83/6d/97/836d97143d3d71406e069d851ca9bbbe.jpg" alt="Anime1"></div>
+                    <div class="slider-item"><img src="https://i.pinimg.com/736x/be/61/7e/be617e3d99701274b4866d414e5c46ff.jpg" alt="Anime2"></div>
+                    <div class="slider-item"><img src="https://i.pinimg.com/736x/da/56/56/da5656c7ec2ed7d379b012c3fb422fa3.jpg" alt="Anime3"></div>
                     <div class="slider-item"><img src="https://i.pinimg.com/736x/35/8c/64/358c6461afd46e50acb79c9dc4e74357.jpg" alt="Attack"></div>
                     <div class="slider-item"><img src="https://i.pinimg.com/736x/3d/3e/7f/3d3e7f39f3c5d13bcfeffacd311c7f2d.jpg" alt="Cyber"></div>
-                    <div class="slider-item"><img src="https://i.pinimg.com/736x/5b/5c/2a/5b5c2a604e5f21fd331d884f3d612f4b.jpg" alt="Hacker"></div>
                 </div>
             </div>
             
-            <!-- ATTACK GRID -->
-            <div class="attack-grid">
-                <div class="attack-card" onclick="selectAttack('otp')">
-                    <i class="fas fa-message attack-icon"></i>
-                    <div class="attack-title">SPAM OTP</div>
-                    <div class="attack-desc">WhatsApp · SMS bomber</div>
-                </div>
-                <div class="attack-card" onclick="selectAttack('ngl')">
-                    <i class="fas fa-envelope attack-icon"></i>
-                    <div class="attack-title">SPAM NGL</div>
-                    <div class="attack-desc">Anonymous question</div>
-                </div>
-                <div class="attack-card" onclick="selectAttack('ddos')">
-                    <i class="fas fa-network-wired attack-icon"></i>
-                    <div class="attack-title">DDOS</div>
-                    <div class="attack-desc">Volumetric flood</div>
-                </div>
-                <div class="attack-card" onclick="selectAttack('sql')">
-                    <i class="fas fa-database attack-icon"></i>
-                    <div class="attack-title">SQL INJECT</div>
-                    <div class="attack-desc">Database dumping</div>
-                </div>
-                <div class="attack-card" onclick="selectAttack('xss')">
-                    <i class="fas fa-code attack-icon"></i>
-                    <div class="attack-title">XSS</div>
-                    <div class="attack-desc">Cookie stealer</div>
-                </div>
-                <div class="attack-card" onclick="selectAttack('bruteforce')">
-                    <i class="fas fa-lock attack-icon"></i>
-                    <div class="attack-title">BRUTEFORCE</div>
-                    <div class="attack-desc">SSH/FTP/cPanel</div>
-                </div>
-                <div class="attack-card" onclick="selectAttack('email')">
-                    <i class="fas fa-envelope attack-icon"></i>
-                    <div class="attack-title">EMAIL BOMB</div>
-                    <div class="attack-desc">Mass mailing</div>
-                </div>
-                <div class="attack-card" onclick="selectAttack('phishing')">
-                    <i class="fas fa-fish attack-icon"></i>
-                    <div class="attack-title">PHISHING</div>
-                    <div class="attack-desc">Clone page</div>
-                </div>
+            <!-- ABOUT CARD -->
+            <div class="about-card">
+                <h4><i class="fas fa-info-circle"></i> about DEXTER XRAT PROJECT</h4>
+                <p>HALLO PENGGUNA DEXTER XRAT, PROJECT INI MASIH DALAM PENGEMBANGAN MAAF JIKA ADA KESALAHAN ATAU ERROR.<br><br>
+                HARAP GUNAKAN DEXTER XRAT DENGAN BIJAK JANGAN MERUGIKAN ORANG LAIN TERIMAKASIH.</p>
+                <p class="about-warning"><i class="fas fa-exclamation-triangle"></i> FITUR AKAN BERJALAN SETELAH KORBAN INSTALL APK JEBETAN</p>
             </div>
-            
-            <!-- EXECUTION PANEL -->
-            <div id="executionPanel" class="execution-panel">
-                <div class="execution-header">
-                    <i class="fas fa-bolt"></i>
-                    <h3 id="execTitle">PILIH SERANGAN</h3>
+        </div>
+
+        <!-- CONTROL PANEL -->
+        <div id="section-control" class="content-section">
+            <div class="control-panel">
+                <div class="panel-header">
+                    <i class="fas fa-sliders-h"></i>
+                    <h3>CONTROL PANEL</h3>
                 </div>
-                <div id="execForm" class="execution-form">
-                    <p style="color: #b0b8c5; text-align: center;">Klik card attack di atas</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card" onclick="executeFeature('spam error')">
+                        <div class="feature-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="feature-name">Spam Error</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('file')">
+                        <div class="feature-icon"><i class="fas fa-folder-open"></i></div>
+                        <div class="feature-name">File Manager</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('lokasi')">
+                        <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="feature-name">Lokasi</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kamera')">
+                        <div class="feature-icon"><i class="fas fa-camera"></i></div>
+                        <div class="feature-name">Kamera</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('foto')">
+                        <div class="feature-icon"><i class="fas fa-images"></i></div>
+                        <div class="feature-name">Galeri Foto</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('sms')">
+                        <div class="feature-icon"><i class="fas fa-comment-dots"></i></div>
+                        <div class="feature-name">SMS</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('notif')">
+                        <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                        <div class="feature-name">Notifikasi</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('gmail')">
+                        <div class="feature-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="feature-name">Gmail</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kontak')">
+                        <div class="feature-icon"><i class="fas fa-address-book"></i></div>
+                        <div class="feature-name">Kontak</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kunci aplikasi')">
+                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                        <div class="feature-name">Kunci Aplikasi</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kirim teks')">
+                        <div class="feature-icon"><i class="fas fa-keyboard"></i></div>
+                        <div class="feature-name">Kirim Teks</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('getarkan')">
+                        <div class="feature-icon"><i class="fas fa-vibration"></i></div>
+                        <div class="feature-name">Getarkan HP</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('musik')">
+                        <div class="feature-icon"><i class="fas fa-music"></i></div>
+                        <div class="feature-name">Nyalakan Musik</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('flash')">
+                        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="feature-name">Nyalakan Flash</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('wallpaper')">
+                        <div class="feature-icon"><i class="fas fa-image"></i></div>
+                        <div class="feature-name">Ganti Wallpaper</div>
+                    </div>
                 </div>
             </div>
             
             <!-- TERMINAL -->
             <div class="terminal" id="terminalOutput">
-                <span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./wheel --status<br>
-                > ⚡ Sistem siap. Wheel berputar.
-            </div>
-        </div>
-
-        <!-- DEXTER AI -->
-        <div id="section-ai" class="content-section">
-            <div class="execution-panel">
-                <div class="execution-header">
-                    <i class="fas fa-microchip"></i>
-                    <h3>DEXTER AI</h3>
-                </div>
-                <div style="background: #03060c; border-radius: 18px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #ff4d4d;">
-                    <p id="aiResponse">🧠 Deepseek: Wheel berputar. 47 teknik siap.</p>
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="aiInput" class="attack-input" placeholder="perintah...">
-                    <button onclick="sendAI()" style="background: #ff4d4d; border: none; border-radius: 18px; padding: 0 25px; color: white; font-weight: 700; cursor: pointer;">GO</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- CREATE USER -->
-        <div id="section-create" class="content-section">
-            <div class="user-mgmt">
-                <h3 style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-user-plus" style="color: #ffae70;"></i> CREATE USER
-                </h3>
-                
-                <div id="createPanel">
-                    <input type="text" id="newUsername" class="attack-input" placeholder="USERNAME" style="margin-bottom: 10px;">
-                    <input type="password" id="newPassword" class="attack-input" placeholder="PASSWORD" style="margin-bottom: 10px;">
-                    <select id="newRoleSelect" class="attack-select" style="margin-bottom: 15px;">
-                        <option value="vip">VIP</option>
-                        <option value="member">MEMBER</option>
-                    </select>
-                    <button onclick="createUser()" class="execute-btn">CREATE USER</button>
-                </div>
-                
-                <div style="margin-top: 30px;">
-                    <h4 style="margin-bottom: 15px;">REGISTERED USERS</h4>
-                    <div id="userListContainer" class="user-list"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PROFILE -->
-        <div id="section-profile" class="content-section">
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="profile-info">
-                        <h2 id="profileName">Dexter</h2>
-                        <span class="profile-role" id="profileRole" style="background: #b32b2b;">OWNER</span>
-                    </div>
-                </div>
-                
-                <div class="profile-detail">
-                    <span><i class="fas fa-user-circle"></i> USERNAME</span>
-                    <span id="profileUsername">dexter</span>
-                    <button class="copy-btn" onclick="copyText('profileUsername')">COPY</button>
-                </div>
-                
-                <div class="profile-detail">
-                    <span><i class="fas fa-key"></i> PASSWORD</span>
-                    <span id="profilePassword">dexter123</span>
-                    <button class="copy-btn" onclick="copyText('profilePassword')">COPY</button>
-                </div>
+                <span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> status --device iPhone13Pro<br>
+                > ✅ Target online · Menunggu perintah
             </div>
         </div>
     </div>
 
     <!-- BOTTOM NAV -->
     <div class="bottom-nav">
-        <div class="nav-item active" data-section="home"><i class="fas fa-home"></i><span>HOME</span></div>
-        <div class="nav-item" data-section="ai"><i class="fas fa-microchip"></i><span>AI</span></div>
-        <div class="nav-item" data-section="create"><i class="fas fa-user-plus"></i><span>CREATE</span></div>
-        <div class="nav-item" data-section="profile"><i class="fas fa-id-card"></i><span>PROFILE</span></div>
+        <div class="nav-item active" data-section="home"><i class="fas fa-home"></i><span>MENU UTAMA</span></div>
+        <div class="nav-item" data-section="control"><i class="fas fa-sliders-h"></i><span>CONTROL PANEL</span></div>
+    </div>
+</div>
+
+<!-- EXECUTION MODAL -->
+<div id="executionModal" class="execution-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <i class="fas fa-bolt" id="modalIcon"></i>
+            <h3 id="modalTitle">EKSEKUSI FITUR</h3>
+        </div>
+        <div class="modal-body" id="modalBody">
+            Perintah sedang dikirim ke target...
+        </div>
+        <button class="modal-close" onclick="closeModal()">TUTUP</button>
     </div>
 </div>
 
 <script>
     // ==========================================
-    // DEXTER XRAT - FINAL PERFECT EDITION
+    // DEXTER XRAT - SADAP HP PREMIUM
     // ==========================================
 
     let users = [
@@ -926,6 +986,7 @@
         { username: 'member1', password: 'member123', role: 'member' }
     ];
     let currentUser = null;
+    let currentDevice = 'iPhone 13 Pro';
 
     // LOAD STORAGE
     function loadFromStorage() {
@@ -955,7 +1016,7 @@
         setTimeout(() => {
             document.getElementById('loadingScreen').style.opacity = '0';
             setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500);
-        }, 2000);
+        }, 2500);
         
         if (currentUser) {
             document.getElementById('loginContainer').style.display = 'none';
@@ -1013,231 +1074,77 @@
         if (!currentUser) return;
         document.getElementById('navUsername').innerText = currentUser.username;
         document.getElementById('navRole').innerText = currentUser.role.toUpperCase();
-        document.getElementById('profileName').innerText = currentUser.username;
-        document.getElementById('profileRole').innerText = currentUser.role.toUpperCase();
-        document.getElementById('profileUsername').innerText = currentUser.username;
-        
-        let userData = users.find(u => u.username === currentUser.username);
-        if (userData) document.getElementById('profilePassword').innerText = userData.password;
+        document.getElementById('welcomeUsername').innerText = currentUser.username.toUpperCase();
+        document.getElementById('welcomeRole').innerText = currentUser.role.toUpperCase();
         
         let colors = { owner: '#b32b2b', partner: '#b38f2b', vip: '#2b6bb3', member: '#3a4052' };
-        document.getElementById('profileRole').style.background = colors[currentUser.role] || '#3a4052';
         document.getElementById('navRole').style.background = colors[currentUser.role] || '#3a4052';
-        
-        renderUserList();
     }
 
-    // RENDER USER LIST
-    function renderUserList() {
-        let html = '';
-        if (currentUser?.role === 'owner') {
-            users.forEach(u => {
-                html += `<div class="user-item">
-                    <div><i class="fas fa-user"></i> ${u.username} <span style="color: #aaa; font-size: 0.8rem;">(${u.password})</span></div>
-                    <span style="background: ${getRoleColor(u.role)}; padding: 4px 12px; border-radius: 20px;">${u.role}</span>
-                </div>`;
-            });
-        } else {
-            users.forEach(u => {
-                html += `<div class="user-item">
-                    <span><i class="fas fa-user"></i> ${u.username}</span>
-                    <span style="background: ${getRoleColor(u.role)}; padding: 4px 12px; border-radius: 20px;">${u.role}</span>
-                </div>`;
-            });
-        }
-        document.getElementById('userListContainer').innerHTML = html;
-    }
-
-    function getRoleColor(role) {
-        return { owner: '#b32b2b', partner: '#b38f2b', vip: '#2b6bb3' }[role] || '#3a4052';
-    }
-
-    // CREATE USER
-    window.createUser = function() {
-        if (!currentUser || currentUser.role === 'member') return alert('❌ Tidak punya izin');
-        let uname = document.getElementById('newUsername').value.trim();
-        let pass = document.getElementById('newPassword').value.trim();
-        let role = document.getElementById('newRoleSelect').value;
-        if (!uname || !pass) return alert('Isi semua field');
-        if (users.find(u => u.username.toLowerCase() === uname.toLowerCase())) return alert('Username sudah ada');
-        users.push({ username: uname, password: pass, role });
-        saveToStorage();
-        alert(`✅ User ${uname} dibuat`);
-        renderUserList();
+    // SELECT DEVICE
+    window.selectDevice = function(device) {
+        currentDevice = device;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> select --device "${device}"<br>> ✅ Target: ${device} · Status: ONLINE · Baterai: 78%`;
     };
 
-    // ATTACK SELECTION
-    window.selectAttack = function(type) {
+    // EXECUTE FEATURE
+    window.executeFeature = function(feature) {
         if (!currentUser) return alert('Login dulu');
         
-        let title = '';
-        let html = '';
+        let responses = {
+            'spam error': '📱 SPAM ERROR: Mengirim 25 notifikasi error palsu ke target... ✅ SUKSES',
+            'file': '📁 FILE MANAGER: Mengakses storage target... Ditemukan 1,247 file ✅',
+            'lokasi': '📍 LOKASI: Latitude -6.2088, Longitude 106.8456 · Jakarta Pusat ✅',
+            'kamera': '📸 KAMERA: Mengaktifkan kamera depan... Foto diam-diam berhasil ✅',
+            'foto': '🖼️ GALERI: 1,023 foto · 47 video · Mengambil 5 terbaru ✅',
+            'sms': '💬 SMS: 247 percakapan · 3,481 pesan · Berhasil diekspor ✅',
+            'notif': '🔔 NOTIFIKASI: WhatsApp (3), Instagram (2), SMS (1) ✅',
+            'gmail': '📧 GMAIL: 1,204 email · 47 belum dibaca · 12 draft ✅',
+            'kontak': '📇 KONTAK: 247 kontak · Berhasil disalin ✅',
+            'kunci aplikasi': '🔒 KUNCI APLIKASI: WhatsApp, Instagram, Chrome terkunci ✅',
+            'kirim teks': '📝 KIRIM TEKS: Pesan "ANDA DI PANTAU DEXTER XRAT" terkirim ke layar ✅',
+            'getarkan': '📳 GETARKAN HP: Menggetarkan perangkat selama 10 detik ✅',
+            'musik': '🎵 MUSIK: Memutar "Warning Tone" di speaker target ✅',
+            'flash': '⚡ FLASH: Flash menyala selama 30 detik ✅',
+            'wallpaper': '🖼️ WALLPAPER: Wallpaper diganti dengan logo DEXTER XRAT ✅'
+        };
         
-        switch(type) {
-            case 'otp':
-                title = 'SPAM OTP';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-phone"></i> NOMOR TARGET</label>
-                        <input type="text" id="otpTarget" class="attack-input" placeholder="6281234567890">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-bomb"></i> JUMLAH LEDAKAN</label>
-                        <select id="otpCount" class="attack-select">
-                            <option value="10">10x</option><option value="25" selected>25x</option>
-                            <option value="50">50x</option><option value="100">100x</option>
-                        </select>
-                    </div>
-                    <button onclick="executeOTP()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-            case 'ngl':
-                title = 'SPAM NGL';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-link"></i> NGL USERNAME</label>
-                        <input type="text" id="nglUser" class="attack-input" placeholder="johndoe">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> PESAN</label>
-                        <input type="text" id="nglMsg" class="attack-input" value="Halo ada yang bisa dibantu?">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-hashtag"></i> JUMLAH</label>
-                        <select id="nglCount" class="attack-select">
-                            <option value="5">5x</option><option value="10" selected>10x</option>
-                            <option value="25">25x</option><option value="50">50x</option>
-                        </select>
-                    </div>
-                    <button onclick="executeNGL()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-            case 'ddos':
-                title = 'DDOS';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-globe"></i> TARGET IP/DOMAIN</label>
-                        <input type="text" id="ddosTarget" class="attack-input" placeholder="192.168.1.1">
-                    </div>
-                    <button onclick="executeDDOS()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-            case 'sql':
-                title = 'SQL INJECTION';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-link"></i> URL TARGET</label>
-                        <input type="text" id="sqlUrl" class="attack-input" placeholder="https://target.com/page?id=1">
-                    </div>
-                    <button onclick="executeSQL()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-            case 'xss':
-                title = 'XSS';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-link"></i> URL TARGET</label>
-                        <input type="text" id="xssUrl" class="attack-input" placeholder="https://target.com/form">
-                    </div>
-                    <button onclick="executeXSS()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-            case 'bruteforce':
-                title = 'BRUTEFORCE';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-network-wired"></i> TARGET (IP:PORT)</label>
-                        <input type="text" id="bfTarget" class="attack-input" placeholder="192.168.1.100:22">
-                    </div>
-                    <button onclick="executeBF()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-            case 'email':
-                title = 'EMAIL BOMB';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> EMAIL TARGET</label>
-                        <input type="email" id="emailTarget" class="attack-input" placeholder="target@gmail.com">
-                    </div>
-                    <button onclick="executeEmail()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-            case 'phishing':
-                title = 'PHISHING';
-                html = `
-                    <div class="form-group">
-                        <label><i class="fas fa-globe"></i> URL TARGET (clone)</label>
-                        <input type="text" id="phishUrl" class="attack-input" placeholder="https://instagram.com">
-                    </div>
-                    <button onclick="executePhishing()" class="execute-btn">EKSEKUSI SERANGAN</button>
-                `;
-                break;
-        }
+        let iconMap = {
+            'spam error': 'fa-exclamation-triangle',
+            'file': 'fa-folder-open',
+            'lokasi': 'fa-map-marker-alt',
+            'kamera': 'fa-camera',
+            'foto': 'fa-images',
+            'sms': 'fa-comment-dots',
+            'notif': 'fa-bell',
+            'gmail': 'fa-envelope',
+            'kontak': 'fa-address-book',
+            'kunci aplikasi': 'fa-lock',
+            'kirim teks': 'fa-keyboard',
+            'getarkan': 'fa-vibration',
+            'musik': 'fa-music',
+            'flash': 'fa-bolt',
+            'wallpaper': 'fa-image'
+        };
         
-        document.getElementById('execTitle').innerHTML = title;
-        document.getElementById('execForm').innerHTML = html;
+        let title = feature.toUpperCase();
+        let message = responses[feature] || `✅ FITUR ${feature} BERHASIL DIEKSEKUSI PADA TARGET ${currentDevice}`;
+        
+        document.getElementById('modalIcon').className = `fas ${iconMap[feature] || 'fa-bolt'}`;
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalBody').innerHTML = message;
+        document.getElementById('executionModal').style.display = 'flex';
+        
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./${feature.replace(' ', '_')} --target "${currentDevice}"<br>> ${message}<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +5🌀`;
     };
 
-    // EXECUTE FUNCTIONS
-    window.executeOTP = function() {
-        let target = document.getElementById('otpTarget')?.value;
-        if (!target) return alert('Masukkan nomor target');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./otp --target ${target}<br>> 🚀 OTP BOMBER DILUNCURKAN · 25x terkirim<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +5🌀`;
-    };
-    window.executeNGL = function() {
-        let user = document.getElementById('nglUser')?.value;
-        if (!user) return alert('Masukkan username');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./ngl --user ${user}<br>> 📨 SPAM NGL KE @${user} · 10x terkirim<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +4🌀`;
-    };
-    window.executeDDOS = function() {
-        let target = document.getElementById('ddosTarget')?.value;
-        if (!target) return alert('Masukkan target');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./ddos --target ${target}<br>> 🔥 DDOS DILUNCURKAN · 500 botnet aktif<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +7🌀`;
-    };
-    window.executeSQL = function() {
-        let url = document.getElementById('sqlUrl')?.value;
-        if (!url) return alert('Masukkan URL');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./sqlmap -u "${url}"<br>> 💉 SQL INJECTION BERHASIL · 47 data didapat<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +6🌀`;
-    };
-    window.executeXSS = function() {
-        let url = document.getElementById('xssUrl')?.value;
-        if (!url) return alert('Masukkan URL');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./xss --target "${url}"<br>> 🕸️ XSS PAYLOAD TERINJEKSI · Cookie didapat<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +4🌀`;
-    };
-    window.executeBF = function() {
-        let target = document.getElementById('bfTarget')?.value;
-        if (!target) return alert('Masukkan target');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./hydra ${target}<br>> 🔐 BRUTEFORCE BERHASIL · Password: admin123<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +8🌀`;
-    };
-    window.executeEmail = function() {
-        let target = document.getElementById('emailTarget')?.value;
-        if (!target) return alert('Masukkan email');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./email_bomb --target ${target}<br>> 📧 EMAIL BOMB DILUNCURKAN · 100x terkirim<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +3🌀`;
-    };
-    window.executePhishing = function() {
-        let url = document.getElementById('phishUrl')?.value;
-        if (!url) return alert('Masukkan URL');
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./phish --clone ${url}<br>> 🎣 PHISHING PAGE BERHASIL · 3 credential ditangkap<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +6🌀`;
-    };
-
-    // AI
-    window.sendAI = function() {
-        let cmd = document.getElementById('aiInput').value.trim();
-        if (!cmd) return;
-        document.getElementById('aiResponse').innerHTML = `🧠 Deepseek: "${cmd}" · Success rate 92% · Eksekusi via XRAT core.`;
-        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./deepseek "${cmd}"<br>> 🧠 ${cmd}<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +2🌀`;
-        document.getElementById('aiInput').value = '';
-    };
-
-    // COPY
-    window.copyText = function(id) {
-        let text = document.getElementById(id).innerText;
-        navigator.clipboard.writeText(text).then(() => alert('✅ Tersalin'));
+    window.closeModal = function() {
+        document.getElementById('executionModal').style.display = 'none';
     };
 
     // REGISTER
     document.getElementById('showRegisterLink').onclick = function() {
-        alert('Hubungi owner untuk pembuatan akun (WA)');
+        alert('🤖 HUBUNGI BOT TELEGRAM: @DexterXratBot\n\nBot akan membantu membuat username & password\n\nCara:\n1. Buka Telegram\n2. Cari @DexterXratBot\n3. Ketik /start\n4. Ikuti instruksi');
     };
 </script>
 
