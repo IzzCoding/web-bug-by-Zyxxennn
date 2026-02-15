@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEXTER XRAT · SADAP HP</title>
+    <title>DEXTER XRAT · SADAP HP ULTIMATE</title>
     
     <!-- Font Awesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -21,31 +21,42 @@
             --primary: #ff2a2a;
             --primary-dark: #b30000;
             --primary-glow: rgba(255, 50, 50, 0.6);
+            --secondary: #00aaff;
             --bg-deep: #03030a;
             --bg-card: rgba(10, 15, 25, 0.9);
+            --bg-card-solid: #0c1120;
             --text-bright: #ffffff;
             --text-soft: #d0d8e5;
             --text-muted: #8a95b0;
             --border-glow: rgba(255, 60, 60, 0.4);
+            --border-soft: rgba(255, 70, 70, 0.2);
             --shadow-heavy: 0 20px 40px -15px rgba(0, 0, 0, 0.8);
             --shadow-glow: 0 0 30px rgba(255, 40, 40, 0.2);
             --font-main: 'Poppins', sans-serif;
             --font-display: 'Orbitron', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         body {
             font-family: var(--font-main);
             background: var(--bg-deep);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(180, 20, 20, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(200, 30, 30, 0.15) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, rgba(180, 20, 20, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(200, 30, 30, 0.2) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, rgba(255, 30, 30, 0.02) 0px, rgba(255, 30, 30, 0.02) 2px, transparent 2px, transparent 30px);
             color: #fff;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 16px;
+            position: relative;
         }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a2a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; box-shadow: 0 0 15px var(--primary); }
 
         /* ===== LOADING SCREEN ===== */
         .loading-screen {
@@ -61,37 +72,47 @@
             justify-content: center;
             z-index: 9999;
             transition: opacity 0.8s;
+            background-image: radial-gradient(circle at 30% 40%, rgba(255, 30, 30, 0.3) 0%, transparent 60%);
         }
 
         .loading-avatar {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             background: linear-gradient(145deg, #b32b2b, #5f0f0f);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: white;
-            border: 3px solid #ff7a7a;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
-            margin-bottom: 20px;
+            border: 4px solid #ff7a7a;
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.6);
+            margin-bottom: 25px;
+            animation: pulseAvatar 2s infinite;
+        }
+
+        @keyframes pulseAvatar {
+            0%, 100% { box-shadow: 0 0 60px rgba(255, 0, 0, 0.6); transform: scale(1); }
+            50% { box-shadow: 0 0 100px rgba(255, 0, 0, 1); transform: scale(1.05); }
         }
 
         .loading-text {
             font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #ff6a6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center;
             line-height: 1.4;
-            text-shadow: 0 0 20px rgba(255, 50, 50, 0.7);
+            text-shadow: 0 0 30px rgba(255, 50, 50, 0.7);
+            letter-spacing: 2px;
         }
 
         /* ===== LOGIN CARD ===== */
         .login-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -100,34 +121,52 @@
         .login-card {
             background: rgba(12, 18, 30, 0.95);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-glow);
             border-radius: 40px;
-            padding: 35px 30px;
+            padding: 40px 32px;
             width: 100%;
-            box-shadow: var(--shadow-heavy);
+            box-shadow: var(--shadow-heavy), var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 60, 60, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .login-avatar {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: linear-gradient(145deg, #b32b2b, #6f0f0f);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: white;
             border: 3px solid #ffaeae;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
         }
 
         .login-title {
             font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #fff, #ff6a6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center;
             margin-bottom: 25px;
+            letter-spacing: 2px;
         }
 
         .input-field {
@@ -135,20 +174,23 @@
             background: rgba(18, 25, 40, 0.8);
             border: 1px solid #2a2f3c;
             border-radius: 20px;
-            padding: 15px 18px;
+            padding: 16px 20px;
             color: white;
             font-size: 0.95rem;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            transition: 0.2s;
         }
 
         .input-field:focus {
             border-color: var(--primary);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 70, 70, 0.2);
+            background: rgba(22, 30, 48, 0.9);
         }
 
         .password-wrapper {
             position: relative;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .password-wrapper input {
@@ -158,47 +200,57 @@
 
         .toggle-password {
             position: absolute;
-            right: 18px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: #9aa5b8;
             cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.2s;
         }
+
+        .toggle-password:hover { color: #ff6a6a; }
 
         .login-btn {
             width: 100%;
             background: linear-gradient(145deg, #ff3a3a, #b30000);
             border: none;
             border-radius: 20px;
-            padding: 15px;
+            padding: 16px;
             color: white;
             font-weight: 700;
             font-size: 1rem;
-            border-bottom: 4px solid #630000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-bottom: 5px solid #630000;
             cursor: pointer;
-            margin-top: 5px;
+            margin-top: 8px;
+            transition: 0.1s;
+            font-family: var(--font-display);
+            letter-spacing: 1px;
         }
 
         .login-btn:active {
             border-bottom-width: 2px;
-            transform: translateY(2px);
+            transform: translateY(3px);
         }
 
         .error-message {
             background: rgba(255, 40, 40, 0.15);
             border: 1px solid #ff4d4d;
-            border-radius: 12px;
-            padding: 10px;
-            margin-bottom: 15px;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 20px;
             color: #ffb3b3;
             text-align: center;
             display: none;
-            font-size: 0.9rem;
         }
 
         /* ===== MAIN APP ===== */
         .app-wrapper {
-            max-width: 700px;
+            max-width: 750px;
             width: 100%;
             display: none;
             flex-direction: column;
@@ -209,53 +261,81 @@
         .status-bar {
             background: rgba(10, 16, 28, 0.8);
             backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 12px 18px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border-glow);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            background: #b32b2b;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-        }
-
-        /* ===== WELCOME HEADER ===== */
-        .welcome-header {
-            background: rgba(10, 16, 28, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 15px 20px;
+            border-radius: 28px;
+            padding: 12px 24px;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .wheel-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 40, 40, 0.1);
+            padding: 6px 18px;
+            border-radius: 40px;
+        }
+
+        .wheel-spin {
+            color: var(--primary);
+            animation: spinSlow 3s infinite linear;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 18px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 80, 80, 0.3);
+        }
+
+        #logoutBtn {
+            cursor: pointer;
+            color: #ffa5a5;
+            transition: 0.2s;
+            font-size: 1.1rem;
+        }
+        #logoutBtn:hover { color: var(--primary); }
+
+        /* ===== WELCOME HEADER ===== */
+        .welcome-header {
+            background: rgba(10, 16, 28, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-heavy);
         }
 
         .welcome-left h2 {
-            font-size: 1.3rem;
-            color: white;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #fff, #ffb3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
         }
 
         .welcome-left p {
-            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: #ffaeae;
+            font-size: 0.9rem;
         }
 
         .welcome-right {
@@ -264,145 +344,347 @@
 
         .project-name {
             font-family: var(--font-display);
-            font-size: 1.2rem;
-            color: #ff6a6a;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #fff, #ff6a6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* ===== DEVICE LIST ===== */
-        .device-list {
+        .device-list-section {
             background: rgba(10, 16, 28, 0.8);
             backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 15px;
+            border-radius: 28px;
+            padding: 20px;
             margin-bottom: 20px;
             border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-heavy);
         }
 
         .device-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1rem;
             color: #ffc2c2;
+            border-bottom: 1px solid rgba(255, 70, 70, 0.3);
+            padding-bottom: 10px;
         }
 
         .device-item {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 12px 15px;
-            margin-bottom: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 18px;
+            padding: 15px 18px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid rgba(255, 70, 70, 0.2);
+            transition: 0.2s;
             cursor: pointer;
+        }
+
+        .device-item:hover {
+            border-color: #ff6a6a;
+            transform: translateX(8px);
+            box-shadow: 0 0 20px rgba(255, 50, 50, 0.2);
         }
 
         .device-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
         .device-icon {
-            width: 35px;
-            height: 35px;
+            width: 45px;
+            height: 45px;
             background: #1a1f2e;
-            border-radius: 10px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ff6a6a;
+            font-size: 1.3rem;
+        }
+
+        .device-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .device-date {
+            font-size: 0.75rem;
+            color: #a0a8b8;
         }
 
         .device-battery {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             color: #4caf50;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
 
         /* ===== SLIDER ===== */
         .slider-section {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 5px 0 15px;
-            margin-bottom: 15px;
-            scrollbar-width: none;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border-radius: 20px;
         }
 
-        .slider-section::-webkit-scrollbar {
-            display: none;
+        .slider-track {
+            display: flex;
+            gap: 15px;
+            animation: slideLeft 30s linear infinite;
+            padding: 5px;
         }
 
         .slider-item {
-            min-width: 150px;
-            height: 90px;
-            background: #1a1f2e;
-            border-radius: 15px;
-            border: 1px solid #ff4d4d40;
+            flex: 0 0 280px;
+            height: 160px;
+            background: linear-gradient(145deg, #1a1f2e, #0f1420);
+            border-radius: 18px;
+            border: 2px solid rgba(255, 60, 60, 0.5);
+            box-shadow: 0 10px 25px -5px black, 0 0 30px rgba(255, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ffaeae;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 600;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* ===== BADGES ===== */
-        .badges {
+        .slider-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 100, 100, 0.1), transparent);
+        }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-295px * 4)); }
+        }
+
+        /* ===== BADGES LINK ===== */
+        .badges-links {
             display: flex;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
         }
 
-        .badge {
-            background: rgba(255, 40, 40, 0.2);
+        .badge-link {
+            background: linear-gradient(145deg, #1a1f2e, #0f1420);
             border: 1px solid #ff4d4d80;
-            border-radius: 30px;
-            padding: 8px 20px;
-            font-size: 0.9rem;
+            border-radius: 40px;
+            padding: 10px 25px;
+            font-size: 1rem;
             font-weight: 600;
-        }
-
-        /* ===== ABOUT CARD ===== */
-        .about-card {
-            background: rgba(10, 16, 28, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-glow);
-        }
-
-        .about-card h4 {
             color: #ffaeae;
-            margin-bottom: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .badge-link:hover {
+            background: #b32b2b;
+            color: white;
+            border-color: #ffaeae;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 50, 50, 0.3);
+        }
+
+        .badge-link i {
             font-size: 1rem;
         }
 
-        .about-card p {
-            color: #b0b8c5;
-            font-size: 0.9rem;
-            line-height: 1.5;
+        /* ===== ABOUT CARD - UPGRADE ===== */
+        .about-card {
+            background: linear-gradient(145deg, #121826, #0a0f1a);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-heavy), 0 0 40px rgba(255, 40, 40, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* ===== BOTTOM NAV ===== */
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 70, 70, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .about-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 70, 70, 0.3);
+            padding-bottom: 12px;
+        }
+
+        .about-header i {
+            font-size: 1.5rem;
+            color: #ffaeae;
+        }
+
+        .about-header h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: #ffc2c2;
+        }
+
+        .about-content {
+            color: #c0c8d5;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-warning {
+            background: rgba(255, 50, 50, 0.1);
+            border-left: 4px solid #ff4d4d;
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            color: #ffae70;
+            font-weight: 500;
+        }
+
+        /* ===== CONTROL PANEL - UPGRADE ===== */
+        .control-panel {
+            background: linear-gradient(145deg, #121826, #0a0f1a);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 25px;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-heavy), 0 0 40px rgba(255, 40, 40, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 70, 70, 0.3);
+        }
+
+        .panel-header i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            filter: drop-shadow(0 0 10px rgba(255,0,0,0.3));
+        }
+
+        .panel-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #fff, #ffb3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 70, 70, 0.2);
+            border-radius: 18px;
+            padding: 15px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-card:hover {
+            border-color: #ff6a6a;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -10px rgba(255, 0, 0, 0.3);
+            background: rgba(20, 20, 35, 0.6);
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(145deg, #1f2535, #151a28);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #ff6a6a;
+            margin-bottom: 5px;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #d0d8e5;
+        }
+
+        /* ===== TERMINAL ===== */
+        .terminal {
+            background: #03060c;
+            border-radius: 20px;
+            padding: 18px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #b0c6d0;
+            border-left: 6px solid var(--primary);
+            margin-top: 20px;
+            border: 1px solid rgba(255, 70, 70, 0.3);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* ===== BOTTOM NAV - RAPI ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto;
             background: rgba(5, 10, 22, 0.95);
             backdrop-filter: blur(30px);
             border-top: 2px solid var(--primary);
-            border-radius: 25px 25px 0 0;
-            padding: 10px 15px 20px;
+            border-radius: 30px 30px 0 0;
+            padding: 12px 25px 22px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 40px;
             z-index: 100;
+            box-shadow: 0 -15px 30px -10px black;
         }
 
         .nav-item {
@@ -411,85 +693,39 @@
             align-items: center;
             gap: 5px;
             color: #9aa5b8;
-            font-size: 0.7rem;
-            padding: 5px 20px;
-            border-radius: 30px;
+            font-size: 0.75rem;
+            padding: 8px 25px;
+            border-radius: 40px;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .nav-item i {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
         }
 
         .nav-item.active {
             color: var(--primary);
             background: rgba(255, 60, 60, 0.15);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
         .content-section {
             display: none;
-            padding: 0 5px 80px 5px;
+            padding: 0 5px 90px 5px;
         }
 
         .content-section.active {
             display: block;
+            animation: fadeIn 0.4s;
         }
 
-        /* ===== CONTROL PANEL ===== */
-        .control-panel {
-            background: rgba(8, 14, 26, 0.85);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 20px;
-            border: 1px solid var(--border-glow);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .panel-header {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ff4d4d40;
-            font-family: var(--font-display);
-            color: #ffaeae;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .feature-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #ff4d4d40;
-            border-radius: 15px;
-            padding: 12px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            text-align: center;
-        }
-
-        .feature-card i {
-            font-size: 1.2rem;
-            color: #ff6a6a;
-        }
-
-        /* ===== TERMINAL ===== */
-        .terminal {
-            background: #03060c;
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 15px;
-            border-left: 5px solid var(--primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #b0c6d0;
-        }
-
-        /* ===== MODAL ===== */
+        /* ===== EXECUTION MODAL ===== */
         .execution-modal {
             position: fixed;
             top: 0;
@@ -497,7 +733,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -506,35 +742,67 @@
 
         .modal-content {
             background: #121826;
-            border-radius: 30px;
-            padding: 25px;
-            max-width: 350px;
+            border-radius: 32px;
+            padding: 30px;
+            max-width: 380px;
             width: 90%;
             border: 1px solid #ff4d4d;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.3);
         }
 
         .modal-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 20px;
             border-bottom: 1px solid #ff4d4d40;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
         .modal-header i {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #ff4d4d;
         }
 
+        .modal-header h3 {
+            font-size: 1.3rem;
+            font-family: var(--font-display);
+        }
+
+        .modal-body {
+            color: #c0c8d5;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .modal-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ff4d4d40;
+        }
+
+        .modal-preview img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
         .modal-close {
-            background: #2a2a3a;
+            background: linear-gradient(145deg, #ff3a3a, #b30000);
             border: none;
-            border-radius: 12px;
-            padding: 10px;
+            border-radius: 15px;
+            padding: 12px;
             width: 100%;
             color: white;
+            font-weight: 700;
             cursor: pointer;
+            border-bottom: 4px solid #630000;
+        }
+
+        .modal-close:active {
+            border-bottom-width: 2px;
+            transform: translateY(2px);
         }
     </style>
 </head>
@@ -551,9 +819,9 @@
 </div>
 
 <!-- LOGIN LOADING -->
-<div id="loginLoading" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; align-items: center; justify-content: center; flex-direction: column;">
-    <div style="width: 50px; height: 50px; border: 3px solid rgba(255,80,80,0.2); border-top: 3px solid #ff4d4d; border-radius: 50%; animation: spin 0.8s infinite; margin-bottom: 15px;"></div>
-    <div style="color: #ffae70;">AUTHENTICATING</div>
+<div id="loginLoading" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center; flex-direction: column;">
+    <div style="width: 50px; height: 50px; border: 3px solid rgba(255,80,80,0.2); border-top: 3px solid #ff4d4d; border-radius: 50%; animation: spin 0.8s infinite; margin-bottom: 20px;"></div>
+    <div style="color: #ffae70; font-family: Orbitron;">AUTHENTICATING</div>
 </div>
 
 <!-- LOGIN CARD -->
@@ -573,10 +841,12 @@
             <i class="fas fa-eye toggle-password" id="togglePassword"></i>
         </div>
         
-        <button id="loginBtn" class="login-btn">LOGIN ACCOUNT</button>
+        <button id="loginBtn" class="login-btn">
+            <i class="fas fa-sync-alt"></i> LOGIN ACCOUNT
+        </button>
         
-        <div style="text-align: center; margin-top: 15px;">
-            <span id="showRegisterLink" style="color: #ff9f7e; font-size: 0.9rem;">OWNER</span>
+        <div style="text-align: center; margin-top: 20px;">
+            <span id="showRegisterLink" style="color: #ff9f7e; cursor: pointer; border-bottom: 1px dashed #ff7e7e; font-size: 0.9rem;">OWNER</span>
         </div>
     </div>
 </div>
@@ -586,11 +856,63 @@
     
     <!-- STATUS BAR -->
     <div class="status-bar">
-        <div class="user-info">
-            <div class="user-avatar"><i class="fas fa-user"></i></div>
-            <span id="navUsername">Dexter</span>
+        <div class="wheel-status">
+            <i class="fas fa-sync-alt wheel-spin"></i>
+            <span>DEXTER XRAT</span>
         </div>
-        <div><i class="fas fa-sign-out-alt" id="logoutBtn" style="cursor: pointer;"></i></div>
+        <div class="user-badge">
+            <i class="fas fa-user-shield"></i>
+            <span id="navUsername">Dexter</span>
+            <span id="navRole" style="background: #b32b2b; padding: 3px 12px; border-radius: 30px;">OWNER</span>
+            <i class="fas fa-sign-out-alt" id="logoutBtn"></i>
+        </div>
+    </div>
+
+    <!-- DEVICE LIST SECTION -->
+    <div id="deviceListSection" class="device-list-section">
+        <div class="device-header">
+            <span><i class="fas fa-mobile-alt"></i> LIST HP KORBAN</span>
+            <span>3 ONLINE</span>
+        </div>
+        
+        <div class="device-item" onclick="selectDevice('iPhone 13 Pro')">
+            <div class="device-info">
+                <div class="device-icon"><i class="fab fa-apple"></i></div>
+                <div>
+                    <div class="device-name">iPhone 13 Pro</div>
+                    <div class="device-date">15/02/2026 14:23</div>
+                </div>
+            </div>
+            <div class="device-battery">
+                <i class="fas fa-battery-three-quarters"></i> 78%
+            </div>
+        </div>
+        
+        <div class="device-item" onclick="selectDevice('Samsung S23')">
+            <div class="device-info">
+                <div class="device-icon"><i class="fab fa-android"></i></div>
+                <div>
+                    <div class="device-name">Samsung S23</div>
+                    <div class="device-date">14/02/2026 09:47</div>
+                </div>
+            </div>
+            <div class="device-battery">
+                <i class="fas fa-battery-half"></i> 45%
+            </div>
+        </div>
+        
+        <div class="device-item" onclick="selectDevice('Xiaomi 13T')">
+            <div class="device-info">
+                <div class="device-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div>
+                    <div class="device-name">Xiaomi 13T</div>
+                    <div class="device-date">13/02/2026 21:12</div>
+                </div>
+            </div>
+            <div class="device-battery">
+                <i class="fas fa-battery-quarter"></i> 23%
+            </div>
+        </div>
     </div>
 
     <!-- CONTENT SECTIONS -->
@@ -602,97 +924,125 @@
             <!-- WELCOME HEADER -->
             <div class="welcome-header">
                 <div class="welcome-left">
-                    <h2>HAI "<span id="welcomeUsername">DEXTER</span>"</h2>
-                    <p>DEXTER XRAT</p>
+                    <h2>HAI <span id="welcomeUsername">DEXTER</span></h2>
+                    <p><i class="fas fa-mobile-alt" style="color: #ff6a6a;"></i> iPhone 13 Pro · <span style="color: #4caf50;"><i class="fas fa-battery-three-quarters"></i> 78%</span></p>
                 </div>
                 <div class="welcome-right">
                     <div class="project-name">DEXTER XRAT</div>
                 </div>
             </div>
             
-            <!-- LIST HP KORBAN -->
-            <div class="device-list">
-                <div class="device-header">
-                    <span>list hp korban</span>
-                    <span>▼</span>
-                </div>
-                
-                <div class="device-item" onclick="selectDevice('iPhone 13 Pro')">
-                    <div class="device-info">
-                        <div class="device-icon"><i class="fab fa-apple"></i></div>
-                        <div>
-                            <div style="font-weight: 600;">iPhone 13 Pro</div>
-                            <div style="font-size: 0.7rem; color: #a0a8b8;">15/02/2026 14:23</div>
-                        </div>
-                    </div>
-                    <div class="device-battery">
-                        <i class="fas fa-battery-three-quarters"></i> 78%
-                    </div>
-                </div>
-                
-                <div class="device-item" onclick="selectDevice('Samsung S23')">
-                    <div class="device-info">
-                        <div class="device-icon"><i class="fab fa-android"></i></div>
-                        <div>
-                            <div style="font-weight: 600;">Samsung S23</div>
-                            <div style="font-size: 0.7rem; color: #a0a8b8;">14/02/2026 09:47</div>
-                        </div>
-                    </div>
-                    <div class="device-battery">
-                        <i class="fas fa-battery-half"></i> 45%
-                    </div>
-                </div>
-            </div>
-            
-            <!-- SLIDER FOTO -->
+            <!-- SLIDER FOTO BESAR -->
             <div class="slider-section">
-                <div class="slider-item">foto geser ke kiri</div>
-                <div class="slider-item">foto geser ke kiri</div>
-                <div class="slider-item">foto geser ke kiri</div>
-                <div class="slider-item">foto geser ke kiri</div>
+                <div class="slider-track">
+                    <div class="slider-item">📸 PREVIEW FOTO 1</div>
+                    <div class="slider-item">📸 PREVIEW FOTO 2</div>
+                    <div class="slider-item">📸 PREVIEW FOTO 3</div>
+                    <div class="slider-item">📸 PREVIEW FOTO 4</div>
+                    <div class="slider-item">📸 PREVIEW FOTO 5</div>
+                    <div class="slider-item">📸 PREVIEW FOTO 6</div>
+                </div>
             </div>
             
-            <!-- BADGES -->
-            <div class="badges">
-                <div class="badge">OWNER</div>
-                <div class="badge">SALURAN</div>
-                <div class="badge">GROUP</div>
+            <!-- BADGES LINK -->
+            <div class="badges-links">
+                <a href="https://t.me/DexterXratOwner" target="_blank" class="badge-link"><i class="fas fa-crown"></i> OWNER</a>
+                <a href="https://t.me/DexterXratChannel" target="_blank" class="badge-link"><i class="fas fa-broadcast-tower"></i> SALURAN</a>
+                <a href="https://t.me/DexterXratGroup" target="_blank" class="badge-link"><i class="fas fa-users"></i> GROUP</a>
             </div>
             
-            <!-- ABOUT -->
+            <!-- ABOUT CARD UPGRADE -->
             <div class="about-card">
-                <h4>about dexter xrat</h4>
-                <p>HALLO PENGGUNA DEXTER XRAT, PROJECT INI MASIH DALAM PENGEMBANGAN MAAF JIKA ADA KESALAHAN ATAU ERROR. HARAP GUNAKAN DENGAN BIJAK.</p>
+                <div class="about-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h4>ABOUT DEXTER XRAT</h4>
+                </div>
+                <div class="about-content">
+                    <p>HALLO PENGGUNA DEXTER XRAT, PROJECT INI MASIH DALAM PENGEMBANGAN. MAAF JIKA ADA KESALAHAN ATAU ERROR.</p>
+                    <p style="margin-top: 10px;">HARAP GUNAKAN DEXTER XRAT DENGAN BIJAK. JANGAN MERUGIKAN ORANG LAIN.</p>
+                    <div class="about-warning">
+                        <i class="fas fa-exclamation-triangle"></i> FITUR AKAN BERJALAN SETELAH KORBAN INSTALL APK JEBETAN
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- CONTROL PANEL -->
         <div id="section-control" class="content-section">
             <div class="control-panel">
-                <div class="panel-header">CONTROL PANEL</div>
+                <div class="panel-header">
+                    <i class="fas fa-sliders-h"></i>
+                    <h3>CONTROL PANEL</h3>
+                </div>
                 
                 <div class="features-grid">
-                    <div class="feature-card" onclick="executeFeature('spam error')"><i class="fas fa-exclamation-triangle"></i><span>Spam Error</span></div>
-                    <div class="feature-card" onclick="executeFeature('file')"><i class="fas fa-folder-open"></i><span>File</span></div>
-                    <div class="feature-card" onclick="executeFeature('lokasi')"><i class="fas fa-map-marker-alt"></i><span>Lokasi</span></div>
-                    <div class="feature-card" onclick="executeFeature('kamera')"><i class="fas fa-camera"></i><span>Kamera</span></div>
-                    <div class="feature-card" onclick="executeFeature('foto')"><i class="fas fa-images"></i><span>Foto</span></div>
-                    <div class="feature-card" onclick="executeFeature('sms')"><i class="fas fa-comment-dots"></i><span>SMS</span></div>
-                    <div class="feature-card" onclick="executeFeature('notif')"><i class="fas fa-bell"></i><span>Notif</span></div>
-                    <div class="feature-card" onclick="executeFeature('gmail')"><i class="fas fa-envelope"></i><span>Gmail</span></div>
-                    <div class="feature-card" onclick="executeFeature('kontak')"><i class="fas fa-address-book"></i><span>Kontak</span></div>
-                    <div class="feature-card" onclick="executeFeature('kunci aplikasi')"><i class="fas fa-lock"></i><span>Kunci Aplikasi</span></div>
-                    <div class="feature-card" onclick="executeFeature('kirim teks')"><i class="fas fa-keyboard"></i><span>Kirim Teks</span></div>
-                    <div class="feature-card" onclick="executeFeature('getarkan')"><i class="fas fa-vibration"></i><span>Getarkan</span></div>
-                    <div class="feature-card" onclick="executeFeature('musik')"><i class="fas fa-music"></i><span>Musik</span></div>
-                    <div class="feature-card" onclick="executeFeature('flash')"><i class="fas fa-bolt"></i><span>Flash</span></div>
-                    <div class="feature-card" onclick="executeFeature('wallpaper')"><i class="fas fa-image"></i><span>Wallpaper</span></div>
+                    <div class="feature-card" onclick="executeFeature('spam error')">
+                        <div class="feature-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="feature-name">Spam Error</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('file')">
+                        <div class="feature-icon"><i class="fas fa-folder-open"></i></div>
+                        <div class="feature-name">File Manager</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('lokasi')">
+                        <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="feature-name">Lokasi</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kamera')">
+                        <div class="feature-icon"><i class="fas fa-camera"></i></div>
+                        <div class="feature-name">Kamera</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('foto')">
+                        <div class="feature-icon"><i class="fas fa-images"></i></div>
+                        <div class="feature-name">Galeri Foto</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('sms')">
+                        <div class="feature-icon"><i class="fas fa-comment-dots"></i></div>
+                        <div class="feature-name">SMS</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('notif')">
+                        <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                        <div class="feature-name">Notifikasi</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('gmail')">
+                        <div class="feature-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="feature-name">Gmail</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kontak')">
+                        <div class="feature-icon"><i class="fas fa-address-book"></i></div>
+                        <div class="feature-name">Kontak</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kunci aplikasi')">
+                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                        <div class="feature-name">Kunci Aplikasi</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('kirim teks')">
+                        <div class="feature-icon"><i class="fas fa-keyboard"></i></div>
+                        <div class="feature-name">Kirim Teks</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('getarkan')">
+                        <div class="feature-icon"><i class="fas fa-vibration"></i></div>
+                        <div class="feature-name">Getarkan HP</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('musik')">
+                        <div class="feature-icon"><i class="fas fa-music"></i></div>
+                        <div class="feature-name">Nyalakan Musik</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('flash')">
+                        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="feature-name">Nyalakan Flash</div>
+                    </div>
+                    <div class="feature-card" onclick="executeFeature('wallpaper')">
+                        <div class="feature-icon"><i class="fas fa-image"></i></div>
+                        <div class="feature-name">Ganti Wallpaper</div>
+                    </div>
                 </div>
             </div>
             
             <!-- TERMINAL -->
             <div class="terminal" id="terminalOutput">
-                > Sistem siap. Pilih target dan fitur.
+                <span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> status --device iPhone13Pro<br>
+                > ✅ Target online · Menunggu perintah
             </div>
         </div>
     </div>
@@ -709,14 +1059,23 @@
     <div class="modal-content">
         <div class="modal-header">
             <i class="fas fa-bolt" id="modalIcon"></i>
-            <h3 id="modalTitle">EKSEKUSI</h3>
+            <h3 id="modalTitle">EKSEKUSI FITUR</h3>
         </div>
-        <div class="modal-body" id="modalBody"></div>
+        <div id="modalPreview" class="modal-preview" style="display: none;">
+            <img src="https://via.placeholder.com/300x200/330000/ff6a6a?text=PREVIEW+FOTO" alt="preview">
+        </div>
+        <div class="modal-body" id="modalBody">
+            Perintah sedang dikirim ke target...
+        </div>
         <button class="modal-close" onclick="closeModal()">TUTUP</button>
     </div>
 </div>
 
 <script>
+    // ==========================================
+    // DEXTER XRAT - ULTIMATE EDITION
+    // ==========================================
+
     let users = [
         { username: 'dexter', password: 'dexter123', role: 'owner' },
         { username: 'partner1', password: 'partner123', role: 'partner' },
@@ -726,6 +1085,7 @@
     let currentUser = null;
     let currentDevice = 'iPhone 13 Pro';
 
+    // LOAD STORAGE
     function loadFromStorage() {
         const stored = localStorage.getItem('xrat_users');
         if (stored) users = JSON.parse(stored);
@@ -738,6 +1098,7 @@
     }
     loadFromStorage();
 
+    function saveToStorage() { localStorage.setItem('xrat_users', JSON.stringify(users)); }
     function saveSession() {
         if (currentUser) {
             localStorage.setItem('xrat_session', JSON.stringify({
@@ -747,11 +1108,12 @@
         }
     }
 
+    // INIT
     window.onload = function() {
         setTimeout(() => {
             document.getElementById('loadingScreen').style.opacity = '0';
             setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500);
-        }, 2000);
+        }, 2500);
         
         if (currentUser) {
             document.getElementById('loginContainer').style.display = 'none';
@@ -759,6 +1121,7 @@
             updateUI();
         }
         
+        // Navigation
         document.querySelectorAll('.nav-item').forEach(item => {
             item.onclick = function() {
                 document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -768,6 +1131,7 @@
             };
         });
         
+        // Password toggle
         document.getElementById('togglePassword').onclick = function() {
             let input = document.getElementById('loginPassword');
             input.type = input.type === 'password' ? 'text' : 'password';
@@ -775,6 +1139,7 @@
         };
     };
 
+    // LOGIN
     document.getElementById('loginBtn').onclick = function(e) {
         e.preventDefault();
         let uname = document.getElementById('loginUsername').value.trim().toLowerCase();
@@ -792,58 +1157,158 @@
         }
     };
 
+    // LOGOUT
     document.getElementById('logoutBtn').onclick = function() {
         currentUser = null;
         localStorage.removeItem('xrat_session');
         document.getElementById('appWrapper').style.display = 'none';
         document.getElementById('loginContainer').style.display = 'flex';
+        document.getElementById('loginError').style.display = 'none';
     };
 
+    // UPDATE UI
     function updateUI() {
         if (!currentUser) return;
         document.getElementById('navUsername').innerText = currentUser.username;
+        document.getElementById('navRole').innerText = currentUser.role.toUpperCase();
         document.getElementById('welcomeUsername').innerText = currentUser.username.toUpperCase();
+        
+        let colors = { owner: '#b32b2b', partner: '#b38f2b', vip: '#2b6bb3', member: '#3a4052' };
+        document.getElementById('navRole').style.background = colors[currentUser.role] || '#3a4052';
     }
 
+    // SELECT DEVICE
     window.selectDevice = function(device) {
         currentDevice = device;
-        document.getElementById('terminalOutput').innerHTML = `> Target: ${device} · Status ONLINE`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> select --device "${device}"<br>> ✅ Target: ${device} · Status: ONLINE · Baterai: 78%`;
     };
 
+    // EXECUTE FEATURE
     window.executeFeature = function(feature) {
         if (!currentUser) return alert('Login dulu');
         
         let responses = {
-            'spam error': '✅ SPAM ERROR: 25 notifikasi error terkirim',
-            'file': '✅ FILE: Mengakses storage target',
-            'lokasi': '📍 LOKASI: Jakarta Pusat',
-            'kamera': '📸 KAMERA: Foto diam-diam berhasil',
-            'foto': '🖼️ FOTO: Galeri diakses',
-            'sms': '💬 SMS: 247 pesan',
-            'notif': '🔔 NOTIFIKASI: 5 notifikasi baru',
-            'gmail': '📧 GMAIL: 1,204 email',
-            'kontak': '📇 KONTAK: 247 kontak',
-            'kunci aplikasi': '🔒 APLIKASI terkunci',
-            'kirim teks': '📝 PESAN terkirim',
-            'getarkan': '📳 GETARAN aktif',
-            'musik': '🎵 MUSIK diputar',
-            'flash': '⚡ FLASH menyala',
-            'wallpaper': '🖼️ WALLPAPER diganti'
+            'spam error': {
+                title: 'SPAM ERROR',
+                icon: 'fa-exclamation-triangle',
+                message: '📱 25 notifikasi error palsu berhasil dikirim ke target!',
+                preview: false
+            },
+            'file': {
+                title: 'FILE MANAGER',
+                icon: 'fa-folder-open',
+                message: '📁 Mengakses storage target... Ditemukan 1,247 file\n\n📂 Downloads: 347 file\n📂 Documents: 892 file\n📂 Others: 8 file',
+                preview: false
+            },
+            'lokasi': {
+                title: 'LOKASI TARGET',
+                icon: 'fa-map-marker-alt',
+                message: '📍 Latitude: -6.2088\n📍 Longitude: 106.8456\n📍 Akurasi: 10 meter\n📍 Alamat: Jl. Sudirman No. 123, Jakarta Pusat',
+                preview: false
+            },
+            'kamera': {
+                title: 'KAMERA TERSEMBUNYI',
+                icon: 'fa-camera',
+                message: '📸 Kamera depan diaktifkan secara diam-diam\n📸 3 foto berhasil diambil\n📸 Foto tersimpan di server',
+                preview: true
+            },
+            'foto': {
+                title: 'GALERI FOTO',
+                icon: 'fa-images',
+                message: '🖼️ Total foto: 1,023\n🖼️ Total video: 47\n🖼️ 10 foto terbaru berhasil diambil',
+                preview: true
+            },
+            'sms': {
+                title: 'SMS TARGET',
+                icon: 'fa-comment-dots',
+                message: '💬 247 percakapan\n💬 3,481 pesan\n💬 23 pesan belum dibaca\n💬 Berhasil diekspor ke file',
+                preview: false
+            },
+            'notif': {
+                title: 'NOTIFIKASI',
+                icon: 'fa-bell',
+                message: '🔔 WhatsApp: 3 notifikasi baru\n🔔 Instagram: 2 notifikasi\n🔔 SMS: 1 notifikasi\n🔔 System: 5 notifikasi',
+                preview: false
+            },
+            'gmail': {
+                title: 'GMAIL TARGET',
+                icon: 'fa-envelope',
+                message: '📧 Total email: 1,204\n📧 47 belum dibaca\n📧 12 draft\n📧 3 lampiran penting',
+                preview: false
+            },
+            'kontak': {
+                title: 'KONTAK',
+                icon: 'fa-address-book',
+                message: '📇 247 kontak ditemukan\n📇 150 dengan nomor tersimpan\n📇 97 dengan email\n📇 Berhasil disalin',
+                preview: false
+            },
+            'kunci aplikasi': {
+                title: 'KUNCI APLIKASI',
+                icon: 'fa-lock',
+                message: '🔒 WhatsApp terkunci\n🔒 Instagram terkunci\n🔒 Chrome terkunci\n🔒 Gallery terkunci',
+                preview: false
+            },
+            'kirim teks': {
+                title: 'KIRIM TEKS',
+                icon: 'fa-keyboard',
+                message: '📝 Pesan "ANDA DI PANTAU DEXTER XRAT" terkirim ke layar target',
+                preview: false
+            },
+            'getarkan': {
+                title: 'GETARKAN HP',
+                icon: 'fa-vibration',
+                message: '📳 HP target bergetar selama 10 detik\n📳 Pola getaran: kuat',
+                preview: false
+            },
+            'musik': {
+                title: 'NYALAKAN MUSIK',
+                icon: 'fa-music',
+                message: '🎵 Memutar "Warning Tone" di speaker target\n🎵 Volume: 80%\n🎵 Durasi: 30 detik',
+                preview: false
+            },
+            'flash': {
+                title: 'NYALAKAN FLASH',
+                icon: 'fa-bolt',
+                message: '⚡ Flash menyala selama 30 detik\n⚡ Intensitas: maksimal',
+                preview: false
+            },
+            'wallpaper': {
+                title: 'GANTI WALLPAPER',
+                icon: 'fa-image',
+                message: '🖼️ Wallpaper berhasil diganti dengan logo DEXTER XRAT\n🖼️ Wallpaper home screen & lock screen',
+                preview: true
+            }
         };
         
-        document.getElementById('modalTitle').innerText = feature.toUpperCase();
-        document.getElementById('modalBody').innerHTML = responses[feature] || `✅ FITUR ${feature} BERHASIL`;
+        let data = responses[feature] || {
+            title: feature.toUpperCase(),
+            icon: 'fa-bolt',
+            message: `✅ FITUR ${feature} BERHASIL DIEKSEKUSI PADA TARGET ${currentDevice}`,
+            preview: false
+        };
+        
+        document.getElementById('modalIcon').className = `fas ${data.icon}`;
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalBody').innerHTML = data.message.replace(/\n/g, '<br>');
+        
+        if (data.preview) {
+            document.getElementById('modalPreview').style.display = 'block';
+        } else {
+            document.getElementById('modalPreview').style.display = 'none';
+        }
+        
         document.getElementById('executionModal').style.display = 'flex';
         
-        document.getElementById('terminalOutput').innerHTML = `> ${responses[feature]} pada ${currentDevice}`;
+        document.getElementById('terminalOutput').innerHTML = `<span style="color: #ff6a6a;">⸻ DEXTER@XRAT:~$</span> ./${feature.replace(' ', '_')} --target "${currentDevice}"<br>> ${data.message}<br>> 💥 SUKSES EKSEKUSI TARGET · Wheel +5🌀`;
     };
 
     window.closeModal = function() {
         document.getElementById('executionModal').style.display = 'none';
     };
 
+    // REGISTER
     document.getElementById('showRegisterLink').onclick = function() {
-        alert('🤖 Bot Telegram: @DexterXratBot');
+        alert('🤖 BOT TELEGRAM: @DexterXratBot\n\nBot akan membantu membuat username & password\n\nCara:\n1. Buka Telegram\n2. Cari @DexterXratBot\n3. Ketik /start\n4. Ikuti instruksi');
     };
 </script>
 
